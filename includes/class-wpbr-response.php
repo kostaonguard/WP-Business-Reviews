@@ -17,7 +17,7 @@
  * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-abstract class WP_Business_Reviews_Response {
+abstract class WPBR_Response {
 
 	/**
 	 * Reviews platform associated with the business.
