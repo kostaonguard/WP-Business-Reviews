@@ -109,6 +109,11 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-i18n.php';
 
 		/**
+		 * Factory class responsible for creating an API response based on the provided platform.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-response-factory.php';
+
+		/**
 		 * Abstract class responsible for normalizing the response from the supported reviews APIs.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-response.php';
