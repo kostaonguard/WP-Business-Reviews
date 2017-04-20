@@ -62,7 +62,9 @@ class WPBR_Google_Places_Response extends WPBR_Response {
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	public function set_business_rating( $data ) {
-		// TODO: Implement set_business_rating() method.
+
+		$this->business_rating = $data['result']['rating'];
+
 	}
 
 	/**
@@ -84,7 +86,9 @@ class WPBR_Google_Places_Response extends WPBR_Response {
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	public function set_business_phone( $data ) {
-		// TODO: Implement set_business_phone() method.
+
+		$this->business_phone = $data['result']['formatted_phone_number'];
+
 	}
 
 	/**
@@ -95,7 +99,9 @@ class WPBR_Google_Places_Response extends WPBR_Response {
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	public function set_business_address( $data ) {
-		// TODO: Implement set_business_address() method.
+
+		$this->business_address = $data['result']['formatted_address'];
+
 	}
 
 	/**
