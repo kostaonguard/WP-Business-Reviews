@@ -156,14 +156,14 @@ abstract class WPBR_Response {
 	protected function normalize_properties( $data ) {
 
 		// Each of these setter methods must be customized per platform.
-		//$this->set_business_name( $data );
-		//$this->set_business_platform_url( $data );
-		//$this->set_business_image( $data );
-		//$this->set_business_rating( $data );
-		//$this->set_business_review_count( $data );
-		//$this->set_business_review_phone( $data );
-		//$this->set_business_review_address( $data );
-		//$this->set_reviews( $data );
+		$this->set_business_name( $data );
+		$this->set_business_platform_url( $data );
+		$this->set_business_image_url( $data );
+		$this->set_business_rating( $data );
+		$this->set_business_review_count( $data );
+		$this->set_business_phone( $data );
+		$this->set_business_address( $data );
+		$this->set_reviews( $data );
 
 	}
 
