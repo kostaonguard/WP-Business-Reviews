@@ -144,7 +144,7 @@ abstract class WPBR_Response {
 		$this->request_url_parameters = $request_url_parameters;
 
 		// Get unmodified response from platform API.
-		$platform_response = $this->get_platform_response( $ );
+		$platform_response = $this->get_platform_response( $this->request_url_base, $this->request_url_parameters );
 
 		// Transform platform response into more manageable format.
 		$json_decoded_data = $this->get_json_decoded_data( $platform_response );
@@ -162,9 +162,9 @@ abstract class WPBR_Response {
 	 *
 	 * @return array Unmodified response from platform API.
 	 */
-	protected function get_platform_response( $request_url_parameters, $request_url_base ) {
+	protected function get_platform_response( $request_url_base, $request_url_parameters ) {
 
-		$request_url = add_query_arg( request_url_parameters, request_url_base );
+		$request_url = add_query_arg( $request_url_parameters, $request_url_base );
 
 		$response = wp_remote_get( $request_url );
 
