@@ -43,10 +43,7 @@ class WPBR_Google_Places_Response extends WPBR_Response {
 
 		$response_body = wp_remote_retrieve_body( $request );
 
-		$json_decoded_data = json_decode( $response_body );
-
-		echo '<pre>'; var_dump( $json_decoded_data ); echo '</pre>';
-		echo 'test';
+		$json_decoded_data = json_decode( $response_body, true );
 
 		return $json_decoded_data;
 
