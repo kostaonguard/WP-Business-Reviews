@@ -76,6 +76,11 @@ class WPBR {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		// Remove after testing.
+		$business_id = 'ChIJ7aT6a_BXNIgRDJZnIA7Bj58';
+		$google_places_response = WPBR_Response_Factory::create( 'google_places', $business_id );
+		error_log( print_r( $google_places_response, true ) ); // Enable WP_DEBUG_LOG to view.
+
 	}
 
 	/**
