@@ -8,8 +8,8 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    Wpbr
- * @subpackage Wpbr/public/partials
+ * @package    WPBR
+ * @subpackage WPBR/public/partials
  */
 ?>
 

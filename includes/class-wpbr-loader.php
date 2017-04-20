@@ -6,8 +6,8 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    Wpbr
- * @subpackage Wpbr/includes
+ * @package    WPBR
+ * @subpackage WPBR/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Wpbr
- * @subpackage Wpbr/includes
+ * @package    WPBR
+ * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class Wpbr_Loader {
+class WPBR_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

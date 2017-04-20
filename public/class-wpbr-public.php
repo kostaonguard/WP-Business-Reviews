@@ -6,8 +6,8 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    Wpbr
- * @subpackage Wpbr/public
+ * @package    WPBR
+ * @subpackage WPBR/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Wpbr
- * @subpackage Wpbr/public
+ * @package    WPBR
+ * @subpackage WPBR/public
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class Wpbr_Public {
+class WPBR_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -65,10 +65,10 @@ class Wpbr_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wpbr_Loader as all of the hooks are defined
+		 * defined in WPBR_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wpbr_Loader will then create the relationship
+		 * The WPBR_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -88,10 +88,10 @@ class Wpbr_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wpbr_Loader as all of the hooks are defined
+		 * defined in WPBR_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wpbr_Loader will then create the relationship
+		 * The WPBR_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */

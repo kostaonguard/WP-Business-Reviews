@@ -22,7 +22,7 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    Wpbr
+ * @package    WPBR
  */
 
 // If uninstall not called from WordPress, then exit.

@@ -9,8 +9,8 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    Wpbr
- * @subpackage Wpbr/includes
+ * @package    WPBR
+ * @subpackage WPBR/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Wpbr
- * @subpackage Wpbr/includes
+ * @package    WPBR
+ * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class Wpbr {
+class WPBR {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Wpbr {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Wpbr_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      WPBR_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -83,10 +83,10 @@ class Wpbr {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Wpbr_Loader. Orchestrates the hooks of the plugin.
-	 * - Wpbr_i18n. Defines internationalization functionality.
-	 * - Wpbr_Admin. Defines all hooks for the admin area.
-	 * - Wpbr_Public. Defines all hooks for the public side of the site.
+	 * - WPBR_Loader. Orchestrates the hooks of the plugin.
+	 * - WPBR_i18n. Defines internationalization functionality.
+	 * - WPBR_Admin. Defines all hooks for the admin area.
+	 * - WPBR_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -119,14 +119,14 @@ class Wpbr {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpbr-public.php';
 
-		$this->loader = new Wpbr_Loader();
+		$this->loader = new WPBR_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Wpbr_i18n class in order to set the domain and to register the hook
+	 * Uses the WPBR_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -134,7 +134,7 @@ class Wpbr {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Wpbr_i18n();
+		$plugin_i18n = new WPBR_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -149,7 +149,7 @@ class Wpbr {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Wpbr_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new WPBR_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -165,7 +165,7 @@ class Wpbr {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Wpbr_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new WPBR_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -196,7 +196,7 @@ class Wpbr {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Wpbr_Loader    Orchestrates the hooks of the plugin.
+	 * @return    WPBR_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

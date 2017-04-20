@@ -10,7 +10,7 @@
  *
  * @link              https://wordimpress.com
  * @since             1.0.0
- * @package           Wpbr
+ * @package           WPBR
  *
  * @wordpress-plugin
  * Plugin Name:       WP Business Reviews Core
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function activate_wpbr() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpbr-activator.php';
-	Wpbr_Activator::activate();
+	WPBR_Activator::activate();
 }
 
 /**
@@ -45,7 +45,7 @@ function activate_wpbr() {
  */
 function deactivate_wpbr() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpbr-deactivator.php';
-	Wpbr_Deactivator::deactivate();
+	WPBR_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_wpbr' );
@@ -68,7 +68,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wpbr.php';
  */
 function run_wpbr() {
 
-	$plugin = new Wpbr();
+	$plugin = new WPBR();
 	$plugin->run();
 
 }

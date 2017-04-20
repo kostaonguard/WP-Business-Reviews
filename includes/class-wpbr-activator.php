@@ -6,8 +6,8 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    Wpbr
- * @subpackage Wpbr/includes
+ * @package    WPBR
+ * @subpackage WPBR/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    Wpbr
- * @subpackage Wpbr/includes
+ * @package    WPBR
+ * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class Wpbr_Activator {
+class WPBR_Activator {
 
 	/**
 	 * Short Description. (use period)

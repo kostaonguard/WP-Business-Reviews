@@ -9,8 +9,8 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    Wpbr
- * @subpackage Wpbr/includes
+ * @package    WPBR
+ * @subpackage WPBR/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Wpbr
- * @subpackage Wpbr/includes
+ * @package    WPBR
+ * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class Wpbr_i18n {
+class WPBR_i18n {
 
 
 	/**
