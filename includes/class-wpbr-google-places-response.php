@@ -20,36 +20,6 @@
 class WPBR_Google_Places_Response extends WPBR_Response {
 
 	/**
-	 * Get JSON-decoded array of reviews data from platform API.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $business_id ID of the business used in API request.
-	 *
-	 * @return array JSON-decoded array of reviews data.
-	 */
-	public function get_json_decoded_data( $business_id ) {
-
-		$request_url = add_query_arg( array(
-			'placeid' => $business_id,
-			'key'     => 'AIzaSyAjtk8Puo1jhDO1nije8dYIRN5rgN23qzs', // Hard-coded temporarily.
-		), 'https://maps.googleapis.com/maps/api/place/details/json' );
-
-		$request = wp_remote_get( $request_url );
-
-		if( is_wp_error( $request ) ) {
-			return false;
-		}
-
-		$response_body = wp_remote_retrieve_body( $request );
-
-		$json_decoded_data = json_decode( $response_body, true );
-
-		return $json_decoded_data;
-
-	}
-
-	/**
 	 * Set the business name.
 	 *
 	 * @since 1.0.0

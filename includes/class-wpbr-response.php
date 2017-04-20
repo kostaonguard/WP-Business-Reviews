@@ -31,6 +31,24 @@ abstract class WPBR_Response {
 	protected $platform;
 
 	/**
+	 * Base URL used in the platform API request.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $request_url_base;
+
+	/**
+	 * URL parameters used in the platform API request.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $request_url_parameters;
+
+	/**
 	 * ID of the business.
 	 *
 	 * @since 1.0.0
@@ -118,16 +136,43 @@ abstract class WPBR_Response {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $platform, $business_id ) {
+	public function __construct( $platform, $business_id, $request_url_base, $request_url_parameters ) {
 
-		$this->platform    = $platform;
-		$this->business_id = $business_id;
+		$this->platform               = $platform;
+		$this->business_id            = $business_id;
+		$this->request_url_base       = $request_url_base;
+		$this->request_url_parameters = $request_url_parameters;
 
-		// Get data but don't update properties until data is normalized.
-		$json_decoded_data = $this->get_json_decoded_data( $business_id );
+		// Get unmodified response from platform API.
+		$platform_response = $this->get_platform_response( $ );
 
-		// Update properties in a consistent manner regardless of platform.
-		$this->normalize_properties( $json_decoded_data );
+		// Transform platform response into more manageable format.
+		$json_decoded_data = $this->get_json_decoded_data( $platform_response );
+
+		// Set properties in a consistent manner regardless of platform.
+		$this->set_normalized_properties( $json_decoded_data );
+
+	}
+
+	/**
+	 * Get unmodified response from platform API.
+	 *
+	 * @since 1.0.0
+	 * @param string $business_id ID of the business used in API request.
+	 *
+	 * @return array Unmodified response from platform API.
+	 */
+	protected function get_platform_response( $request_url_parameters, $request_url_base ) {
+
+		$request_url = add_query_arg( request_url_parameters, request_url_base );
+
+		$response = wp_remote_get( $request_url );
+
+		if( is_wp_error( $response ) ) {
+			return false;
+		}
+
+		return $response;
 
 	}
 
@@ -135,11 +180,20 @@ abstract class WPBR_Response {
 	 * Get JSON-decoded array of reviews data from platform API.
 	 *
 	 * @since 1.0.0
-	 * @param string $business_id ID of the business used in API request.
+	 *
+	 * @param string $response Unmodified response from platform API.
 	 *
 	 * @return array JSON-decoded array of reviews data.
 	 */
-	abstract public function get_json_decoded_data( $business_id );
+	protected function get_json_decoded_data( $response ) {
+
+		$response_body = wp_remote_retrieve_body( $response );
+
+		$json_decoded_data = json_decode( $response_body, true );
+
+		return $json_decoded_data;
+
+	}
 
 	/**
 	 * Translate API data into normalized property values.
@@ -153,7 +207,7 @@ abstract class WPBR_Response {
 	 *
 	 * @return array
 	 */
-	protected function normalize_properties( $data ) {
+	protected function set_normalized_properties( $data ) {
 
 		// Each of these setter methods must be customized per platform.
 		$this->set_business_name( $data );

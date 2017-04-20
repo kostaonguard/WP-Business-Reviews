@@ -35,7 +35,16 @@ class WPBR_Response_Factory {
 
 			case 'google_places' :
 
-				return new WPBR_Google_Places_Response( $platform, $business_id );
+				$request_url_base = 'https://maps.googleapis.com/maps/api/place/details/json';
+
+				$request_url_parameters = array(
+
+					'placeid' => $business_id,
+					'key'     => 'AIzaSyAjtk8Puo1jhDO1nije8dYIRN5rgN23qzs', // Hard-coded temporarily.
+
+				);
+
+				return new WPBR_Google_Places_Response( $platform, $business_id, $request_url_base, $request_url_parameters );
 
 			case 'facebook' :
 
