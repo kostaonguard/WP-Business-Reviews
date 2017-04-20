@@ -35,19 +35,19 @@ class WPBR_Response_Factory {
 
 			case 'google_places' :
 
-				return new WP_Business_Reviews_Google_Places_Response( $platform, $business_id );
+				return new WPBR_Google_Places_Response( $platform, $business_id );
 
 			case 'facebook' :
 
-				return new WP_Business_Reviews_Facebook_Response( $platform, $business_id );
+				return new WPBR_Facebook_Response( $platform, $business_id );
 
 			case 'yelp' :
 
-				return new WP_Business_Reviews_Yelp_Response( $platform, $business_id );
+				return new WPBR_Yelp_Response( $platform, $business_id );
 
 			case 'yp' :
 
-				return new WP_Business_Reviews_YP_Response( $platform, $business_id );
+				return new WPBR_YP_Response( $platform, $business_id );
 
 		}
 
