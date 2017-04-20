@@ -40,7 +40,7 @@ class WPBR_Response_Factory {
 				$request_url_parameters = array(
 
 					'placeid' => $business_id,
-					'key'     => 'AIzaSyAjtk8Puo1jhDO1nije8dYIRN5rgN23qzs', // Hard-coded temporarily.
+					'key'     => GOOGLE_PLACES_API_KEY, // Constant is temporary for testing.
 
 				);
 
@@ -48,7 +48,28 @@ class WPBR_Response_Factory {
 
 			case 'facebook' :
 
-				return new WPBR_Facebook_Response( $platform, $business_id );
+				$request_url_base = "https://graph.facebook.com/v2.9/{$business_id}/";
+
+				$fields = array(
+					'name',
+					'overall_star_rating',
+					'rating_count',
+					'single_line_address',
+					'phone',
+					'hours',
+					'ratings',
+				);
+
+				$fields_value = implode( ',', $fields );
+
+				$request_url_parameters = array(
+
+					'fields' => $fields_value,
+					'access_token' => FACEBOOK_PAGE_ACCESS_TOKEN, // Constant is temporary for testing.
+
+				);
+
+				return new WPBR_Facebook_Response( $platform, $business_id, $request_url_base, $request_url_parameters );
 
 			case 'yelp' :
 

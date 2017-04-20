@@ -76,10 +76,15 @@ class WPBR {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
-		// Remove after testing.
-		$business_id = 'ChIJ7aT6a_BXNIgRDJZnIA7Bj58';
-		$google_places_response = WPBR_Response_Factory::create( 'google_places', $business_id );
+		// Begin test. Remove before launch. Constants are for testing only.
+
+		$google_places_response = WPBR_Response_Factory::create( 'google_places', GOOGLE_PLACES_ID );
 		error_log( print_r( $google_places_response, true ) ); // Enable WP_DEBUG_LOG to view.
+
+		$facebook_response = WPBR_Response_Factory::create( 'facebook', FACEBOOK_PAGE_ID );
+		error_log( print_r( $facebook_response, true ) ); // Enable WP_DEBUG_LOG to view.
+
+		// End test.
 
 	}
 
@@ -127,6 +132,11 @@ class WPBR {
 		 * Class responsible for normalizing the response from the Google Places API.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-response.php';
+
+		/**
+		 * Class responsible for normalizing the response from the Facebook Graph API.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-response.php';
 
 		/**
 		 * Class responsible for defining all actions that occur in the admin area.
