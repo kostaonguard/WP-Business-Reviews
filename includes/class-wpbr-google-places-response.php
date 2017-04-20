@@ -57,7 +57,9 @@ class WPBR_Google_Places_Response extends WPBR_Response {
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	public function set_business_name( $data ) {
-		// TODO: Implement set_business_name() method.
+
+		$this->business_name = $data['result']['name'];
+
 	}
 
 	/**
