@@ -76,16 +76,6 @@ class WPBR {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
-		// Begin test. Remove before launch. Constants are for testing only.
-
-		$google_places_response = WPBR_Response_Factory::create( 'google_places', GOOGLE_PLACES_ID );
-		error_log( print_r( $google_places_response, true ) ); // Enable WP_DEBUG_LOG to view.
-
-		$facebook_response = WPBR_Response_Factory::create( 'facebook', FACEBOOK_PAGE_ID );
-		error_log( print_r( $facebook_response, true ) ); // Enable WP_DEBUG_LOG to view.
-
-		// End test.
-
 	}
 
 	/**
