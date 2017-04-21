@@ -22,6 +22,15 @@
 class WPBR_Facebook_Response extends WPBR_Response {
 
 	/**
+	 * Reviews platform associated with the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform = 'facebook';
+
+	/**
 	 * Set the business name.
 	 *
 	 * @since 1.0.0
