@@ -107,7 +107,7 @@ class WPBR_Admin {
 	 */
 	public function add_options_page() {
 
-		$add_options_page(
+		add_options_page(
 			__( 'WP Business Reviews Settings', 'wpbr' ),
 			__( 'Business Reviews', 'wpbr' ),
 			'manage_options',
