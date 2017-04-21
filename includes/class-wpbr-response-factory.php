@@ -1,21 +1,23 @@
 <?php
 
 /**
- * Determine the appropriate type of API response to request based on platform
+ * Defines the WPBR_Response_Factory class
  *
  * @link       https://wordimpress.com
- * @since      1.0.0
  *
  * @package    WPBR
  * @subpackage WPBR/includes
+ * @since      1.0.0
  */
 
 /**
- * Determine the appropriate type of API response to request based on platform.
+ * Determines which type of API response is required base on the platform.
  *
- * @package    WPBR
- * @subpackage WPBR/includes
- * @author     WordImpress, LLC <info@wordimpress.com>
+ * Each reviews platform API requires a uniquely formatted request URL which
+ * returns uniquely structured reviews data. This factory class determines the
+ * most appropriate subclass to handle the API request based on the platform.
+ *
+ * @since 1.0.0
  */
 class WPBR_Response_Factory {
 

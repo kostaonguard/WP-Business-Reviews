@@ -1,16 +1,16 @@
 <?php
 
 /**
- * The file that defines the core plugin class
+ * Defines the core plugin class
  *
- * A class definition that includes attributes and functions used across both the
+ * This class includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
  * @link       https://wordimpress.com
- * @since      1.0.0
  *
  * @package    WPBR
  * @subpackage WPBR/includes
+ * @since      1.0.0
  */
 
 /**
@@ -22,10 +22,7 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
- * @package    WPBR
- * @subpackage WPBR/includes
- * @author     WordImpress, LLC <info@wordimpress.com>
+ * @since 1.0.0
  */
 class WPBR {
 

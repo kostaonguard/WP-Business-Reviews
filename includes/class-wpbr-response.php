@@ -1,21 +1,23 @@
 <?php
 
 /**
- * Normalize the response from one of the supported reviews APIs
+ * Defines the WPBR_Response abstract class
  *
  * @link       https://wordimpress.com
- * @since      1.0.0
  *
  * @package    WPBR
  * @subpackage WPBR/includes
+ * @since      1.0.0
  */
 
 /**
- * Normalize the response from one of the supported reviews APIs.
+ * Normalizes the response from one of the supported reviews APIs.
  *
- * @package    WPBR
- * @subpackage WPBR/includes
- * @author     WordImpress, LLC <info@wordimpress.com>
+ * Each reviews platform API returns a response with a unique structure. This
+ * class normalizes that response by parsing the data into WPBR_Business and
+ * WPBR_Review objects.
+ *
+ * @since 1.0.0
  */
 abstract class WPBR_Response {
 
