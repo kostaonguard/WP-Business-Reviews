@@ -33,22 +33,13 @@ abstract class WPBR_Response {
 	protected $platform;
 
 	/**
-	 * Base URL used in the platform API request.
+	 * URL used in the API request.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
-	protected $request_url_base;
-
-	/**
-	 * URL parameters used in the platform API request.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var array
-	 */
-	protected $request_url_parameters;
+	protected $request_url;
 
 	/**
 	 * ID of the business.
@@ -134,19 +125,17 @@ abstract class WPBR_Response {
 	protected $reviews;
 
 	/**
-	 * Initialize the response.
+	 * Constructor.
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $platform, $business_id, $request_url_base, $request_url_parameters ) {
+	public function __construct( $request_url, $business_id ) {
 
-		$this->platform               = $platform;
-		$this->business_id            = $business_id;
-		$this->request_url_base       = $request_url_base;
-		$this->request_url_parameters = $request_url_parameters;
+		$this->request_url = $request_url;
+		$this->business_id = $business_id;
 
 		// Get unmodified response from platform API.
-		$platform_response = $this->get_platform_response( $this->request_url_base, $this->request_url_parameters );
+		$platform_response = $this->get_platform_response( $request_url );
 
 		// Transform platform response into more manageable format.
 		$json_decoded_data = $this->get_json_decoded_data( $platform_response );
@@ -160,13 +149,12 @@ abstract class WPBR_Response {
 	 * Get unmodified response from platform API.
 	 *
 	 * @since 1.0.0
-	 * @param string $business_id ID of the business used in API request.
+	 *
+	 * @param string $request_url URL used in the API request.
 	 *
 	 * @return array Unmodified response from platform API.
 	 */
-	protected function get_platform_response( $request_url_base, $request_url_parameters ) {
-
-		$request_url = add_query_arg( $request_url_parameters, $request_url_base );
+	protected function get_platform_response( $request_url ) {
 
 		$response = wp_remote_get( $request_url );
 
@@ -205,6 +193,7 @@ abstract class WPBR_Response {
 	 * this class follow a consistent structure regardless of platform.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 *
 	 * @return array
@@ -227,6 +216,7 @@ abstract class WPBR_Response {
 	 * Set the business name.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	abstract public function set_business_name( $data );
@@ -235,6 +225,7 @@ abstract class WPBR_Response {
 	 * Set the URL of the business page on the reviews platform.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	abstract public function set_business_platform_url( $data );
@@ -243,6 +234,7 @@ abstract class WPBR_Response {
 	 * Set the URL of the business image or avatar.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	abstract public function set_business_image_url( $data );
@@ -251,6 +243,7 @@ abstract class WPBR_Response {
 	 * Set the business rating.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	abstract public function set_business_rating( $data );
@@ -259,6 +252,7 @@ abstract class WPBR_Response {
 	 * Set the total number of business reviews.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	abstract public function set_business_review_count( $data );
@@ -267,6 +261,7 @@ abstract class WPBR_Response {
 	 * Set the formatted business phone number.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	abstract public function set_business_phone( $data );
@@ -275,6 +270,7 @@ abstract class WPBR_Response {
 	 * Set the formatted business address.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	abstract public function set_business_address( $data );
@@ -283,6 +279,7 @@ abstract class WPBR_Response {
 	 * Set the collection of individual reviews.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param array $data Array of reviews data, varies by platform.
 	 */
 	abstract public function set_reviews( $data );
