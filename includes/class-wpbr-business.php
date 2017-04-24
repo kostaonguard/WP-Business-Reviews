@@ -17,5 +17,70 @@
  * @since 1.0.0
  */
 abstract class WPBR_Business {
-	// TODO: Define WPBR_Business class.
+
+	/**
+	 * Name of the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $name;
+
+	/**
+	 * URL of the business page on the reviews platform.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform_url;
+
+	/**
+	 * URL of the business image or avatar.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $image_url;
+
+	/**
+	 * Average numerical rating of the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var float
+	 */
+	protected $rating;
+
+	/**
+	 * Total reviews of the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var int
+	 */
+	protected $review_count;
+
+	/**
+	 * Formatted phone number of the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $phone;
+
+	/**
+	 * Formatted street address of the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $address;
+
+
+
 }
