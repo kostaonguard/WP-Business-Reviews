@@ -31,101 +31,39 @@ class WPBR_Facebook_Response extends WPBR_Response {
 	protected $platform = 'facebook';
 
 	/**
-	 * Set the business name.
+	 * Builds the full request URL used in the API request.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Array of reviews data, varies by platform.
+	 * @return string URL used in the API request.
 	 */
-	public function set_business_name( $data ) {
+	protected function build_request_url() {
 
-		$this->business_name = $data['name'];
+		$request_url_base = "https://graph.facebook.com/v2.9/{$this->business_id}/";
 
-	}
+		$fields = array(
+			'name',
+			'overall_star_rating',
+			'rating_count',
+			'single_line_address',
+			'phone',
+			'hours',
+			'ratings',
+		);
 
-	/**
-	 * Set the URL of the business page on the reviews platform.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Array of reviews data, varies by platform.
-	 */
-	public function set_business_platform_url( $data ) {
-		// TODO: Implement set_business_platform_url() method.
-	}
+		$fields_value = implode( ',', $fields );
 
-	/**
-	 * Set the URL of the business image or avatar.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Array of reviews data, varies by platform.
-	 */
-	public function set_business_image_url( $data ) {
-		// TODO: Implement set_business_image_url() method.
-	}
+		$request_url_parameters = array(
 
-	/**
-	 * Set the business rating.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Array of reviews data, varies by platform.
-	 */
-	public function set_business_rating( $data ) {
+			'fields' => $fields_value,
+			'access_token' => FACEBOOK_PAGE_ACCESS_TOKEN, // Constant is temporary for testing.
 
-		$this->business_rating = $data['overall_star_rating'];
+		);
 
-	}
+		$request_url = add_query_arg( $request_url_parameters, $request_url_base );
 
-	/**
-	 * Set the total number of business reviews.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Array of reviews data, varies by platform.
-	 */
-	public function set_business_review_count( $data ) {
+		return $request_url;
 
-		$this->business_review_count = $data['rating_count'];
-
-	}
-
-	/**
-	 * Set the formatted business phone number.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Array of reviews data, varies by platform.
-	 */
-	public function set_business_phone( $data ) {
-
-		$this->business_phone = $data['phone'];
-
-	}
-
-	/**
-	 * Set the formatted business address.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Array of reviews data, varies by platform.
-	 */
-	public function set_business_address( $data ) {
-
-		$this->business_address = $data['single_line_address'];
-
-	}
-
-	/**
-	 * Set the collection of individual reviews.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Array of reviews data, varies by platform.
-	 */
-	public function set_reviews( $data ) {
-		// TODO: Implement set_reviews() method.
 	}
 
 }

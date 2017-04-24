@@ -11,11 +11,11 @@
  */
 
 /**
- * Determines which type of API response is required base on the platform.
+ * Determines which type of API response is required based on the platform.
  *
- * Each reviews platform API requires a uniquely formatted request URL which
- * returns uniquely structured reviews data. This factory class determines the
- * most appropriate subclass to handle the API request based on the platform.
+ * Each reviews platform API has unique characteristics, from the structure of
+ * the request URL to the API response. This factory class determines the most
+ * appropriate subclass to process the API response based on the platform.
  *
  * @since 1.0.0
  */
@@ -37,53 +37,19 @@ class WPBR_Response_Factory {
 
 			case 'google_places' :
 
-				$request_url_base = 'https://maps.googleapis.com/maps/api/place/details/json';
-
-				$request_url_parameters = array(
-
-					'placeid' => $business_id,
-					'key'     => GOOGLE_PLACES_API_KEY, // Constant is temporary for testing.
-
-				);
-
-				$request_url = add_query_arg( $request_url_parameters, $request_url_base );
-
-				return new WPBR_Google_Places_Response( $request_url, $business_id );
+				return new WPBR_Google_Places_Response( $business_id );
 
 			case 'facebook' :
 
-				$request_url_base = "https://graph.facebook.com/v2.9/{$business_id}/";
-
-				$fields = array(
-					'name',
-					'overall_star_rating',
-					'rating_count',
-					'single_line_address',
-					'phone',
-					'hours',
-					'ratings',
-				);
-
-				$fields_value = implode( ',', $fields );
-
-				$request_url_parameters = array(
-
-					'fields' => $fields_value,
-					'access_token' => FACEBOOK_PAGE_ACCESS_TOKEN, // Constant is temporary for testing.
-
-				);
-
-				$request_url = add_query_arg( $request_url_parameters, $request_url_base );
-
-				return new WPBR_Facebook_Response( $request_url, $business_id );
+				return new WPBR_Facebook_Response( $business_id );
 
 			case 'yelp' :
 
-				return new WPBR_Yelp_Response( $request_url, $business_id );
+				return new WPBR_Yelp_Response( $business_id );
 
 			case 'yp' :
 
-				return new WPBR_YP_Response( $request_url, $business_id );
+				return new WPBR_YP_Response( $business_id );
 
 		}
 
