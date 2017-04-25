@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Response_Factory class
+ * Defines the WPBR_API_Call_Factory class
  *
  * @link       https://wordimpress.com
  *
@@ -11,18 +11,18 @@
  */
 
 /**
- * Determines which type of API response is required based on the platform.
+ * Determines which type of API call is required based on the platform.
  *
  * Each reviews platform API has unique characteristics, from the structure of
  * the request URL to the API response. This factory class determines the most
- * appropriate subclass to process the API response based on the platform.
+ * appropriate subclass to process the API call based on the platform.
  *
  * @since 1.0.0
  */
-class WPBR_Response_Factory {
+class WPBR_API_Call_Factory {
 
 	/**
-	 * Creates a WPBR_Response object that is appropriate for the platform.
+	 * Creates a WPBR_API_Call object that is appropriate for the platform.
 	 *
 	 * @since 1.0.0
 	 *
@@ -37,19 +37,19 @@ class WPBR_Response_Factory {
 
 			case 'google_places' :
 
-				return new WPBR_Google_Places_Response( $business_id );
+				return new WPBR_Google_Places_API_Call( $business_id );
 
 			case 'facebook' :
 
-				return new WPBR_Facebook_Response( $business_id );
+				return new WPBR_Facebook_API_Call( $business_id );
 
 			case 'yelp' :
 
-				return new WPBR_Yelp_Response( $business_id );
+				return new WPBR_Yelp_API_Call( $business_id );
 
 			case 'yp' :
 
-				return new WPBR_YP_Response( $business_id );
+				return new WPBR_YP_API_Call( $business_id );
 
 		}
 

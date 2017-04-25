@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Google_Places_Response subclass
+ * Defines the WPBR_Google_Places_API_Call subclass
  *
  * @link       https://wordimpress.com
  *
@@ -10,16 +10,13 @@
  * @since      1.0.0
  */
 
-/**
- * Normalizes the response from the Google Places API.
- *
- * This class normalizes the Google Places API response by parsing the data
- * into WPBR_Business and WPBR_Review objects.
+/***
+ * Calls the Google Places API.
  *
  * @since 1.0.0
- * @see WPBR_Response
+ * @see WPBR_API_Call
  */
-class WPBR_Google_Places_Response extends WPBR_Response {
+class WPBR_Google_Places_API_Call extends WPBR_API_Call {
 
 	/**
 	 * Reviews platform associated with the business.

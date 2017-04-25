@@ -106,24 +106,24 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-i18n.php';
 
 		/**
-		 * Factory class responsible for creating an API response based on the provided platform.
+		 * Factory class responsible for creating an API call based on the provided platform.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-response-factory.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-api-call-factory.php';
 
 		/**
-		 * Abstract class responsible for normalizing the response from the supported reviews APIs.
+		 * Abstract class responsible for generating an API call to one of the supported reviews APIs.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-response.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-api-call.php';
 
 		/**
-		 * Class responsible for normalizing the response from the Google Places API.
+		 * Class responsible for generating an API call to the Google Places API.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-response.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-api-call.php';
 
 		/**
-		 * Class responsible for normalizing the response from the Facebook Graph API.
+		 * Class responsible for generating an API call to the Facebook Graph API.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-response.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-api-call.php';
 
 		/**
 		 * Class responsible for defining all actions that occur in the admin area.

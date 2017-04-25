@@ -22,14 +22,14 @@
 	<h2>Google Places</h2>
 
 	<?php
-	$google_places_response = WPBR_Response_Factory::create( GOOGLE_PLACES_ID, 'google_places' );
-	echo '<pre>'; print_r( $google_places_response ); echo '</pre>';
+//	$google_places_response = WPBR_Response_Factory::create( GOOGLE_PLACES_ID, 'google_places' );
+//	echo '<pre>'; print_r( $google_places_response ); echo '</pre>';
 	?>
 
 	<h2>Facebook</h2>
 
 	<?php
-	$facebook_response = WPBR_Response_Factory::create( FACEBOOK_PAGE_ID, 'facebook' );
+	$facebook_response = WPBR_API_Call_Factory::create( FACEBOOK_PAGE_ID, 'facebook' );
 	echo '<pre>'; print_r( $facebook_response ); echo '</pre>';
 	?>
 

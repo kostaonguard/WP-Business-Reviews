@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Response abstract class
+ * Defines the WPBR_API_Call abstract class
  *
  * @link       https://wordimpress.com
  *
@@ -11,15 +11,15 @@
  */
 
 /**
- * Normalizes the response from one of the supported reviews APIs.
+ * Calls one of the supported reviews APIs.
  *
- * Each reviews platform API returns a response with a unique structure. This
- * class normalizes that response by parsing the data into WPBR_Business and
- * WPBR_Review objects.
+ * Each reviews platform API requires a unique request URL. This class
+ * builds the request URL and initiates the call. The response body is
+ * JSON-decoded for easier manipulation within WordPress.
  *
  * @since 1.0.0
  */
-abstract class WPBR_Response {
+abstract class WPBR_API_Call {
 
 	/**
 	 * Reviews platform associated with the business.
@@ -70,21 +70,21 @@ abstract class WPBR_Response {
 
 		$this->business_id = $business_id;
 		$this->request_url = $this->build_request_url();
-		$this->body        = $this->get_response();
+		$this->body        = $this->call_api();
 
 	}
 
 	/**
-	 * Get JSON-decoded response body from platform API.
+	 * Retrieves the JSON-decoded response body from platform API.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array JSON-decoded response body from platform API.
 	 */
-	protected function get_response() {
+	protected function call_api() {
 
-		// Get response from platform API.
-		$response = wp_remote_get( $request_url );
+		// Call the platform API.
+		$response = wp_remote_get( $this->request_url );
 
 		// Return early if error.
 		if( is_wp_error( $response ) ) {
@@ -95,7 +95,7 @@ abstract class WPBR_Response {
 		$body = wp_remote_retrieve_body( $response );
 
 		// Return the response in a more manageable format.
-		return json_decode( $body, true )
+		return json_decode( $body, true );
 
 	}
 

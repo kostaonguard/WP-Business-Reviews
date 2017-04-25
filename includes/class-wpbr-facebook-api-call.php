@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Facebook_Response subclass
+ * Defines the WPBR_Facebook_API_Call subclass
  *
  * @link       https://wordimpress.com
  *
@@ -11,15 +11,12 @@
  */
 
 /**
- * Normalizes the response from the Facebook Graph API.
- *
- * This class normalizes the Facebook Graph API response by parsing the data
- * into WPBR_Business and WPBR_Review objects.
+ * Calls the Facebook Graph API.
  *
  * @since 1.0.0
- * @see WPBR_Response
+ * @see WPBR_API_Call
  */
-class WPBR_Facebook_Response extends WPBR_Response {
+class WPBR_Facebook_API_Call extends WPBR_API_Call {
 
 	/**
 	 * Reviews platform associated with the business.
