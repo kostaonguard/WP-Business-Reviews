@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Business abstract class
+ * Defines the WPBR_Business class
  *
  * @link       https://wordimpress.com
  *
@@ -11,12 +11,32 @@
  */
 
 /**
- * Implements the WPBR_Business object which contains normalized business data
- * that has been parsed from a remote API response.
+ * Implements the WPBR_Business object.
+ *
+ * This class checks for an existing business in the database, and if it does
+ * not exist, an API call is generated to request the business data remotely.
  *
  * @since 1.0.0
  */
-abstract class WPBR_Business {
+class WPBR_Business {
+
+	/**
+	 * ID of the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $id;
+
+	/**
+	 * Reviews platform associated with the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform;
 
 	/**
 	 * Name of the business.
@@ -81,6 +101,19 @@ abstract class WPBR_Business {
 	 */
 	protected $address;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param string $business_id ID of the business.
+	 * @param string $platform Reviews platform associated with the business.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct( $business_id, $platform ) {
 
+		$this->business_id = $business_id;
+		$this->platform    = $platform;
+
+	}
 
 }
