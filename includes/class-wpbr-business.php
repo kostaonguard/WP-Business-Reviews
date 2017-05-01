@@ -27,7 +27,7 @@ class WPBR_Business {
 	 * @access protected
 	 * @var string
 	 */
-	protected $id;
+	protected $business_id;
 
 	/**
 	 * Reviews platform associated with the business.
@@ -113,6 +113,58 @@ class WPBR_Business {
 
 		$this->business_id = $business_id;
 		$this->platform    = $platform;
+
+		if ( $this->business_exists() ) {
+
+			$this->set_properties_from_db;
+
+		} else {
+
+			$this->set_properties_from_api;
+
+		}
+	}
+
+	/**
+	 * Checks if business exists in the database.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return boolean Whether the business exists in the database.
+	 */
+	public function business_exists() {
+
+		// TODO: Check database for existing business using $this->business_id.
+
+		return false;
+
+	}
+
+	/**
+	 * Sets properties from existing post in database.
+	 *
+	 * @param string $business_id ID of the business.
+	 *
+	 * @since 1.0.0
+	 */
+	public function set_properties_from_db() {
+
+		// TODO: Set properties from wpbr_business post in database.
+
+	}
+
+	/**
+	 * Sets properties from remote API call.
+	 *
+	 * @param string $business_id ID of the business.
+	 *
+	 * @since 1.0.0
+	 */
+	public function set_properties_from_api() {
+
+		new WPBR_Google_Places_API_Call( $this->business_id );
+
+		// TODO: Set properties from API call response.
 
 	}
 
