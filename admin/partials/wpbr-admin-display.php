@@ -22,15 +22,15 @@
 	<h2>Google Places</h2>
 
 	<?php
-	$business = new WPBR_Google_Places_Business( GOOGLE_PLACES_ID, 'google_places' );
-	echo '<pre>'; print_r( $business ); echo '</pre>';
+	$google_business = new WPBR_Google_Places_Business( GOOGLE_PLACES_ID, 'google_places' );
+	echo '<pre>'; print_r( $google_business ); echo '</pre>';
 	?>
 
 	<h2>Facebook</h2>
 
 	<?php
-//	$facebook_response = WPBR_API_Call_Factory::create( FACEBOOK_PAGE_ID, 'facebook' );
-//	echo '<pre>'; print_r( $facebook_response ); echo '</pre>';
+	$facebook_business = new WPBR_Facebook_Business( FACEBOOK_PAGE_ID, 'facebook' );
+	echo '<pre>'; print_r( $facebook_business ); echo '</pre>';
 	?>
 
 	<h2>Yelp</h2>
