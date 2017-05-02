@@ -75,13 +75,13 @@ abstract class WPBR_Business {
 	protected $rating;
 
 	/**
-	 * Total reviews of the business.
+	 * Total number of ratings of the business.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var int
 	 */
-	protected $review_count;
+	protected $rating_count;
 
 	/**
 	 * Formatted phone number of the business.
