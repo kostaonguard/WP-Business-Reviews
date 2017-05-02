@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Business class
+ * Defines the WPBR_Business abstract class
  *
  * @link       https://wordimpress.com
  *
@@ -18,7 +18,7 @@
  *
  * @since 1.0.0
  */
-class WPBR_Business {
+abstract class WPBR_Business {
 
 	/**
 	 * ID of the business.
@@ -93,13 +93,13 @@ class WPBR_Business {
 	protected $phone;
 
 	/**
-	 * Formatted street address of the business.
+	 * Location including address and coordinates of the business.
 	 *
 	 * @since 1.0.0
 	 * @access protected
-	 * @var string
+	 * @var array
 	 */
-	protected $address;
+	protected $location;
 
 	/**
 	 * Constructor.
@@ -116,11 +116,11 @@ class WPBR_Business {
 
 		if ( $this->business_exists() ) {
 
-			$this->set_properties_from_db;
+			$this->set_properties_from_db();
 
 		} else {
 
-			$this->set_properties_from_api;
+			$this->set_properties_from_api();
 
 		}
 	}
@@ -143,11 +143,9 @@ class WPBR_Business {
 	/**
 	 * Sets properties from existing post in database.
 	 *
-	 * @param string $business_id ID of the business.
-	 *
 	 * @since 1.0.0
 	 */
-	public function set_properties_from_db() {
+	protected function set_properties_from_db() {
 
 		// TODO: Set properties from wpbr_business post in database.
 
@@ -156,16 +154,8 @@ class WPBR_Business {
 	/**
 	 * Sets properties from remote API call.
 	 *
-	 * @param string $business_id ID of the business.
-	 *
 	 * @since 1.0.0
 	 */
-	public function set_properties_from_api() {
-
-		new WPBR_Google_Places_API_Call( $this->business_id );
-
-		// TODO: Set properties from API call response.
-
-	}
+	abstract protected function set_properties_from_api();
 
 }
