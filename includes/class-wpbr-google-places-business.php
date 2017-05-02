@@ -41,9 +41,6 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 
 		$this->rating = $body['result']['rating'];
 
-		// Set to -1 because review count not available in Google Places API.
-		$this->review_count = -1;
-
 		$this->phone = $body['result']['formatted_phone_number'];
 
 		$this->location = array(
