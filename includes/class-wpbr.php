@@ -110,6 +110,7 @@ class WPBR {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-business.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-business.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-business.php';
 
 		/**
 		 * Classes responsible for API calls to various reviews platforms.
