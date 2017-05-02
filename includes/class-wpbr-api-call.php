@@ -22,17 +22,6 @@
 abstract class WPBR_API_Call {
 
 	/**
-	 * Reviews platform associated with the business.
-	 *
-	 * e.g. 'google_places', 'facebook', 'yelp', 'yp'
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $platform;
-
-	/**
 	 * ID of the business used in the request URL.
 	 *
 	 * @since 1.0.0

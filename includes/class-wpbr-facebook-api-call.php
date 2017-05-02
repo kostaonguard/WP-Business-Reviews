@@ -19,15 +19,6 @@
 class WPBR_Facebook_API_Call extends WPBR_API_Call {
 
 	/**
-	 * Reviews platform associated with the business.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $platform = 'facebook';
-
-	/**
 	 * Builds the full request URL used in the API request.
 	 *
 	 * @since 1.0.0
@@ -42,7 +33,6 @@ class WPBR_Facebook_API_Call extends WPBR_API_Call {
 			'name',
 			'overall_star_rating',
 			'rating_count',
-			'single_line_address',
 			'phone',
 			'hours',
 			'ratings',
@@ -53,6 +43,7 @@ class WPBR_Facebook_API_Call extends WPBR_API_Call {
 		$request_url_parameters = array(
 
 			'fields' => $fields_value,
+			'single_line_address',
 			'access_token' => FACEBOOK_PAGE_ACCESS_TOKEN, // Constant is temporary for testing.
 
 		);

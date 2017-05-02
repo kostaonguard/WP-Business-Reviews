@@ -19,15 +19,6 @@
 class WPBR_Google_Places_API_Call extends WPBR_API_Call {
 
 	/**
-	 * Reviews platform associated with the business.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $platform = 'google_places';
-
-	/**
 	 * Builds the full URL used in the API request.
 	 *
 	 * @since 1.0.0
