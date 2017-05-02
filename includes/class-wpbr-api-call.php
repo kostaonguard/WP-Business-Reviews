@@ -108,4 +108,17 @@ abstract class WPBR_API_Call {
 	 */
 	abstract protected function build_request_url();
 
+	/**
+	 * Get the response body of the remote API call.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array JSON-decoded response body.
+	 */
+	public function get_response_body() {
+
+		return $this->body;
+
+	}
+
 }
