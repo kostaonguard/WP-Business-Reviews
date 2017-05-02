@@ -64,6 +64,15 @@ abstract class WPBR_API_Call {
 	}
 
 	/**
+	 * Builds the full URL used in the API request.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string URL used in the API request.
+	 */
+	abstract protected function build_request_url();
+
+	/**
 	 * Retrieves the JSON-decoded response body from platform API.
 	 *
 	 * @since 1.0.0
@@ -89,16 +98,7 @@ abstract class WPBR_API_Call {
 	}
 
 	/**
-	 * Builds the full URL used in the API request.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string URL used in the API request.
-	 */
-	abstract protected function build_request_url();
-
-	/**
-	 * Get the response body of the remote API call.
+	 * Gets the response body of the remote API call.
 	 *
 	 * @since 1.0.0
 	 *
