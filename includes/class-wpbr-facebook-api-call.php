@@ -31,11 +31,11 @@ class WPBR_Facebook_API_Call extends WPBR_API_Call {
 
 		$fields = array(
 			'name',
+			'link',
 			'overall_star_rating',
 			'rating_count',
 			'phone',
-			'hours',
-			'ratings',
+			'location',
 		);
 
 		$fields_value = implode( ',', $fields );
@@ -43,7 +43,6 @@ class WPBR_Facebook_API_Call extends WPBR_API_Call {
 		$request_url_parameters = array(
 
 			'fields' => $fields_value,
-			'single_line_address',
 			'access_token' => FACEBOOK_PAGE_ACCESS_TOKEN, // Constant is temporary for testing.
 
 		);
