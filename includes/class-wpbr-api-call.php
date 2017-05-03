@@ -51,9 +51,9 @@ abstract class WPBR_API_Call {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $business_id ID of the business passed in the API request.
-	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $business_id ID of the business passed in the API request.
 	 */
 	public function __construct( $business_id ) {
 
