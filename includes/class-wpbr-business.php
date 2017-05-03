@@ -138,15 +138,6 @@ abstract class WPBR_Business {
 	protected $state_province;
 
 	/**
-	 * Country where the business is located.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var array
-	 */
-	protected $country;
-
-	/**
 	 * Postal code where the business is located.
 	 *
 	 * @since 1.0.0
@@ -154,6 +145,15 @@ abstract class WPBR_Business {
 	 * @var array
 	 */
 	protected $postal_code;
+
+	/**
+	 * Country where the business is located.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $country;
 
 	/**
 	 * Constructor.
@@ -177,6 +177,7 @@ abstract class WPBR_Business {
 			$this->set_properties_from_api();
 
 		}
+
 	}
 
 	/**
@@ -231,6 +232,15 @@ abstract class WPBR_Business {
 	abstract protected function set_platform_url_from_api( $api_response );
 
 	/**
+	 * Set image URL from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_image_url_from_api( $api_response );
+
+	/**
 	 * Set rating from API response.
 	 *
 	 * @since 1.0.0
@@ -238,6 +248,15 @@ abstract class WPBR_Business {
 	 * @param array $api_response Varies by platform.
 	 */
 	abstract protected function set_rating_from_api( $api_response );
+
+	/**
+	 * Set rating count from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_rating_count_from_api( $api_response );
 
 	/**
 	 * Set phone number from API response.
@@ -267,15 +286,6 @@ abstract class WPBR_Business {
 	abstract protected function set_longitude_from_api( $api_response );
 
 	/**
-	 * Set image URL from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $api_response Varies by platform.
-	 */
-	abstract protected function set_image_url_from_api( $api_response );
-
-	/**
 	 * Set street address from API response.
 	 *
 	 * @since 1.0.0
@@ -303,15 +313,6 @@ abstract class WPBR_Business {
 	abstract protected function set_state_province_from_api( $api_response );
 
 	/**
-	 * Set country from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $api_response Varies by platform.
-	 */
-	abstract protected function set_country_from_api( $api_response );
-
-	/**
 	 * Set postal code from API response.
 	 *
 	 * @since 1.0.0
@@ -319,5 +320,14 @@ abstract class WPBR_Business {
 	 * @param array $api_response Varies by platform.
 	 */
 	abstract protected function set_postal_code_from_api( $api_response );
+
+	/**
+	 * Set country from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_country_from_api( $api_response );
 
 }

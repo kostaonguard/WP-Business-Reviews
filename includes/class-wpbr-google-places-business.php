@@ -36,6 +36,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		$this->set_platform_url_from_api( $body );
 		$this->set_image_url_from_api( $body );
 		$this->set_rating_from_api( $body );
+		$this->set_rating_count_from_api( $body );
 		$this->set_phone_from_api( $body );
 		$this->set_latitude_from_api( $body );
 		$this->set_longitude_from_api( $body );
@@ -154,6 +155,20 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	}
 
 	/**
+	 * Set rating count from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $body JSON-decoded response body.
+	 */
+	protected function set_rating_count_from_api( $body ) {
+
+		// Google Places API does not include rating count.
+		$this->rating_count = '';
+
+	}
+
+	/**
 	 * Set phone number from API response.
 	 *
 	 * @since 1.0.0
@@ -261,19 +276,6 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	}
 
 	/**
-	 * Set country from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $address_components Address parts organized by type.
-	 */
-	protected function set_country_from_api( $address_components ) {
-
-		$this->country = isset( $address_components['country'] ) ? $address_components['country'] : '';
-
-	}
-
-	/**
 	 * Set postal code from API response.
 	 *
 	 * @since 1.0.0
@@ -283,6 +285,19 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	protected function set_postal_code_from_api( $address_components ) {
 
 		$this->postal_code = isset( $address_components['postal_code'] ) ? $address_components['postal_code'] : '';
+
+	}
+
+	/**
+	 * Set country from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $address_components Address parts organized by type.
+	 */
+	protected function set_country_from_api( $address_components ) {
+
+		$this->country = isset( $address_components['country'] ) ? $address_components['country'] : '';
 
 	}
 
