@@ -83,7 +83,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 */
 	protected function set_image_url_from_api( $body ) {
 
-		$this->image_url = "https://graph.facebook.com/v2.9/{$body['id']}/picture/?height=192";
+		if ( isset( $body['id'] ) ) {
+
+			$this->image_url = "https://graph.facebook.com/v2.9/{$body['id']}/picture/?height=192";
+
+		}
 
 	}
 
