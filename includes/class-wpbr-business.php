@@ -57,7 +57,7 @@ abstract class WPBR_Business {
 	protected $platform_url;
 
 	/**
-	 * URL of the business image or avatar.
+	 * URL of the business image.
 	 *
 	 * @since 1.0.0
 	 * @access protected
@@ -93,13 +93,67 @@ abstract class WPBR_Business {
 	protected $phone;
 
 	/**
-	 * Location including address and coordinates of the business.
+	 * Latitude of the business location.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var array
 	 */
-	protected $location;
+	protected $latitude;
+
+	/**
+	 * Longitude of the business location.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $longitude;
+
+	/**
+	 * Street address where the business is located.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $street_address;
+
+	/**
+	 * City where the business is located.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $city;
+
+	/**
+	 * State or province where the business is located.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $state_province;
+
+	/**
+	 * Country where the business is located.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $country;
+
+	/**
+	 * Postal code where the business is located.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $postal_code;
 
 	/**
 	 * Constructor.
@@ -152,10 +206,118 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Sets properties from remote API call.
+	 * Set properties based on remote API response.
 	 *
 	 * @since 1.0.0
 	 */
 	abstract protected function set_properties_from_api();
+
+	/**
+	 * Set business name from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_name_from_api( $api_response );
+
+	/**
+	 * Set business name from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_platform_url_from_api( $api_response );
+
+	/**
+	 * Set rating from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_rating_from_api( $api_response );
+
+	/**
+	 * Set phone number from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_phone_from_api( $api_response );
+
+	/**
+	 * Set latitude from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_latitude_from_api( $api_response );
+
+	/**
+	 * Set longitude from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_longitude_from_api( $api_response );
+
+	/**
+	 * Set image URL from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_image_url_from_api( $api_response );
+
+	/**
+	 * Set street address from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_street_address_from_api( $api_response );
+
+	/**
+	 * Set city from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_city_from_api( $api_response );
+
+	/**
+	 * Set state/province from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_state_province_from_api( $api_response );
+
+	/**
+	 * Set country from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_country_from_api( $api_response );
+
+	/**
+	 * Set postal code from API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $api_response Varies by platform.
+	 */
+	abstract protected function set_postal_code_from_api( $api_response );
 
 }
