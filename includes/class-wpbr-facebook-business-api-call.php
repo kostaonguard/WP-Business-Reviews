@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Facebook_API_Call subclass
+ * Defines the WPBR_Facebook_Business_API_Call subclass
  *
  * @link       https://wordimpress.com
  *
@@ -11,12 +11,12 @@
  */
 
 /**
- * Calls the Facebook Graph API.
+ * Calls the Facebook Graph API for business details.
  *
  * @since 1.0.0
  * @see WPBR_API_Call
  */
-class WPBR_Facebook_API_Call extends WPBR_API_Call {
+class WPBR_Facebook_Business_API_Call extends WPBR_API_Call {
 
 	/**
 	 * Builds the full request URL used in the API request.
@@ -30,12 +30,14 @@ class WPBR_Facebook_API_Call extends WPBR_API_Call {
 		$request_url_base = "https://graph.facebook.com/v2.9/{$this->business_id}/";
 
 		$fields = array(
+
 			'name',
 			'link',
 			'overall_star_rating',
 			'rating_count',
 			'phone',
 			'location',
+
 		);
 
 		$fields_value = implode( ',', $fields );

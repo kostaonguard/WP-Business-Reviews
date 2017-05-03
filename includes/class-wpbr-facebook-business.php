@@ -26,7 +26,7 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	protected function set_properties_from_api() {
 
 		// Call the API.
-		$api_call = new WPBR_Facebook_API_Call( $this->business_id );
+		$api_call = new WPBR_Facebook_Business_API_Call( $this->business_id );
 
 		// Get JSON-decoded response.
 		$body = $api_call->get_response_body();
