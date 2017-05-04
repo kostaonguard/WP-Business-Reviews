@@ -111,6 +111,7 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-business.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-business.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-business.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-business.php';
 
 		/**
 		 * Classes responsible for API calls to various reviews platforms.
@@ -118,6 +119,7 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-api-call.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-api-call.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-business-api-call.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-business-api-call.php';
 
 		/**
 		 * Class responsible for defining all actions that occur in the admin area.

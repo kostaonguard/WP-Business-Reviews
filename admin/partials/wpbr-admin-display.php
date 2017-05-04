@@ -37,4 +37,9 @@
 
 	<h2>YP</h2>
 
+	<?php
+	$yp_business = new WPBR_YP_Business( YP_LISTING_ID, 'yp' );
+	echo '<pre>'; print_r( $yp_business ); echo '</pre>';
+	?>
+
 </div>
