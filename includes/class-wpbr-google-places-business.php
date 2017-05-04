@@ -36,7 +36,6 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		$this->set_platform_url_from_api( $body );
 		$this->set_image_url_from_api( $body );
 		$this->set_rating_from_api( $body );
-		$this->set_rating_count_from_api( $body );
 		$this->set_phone_from_api( $body );
 		$this->set_latitude_from_api( $body );
 		$this->set_longitude_from_api( $body );
