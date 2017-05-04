@@ -44,7 +44,7 @@ class WPBR_Facebook_Business_API_Call extends WPBR_API_Call {
 
 		$request_url_parameters = array(
 
-			'fields' => $fields_value,
+			'fields'       => $fields_value,
 			'access_token' => FACEBOOK_PAGE_ACCESS_TOKEN, // Constant is temporary for testing.
 
 		);
