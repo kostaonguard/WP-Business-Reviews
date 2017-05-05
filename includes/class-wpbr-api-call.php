@@ -85,8 +85,10 @@ abstract class WPBR_API_Call {
 		$response = wp_remote_get( $this->request_url );
 
 		// Return early if error.
-		if( is_wp_error( $response ) ) {
-			return false;
+		if( is_wp_error( $response ) )
+
+			return $response;
+
 		}
 
 		// Get just the body of the response.
