@@ -33,7 +33,7 @@ class WPBR_YP_Business_API_Call extends WPBR_API_Call {
 
 			'key'       => YP_API_KEY,
 			'format'    => 'json',
-			'listingid' => YP_LISTING_ID,
+			'listingid' => $this->business_id,
 
 		);
 
