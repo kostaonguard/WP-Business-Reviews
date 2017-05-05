@@ -111,6 +111,7 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-business.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-business.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-business.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-business.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-business.php';
 
 		/**
@@ -119,6 +120,7 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-api-call.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-api-call.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-business-api-call.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-business-api-call.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-business-api-call.php';
 
 		/**
