@@ -33,7 +33,7 @@ class WPBR_Yelp_Business_API_Call extends WPBR_API_Call {
 			'user-agent' => '',
 			'headers' => array(
 
-				'authorization' => 'Bearer rt1cRPBTaSedkgcIVWMYA2VCSVMj_vuNdhdFr5cTM0N3VSeryohW8vA7Ob69BLKEvDHs_GNt2b2UtHQNjRcU6tlvOkrl1mKMGi3TOE6kMj8PoSI0fE9zeNPe_0_xWHYx',
+				'authorization' => 'Bearer ' . YELP_OAUTH_TOKEN,
 
 			)
 
