@@ -28,7 +28,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		// Request business details from API.
 		$request = new WPBR_Google_Places_Request( $this->business_id );
 		$data    = $request->request_business();
-		
+
 		// Set properties from API response.
 		$this->set_name_from_api( $data );
 		$this->set_platform_url_from_api( $data );
