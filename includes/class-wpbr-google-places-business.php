@@ -25,20 +25,18 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 */
 	protected function set_properties_from_api() {
 
-		// Call the API.
-		$api_call = new WPBR_Google_Places_API_Call( $this->business_id );
-
-		// Get JSON-decoded response body.
-		$body = $api_call->get_response_body();
-
+		// Request business details from API.
+		$request = new WPBR_Google_Places_Request( $this->business_id );
+		$data    = $request->request_business();
+		
 		// Set properties from API response.
-		$this->set_name_from_api( $body );
-		$this->set_platform_url_from_api( $body );
-		$this->set_image_url_from_api( $body );
-		$this->set_rating_from_api( $body );
-		$this->set_phone_from_api( $body );
-		$this->set_latitude_from_api( $body );
-		$this->set_longitude_from_api( $body );
+		$this->set_name_from_api( $data );
+		$this->set_platform_url_from_api( $data );
+		$this->set_image_url_from_api( $data );
+		$this->set_rating_from_api( $data );
+		$this->set_phone_from_api( $data );
+		$this->set_latitude_from_api( $data );
+		$this->set_longitude_from_api( $data );
 
 		/**
 		 * Setting address properties from the Google Places API requires
@@ -47,7 +45,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		 */
 
 		// Parse address components into a more reliable format.
-		$address_components = $this->parse_address_components( $body['result']['address_components'] );
+		$address_components = $this->parse_address_components( $data['address_components'] );
 
 		// Set properties from parsed address components.
 		$this->set_street_address_from_api( $address_components );
@@ -119,11 +117,11 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_name_from_api( $body ) {
+	protected function set_name_from_api( $data ) {
 
-		$this->name = isset( $body['result']['name'] ) ? $body['result']['name'] : '';
+		$this->name = isset( $data['name'] ) ? $data['name'] : '';
 
 	}
 
@@ -132,11 +130,11 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_platform_url_from_api( $body ) {
+	protected function set_platform_url_from_api( $data ) {
 
-		$this->platform_url = isset( $body['result']['url'] ) ? $body['result']['url'] : '';
+		$this->platform_url = isset( $data['url'] ) ? $data['url'] : '';
 
 	}
 
@@ -145,11 +143,11 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_rating_from_api( $body ) {
+	protected function set_rating_from_api( $data ) {
 
-		$this->rating = isset( $body['result']['rating'] ) ? $body['result']['rating'] : '';
+		$this->rating = isset( $data['rating'] ) ? $data['rating'] : '';
 
 	}
 
@@ -158,9 +156,9 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_rating_count_from_api( $body ) {
+	protected function set_rating_count_from_api( $data ) {
 
 		// Google Places API does not include rating count.
 		$this->rating_count = '';
@@ -172,11 +170,11 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_phone_from_api( $body ) {
+	protected function set_phone_from_api( $data ) {
 
-		$this->phone = isset( $body['result']['formatted_phone_number'] ) ? $body['result']['formatted_phone_number'] : '';
+		$this->phone = isset( $data['formatted_phone_number'] ) ? $data['formatted_phone_number'] : '';
 
 	}
 
@@ -185,11 +183,11 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_latitude_from_api( $body ) {
+	protected function set_latitude_from_api( $data ) {
 
-		$this->latitude = isset( $body['result']['geometry']['location']['lat'] ) ? $body['result']['geometry']['location']['lat'] : '';
+		$this->latitude = isset( $data['geometry']['location']['lat'] ) ? $data['geometry']['location']['lat'] : '';
 
 	}
 
@@ -198,11 +196,11 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_longitude_from_api( $body ) {
+	protected function set_longitude_from_api( $data ) {
 
-		$this->longitude = isset( $body['result']['geometry']['location']['lng'] ) ? $body['result']['geometry']['location']['lng'] : '';
+		$this->longitude = isset( $data['geometry']['location']['lng'] ) ? $data['geometry']['location']['lng'] : '';
 
 	}
 
@@ -211,11 +209,11 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_image_url_from_api( $body ) {
+	protected function set_image_url_from_api( $data ) {
 
-		$photoreference = isset( $body['result']['photos'][0]['photo_reference'] ) ? $body['result']['photos'][0]['photo_reference'] : '';
+		$photoreference = isset( $data['photos'][0]['photo_reference'] ) ? $data['photos'][0]['photo_reference'] : '';
 
 		if ( ! empty( $photoreference ) ) {
 
