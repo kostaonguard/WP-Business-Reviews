@@ -25,28 +25,23 @@ class WPBR_YP_Business extends WPBR_Business {
 	 */
 	protected function set_properties_from_api() {
 
-		// Call the API.
-		$api_call = new WPBR_YP_Business_API_Call( $this->business_id );
-
-		// Get JSON-decoded response.
-		$body = $api_call->get_response_body();
-
-		// Drill down to the relevant part of the response.
-		$listing_detail = $body['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
+		// Request business details from API.
+		$request = new WPBR_YP_Request( $this->business_id );
+		$data    = $request->request_business();
 
 		// Set properties from API response.
-		$this->set_name_from_api( $listing_detail );
-		$this->set_platform_url_from_api( $listing_detail );
-		$this->set_image_url_from_api( $listing_detail );
-		$this->set_rating_from_api( $listing_detail );
-		$this->set_rating_count_from_api( $listing_detail );
-		$this->set_phone_from_api( $listing_detail );
-		$this->set_latitude_from_api( $listing_detail );
-		$this->set_longitude_from_api( $listing_detail );
-		$this->set_street_address_from_api( $listing_detail );
-		$this->set_city_from_api( $listing_detail );
-		$this->set_state_province_from_api( $listing_detail );
-		$this->set_postal_code_from_api( $listing_detail );
+		$this->set_name_from_api( $data );
+		$this->set_platform_url_from_api( $data );
+		$this->set_image_url_from_api( $data );
+		$this->set_rating_from_api( $data );
+		$this->set_rating_count_from_api( $data );
+		$this->set_phone_from_api( $data );
+		$this->set_latitude_from_api( $data );
+		$this->set_longitude_from_api( $data );
+		$this->set_street_address_from_api( $data );
+		$this->set_city_from_api( $data );
+		$this->set_state_province_from_api( $data );
+		$this->set_postal_code_from_api( $data );
 
 	}
 
@@ -55,11 +50,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_name_from_api( $listing_detail ) {
+	protected function set_name_from_api( $data ) {
 
-		$this->name = isset( $listing_detail['businessName'] ) ? $listing_detail['businessName'] : '';
+		$this->name = isset( $data['businessName'] ) ? $data['businessName'] : '';
 
 	}
 
@@ -68,11 +63,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_platform_url_from_api( $listing_detail ) {
+	protected function set_platform_url_from_api( $data ) {
 
-		$this->platform_url = isset( $listing_detail['moreInfoURL'] ) ? $listing_detail['moreInfoURL'] : '';
+		$this->platform_url = isset( $data['moreInfoURL'] ) ? $data['moreInfoURL'] : '';
 
 	}
 
@@ -81,13 +76,13 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_image_url_from_api( $listing_detail ) {
+	protected function set_image_url_from_api( $data ) {
 
-		if ( isset( $listing_detail['id'] ) ) {
+		if ( isset( $data['id'] ) ) {
 
-			$this->image_url = "https://graph.facebook.com/v2.9/{$listing_detail['id']}/picture/?height=192";
+			$this->image_url = "https://graph.facebook.com/v2.9/{$data['id']}/picture/?height=192";
 
 		}
 
@@ -98,11 +93,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_rating_from_api( $listing_detail ) {
+	protected function set_rating_from_api( $data ) {
 
-		$this->rating = isset( $listing_detail['averageRating'] ) ? $listing_detail['averageRating'] : '';
+		$this->rating = isset( $data['averageRating'] ) ? $data['averageRating'] : '';
 
 	}
 
@@ -111,11 +106,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_rating_count_from_api( $listing_detail ) {
+	protected function set_rating_count_from_api( $data ) {
 
-		$this->rating_count = isset( $listing_detail['ratingCount'] ) ? $listing_detail['ratingCount'] : '';
+		$this->rating_count = isset( $data['ratingCount'] ) ? $data['ratingCount'] : '';
 
 	}
 
@@ -124,11 +119,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_phone_from_api( $listing_detail ) {
+	protected function set_phone_from_api( $data ) {
 
-		$this->phone = isset( $listing_detail['phone'] ) ? $listing_detail['phone'] : '';
+		$this->phone = isset( $data['phone'] ) ? $data['phone'] : '';
 
 	}
 
@@ -137,11 +132,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_latitude_from_api( $listing_detail ) {
+	protected function set_latitude_from_api( $data ) {
 
-		$this->latitude = isset( $listing_detail['latitude'] ) ? $listing_detail['latitude'] : '';
+		$this->latitude = isset( $data['latitude'] ) ? $data['latitude'] : '';
 
 	}
 
@@ -150,11 +145,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_longitude_from_api( $listing_detail ) {
+	protected function set_longitude_from_api( $data ) {
 
-		$this->longitude = isset( $listing_detail['longitude'] ) ? $listing_detail['longitude'] : '';
+		$this->longitude = isset( $data['longitude'] ) ? $data['longitude'] : '';
 
 	}
 
@@ -163,11 +158,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_street_address_from_api( $listing_detail ) {
+	protected function set_street_address_from_api( $data ) {
 
-		$this->street_address = isset( $listing_detail['street'] ) ? $listing_detail['street'] : '';
+		$this->street_address = isset( $data['street'] ) ? $data['street'] : '';
 
 	}
 
@@ -176,11 +171,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_city_from_api( $listing_detail ) {
+	protected function set_city_from_api( $data ) {
 
-		$this->city = isset( $listing_detail['city'] ) ? $listing_detail['city'] : '';
+		$this->city = isset( $data['city'] ) ? $data['city'] : '';
 
 	}
 
@@ -189,11 +184,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_state_province_from_api( $listing_detail ) {
+	protected function set_state_province_from_api( $data ) {
 
-		$this->state_province = isset( $listing_detail['state'] ) ? $listing_detail['state'] : '';
+		$this->state_province = isset( $data['state'] ) ? $data['state'] : '';
 
 	}
 
@@ -202,11 +197,11 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_postal_code_from_api( $listing_detail ) {
+	protected function set_postal_code_from_api( $data ) {
 
-		$this->postal_code = isset( $listing_detail['zip'] ) ? $listing_detail['zip'] : '';
+		$this->postal_code = isset( $data['zip'] ) ? $data['zip'] : '';
 
 	}
 
@@ -215,9 +210,9 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $listing_detail Relevant portion of the response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_country_from_api( $listing_detail ) {
+	protected function set_country_from_api( $data ) {
 
 		// YP API does not include country.
 		$this->country = '';
