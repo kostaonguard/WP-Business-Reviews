@@ -170,7 +170,7 @@ abstract class WPBR_Business {
 
 		if ( $this->business_exists() ) {
 
-			$this->set_properties_from_db();
+			$this->set_properties_from_post();
 
 		} else {
 
@@ -199,8 +199,10 @@ abstract class WPBR_Business {
 	 * Sets properties from existing post in database.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $business_id ID of the business.
 	 */
-	protected function set_properties_from_db() {
+	protected function set_properties_from_post() {
 
 		// TODO: Set properties from wpbr_business post in database.
 
@@ -218,116 +220,116 @@ abstract class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_name_from_api( $api_response );
+	abstract protected function set_name_from_api( $data );
 
 	/**
 	 * Set business name from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_platform_url_from_api( $api_response );
+	abstract protected function set_platform_url_from_api( $data );
 
 	/**
 	 * Set image URL from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_image_url_from_api( $api_response );
+	abstract protected function set_image_url_from_api( $data );
 
 	/**
 	 * Set rating from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_rating_from_api( $api_response );
+	abstract protected function set_rating_from_api( $data );
 
 	/**
 	 * Set rating count from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_rating_count_from_api( $api_response );
+	abstract protected function set_rating_count_from_api( $data );
 
 	/**
 	 * Set phone number from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_phone_from_api( $api_response );
+	abstract protected function set_phone_from_api( $data );
 
 	/**
 	 * Set latitude from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_latitude_from_api( $api_response );
+	abstract protected function set_latitude_from_api( $data );
 
 	/**
 	 * Set longitude from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_longitude_from_api( $api_response );
+	abstract protected function set_longitude_from_api( $data );
 
 	/**
 	 * Set street address from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_street_address_from_api( $api_response );
+	abstract protected function set_street_address_from_api( $data );
 
 	/**
 	 * Set city from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_city_from_api( $api_response );
+	abstract protected function set_city_from_api( $data );
 
 	/**
 	 * Set state/province from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_state_province_from_api( $api_response );
+	abstract protected function set_state_province_from_api( $data );
 
 	/**
 	 * Set postal code from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_postal_code_from_api( $api_response );
+	abstract protected function set_postal_code_from_api( $data );
 
 	/**
 	 * Set country from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $api_response Varies by platform.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	abstract protected function set_country_from_api( $api_response );
+	abstract protected function set_country_from_api( $data );
 
 }
