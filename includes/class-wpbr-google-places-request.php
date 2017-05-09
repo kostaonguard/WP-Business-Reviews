@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Defines the WPBR_Google_Places_Request subclass
  *

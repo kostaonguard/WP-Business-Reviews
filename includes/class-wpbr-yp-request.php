@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Defines the WPBR_YP_Request subclass
  *

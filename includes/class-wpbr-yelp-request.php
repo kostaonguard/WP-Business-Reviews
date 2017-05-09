@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Defines the WPBR_Yelp_Request subclass
  *
