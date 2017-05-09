@@ -26,25 +26,23 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	protected function set_properties_from_api() {
 
 		// Call the API.
-		$api_call = new WPBR_Facebook_Business_API_Call( $this->business_id );
-
-		// Get JSON-decoded response.
-		$body = $api_call->get_response_body();
+		$request = new WPBR_Facebook_Request( $this->business_id );
+		$data    = $request->request_business();
 
 		// Set properties from API response.
-		$this->set_name_from_api( $body );
-		$this->set_platform_url_from_api( $body );
-		$this->set_image_url_from_api( $body );
-		$this->set_rating_from_api( $body );
-		$this->set_rating_count_from_api( $body );
-		$this->set_phone_from_api( $body );
-		$this->set_latitude_from_api( $body );
-		$this->set_longitude_from_api( $body );
-		$this->set_street_address_from_api( $body );
-		$this->set_city_from_api( $body );
-		$this->set_state_province_from_api( $body );
-		$this->set_country_from_api( $body );
-		$this->set_postal_code_from_api( $body );
+		$this->set_name_from_api( $data );
+		$this->set_platform_url_from_api( $data );
+		$this->set_image_url_from_api( $data );
+		$this->set_rating_from_api( $data );
+		$this->set_rating_count_from_api( $data );
+		$this->set_phone_from_api( $data );
+		$this->set_latitude_from_api( $data );
+		$this->set_longitude_from_api( $data );
+		$this->set_street_address_from_api( $data );
+		$this->set_city_from_api( $data );
+		$this->set_state_province_from_api( $data );
+		$this->set_country_from_api( $data );
+		$this->set_postal_code_from_api( $data );
 
 	}
 
@@ -53,11 +51,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_name_from_api( $body ) {
+	protected function set_name_from_api( $data ) {
 
-		$this->name = isset( $body['name'] ) ? $body['name'] : '';
+		$this->name = isset( $data['name'] ) ? $data['name'] : '';
 
 	}
 
@@ -66,11 +64,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_platform_url_from_api( $body ) {
+	protected function set_platform_url_from_api( $data ) {
 
-		$this->platform_url = isset( $body['link'] ) ? $body['link'] : '';
+		$this->platform_url = isset( $data['link'] ) ? $data['link'] : '';
 
 	}
 
@@ -79,13 +77,13 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_image_url_from_api( $body ) {
+	protected function set_image_url_from_api( $data ) {
 
-		if ( isset( $body['id'] ) ) {
+		if ( isset( $data['id'] ) ) {
 
-			$this->image_url = "https://graph.facebook.com/v2.9/{$body['id']}/picture/?height=192";
+			$this->image_url = "https://graph.facebook.com/v2.9/{$data['id']}/picture/?height=192";
 
 		}
 
@@ -96,11 +94,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_rating_from_api( $body ) {
+	protected function set_rating_from_api( $data ) {
 
-		$this->rating = isset( $body['overall_star_rating'] ) ? $body['overall_star_rating'] : '';
+		$this->rating = isset( $data['overall_star_rating'] ) ? $data['overall_star_rating'] : '';
 
 	}
 
@@ -109,11 +107,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_rating_count_from_api( $body ) {
+	protected function set_rating_count_from_api( $data ) {
 
-		$this->rating_count = isset( $body['rating_count'] ) ? $body['rating_count'] : '';
+		$this->rating_count = isset( $data['rating_count'] ) ? $data['rating_count'] : '';
 
 	}
 
@@ -122,11 +120,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_phone_from_api( $body ) {
+	protected function set_phone_from_api( $data ) {
 
-		$this->phone = isset( $body['phone'] ) ? $body['phone'] : '';
+		$this->phone = isset( $data['phone'] ) ? $data['phone'] : '';
 
 	}
 
@@ -135,11 +133,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_latitude_from_api( $body ) {
+	protected function set_latitude_from_api( $data ) {
 
-		$this->latitude = isset( $body['location']['latitude'] ) ? $body['location']['latitude'] : '';
+		$this->latitude = isset( $data['location']['latitude'] ) ? $data['location']['latitude'] : '';
 
 	}
 
@@ -148,11 +146,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_longitude_from_api( $body ) {
+	protected function set_longitude_from_api( $data ) {
 
-		$this->longitude = isset( $body['location']['longitude'] ) ? $body['location']['longitude'] : '';
+		$this->longitude = isset( $data['location']['longitude'] ) ? $data['location']['longitude'] : '';
 
 	}
 
@@ -161,11 +159,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_street_address_from_api( $body ) {
+	protected function set_street_address_from_api( $data ) {
 
-		$this->street_address = isset( $body['location']['street'] ) ? $body['location']['street'] : '';
+		$this->street_address = isset( $data['location']['street'] ) ? $data['location']['street'] : '';
 
 	}
 
@@ -174,11 +172,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_city_from_api( $body ) {
+	protected function set_city_from_api( $data ) {
 
-		$this->city = isset( $body['location']['city'] ) ? $body['location']['city'] : '';
+		$this->city = isset( $data['location']['city'] ) ? $data['location']['city'] : '';
 
 	}
 
@@ -187,11 +185,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_state_province_from_api( $body ) {
+	protected function set_state_province_from_api( $data ) {
 
-		$this->state_province = isset( $body['location']['state'] ) ? $body['location']['state'] : '';
+		$this->state_province = isset( $data['location']['state'] ) ? $data['location']['state'] : '';
 
 	}
 
@@ -200,11 +198,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_postal_code_from_api( $body ) {
+	protected function set_postal_code_from_api( $data ) {
 
-		$this->postal_code = isset( $body['location']['zip'] ) ? $body['location']['zip'] : '';
+		$this->postal_code = isset( $data['location']['zip'] ) ? $data['location']['zip'] : '';
 
 	}
 
@@ -213,11 +211,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $body JSON-decoded response body.
+	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_country_from_api( $body ) {
+	protected function set_country_from_api( $data ) {
 
-		$this->country = isset( $body['location']['country'] ) ? $body['location']['country'] : '';
+		$this->country = isset( $data['location']['country'] ) ? $data['location']['country'] : '';
 
 	}
 
