@@ -95,4 +95,69 @@ class WPBR_Post_Types {
 
 	}
 
+	/**
+	 * Registers the wpbr_review post type.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_review_post_type() {
+
+		$labels = array(
+
+			'name'                  => _x( 'Reviews', 'Post Type General Name', 'wpbr' ),
+			'singular_name'         => _x( 'Review', 'Post Type Singular Name', 'wpbr' ),
+			'menu_name'             => __( 'Reviews', 'wpbr' ),
+			'name_admin_bar'        => __( 'Review', 'wpbr' ),
+			'archives'              => __( 'Review Archives', 'wpbr' ),
+			'attributes'            => __( 'Review Attributes', 'wpbr' ),
+			'parent_item_colon'     => __( 'Parent Review:', 'wpbr' ),
+			'all_items'             => __( 'All Reviews', 'wpbr' ),
+			'add_new_item'          => __( 'Add New Review', 'wpbr' ),
+			'add_new'               => __( 'Add New', 'wpbr' ),
+			'new_item'              => __( 'New Review', 'wpbr' ),
+			'edit_item'             => __( 'Edit Review', 'wpbr' ),
+			'update_item'           => __( 'Update Review', 'wpbr' ),
+			'view_item'             => __( 'View Review', 'wpbr' ),
+			'view_items'            => __( 'View Reviews', 'wpbr' ),
+			'search_items'          => __( 'Search Review', 'wpbr' ),
+			'not_found'             => __( 'Not found', 'wpbr' ),
+			'not_found_in_trash'    => __( 'Not found in Trash', 'wpbr' ),
+			'featured_image'        => __( 'Featured Image', 'wpbr' ),
+			'set_featured_image'    => __( 'Set featured image', 'wpbr' ),
+			'remove_featured_image' => __( 'Remove featured image', 'wpbr' ),
+			'use_featured_image'    => __( 'Use as featured image', 'wpbr' ),
+			'insert_into_item'      => __( 'Insert into item', 'wpbr' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wpbr' ),
+			'items_list'            => __( 'Reviews list', 'wpbr' ),
+			'items_list_navigation' => __( 'Reviews list navigation', 'wpbr' ),
+			'filter_items_list'     => __( 'Filter items list', 'wpbr' ),
+
+		);
+
+		$args = array(
+
+			'label'                 => __( 'Review', 'wpbr' ),
+			'labels'                => $labels,
+			'supports'              => array( 'title', ),
+			'taxonomies'            => array(),
+			'hierarchical'          => false,
+			'public'                => true,
+			'show_ui'               => true,
+			'show_in_menu'          => true,
+			'menu_position'         => 5,
+			'menu_icon'             => 'dashicons-star-filled',
+			'show_in_admin_bar'     => false,
+			'show_in_nav_menus'     => false,
+			'can_export'            => true,
+			'has_archive'           => false,
+			'exclude_from_search'   => true,
+			'publicly_queryable'    => true,
+			'capability_type'       => 'post',
+
+		);
+
+		register_post_type( 'wpbr_review', $args );
+
+	}
+
 }
