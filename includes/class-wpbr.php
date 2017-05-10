@@ -70,6 +70,7 @@ class WPBR {
 
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->define_registration_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
