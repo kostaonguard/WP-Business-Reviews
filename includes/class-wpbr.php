@@ -95,6 +95,11 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-i18n.php';
 
 		/**
+		 * Class responsible for registering custom post types and taxonomies.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-post-types.php';
+
+		/**
 		 * Classes responsible for implementing the WPBR_Business object.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-business.php';
@@ -140,6 +145,20 @@ class WPBR {
 		$plugin_i18n = new WPBR_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+
+	}
+
+	/**
+	 * Register all of the hooks related to the registration of custom post
+	 * types and taxonomies.
+	 *
+	 * @since    1.0.0
+	 */
+	private function define_registration_hooks() {
+
+		$post_types = new WPBR_Post_Types();
+
+		$this->loader->add_action( 'init', $post_types, 'register_post_types' );
 
 	}
 
