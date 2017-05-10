@@ -196,6 +196,47 @@ abstract class WPBR_Business {
 	}
 
 	/**
+	 * Inserts wpbr_business post into the database.
+	 *
+	 * @since 1.0.0
+	 */
+	public function insert_post() {
+
+		// TODO: Define custom post type for business posts.
+
+		$meta_input = array(
+
+			'wpbr_business_id'    => $this->business_id,
+			'wpbr_image_url'      => $this->image_url,
+			'wpbr_rating'         => $this->rating,
+			'wpbr_rating_count'   => $this->rating_count,
+			'wpbr_phone'          => $this->phone,
+			'wpbr_latitude'       => $this->latitude,
+			'wpbr_longitude'      => $this->longitude,
+			'wpbr_street_address' => $this->street_address,
+			'wpbr_city'           => $this->city,
+			'wpbr_state_province' => $this->state_province,
+			'wpbr_postal_code'    => $this->postal_code,
+			'wpbr_country'        => $this->country,
+
+		);
+
+		// TODO: Add $this->platform to custom taxonomy.
+
+		$postarr = array(
+
+			'post_title'  => $this->name,
+			'post_name'   => $this->business_id,
+			'post_status' => 'publish',
+			'meta_input'  => $meta_input,
+
+		);
+
+		wp_insert_post( $postarr );
+
+	}
+
+	/**
 	 * Sets properties from existing post in database.
 	 *
 	 * @since 1.0.0
