@@ -202,11 +202,11 @@ abstract class WPBR_Business {
 	 */
 	public function insert_post() {
 
-		// TODO: Define custom post type for business posts.
-
+		// Define post meta.
 		$meta_input = array(
 
 			'wpbr_business_id'    => $this->business_id,
+			'wpbr_platform'       => $this->platform,
 			'wpbr_image_url'      => $this->image_url,
 			'wpbr_rating'         => $this->rating,
 			'wpbr_rating_count'   => $this->rating_count,
@@ -221,17 +221,26 @@ abstract class WPBR_Business {
 
 		);
 
-		// TODO: Add $this->platform to custom taxonomy.
+		// Define taxonomy terms.
+		$tax_input = array(
 
+			'wpbr_platform' => $this->platform,
+
+		);
+
+		// Define post elements.
 		$postarr = array(
 
+			'post_type'   => 'wpbr_business',
 			'post_title'  => $this->name,
 			'post_name'   => $this->business_id,
 			'post_status' => 'publish',
 			'meta_input'  => $meta_input,
+			'tax_input'   => $tax_input,
 
 		);
 
+		// Insert or update post in database.
 		wp_insert_post( $postarr );
 
 	}
