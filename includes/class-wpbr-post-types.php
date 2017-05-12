@@ -17,7 +17,6 @@
  */
 class WPBR_Post_Types {
 
-
 	/**
 	 * Registers all custom post types.
 	 *
@@ -69,6 +68,12 @@ class WPBR_Post_Types {
 
 		);
 
+		$rewrite = array(
+
+			'slug' => 'wpbr-businesses',
+
+		);
+
 		$args = array(
 
 			'label'                 => __( 'Business', 'wpbr' ),
@@ -87,6 +92,7 @@ class WPBR_Post_Types {
 			'has_archive'           => false,
 			'exclude_from_search'   => true,
 			'publicly_queryable'    => true,
+			'rewrite'               => $rewrite,
 			'capability_type'       => 'post',
 
 		);
@@ -134,6 +140,12 @@ class WPBR_Post_Types {
 
 		);
 
+		$rewrite = array(
+
+			'slug' => 'wpbr-reviews',
+
+		);
+
 		$args = array(
 
 			'label'                 => __( 'Review', 'wpbr' ),
@@ -152,6 +164,7 @@ class WPBR_Post_Types {
 			'has_archive'           => false,
 			'exclude_from_search'   => true,
 			'publicly_queryable'    => true,
+			'rewrite'               => $rewrite,
 			'capability_type'       => 'post',
 
 		);
