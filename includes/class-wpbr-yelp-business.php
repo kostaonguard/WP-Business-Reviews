@@ -19,209 +19,69 @@
 class WPBR_Yelp_Business extends WPBR_Business {
 
 	/**
-	 * Set properties based on remote API response.
+	 * Format properties from remote API response.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param string $business_id ID of the business.
+	 *
+	 * @return array Array of formatted properties.
 	 */
-	protected function set_properties_from_api( $business_id ) {
+	protected function format_properties_from_api( $business_id ) {
 
 		// Request business details from API.
 		$request = new WPBR_Yelp_Request( $business_id );
 		$data    = $request->request_business();
 
-		// Set properties from API response.
-		$this->set_business_name_from_api( $data );
-		$this->set_platform_url_from_api( $data );
-		$this->set_image_url_from_api( $data );
-		$this->set_rating_from_api( $data );
-		$this->set_rating_count_from_api( $data );
-		$this->set_phone_from_api( $data );
-		$this->set_latitude_from_api( $data );
-		$this->set_longitude_from_api( $data );
-		$this->set_street_address_from_api( $data );
-		$this->set_city_from_api( $data );
-		$this->set_state_province_from_api( $data );
-		$this->set_postal_code_from_api( $data );
-		$this->set_country_from_api( $data );
+		// Format image URL.
+		$image_url = isset( $data['image_url'] ) ? $data['image_url'] : '';
+		$image_url = $this->format_image_url( $image_url );
+
+		// Prepare properties to be set.
+		$properties = array(
+
+			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
+			'platform_url'   => isset( $data['url'] ) ? $data['url'] : '',
+			'image_url'      => $image_url,
+			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
+			'rating_count'   => isset( $data['review_count'] ) ? $data['review_count'] : '',
+			'phone'          => isset( $data['display_phone'] ) ? $data['display_phone'] : '',
+			'latitude'       => isset( $data['coordinates']['latitude'] ) ? $data['coordinates']['latitude'] : '',
+			'longitude'      => isset( $data['coordinates']['longitude'] ) ? $data['coordinates']['longitude'] : '',
+			'street_address' => isset( $data['location']['address1'] ) ? $data['location']['address1'] : '',
+			'city'           => isset( $data['location']['city'] ) ? $data['location']['city'] : '',
+			'state_province' => isset( $data['location']['state'] ) ? $data['location']['state'] : '',
+			'postal_code'    => isset( $data['location']['zip_code'] ) ? $data['location']['zip_code'] : '',
+			'country'        => isset( $data['location']['country'] ) ? $data['location']['country'] : '',
+
+		);
+
+		return $properties;
 
 	}
 
 	/**
-	 * Set business name from API response.
+	 * Format image URL from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $image_url URL of the original business image.
+	 * @return string URL of the sized business image.
 	 */
-	protected function set_business_name_from_api( $data ) {
+	protected function format_image_url( $image_url ) {
 
-		$this->business_name = isset( $data['name'] ) ? $data['name'] : '';
-
-	}
-
-	/**
-	 * Set business name from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_platform_url_from_api( $data ) {
-
-		$this->platform_url = isset( $data['url'] ) ? $data['url'] : '';
-
-	}
-
-	/**
-	 * Set image URL from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_image_url_from_api( $data ) {
-
-		$image_url_original = isset( $data['image_url'] ) ? $data['image_url'] : '';
-
-		if ( ! empty( $image_url_original ) ) {
+		if ( ! empty( $image_url ) ) {
 
 			// Replace original size with more appropriate square size.
-			$image_url_sized = str_replace( 'o.jpg', 'ls.jpg', $image_url_original );
-			$this->image_url = $image_url_sized;
+			$image_url_sized = str_replace( 'o.jpg', 'ls.jpg', $image_url );
+
+			return $image_url_sized;
+
+		} else {
+
+			return '';
 
 		}
-
-	}
-
-	/**
-	 * Set rating from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_rating_from_api( $data ) {
-
-		$this->rating = isset( $data['rating'] ) ? $data['rating'] : '';
-
-	}
-
-	/**
-	 * Set rating count from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_rating_count_from_api( $data ) {
-
-		$this->rating_count = isset( $data['review_count'] ) ? $data['review_count'] : '';
-
-	}
-
-	/**
-	 * Set phone number from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_phone_from_api( $data ) {
-
-		$this->phone = isset( $data['display_phone'] ) ? $data['display_phone'] : '';
-
-	}
-
-	/**
-	 * Set latitude from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_latitude_from_api( $data ) {
-
-		$this->latitude = isset( $data['coordinates']['latitude'] ) ? $data['coordinates']['latitude'] : '';
-
-	}
-
-	/**
-	 * Set longitude from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_longitude_from_api( $data ) {
-
-		$this->longitude = isset( $data['coordinates']['longitude'] ) ? $data['coordinates']['longitude'] : '';
-
-	}
-
-	/**
-	 * Set street address from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_street_address_from_api( $data ) {
-
-		$this->street_address = isset( $data['location']['address1'] ) ? $data['location']['address1'] : '';
-
-	}
-
-	/**
-	 * Set city from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_city_from_api( $data ) {
-
-		$this->city = isset( $data['location']['city'] ) ? $data['location']['city'] : '';
-
-	}
-
-	/**
-	 * Set state/province from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_state_province_from_api( $data ) {
-
-		$this->state_province = isset( $data['location']['state'] ) ? $data['location']['state'] : '';
-
-	}
-
-	/**
-	 * Set postal code from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_postal_code_from_api( $data ) {
-
-		$this->postal_code = isset( $data['location']['zip_code'] ) ? $data['location']['zip_code'] : '';
-
-	}
-
-	/**
-	 * Set country from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $data Relevant portion of the API response.
-	 */
-	protected function set_country_from_api( $data ) {
-
-		$this->country = isset( $data['location']['country'] ) ? $data['location']['country'] : '';
 
 	}
 
