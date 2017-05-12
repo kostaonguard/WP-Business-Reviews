@@ -186,9 +186,9 @@ abstract class WPBR_Business {
 	 */
 	public function __construct( $business_id, $platform ) {
 
-		$this->platform    = $platform;
 		$this->business_id = $business_id;
-		$this->slug        = $this->generate_slug();
+		$this->platform    = $platform;
+		$this->slug        = $this->generate_slug( $business_id, $platform );
 
 		if ( $post_id = $this->post_exists( $this->slug ) ) {
 
@@ -213,7 +213,7 @@ abstract class WPBR_Business {
 	 * @param string $business_id Business ID.
 	 * @return string Business post slug.
 	 */
-	protected function generate_slug( $platform, $business_id ) {
+	protected function generate_slug( $business_id, $platform ) {
 
 		$slug = $this->platform . '-' . $this->business_id;
 		$slug = str_replace( '_', '-', strtolower( $slug ) );
