@@ -130,7 +130,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @param string $photo_reference Reference to first photo in API response.
 	 *
-	 * @return string $image_url URL of the business image.
+	 * @return string URL of the business image.
 	 */
 	protected function format_image_url( $photo_reference ) {
 
@@ -162,7 +162,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @param array $address_components Address parts organized by type.
 	 *
-	 * @return string $street_address Street address where the business is located.
+	 * @return string Street address where the business is located.
 	 */
 	protected function format_street_address( $address_components ) {
 

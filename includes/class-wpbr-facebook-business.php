@@ -65,7 +65,7 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 * @since 1.0.0
 	 *
 	 * @param string $business_id ID of the business.
-	 * @return string $image_url URL of the business image.
+	 * @return string URL of the business image.
 	 */
 	protected function format_image_url( $business_id ) {
 
