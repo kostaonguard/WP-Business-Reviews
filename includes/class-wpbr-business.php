@@ -345,11 +345,19 @@ abstract class WPBR_Business {
 		// Set properties.
 		foreach ( $properties as $property => $value ) {
 
-			// Build function name (e.g. set_business_name_from_api).
-			$setter = 'set_' . $property . '_from_api';
+			if ( ! empty( $value ) ) {
 
-			// Set property.
-			$this->$setter( $value );
+				// Build function name (e.g. set_business_name_from_api).
+				$setter = 'set_' . $property . '_from_api';
+
+				// Set property.
+				$this->$setter( $value );
+
+			} else {
+
+				$this->$property = '';
+
+			}
 
 		}
 
