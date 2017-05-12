@@ -27,7 +27,9 @@
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
+
 	die;
+
 }
 
 /**
@@ -35,8 +37,10 @@ if ( ! defined( 'WPINC' ) ) {
  * This action is documented in includes/class-wpbr-activator.php
  */
 function activate_wpbr() {
+
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpbr-activator.php';
 	WPBR_Activator::activate();
+
 }
 
 /**
@@ -44,8 +48,10 @@ function activate_wpbr() {
  * This action is documented in includes/class-wpbr-deactivator.php
  */
 function deactivate_wpbr() {
+
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpbr-deactivator.php';
 	WPBR_Deactivator::deactivate();
+
 }
 
 register_activation_hook( __FILE__, 'activate_wpbr' );
@@ -72,4 +78,5 @@ function run_wpbr() {
 	$plugin->run();
 
 }
+
 run_wpbr();
