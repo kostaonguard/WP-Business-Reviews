@@ -30,7 +30,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		$data    = $request->request_business();
 
 		// Set properties from API response.
-		$this->set_name_from_api( $data );
+		$this->set_business_name_from_api( $data );
 		$this->set_platform_url_from_api( $data );
 		$this->set_image_url_from_api( $data );
 		$this->set_rating_from_api( $data );
@@ -119,9 +119,9 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @param array $data Relevant portion of the API response.
 	 */
-	protected function set_name_from_api( $data ) {
+	protected function set_business_name_from_api( $data ) {
 
-		$this->name = isset( $data['name'] ) ? $data['name'] : '';
+		$this->business_name = isset( $data['name'] ) ? $data['name'] : '';
 
 	}
 

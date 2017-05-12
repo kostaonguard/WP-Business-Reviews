@@ -45,7 +45,7 @@ abstract class WPBR_Business {
 	 * @access protected
 	 * @var string
 	 */
-	protected $name;
+	protected $business_name;
 
 	/**
 	 * URL of the business page on the reviews platform.
