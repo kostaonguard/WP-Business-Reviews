@@ -197,7 +197,9 @@ abstract class WPBR_Business {
 
 		} else {
 
-			$this->set_properties_from_api( $this->business_id );
+			$properties = $this->format_properties_from_api( $this->business_id );
+			$this->set_properties_from_api( $properties );
+			// TODO: insert_post() should not be part of constructor.
 			$this->insert_post();
 
 		}
@@ -278,7 +280,7 @@ abstract class WPBR_Business {
 
 		);
 
-		// Define post elements.
+		// Define array of post elements.
 		$postarr = array(
 
 			'post_type'   => 'wpbr_business',
@@ -304,8 +306,6 @@ abstract class WPBR_Business {
 	 */
 	protected function set_properties_from_post( $post_id ) {
 
-		echo 'Set from post.';
-
 		// Set properties from post.
 		$this->set_business_name_from_post( $post_id );
 		$this->set_platform_url_from_post( $post_id );
@@ -320,6 +320,38 @@ abstract class WPBR_Business {
 		$this->set_state_province_from_post( $post_id );
 		$this->set_country_from_post( $post_id );
 		$this->set_postal_code_from_post( $post_id );
+
+	}
+
+	/**
+	 * Format properties from remote API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $business_id ID of the business.
+	 * @return array Array of formatted properties.
+	 */
+	abstract protected function format_properties_from_api( $business_id );
+
+	/**
+	 * Set properties based on remote API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $properties Array of formatted properties.
+	 */
+	protected function set_properties_from_api( $properties ) {
+
+		// Set properties.
+		foreach ( $properties as $property => $value ) {
+
+			// Build function name (e.g. set_business_name_from_api).
+			$setter = 'set_' . $property . '_from_api';
+
+			// Set property.
+			$this->$setter( $value );
+
+		}
 
 	}
 
@@ -493,129 +525,172 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set properties based on remote API response.
-	 *
-	 * @since 1.0.0
-	 * 
-	 * @param string $business_id ID of the business.
-	 */
-	abstract protected function set_properties_from_api( $business_id );
-
-	/**
 	 * Set business name from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $business_name Name of the business.
 	 */
-	abstract protected function set_business_name_from_api( $data );
+	protected function set_business_name_from_api( $business_name ) {
+
+		$this->business_name = isset( $business_name ) ? sanitize_text_field( $business_name ) : '';
+
+	}
 
 	/**
-	 * Set business name from API response.
+	 * Set platform URL from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $platform_url URL of the business page on the reviews platform.
 	 */
-	abstract protected function set_platform_url_from_api( $data );
+	protected function set_platform_url_from_api( $platform_url ) {
+
+		$this->platform_url = filter_var( $platform_url, FILTER_VALIDATE_URL ) ? $platform_url : '';
+
+	}
 
 	/**
 	 * Set image URL from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $image_url URL of the business image.
 	 */
-	abstract protected function set_image_url_from_api( $data );
+	protected function set_image_url_from_api( $image_url ) {
+
+		$this->image_url = filter_var( $image_url, FILTER_VALIDATE_URL ) ? $image_url : '';
+
+	}
 
 	/**
 	 * Set rating from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param float $rating Average numerical rating of the business.
 	 */
-	abstract protected function set_rating_from_api( $data );
+	protected function set_rating_from_api( $rating ) {
+
+		$this->rating = is_numeric( $rating ) ? $rating : '';
+
+	}
 
 	/**
 	 * Set rating count from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param int $rating_count Total number of ratings of the business.
 	 */
-	abstract protected function set_rating_count_from_api( $data );
+	protected function set_rating_count_from_api( $rating_count ) {
+
+		$this->rating_count = is_int( $rating_count ) ? $rating_count : '';
+
+	}
 
 	/**
 	 * Set phone number from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $phone Relevant portion of the API response.
 	 */
-	abstract protected function set_phone_from_api( $data );
+	protected function set_phone_from_api( $phone ) {
+
+		$this->phone = sanitize_text_field( $phone );
+
+	}
 
 	/**
 	 * Set latitude from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param float $latitude Latitude of the business location.
 	 */
-	abstract protected function set_latitude_from_api( $data );
+	protected function set_latitude_from_api( $latitude ) {
+
+		$this->latitude = is_float( $latitude ) ? $latitude : '';
+
+	}
 
 	/**
 	 * Set longitude from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param float $longitude Longitude of the business location.
 	 */
-	abstract protected function set_longitude_from_api( $data );
+	protected function set_longitude_from_api( $longitude ) {
+
+		$this->longitude = is_float( $longitude ) ? $longitude : '';
+
+	}
 
 	/**
 	 * Set street address from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $street_address Street address where the business is located.
 	 */
-	abstract protected function set_street_address_from_api( $data );
+	protected function set_street_address_from_api( $street_address ) {
+
+		$this->street_address = sanitize_text_field( $street_address );
+
+	}
 
 	/**
 	 * Set city from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $city City where the business is located.
 	 */
-	abstract protected function set_city_from_api( $data );
+	protected function set_city_from_api( $city ) {
+
+		$this->city = sanitize_text_field( $city );
+
+	}
 
 	/**
 	 * Set state/province from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $state_province State or province where the business is located.
 	 */
-	abstract protected function set_state_province_from_api( $data );
+	protected function set_state_province_from_api( $state_province ) {
+
+		$this->state_province = sanitize_text_field( $state_province );
+
+	}
 
 	/**
 	 * Set postal code from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $postal_code Postal code where the business is located.
 	 */
-	abstract protected function set_postal_code_from_api( $data );
+	protected function set_postal_code_from_api( $postal_code ) {
+
+		$this->postal_code = sanitize_text_field( $postal_code );
+
+	}
 
 	/**
 	 * Set country from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param string $country Country where the business is located.
 	 */
-	abstract protected function set_country_from_api( $data );
+	protected function set_country_from_api( $country ) {
+
+		$this->country = sanitize_text_field( $country );
+
+	}
 
 }
