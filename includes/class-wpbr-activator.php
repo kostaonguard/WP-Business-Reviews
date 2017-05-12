@@ -31,6 +31,11 @@ class WPBR_Activator {
 	 */
 	public static function activate() {
 
+		$post_types = new WPBR_Post_Types();
+		$post_types->register_post_types();
+		$post_types->register_taxonomies();
+		flush_rewrite_rules();
+
 	}
 
 }
