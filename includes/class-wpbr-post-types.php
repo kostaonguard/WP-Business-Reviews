@@ -30,6 +30,17 @@ class WPBR_Post_Types {
 	}
 
 	/**
+	 * Registers all custom taxonomies.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_taxonomies() {
+
+		$this->register_platform_taxonomy();
+
+	}
+
+	/**
 	 * Registers the wpbr_business post type.
 	 *
 	 * @since 1.0.0
@@ -173,4 +184,52 @@ class WPBR_Post_Types {
 
 	}
 
+	/**
+	 * Registers the wpbr_platform taxonomy.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_platform_taxonomy() {
+
+		$labels = array(
+
+			'name'                       => _x( 'Platforms', 'Taxonomy General Name', 'wpbr' ),
+			'singular_name'              => _x( 'Platform', 'Taxonomy Singular Name', 'wpbr' ),
+			'menu_name'                  => __( 'Taxonomy', 'wpbr' ),
+			'all_items'                  => __( 'All Platforms', 'wpbr' ),
+			'parent_item'                => __( 'Parent Platform', 'wpbr' ),
+			'parent_item_colon'          => __( 'Parent Platform:', 'wpbr' ),
+			'new_item_name'              => __( 'New Platform Name', 'wpbr' ),
+			'add_new_item'               => __( 'Add New Platform', 'wpbr' ),
+			'edit_item'                  => __( 'Edit Platform', 'wpbr' ),
+			'update_item'                => __( 'Update Platform', 'wpbr' ),
+			'view_item'                  => __( 'View Platform', 'wpbr' ),
+			'separate_items_with_commas' => __( 'Separate items with commas', 'wpbr' ),
+			'add_or_remove_items'        => __( 'Add or remove items', 'wpbr' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'wpbr' ),
+			'popular_items'              => __( 'Popular Platforms', 'wpbr' ),
+			'search_items'               => __( 'Search Platforms', 'wpbr' ),
+			'not_found'                  => __( 'Not Found', 'wpbr' ),
+			'no_terms'                   => __( 'No items', 'wpbr' ),
+			'items_list'                 => __( 'Platforms list', 'wpbr' ),
+			'items_list_navigation'      => __( 'Platforms list navigation', 'wpbr' ),
+
+		);
+
+		$args = array(
+
+			'labels'                     => $labels,
+			'hierarchical'               => false,
+			'public'                     => true,
+			'show_ui'                    => true,
+			'show_admin_column'          => true,
+			'show_in_nav_menus'          => true,
+			'show_tagcloud'              => true,
+			'show_in_rest'               => false,
+
+		);
+
+		register_taxonomy( 'wpbr_platform', array(), $args );
+
+	}
 }
