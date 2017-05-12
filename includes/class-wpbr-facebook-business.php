@@ -19,14 +19,16 @@
 class WPBR_Facebook_Business extends WPBR_Business {
 
 	/**
-	 * Sets properties from remote API call.
+	 * Set properties based on remote API response.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $business_id ID of the business.
 	 */
-	protected function set_properties_from_api() {
+	protected function set_properties_from_api( $business_id ) {
 
 		// Request business details from API.
-		$request = new WPBR_Facebook_Request( $this->business_id );
+		$request = new WPBR_Facebook_Request( $business_id );
 		$data    = $request->request_business();
 
 		// Set properties from API response.
