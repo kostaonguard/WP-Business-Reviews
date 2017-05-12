@@ -160,6 +160,7 @@ class WPBR {
 		$post_types = new WPBR_Post_Types();
 
 		$this->loader->add_action( 'init', $post_types, 'register_post_types' );
+		$this->loader->add_action( 'init', $post_types, 'register_taxonomies' );
 
 	}
 

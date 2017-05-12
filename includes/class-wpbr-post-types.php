@@ -229,7 +229,7 @@ class WPBR_Post_Types {
 
 		);
 
-		register_taxonomy( 'wpbr_platform', array(), $args );
+		register_taxonomy( 'wpbr_platform', array( 'wpbr_business', 'wpbr_review' ), $args );
 
 	}
 }
