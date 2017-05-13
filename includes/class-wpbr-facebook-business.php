@@ -19,22 +19,27 @@
 class WPBR_Facebook_Business extends WPBR_Business {
 
 	/**
-	 * Format properties from remote API response.
+	 * Reviews platform associated with the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform = 'facebook';
+
+	/**
+	 * Standardizes data from the remote API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $business_id ID of the business.
+	 * @param array $data Relevant portion of the API response.
 	 *
-	 * @return array Array of formatted properties.
+	 * @return array Standardized properties and values.
 	 */
-	protected function format_properties_from_api( $business_id ) {
-
-		// Request business details from API.
-		$request = new WPBR_Facebook_Request( $business_id );
-		$data    = $request->request_business();
+	protected function standardize_response( $data ) {
 
 		// Format image URL.
-		$image_url = $this->format_image_url( $business_id );
+		$image_url = $this->format_image_url( $this->business_id );
 
 		// Prepare properties to be set.
 		$properties = array(

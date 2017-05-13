@@ -19,19 +19,24 @@
 class WPBR_Google_Places_Business extends WPBR_Business {
 
 	/**
-	 * Format properties from remote API response.
+	 * Reviews platform associated with the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform = 'google_places';
+
+	/**
+	 * Standardizes data from the remote API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $business_id ID of the business.
+	 * @param array $data Relevant portion of the API response.
 	 *
-	 * @return array Array of formatted properties.
+	 * @return array Standardized properties and values.
 	 */
-	protected function format_properties_from_api( $business_id ) {
-
-		// Request business details from API.
-		$request = new WPBR_Google_Places_Request( $business_id );
-		$data    = $request->request_business();
+	protected function standardize_response( $data ) {
 
 		// Format image URL.
 		$photo_reference = sanitize_text_field( $data['photos'][0]['photo_reference'] );
@@ -43,8 +48,8 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		// Format street address.
 		$street_address = $this->format_street_address( $address_components );
 
-		// Prepare properties to be set.
-		$properties = array(
+		// Standardize data to match class properties.
+		$standardized_data = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
 			'platform_url'   => isset( $data['url'] ) ? $data['url'] : '',
@@ -62,7 +67,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 
 		);
 
-		return $properties;
+		return $standardized_data;
 
 	}
 
