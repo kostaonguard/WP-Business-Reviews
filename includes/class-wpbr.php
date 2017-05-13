@@ -113,6 +113,7 @@ class WPBR {
 		 * Classes responsible for API requests to various reviews platforms.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request-factory.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-request.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-request.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-request.php';
