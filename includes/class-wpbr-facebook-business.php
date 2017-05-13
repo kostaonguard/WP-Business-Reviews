@@ -38,8 +38,8 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 */
 	protected function standardize_response( $data ) {
 
-		// Format image URL.
-		$image_url = $this->format_image_url( $this->business_id );
+		// Build image URL.
+		$image_url = $this->build_image_url();
 
 		// Prepare properties to be set.
 		$properties = array(
@@ -69,10 +69,9 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $business_id ID of the business.
 	 * @return string URL of the business image.
 	 */
-	protected function format_image_url( $business_id ) {
+	protected function build_image_url() {
 
 		$image_url = "https://graph.facebook.com/v2.9/{$business_id}/picture/?height=192";
 

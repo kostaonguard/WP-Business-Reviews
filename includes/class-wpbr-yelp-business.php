@@ -38,9 +38,15 @@ class WPBR_Yelp_Business extends WPBR_Business {
 	 */
 	protected function standardize_response( $data ) {
 
-		// Format image URL.
-		$image_url = isset( $data['image_url'] ) ? $data['image_url'] : '';
-		$image_url = $this->format_image_url( $image_url );
+		// Define variables that need special handling for this API.
+		$image_url = '';
+
+		// Build image URL.
+		if ( isset( $data['image_url'] ) ) {
+
+			$image_url = $this->build_image_url( $data['image_url'] );
+
+		}
 
 		// Prepare properties to be set.
 		$properties = array(
@@ -66,14 +72,15 @@ class WPBR_Yelp_Business extends WPBR_Business {
 	}
 
 	/**
-	 * Format image URL from API response.
+	 * Build image URL from API response.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param string $image_url URL of the original business image.
+	 *
 	 * @return string URL of the sized business image.
 	 */
-	protected function format_image_url( $image_url ) {
+	protected function build_image_url( $image_url ) {
 
 		if ( ! empty( $image_url ) ) {
 

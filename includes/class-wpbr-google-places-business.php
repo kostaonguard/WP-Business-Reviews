@@ -38,15 +38,28 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 */
 	protected function standardize_response( $data ) {
 
-		// Format image URL.
-		$photo_reference = sanitize_text_field( $data['photos'][0]['photo_reference'] );
-		$image_url       = $this->format_image_url( $photo_reference );
+		// Define variables that need special handling for this API.
+		$image_url = '';
+		$address_components = array();
 
-		// Parse address components per Google Places' unique format.
-		$address_components = $this->format_address_components( $data['address_components'] );
+		// Build image URL if photo reference is available.
+		if ( isset( $data['photos'][0]['photo_reference'] ) ) {
 
-		// Format street address.
-		$street_address = $this->format_street_address( $address_components );
+			$photo_reference = sanitize_text_field( $data['photos'][0]['photo_reference'] );
+			$image_url       = $this->build_image_url( $photo_reference );
+
+		}
+
+		// Prepare address components.
+		if ( isset( $data['address_components'] ) ) {
+
+			// Parse address components per Google Places' unique format.
+			$address_components = $this->parse_address_components( $data['address_components'] );
+
+			// Build street address.
+			$street_address = $this->build_street_address( $address_components );
+
+		}
 
 		// Standardize data to match class properties.
 		$standardized_data = array(
@@ -72,10 +85,10 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	}
 
 	/**
-	 * Format address components specific to the Google Places address format.
+	 * Parse address components specific to the Google Places address format.
 	 *
 	 * The Google Places API response does not always include the same number
-	 * of address components in the same order, so they need formatted by type
+	 * of address components in the same order, so they need parsed by type
 	 * before constructing the full address.
 	 *
 	 * @since 1.0.0
@@ -84,7 +97,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @return array Address parts organized by type.
 	 */
-	protected function format_address_components( $address_components ) {
+	protected function parse_address_components( $address_components ) {
 
 		$formatted_components = array();
 
@@ -129,7 +142,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	}
 
 	/**
-	 * Format image URL from Google Places API response.
+	 * Build image URL from photo reference in Google Places API response.
 	 *
 	 * @since 1.0.0
 	 *
@@ -137,7 +150,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @return string URL of the business image.
 	 */
-	protected function format_image_url( $photo_reference ) {
+	protected function build_image_url( $photo_reference ) {
 
 		if ( ! empty( $photo_reference ) ) {
 
@@ -161,7 +174,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	}
 
 	/**
-	 * Format street address from Google Places API address components.
+	 * Build street address from Google Places API address components.
 	 *
 	 * @since 1.0.0
 	 *
@@ -169,7 +182,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @return string Street address where the business is located.
 	 */
-	protected function format_street_address( $address_components ) {
+	protected function build_street_address( $address_components ) {
 
 		$street_number = isset( $address_components['street_number'] ) ? $address_components['street_number'] . ' ' : '';
 		$route         = isset( $address_components['route'] ) ? $address_components['route'] : '';
