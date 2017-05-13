@@ -238,11 +238,9 @@ abstract class WPBR_Business {
 
 			return $post->ID;
 
-		} else {
-
-			return 0;
-
 		}
+
+		return 0;
 
 	}
 
