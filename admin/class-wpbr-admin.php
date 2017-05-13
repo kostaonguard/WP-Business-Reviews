@@ -123,7 +123,49 @@ class WPBR_Admin {
 	 * @since  1.0.0
 	 */
 	public function display_options_page() {
+
 		include_once 'partials/wpbr-admin-display.php';
+
+	}
+
+	/**
+	 * Render a business object from a post.
+	 *
+	 * @since  1.0.0
+	 */
+	public function display_business( $post ) {
+
+		$business_id = get_post_meta( $post->ID, 'wpbr_business_id', true );
+		$platform    = get_post_meta( $post->ID, 'wpbr_platform', true );
+
+		switch ( $platform ) {
+
+			case 'google_places':
+
+				$business = new WPBR_Google_Places_Business( $business_id, $platform );
+				break;
+
+			case 'facebook':
+
+				$business = new WPBR_Facebook_Business( $business_id, $platform );
+				break;
+
+			case 'yelp':
+
+				$business = new WPBR_Yelp_Business( $business_id, $platform );
+				break;
+
+			case 'yp':
+
+				$business = new WPBR_YP_Business( $business_id, $platform );
+				break;
+
+		}
+
+		echo '<pre class="postbox" style="overflow-x: scroll; padding: 12px;">';
+		print_r( $business );
+		echo '</pre>';
+
 	}
 
 }
