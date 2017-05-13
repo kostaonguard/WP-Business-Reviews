@@ -289,7 +289,7 @@ abstract class WPBR_Business {
 	 */
 	protected function set_properties_from_post( $post_id ) {
 
-		echo '<strong>SET FROM POST</strong>';
+		echo '<br><strong>SET FROM POST</strong>';
 
 		// Set properties from post.
 		$this->business_name  = get_the_title( $post_id );
