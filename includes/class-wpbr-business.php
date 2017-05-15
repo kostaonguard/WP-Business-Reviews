@@ -41,9 +41,6 @@ abstract class WPBR_Business {
 	/**
 	 * Slug of the business post in the database.
 	 *
-	 * The post slug is a concatenation of the platform and business ID,
-	 * resulting in a unique
-	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
