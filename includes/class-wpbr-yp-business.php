@@ -29,7 +29,7 @@ class WPBR_YP_Business extends WPBR_Business {
 	protected $platform = 'yp';
 
 	/**
-	 * Standardizes data from the remote API response.
+	 * Standardizes business data from the remote API response.
 	 *
 	 * @since 1.0.0
 	 *
@@ -37,7 +37,7 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @return array Standardized properties and values.
 	 */
-	protected function standardize_response( $data ) {
+	public function standardize_business_data( $data ) {
 
 		// Prepare properties to be set.
 		$properties = array(

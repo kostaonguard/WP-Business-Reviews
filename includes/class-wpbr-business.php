@@ -315,10 +315,10 @@ abstract class WPBR_Business {
 		$data = $this->remote_get_business();
 
 		// Standardize data in preparation for setting properties.
-		$standardized_data = $this->standardize_response( $data );
+		$standardized_business = $this->standardize_business_data( $data );
 
 		// Set properties.
-		foreach ( $standardized_data as $property => $value ) {
+		foreach ( $standardized_business as $property => $value ) {
 
 			if ( ! empty( $value ) ) {
 
@@ -357,7 +357,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Standardizes data from the remote API response.
+	 * Standardizes business data from the remote API response.
 	 *
 	 * @since 1.0.0
 	 *
@@ -365,7 +365,7 @@ abstract class WPBR_Business {
 	 *
 	 * @return array Standardized properties and values.
 	 */
-	abstract protected function standardize_response( $data );
+	abstract public function standardize_business_data( $data );
 
 	/**
 	 * Set business name from API response.

@@ -28,7 +28,7 @@ class WPBR_Yelp_Business extends WPBR_Business {
 	protected $platform = 'yelp';
 
 	/**
-	 * Standardizes data from the remote API response.
+	 * Standardizes business data from the remote API response.
 	 *
 	 * @since 1.0.0
 	 *
@@ -36,7 +36,7 @@ class WPBR_Yelp_Business extends WPBR_Business {
 	 *
 	 * @return array Standardized properties and values.
 	 */
-	protected function standardize_response( $data ) {
+	public function standardize_business_data( $data ) {
 
 		// Define variables that need special handling for this API.
 		$image_url = '';
