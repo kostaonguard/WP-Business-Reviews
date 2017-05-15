@@ -168,24 +168,21 @@ abstract class WPBR_Business {
 	 * Constructor.
 	 *
 	 * @param string $business_id ID of the business.
-	 * @param string $platform Reviews platform associated with the business.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct( $business_id ) {
 
 		$this->business_id = $business_id;
-		$this->slug        = $this->create_slug( $this->business_id, $this->platform );
+		$this->slug        = $this->create_slug();
 
-		if ( $post_id = $this->post_exists( $this->slug ) ) {
+		if ( $post_id = $this->post_exists() ) {
 
 			$this->set_properties_from_post( $post_id );
 
 		} else {
 
-			$this->set_properties_from_api( $this->business_id );
-			// TODO: insert_post() should not be part of constructor.
-//			$this->insert_post();
+			$this->set_properties_from_api();
 
 		}
 
