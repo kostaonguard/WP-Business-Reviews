@@ -37,7 +37,7 @@ abstract class WPBR_Request {
 	 *
 	 * @return WP_Error|array Business data or WP_Error on failure.
 	 */
-	abstract protected function request_business();
+	abstract public function request_business();
 
 	/**
 	 * Request reviews data from remote API.
@@ -46,6 +46,6 @@ abstract class WPBR_Request {
 	 *
 	 * @return WP_Error|array Reviews data or WP_Error on failure.
 	 */
-	abstract protected function request_reviews();
+	abstract public function request_reviews();
 
 }
