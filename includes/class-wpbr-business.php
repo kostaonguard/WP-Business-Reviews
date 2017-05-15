@@ -312,8 +312,7 @@ abstract class WPBR_Business {
 		echo '<br><strong>SET FROM API</strong>';
 
 		// Request business data from API.
-		$request = WPBR_Request_Factory::create( $this->business_id, $this->platform );
-		$data    = $request->request_business();
+		$data = $this->remote_get_business();
 
 		// Standardize data in preparation for setting properties.
 		$standardized_data = $this->standardize_response( $data );
@@ -340,6 +339,20 @@ abstract class WPBR_Business {
 			}
 
 		}
+
+	}
+
+	/**
+	 * Get business data from remote API.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function remote_get_business() {
+
+		$request = WPBR_Request_Factory::create( $this->business_id, $this->platform );
+		$data    = $request->request_business();
+
+		return $data;
 
 	}
 
