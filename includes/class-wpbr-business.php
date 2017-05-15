@@ -332,9 +332,12 @@ abstract class WPBR_Business {
 				// Build function name (e.g. set_business_name_from_api).
 				$setter = 'set_' . $property;
 
-				// TODO: Check if function exists before calling setter.
 				// Set property.
-				$this->$setter( $value );
+				if ( method_exists( $this, $setter ) ) {
+
+					$this->$setter( $value );
+
+				}
 
 			} else {
 
