@@ -82,7 +82,7 @@ class WPBR_YP_Request extends WPBR_Request {
 		$url = add_query_arg( $url_params, $this->api_host . $this->listings_path );
 
 		// Initiate request to the YP API.
-		$response = wp_remote_get( $url );
+		$response = wp_safe_remote_get( $url );
 
 		// Return WP_Error on failure.
 		if ( is_wp_error( $response ) ) {

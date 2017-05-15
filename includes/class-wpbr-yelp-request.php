@@ -83,7 +83,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		);
 
 		// Initiate request to the Yelp Fusion API.
-		$response = wp_remote_get( $this->api_host . $this->business_path, $args );
+		$response = wp_safe_remote_get( $this->api_host . $this->business_path, $args );
 
 		// Return WP_Error on failure.
 		if ( is_wp_error( $response ) ) {

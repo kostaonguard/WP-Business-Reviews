@@ -81,7 +81,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 		$url = add_query_arg( $url_params, $this->api_host . $this->place_path );
 
 		// Initiate request to the Google Places API.
-		$response = wp_remote_get( $url );
+		$response = wp_safe_remote_get( $url );
 
 		// Return WP_Error on failure.
 		if ( is_wp_error( $response ) ) {
@@ -110,7 +110,9 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 */
 	public function request_reviews() {
 
-		// TODO: Define how reviews are requested.
+		$data = $this->request_business();
+
+		return $data['reviews'];
 
 	}
 
