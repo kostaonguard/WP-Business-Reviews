@@ -167,6 +167,9 @@ abstract class WPBR_Business {
 	/**
 	 * Constructor.
 	 *
+	 * If business post exists in database, then properties are set from post.
+	 * Otherwise properties are set from platform API.
+	 *
 	 * @param string $business_id ID of the business.
 	 *
 	 * @since 1.0.0
@@ -182,7 +185,22 @@ abstract class WPBR_Business {
 
 		} else {
 
-			$this->set_properties_from_api();
+			// Request business data from API.
+			$business_data = $this->remote_get_business();
+
+			if ( ! is_wp_error( $business_data ) ) {
+
+				// Standardize API response data to match class properties.
+				$properties = $this->standardize_properties( $business_data );
+
+				// Set properties from array of standardized key-value pairs.
+				$this->set_properties_from_array( $properties );
+
+			} else {
+
+				echo '<pre>'; var_dump( $business_data ); echo '</pre>';
+
+			}
 
 		}
 
@@ -233,7 +251,6 @@ abstract class WPBR_Business {
 		// Define post meta.
 		$meta_input = array(
 
-			'wpbr_platform'       => $this->platform,
 			'wpbr_business_id'    => $this->business_id,
 			'wpbr_platform_url'   => $this->platform_url,
 			'wpbr_image_url'      => $this->image_url,
@@ -303,22 +320,15 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set properties from remote API response.
+	 * Set properties from array of key-value pairs.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
-	protected function set_properties_from_api() {
+	protected function set_properties_from_array( $properties ) {
 
-		echo '<br><strong>SET FROM API</strong>';
-
-		// Request business data from API.
-		$data = $this->remote_get_business();
-
-		// Standardize data in preparation for setting properties.
-		$standardized_business = $this->standardize_business_data( $data );
-
-		// Set properties.
-		foreach ( $standardized_business as $property => $value ) {
+		foreach ( $properties as $property => $value ) {
 
 			if ( ! empty( $value ) ) {
 
@@ -349,10 +359,10 @@ abstract class WPBR_Business {
 	 */
 	protected function remote_get_business() {
 
-		$request = WPBR_Request_Factory::create( $this->business_id, $this->platform );
-		$data    = $request->request_business();
+		$request  = WPBR_Request_Factory::create( $this->business_id, $this->platform );
+		$response = $request->request_business();
 
-		return $data;
+		return $response;
 
 	}
 
