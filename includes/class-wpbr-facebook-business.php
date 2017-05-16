@@ -28,7 +28,7 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	protected $platform = 'facebook';
 
 	/**
-	 * Standardizes business data from the remote API response.
+	 * Standardizes business properties from the remote API response.
 	 *
 	 * @since 1.0.0
 	 *
@@ -36,7 +36,7 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @return array Standardized properties and values.
 	 */
-	public function standardize_business_data( $data ) {
+	public function standardize_properties( $data ) {
 
 		// Build image URL.
 		$image_url = $this->build_image_url();

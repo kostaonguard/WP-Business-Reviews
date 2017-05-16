@@ -357,15 +357,15 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Standardizes business data from the remote API response.
+	 * Standardizes business properties from the remote API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param array $business_data Relevant portion of the API response.
 	 *
 	 * @return array Standardized properties and values.
 	 */
-	abstract public function standardize_business_data( $data );
+	abstract public function standardize_properties( $business_data );
 
 	/**
 	 * Set business name from API response.

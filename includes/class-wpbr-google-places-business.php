@@ -28,7 +28,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	protected $platform = 'google_places';
 
 	/**
-	 * Standardizes business data from the remote API response.
+	 * Standardizes business properties from the remote API response.
 	 *
 	 * @since 1.0.0
 	 *
@@ -36,7 +36,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @return array Standardized properties and values.
 	 */
-	public function standardize_business_data( $data ) {
+	public function standardize_properties( $data ) {
 
 		// Define variables that need special handling for this API.
 		$image_url = '';
@@ -62,7 +62,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		}
 
 		// Standardize data to match class properties.
-		$standardized_data = array(
+		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
 			'platform_url'   => isset( $data['url'] ) ? $data['url'] : '',
@@ -80,7 +80,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 
 		);
 
-		return $standardized_data;
+		return $properties;
 
 	}
 
