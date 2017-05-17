@@ -110,6 +110,10 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-business.php';
 
 		/**
+		 * Classes responsible for implementing the WPBR_Review object.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-review.php';
+
 		 * Classes responsible for API requests to various reviews platforms.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request.php';
