@@ -195,7 +195,7 @@ class WPBR_Post_Types {
 
 			'name'                       => _x( 'Platforms', 'Taxonomy General Name', 'wpbr' ),
 			'singular_name'              => _x( 'Platform', 'Taxonomy Singular Name', 'wpbr' ),
-			'menu_name'                  => __( 'Taxonomy', 'wpbr' ),
+			'menu_name'                  => __( 'Platforms', 'wpbr' ),
 			'all_items'                  => __( 'All Platforms', 'wpbr' ),
 			'parent_item'                => __( 'Parent Platform', 'wpbr' ),
 			'parent_item_colon'          => __( 'Parent Platform:', 'wpbr' ),
