@@ -34,6 +34,7 @@ class WPBR_Activator {
 		$post_types = new WPBR_Post_Types();
 		$post_types->register_post_types();
 		$post_types->register_taxonomies();
+		$post_types->insert_terms();
 		flush_rewrite_rules();
 
 	}

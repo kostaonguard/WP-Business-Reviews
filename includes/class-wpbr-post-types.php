@@ -41,6 +41,40 @@ class WPBR_Post_Types {
 	}
 
 	/**
+	 * Insert default terms.
+	 *
+	 * @since 1.0.0
+	 */
+	public function insert_terms() {
+
+		$platforms = array(
+
+			'google_places' => 'Google Places',
+			'facebook'      => 'Facebook',
+			'yelp'          => 'Yelp',
+			'yp'            => 'Yellow Pages',
+
+		);
+
+		foreach ( $platforms as $slug => $term ) {
+
+			if ( ! term_exists( $slug ) ) {
+
+				$args = array(
+
+					'slug' => $slug,
+
+				);
+
+				wp_insert_term( $term, 'wpbr_platform', $args );
+
+			}
+
+		}
+
+	}
+
+	/**
 	 * Registers the wpbr_business post type.
 	 *
 	 * @since 1.0.0
