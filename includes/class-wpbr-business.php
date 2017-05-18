@@ -66,13 +66,13 @@ abstract class WPBR_Business {
 	protected $business_name;
 
 	/**
-	 * URL of the business page on the reviews platform.
+	 * URL of the business page on the platform.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
-	protected $platform_url;
+	protected $business_url;
 
 	/**
 	 * URL of the business image.
@@ -109,24 +109,6 @@ abstract class WPBR_Business {
 	 * @var string
 	 */
 	protected $phone;
-
-	/**
-	 * Latitude of the business location.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $latitude;
-
-	/**
-	 * Longitude of the business location.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $longitude;
 
 	/**
 	 * Street address where the business is located.
@@ -172,6 +154,24 @@ abstract class WPBR_Business {
 	 * @var string
 	 */
 	protected $country;
+
+	/**
+	 * Latitude of the business location.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $latitude;
+
+	/**
+	 * Longitude of the business location.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $longitude;
 
 	/**
 	 * Constructor.
@@ -248,7 +248,7 @@ abstract class WPBR_Business {
 		$meta_input = array(
 
 			'wpbr_business_id'    => $this->business_id,
-			'wpbr_platform_url'   => $this->platform_url,
+			'wpbr_business_url'   => $this->business_url,
 			'wpbr_image_url'      => $this->image_url,
 			'wpbr_rating'         => $this->rating,
 			'wpbr_rating_count'   => $this->rating_count,
@@ -301,7 +301,7 @@ abstract class WPBR_Business {
 		// Set properties from post.
 		$this->post_id        = $post_id;
 		$this->business_name  = get_the_title( $post_id );
-		$this->platform_url   = get_post_meta( $post_id, 'wpbr_platform_url', true );
+		$this->business_url   = get_post_meta( $post_id, 'wpbr_business_url', true );
 		$this->image_url      = get_post_meta( $post_id, 'wpbr_image_url', true );
 		$this->rating         = get_post_meta( $post_id, 'wpbr_rating', true );
 		$this->rating_count   = get_post_meta( $post_id, 'wpbr_rating_count', true );
@@ -366,15 +366,15 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set platform URL from API response.
+	 * Set business URL from API response.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $platform_url URL of the business page on the reviews platform.
+	 * @param string $business_url URL of the business page on the platform.
 	 */
-	public function set_platform_url( $platform_url ) {
+	public function set_business_url( $business_url ) {
 
-		$this->platform_url = filter_var( $platform_url, FILTER_VALIDATE_URL ) ? $platform_url : '';
+		$this->business_url = filter_var( $business_url, FILTER_VALIDATE_URL ) ? $business_url : '';
 
 	}
 
