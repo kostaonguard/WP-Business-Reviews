@@ -135,8 +135,15 @@ class WPBR_Admin {
 	 */
 	public function display_business( $post ) {
 
-		$business_id = get_post_meta( $post->ID, 'wpbr_business_id', true );
-		$platform    = get_post_meta( $post->ID, 'wpbr_platform', true );
+		if ( 'wpbr_business' !== $post->post_type ) {
+
+			return;
+
+		}
+
+		$business_id    = get_post_meta( $post->ID, 'wpbr_business_id', true );
+		$platform_terms = get_the_terms( $post->ID, 'wpbr_platform' );
+		$platform       = $platform_terms[0]->slug;
 
 		switch ( $platform ) {
 
@@ -162,9 +169,13 @@ class WPBR_Admin {
 
 		}
 
-		echo '<pre class="postbox" style="overflow-x: scroll; padding: 12px;">';
-		print_r( $business );
-		echo '</pre>';
+		if ( ! empty( $business ) ) {
+
+			echo '<pre class="postbox" style="overflow-x: scroll; padding: 12px ;">';
+			print_r( $business );
+			echo '</pre>';
+
+		}
 
 	}
 
