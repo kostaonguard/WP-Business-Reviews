@@ -61,7 +61,7 @@ class WPBR_YP_Request extends WPBR_Request {
 	}
 
 	/**
-	 * Request business data from remote API.
+	 * Requests business data from remote API.
 	 *
 	 * @since 1.0.0
 	 *
@@ -103,7 +103,7 @@ class WPBR_YP_Request extends WPBR_Request {
 	}
 
 	/**
-	 * Request reviews data from remote API.
+	 * Requests reviews data from remote API.
 	 *
 	 * @since 1.0.0
 	 *
