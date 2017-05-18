@@ -28,15 +28,6 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	protected $api_host = 'https://api.yelp.com';
 
 	/**
-	 * URL path used for Yelp Business requests.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $business_path;
-
-	/**
 	 * OAuth2 token required for Yelp Fusion API requests.
 	 *
 	 * @since 1.0.0
@@ -82,24 +73,17 @@ class WPBR_Yelp_Request extends WPBR_Request {
 
 		);
 
-		// Initiate request to the Yelp Fusion API.
-		$response = wp_safe_remote_get( $this->api_host . $this->business_path, $args );
+		// Request data from remote API.
+		$response = $this->request( $this->business_path, array(), $args );
 
-		// Return WP_Error on failure.
 		if ( is_wp_error( $response ) ) {
 
 			return $response;
 
 		}
 
-		// Get just the response body.
-		$body = wp_remote_retrieve_body( $response );
-
-		// Convert to a more manageable array.
-		$data = json_decode( $body, true );
-
-		// Return relevant portion of business data.
-		return $data;
+		// Return only the relevant portion of the response.
+		return $response;
 
 	}
 
