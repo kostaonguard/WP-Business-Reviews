@@ -188,6 +188,7 @@ abstract class WPBR_Business {
 		$this->business_id = $business_id;
 		$this->post_slug   = $this->build_post_slug();
 
+		// Attempt to retrieve post from database using the post slug.
 		$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_business' );
 
 		if ( ! empty( $post ) ) {
@@ -207,9 +208,6 @@ abstract class WPBR_Business {
 
 				// Set properties from array of standardized key-value pairs.
 				$this->set_properties_from_array( $properties );
-
-				// TODO: Remove insert_post() after testing.
-				$this->insert_post();
 
 			} else {
 
@@ -236,6 +234,17 @@ abstract class WPBR_Business {
 		return sanitize_title( $post_slug );
 
 	}
+
+	/**
+	 * Standardizes business properties from the remote API response.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $business_data Relevant portion of the API response.
+	 *
+	 * @return array Standardized properties and values.
+	 */
+	abstract protected function standardize_properties( $business_data );
 
 	/**
 	 * Inserts wpbr_business post into the database.
@@ -342,18 +351,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Standardizes business properties from the remote API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $business_data Relevant portion of the API response.
-	 *
-	 * @return array Standardized properties and values.
-	 */
-	abstract public function standardize_properties( $business_data );
-
-	/**
-	 * Set business name from API response.
+	 * Set business name.
 	 *
 	 * @since 1.0.0
 	 *
@@ -366,7 +364,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set business URL from API response.
+	 * Set business URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -379,7 +377,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set image URL from API response.
+	 * Set image URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -392,7 +390,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set rating from API response.
+	 * Set rating.
 	 *
 	 * @since 1.0.0
 	 *
@@ -405,7 +403,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set rating count from API response.
+	 * Set rating count.
 	 *
 	 * @since 1.0.0
 	 *
@@ -418,7 +416,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set phone number from API response.
+	 * Set phone number.
 	 *
 	 * @since 1.0.0
 	 *
@@ -431,33 +429,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set latitude from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param float $latitude Latitude of the business location.
-	 */
-	public function set_latitude( $latitude ) {
-
-		$this->latitude = is_float( $latitude ) ? $latitude : '';
-
-	}
-
-	/**
-	 * Set longitude from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param float $longitude Longitude of the business location.
-	 */
-	public function set_longitude( $longitude ) {
-
-		$this->longitude = is_float( $longitude ) ? $longitude : '';
-
-	}
-
-	/**
-	 * Set street address from API response.
+	 * Set street address.
 	 *
 	 * @since 1.0.0
 	 *
@@ -470,7 +442,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set city from API response.
+	 * Set city.
 	 *
 	 * @since 1.0.0
 	 *
@@ -483,7 +455,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set state/province from API response.
+	 * Set state/province.
 	 *
 	 * @since 1.0.0
 	 *
@@ -496,7 +468,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set postal code from API response.
+	 * Set postal code.
 	 *
 	 * @since 1.0.0
 	 *
@@ -509,7 +481,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set country from API response.
+	 * Set country.
 	 *
 	 * @since 1.0.0
 	 *
@@ -518,6 +490,32 @@ abstract class WPBR_Business {
 	public function set_country( $country ) {
 
 		$this->country = sanitize_text_field( $country );
+
+	}
+
+	/**
+	 * Set latitude.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param float $latitude Latitude of the business location.
+	 */
+	public function set_latitude( $latitude ) {
+
+		$this->latitude = is_float( $latitude ) ? $latitude : '';
+
+	}
+
+	/**
+	 * Set longitude.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param float $longitude Longitude of the business location.
+	 */
+	public function set_longitude( $longitude ) {
+
+		$this->longitude = is_float( $longitude ) ? $longitude : '';
 
 	}
 
