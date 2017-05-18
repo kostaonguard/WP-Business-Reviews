@@ -77,32 +77,25 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 
 		);
 
-		// Build the request URL (host + path + parameters).
-		$url = add_query_arg( $url_params, $this->api_host . $this->place_path );
+		// Request data from remote API.
+		$response = $this->request( $this->place_path, $url_params );
 
-		// Initiate request to the Google Places API.
-		$response = wp_safe_remote_get( $url );
-
-		// Return WP_Error on failure.
 		if ( is_wp_error( $response ) ) {
 
 			return $response;
 
 		}
 
-		// Get just the response body.
-		$body = wp_remote_retrieve_body( $response );
-
-		// Convert to a more manageable array.
-		$data = json_decode( $body, true );
-
-		// Return relevant portion of business data.
-		return $data['result'];
+		// Return only the relevant portion of the response.
+		return $response['result'];
 
 	}
 
 	/**
 	 * Requests reviews data from remote API.
+	 *
+	 * Since Google Places API returns business and reviews data together, the
+	 * business request logic can be reused to access reviews.
 	 *
 	 * @since 1.0.0
 	 *
@@ -110,9 +103,17 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 */
 	public function request_reviews() {
 
-		$data = $this->request_business();
+		// Use the business request as a starting point.
+		$response = $this->request_business();
 
-		return $data['reviews'];
+		if ( is_wp_error( $response ) ) {
+
+			return $response;
+
+		}
+
+		// Return only the relevant portion of the response.
+		return $response['reviews'];
 
 	}
 
