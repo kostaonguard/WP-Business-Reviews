@@ -40,6 +40,24 @@ abstract class WPBR_Request {
 	protected $api_host;
 
 	/**
+	 * URL path used for business requests.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $business_path;
+
+	/**
+	 * URL path used for reviews requests.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $reviews_path;
+
+	/**
 	 * Requests data from remote API.
 	 *
 	 * This method dynamically creates requests based on the path and URL
