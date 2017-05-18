@@ -45,18 +45,18 @@ class WPBR_Facebook_Business extends WPBR_Business {
 		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'platform_url'   => isset( $data['link'] ) ? $data['link'] : '',
+			'page_url'       => isset( $data['link'] ) ? $data['link'] : '',
 			'image_url'      => $image_url,
 			'rating'         => isset( $data['overall_star_rating'] ) ? $data['overall_star_rating'] : '',
 			'rating_count'   => isset( $data['rating_count'] ) ? $data['rating_count'] : '',
 			'phone'          => isset( $data['phone'] ) ? $data['phone'] : '',
-			'latitude'       => isset( $data['location']['latitude'] ) ? $data['location']['latitude'] : '',
-			'longitude'      => isset( $data['location']['longitude'] ) ? $data['location']['longitude'] : '',
 			'street_address' => isset( $data['location']['street_address'] ) ? $data['location']['street_address'] : '',
 			'city'           => isset( $data['location']['city'] ) ? $data['location']['city'] : '',
 			'state_province' => isset( $data['location']['state'] ) ? $data['location']['state'] : '',
 			'postal_code'    => isset( $data['location']['zip'] ) ? $data['location']['zip'] : '',
 			'country'        => isset( $data['location']['country'] ) ? $data['location']['country'] : '',
+			'latitude'       => isset( $data['location']['latitude'] ) ? $data['location']['latitude'] : '',
+			'longitude'      => isset( $data['location']['longitude'] ) ? $data['location']['longitude'] : '',
 
 		);
 

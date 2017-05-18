@@ -72,7 +72,7 @@ abstract class WPBR_Business {
 	 * @access protected
 	 * @var string
 	 */
-	protected $business_url;
+	protected $page_url;
 
 	/**
 	 * URL of the business image.
@@ -257,7 +257,7 @@ abstract class WPBR_Business {
 		$meta_input = array(
 
 			'wpbr_business_id'    => $this->business_id,
-			'wpbr_business_url'   => $this->business_url,
+			'wpbr_page_url'       => $this->page_url,
 			'wpbr_image_url'      => $this->image_url,
 			'wpbr_rating'         => $this->rating,
 			'wpbr_rating_count'   => $this->rating_count,
@@ -310,7 +310,7 @@ abstract class WPBR_Business {
 		// Set properties from post.
 		$this->post_id        = $post_id;
 		$this->business_name  = get_the_title( $post_id );
-		$this->business_url   = get_post_meta( $post_id, 'wpbr_business_url', true );
+		$this->page_url   = get_post_meta( $post_id, 'wpbr_page_url', true );
 		$this->image_url      = get_post_meta( $post_id, 'wpbr_image_url', true );
 		$this->rating         = get_post_meta( $post_id, 'wpbr_rating', true );
 		$this->rating_count   = get_post_meta( $post_id, 'wpbr_rating_count', true );
@@ -368,11 +368,11 @@ abstract class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $business_url URL of the business page on the platform.
+	 * @param string $page_url URL of the business page on the platform.
 	 */
-	public function set_business_url( $business_url ) {
+	public function set_page_url( $page_url ) {
 
-		$this->business_url = filter_var( $business_url, FILTER_VALIDATE_URL ) ? $business_url : '';
+		$this->page_url = filter_var( $page_url, FILTER_VALIDATE_URL ) ? $page_url : '';
 
 	}
 

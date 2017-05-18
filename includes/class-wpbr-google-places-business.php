@@ -65,7 +65,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'business_url'   => isset( $data['url'] ) ? $data['url'] : '',
+			'page_url'       => isset( $data['url'] ) ? $data['url'] : '',
 			'image_url'      => $image_url,
 			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
 			'rating_count'   => '', // Unavailable.
