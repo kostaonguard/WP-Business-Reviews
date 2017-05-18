@@ -66,12 +66,13 @@ abstract class WPBR_Request {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $path Path used in the request URL.
+	 * @param string $path       Path used in the request URL.
 	 * @param array  $url_params URL parameters used in the request URL.
+	 * @param array  $args       Arguments passed to wp_safe_remote_get().
 	 *
 	 * @return WP_Error|array API response data or WP_Error on failure.
 	 */
-	protected function request( $path, $url_params = array() ) {
+	protected function request( $path, $url_params = array(), $args = array() ) {
 
 		if ( empty( $this->api_host ) || empty( $path ) ) {
 
@@ -90,7 +91,7 @@ abstract class WPBR_Request {
 		}
 
 		// Initiate request to the Google Places API.
-		$response = wp_safe_remote_get( $url );
+		$response = wp_safe_remote_get( $url, $args );
 
 		// Return WP_Error on failure.
 		if ( is_wp_error( $response ) ) {
