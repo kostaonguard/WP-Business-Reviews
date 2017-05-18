@@ -48,6 +48,7 @@
 
 		$google_places_business = new WPBR_Google_Places_Business( $_POST[ 'google_places_business_id' ], 'google_places' );
 		echo '<pre>'; print_r( $google_places_business ); echo '</pre>';
+//		$google_places_reviews = new WPBR_Google_Places_Reviews( $_POST[ 'google_places_business_id' ], 'google_places' );
 
 	}
 	?>

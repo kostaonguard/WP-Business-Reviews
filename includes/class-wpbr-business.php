@@ -30,13 +30,22 @@ abstract class WPBR_Business {
 	protected $platform;
 
 	/**
-	 * ID of the business.
+	 * ID of the business on the platform.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
 	protected $business_id;
+
+	/**
+	 * ID of the business post in the database.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var int
+	 */
+	protected $post_id;
 
 	/**
 	 * Slug of the business post in the database.
@@ -177,16 +186,19 @@ abstract class WPBR_Business {
 	public function __construct( $business_id ) {
 
 		$this->business_id = $business_id;
-		$this->slug        = $this->create_slug();
+		$this->slug        = $this->build_slug();
 
-		if ( $post_id = $this->post_exists() ) {
+		$post = get_page_by_path( $this->slug, OBJECT, 'wpbr_business' );
 
-			$this->set_properties_from_post( $post_id );
+		if ( ! empty( $post ) ) {
+
+			$this->set_properties_from_post( $post->ID );
 
 		} else {
 
 			// Request business data from API.
-			$business_data = $this->remote_get_business();
+			$request  = WPBR_Request_Factory::create( $this->business_id, $this->platform );
+			$response = $request->request_business();
 
 			if ( ! is_wp_error( $business_data ) ) {
 
@@ -195,6 +207,9 @@ abstract class WPBR_Business {
 
 				// Set properties from array of standardized key-value pairs.
 				$this->set_properties_from_array( $properties );
+
+				// TODO: Remove insert_post() after testing.
+				$this->insert_post();
 
 			} else {
 
@@ -207,37 +222,18 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Creates unique slug by concatenating platform and business ID.
+	 * Builds unique slug by concatenating platform and business ID.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return string Business post slug.
 	 */
-	protected function create_slug() {
+	protected function build_slug() {
 
 		$slug = $this->platform . '-' . $this->business_id;
 		$slug = str_replace( '_', '-', strtolower( $slug ) );
 
 		return sanitize_title( $slug );
-
-	}
-
-	/**
-	 * Checks if business post exists in the database based on post slug.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return int Post ID if post exists, 0 otherwise.
-	 */
-	public function post_exists() {
-
-		if ( $post = get_page_by_path( $this->slug, OBJECT, 'wpbr_business' ) ) {
-
-			return $post->ID;
-
-		}
-
-		return 0;
 
 	}
 
@@ -303,6 +299,7 @@ abstract class WPBR_Business {
 		echo '<br><strong>SET FROM POST</strong>';
 
 		// Set properties from post.
+		$this->post_id        = $post_id;
 		$this->business_name  = get_the_title( $post_id );
 		$this->platform_url   = get_post_meta( $post_id, 'wpbr_platform_url', true );
 		$this->image_url      = get_post_meta( $post_id, 'wpbr_image_url', true );
@@ -330,39 +327,17 @@ abstract class WPBR_Business {
 
 		foreach ( $properties as $property => $value ) {
 
-			if ( ! empty( $value ) ) {
+			// Build function name (e.g. set_business_name_from_api).
+			$setter = 'set_' . $property;
 
-				// Build function name (e.g. set_business_name_from_api).
-				$setter = 'set_' . $property;
+			// Set property.
+			if ( method_exists( $this, $setter ) ) {
 
-				// Set property.
-				if ( method_exists( $this, $setter ) ) {
-
-					$this->$setter( $value );
-
-				}
-
-			} else {
-
-				$this->$property = '';
+				$this->$setter( $value );
 
 			}
 
 		}
-
-	}
-
-	/**
-	 * Get business data from remote API.
-	 *
-	 * @since 1.0.0
-	 */
-	protected function remote_get_business() {
-
-		$request  = WPBR_Request_Factory::create( $this->business_id, $this->platform );
-		$response = $request->request_business();
-
-		return $response;
 
 	}
 
