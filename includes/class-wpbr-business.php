@@ -198,7 +198,7 @@ abstract class WPBR_Business {
 		} else {
 
 			// Request business data from API.
-			$request  = WPBR_Request_Factory::create( $this->business_id, $this->platform );
+			$request       = WPBR_Request_Factory::create( $this->business_id, $this->platform );
 			$business_data = $request->request_business();
 
 			if ( ! is_wp_error( $business_data ) ) {
