@@ -39,6 +39,7 @@ class WPBR_Yelp_Business extends WPBR_Business {
 	public function standardize_properties( $data ) {
 
 		// Define variables that need special handling for this API.
+		$page_url  = 'https://www.yelp.com/biz/' . $this->business_id;
 		$image_url = '';
 
 		// Build image URL.
@@ -52,18 +53,18 @@ class WPBR_Yelp_Business extends WPBR_Business {
 		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'platform_url'   => isset( $data['url'] ) ? $data['url'] : '',
+			'page_url'       => $page_url,
 			'image_url'      => $image_url,
 			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
 			'rating_count'   => isset( $data['review_count'] ) ? $data['review_count'] : '',
 			'phone'          => isset( $data['display_phone'] ) ? $data['display_phone'] : '',
-			'latitude'       => isset( $data['coordinates']['latitude'] ) ? $data['coordinates']['latitude'] : '',
-			'longitude'      => isset( $data['coordinates']['longitude'] ) ? $data['coordinates']['longitude'] : '',
 			'street_address' => isset( $data['location']['address1'] ) ? $data['location']['address1'] : '',
 			'city'           => isset( $data['location']['city'] ) ? $data['location']['city'] : '',
 			'state_province' => isset( $data['location']['state'] ) ? $data['location']['state'] : '',
 			'postal_code'    => isset( $data['location']['zip_code'] ) ? $data['location']['zip_code'] : '',
 			'country'        => isset( $data['location']['country'] ) ? $data['location']['country'] : '',
+			'latitude'       => isset( $data['coordinates']['latitude'] ) ? $data['coordinates']['latitude'] : '',
+			'longitude'      => isset( $data['coordinates']['longitude'] ) ? $data['coordinates']['longitude'] : '',
 
 		);
 
