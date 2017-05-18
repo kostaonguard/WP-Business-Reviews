@@ -54,7 +54,7 @@ abstract class WPBR_Business {
 	 * @access protected
 	 * @var string
 	 */
-	protected $slug;
+	protected $post_slug;
 
 	/**
 	 * Name of the business.
@@ -186,9 +186,9 @@ abstract class WPBR_Business {
 	public function __construct( $business_id ) {
 
 		$this->business_id = $business_id;
-		$this->slug        = $this->build_slug();
+		$this->post_slug   = $this->build_post_slug();
 
-		$post = get_page_by_path( $this->slug, OBJECT, 'wpbr_business' );
+		$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_business' );
 
 		if ( ! empty( $post ) ) {
 
@@ -222,18 +222,18 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Builds unique slug by concatenating platform and business ID.
+	 * Builds unique post slug by concatenating platform and business ID.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return string Business post slug.
+	 * @return string Slug of the business post in the database.
 	 */
-	protected function build_slug() {
+	protected function build_post_slug() {
 
-		$slug = $this->platform . '-' . $this->business_id;
-		$slug = str_replace( '_', '-', strtolower( $slug ) );
+		$post_slug = $this->platform . '-' . $this->business_id;
+		$post_slug = str_replace( '_', '-', strtolower( $post_slug ) );
 
-		return sanitize_title( $slug );
+		return sanitize_title( $post_slug );
 
 	}
 
@@ -275,7 +275,7 @@ abstract class WPBR_Business {
 
 			'post_type'   => 'wpbr_business',
 			'post_title'  => $this->business_name,
-			'post_name'   => $this->slug,
+			'post_name'   => $this->post_slug,
 			'post_status' => 'publish',
 			'meta_input'  => $meta_input,
 			'tax_input'   => $tax_input,
