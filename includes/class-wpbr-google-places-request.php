@@ -34,7 +34,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 * @access protected
 	 * @var string
 	 */
-	protected $place_path = '/maps/api/place/details/json';
+	protected $business_path = '/maps/api/place/details/json';
 
 	/**
 	 * API key used in the request URL.
