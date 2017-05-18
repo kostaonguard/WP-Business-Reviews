@@ -28,13 +28,13 @@ class WPBR_YP_Request extends WPBR_Request {
 	protected $api_host = 'http://api2.yp.com';
 
 	/**
-	 * URL path used for YP Listing requests.
+	 * URL path used for business requests.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
-	protected $listings_path = '/listings/v1/details';
+	protected $business_path = '/listings/v1/details';
 
 	/**
 	 * API key used in the request URL.
@@ -78,27 +78,17 @@ class WPBR_YP_Request extends WPBR_Request {
 
 		);
 
-		// Build the request URL (host + path + parameters).
-		$url = add_query_arg( $url_params, $this->api_host . $this->listings_path );
+		// Request data from remote API.
+		$response = $this->request( $this->business_path, $url_params );
 
-		// Initiate request to the YP API.
-		$response = wp_safe_remote_get( $url );
-
-		// Return WP_Error on failure.
 		if ( is_wp_error( $response ) ) {
 
 			return $response;
 
 		}
 
-		// Get just the response body.
-		$body = wp_remote_retrieve_body( $response );
-
-		// Convert to a more manageable array.
-		$data = json_decode( $body, true );
-
-		// Return relevant portion of business data.
-		return $data['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
+		// Return only the relevant portion of the response.
+		return $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
 
 	}
 
