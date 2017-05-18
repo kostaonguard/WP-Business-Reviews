@@ -36,7 +36,7 @@ abstract class WPBR_Business {
 	 * @access protected
 	 * @var string
 	 */
-	protected $business_id;
+	protected $platform_id;
 
 	/**
 	 * ID of the business post in the database.
@@ -179,13 +179,13 @@ abstract class WPBR_Business {
 	 * If business post exists in database, then properties are set from post.
 	 * Otherwise properties are set from platform API.
 	 *
-	 * @param string $business_id ID of the business.
+	 * @param string $platform_id ID of the business.
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $business_id ) {
+	public function __construct( $platform_id ) {
 
-		$this->business_id = $business_id;
+		$this->platform_id = $platform_id;
 		$this->post_slug   = $this->build_post_slug();
 
 		// Attempt to retrieve post from database using the post slug.
@@ -198,7 +198,7 @@ abstract class WPBR_Business {
 		} else {
 
 			// Request business data from API.
-			$request       = WPBR_Request_Factory::create( $this->business_id, $this->platform );
+			$request       = WPBR_Request_Factory::create( $this->platform_id, $this->platform );
 			$business_data = $request->request_business();
 
 			if ( ! is_wp_error( $business_data ) ) {
@@ -228,7 +228,7 @@ abstract class WPBR_Business {
 	 */
 	protected function build_post_slug() {
 
-		$post_slug = $this->platform . '-' . $this->business_id;
+		$post_slug = $this->platform . '-' . $this->platform_id;
 		$post_slug = str_replace( '_', '-', strtolower( $post_slug ) );
 
 		return sanitize_title( $post_slug );
@@ -256,7 +256,7 @@ abstract class WPBR_Business {
 		// Define post meta.
 		$meta_input = array(
 
-			'wpbr_business_id'    => $this->business_id,
+			'wpbr_platform_id'    => $this->platform_id,
 			'wpbr_page_url'       => $this->page_url,
 			'wpbr_image_url'      => $this->image_url,
 			'wpbr_rating'         => $this->rating,

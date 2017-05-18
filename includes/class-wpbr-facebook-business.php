@@ -73,7 +73,7 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 */
 	protected function build_image_url() {
 
-		$image_url = "https://graph.facebook.com/v2.9/{$this->business_id}/picture/?height=192";
+		$image_url = "https://graph.facebook.com/v2.9/{$this->platform_id}/picture/?height=192";
 
 		return $image_url;
 
