@@ -53,19 +53,19 @@ class WPBR_Yelp_Business extends WPBR_Business {
 		// Standardize data to match class properties.
 		$properties = array(
 
-			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
+			'business_name'  => isset( $data['name'] ) ? $data['name'] : null,
 			'page_url'       => $page_url,
 			'image_url'      => $image_url,
-			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
-			'rating_count'   => isset( $data['review_count'] ) ? $data['review_count'] : '',
-			'phone'          => isset( $data['display_phone'] ) ? $data['display_phone'] : '',
-			'street_address' => isset( $data['location']['address1'] ) ? $data['location']['address1'] : '',
-			'city'           => isset( $data['location']['city'] ) ? $data['location']['city'] : '',
-			'state_province' => isset( $data['location']['state'] ) ? $data['location']['state'] : '',
-			'postal_code'    => isset( $data['location']['zip_code'] ) ? $data['location']['zip_code'] : '',
-			'country'        => isset( $data['location']['country'] ) ? $data['location']['country'] : '',
-			'latitude'       => isset( $data['coordinates']['latitude'] ) ? $data['coordinates']['latitude'] : '',
-			'longitude'      => isset( $data['coordinates']['longitude'] ) ? $data['coordinates']['longitude'] : '',
+			'rating'         => isset( $data['rating'] ) ? $data['rating'] : null,
+			'rating_count'   => isset( $data['review_count'] ) ? $data['review_count'] : null,
+			'phone'          => isset( $data['display_phone'] ) ? $data['display_phone'] : null,
+			'street_address' => isset( $data['location']['address1'] ) ? $data['location']['address1'] : null,
+			'city'           => isset( $data['location']['city'] ) ? $data['location']['city'] : null,
+			'state_province' => isset( $data['location']['state'] ) ? $data['location']['state'] : null,
+			'postal_code'    => isset( $data['location']['zip_code'] ) ? $data['location']['zip_code'] : null,
+			'country'        => isset( $data['location']['country'] ) ? $data['location']['country'] : null,
+			'latitude'       => isset( $data['coordinates']['latitude'] ) ? $data['coordinates']['latitude'] : null,
+			'longitude'      => isset( $data['coordinates']['longitude'] ) ? $data['coordinates']['longitude'] : null,
 
 		);
 

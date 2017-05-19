@@ -64,19 +64,19 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		// Standardize data to match class properties.
 		$properties = array(
 
-			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'page_url'       => isset( $data['url'] ) ? $data['url'] : '',
+			'business_name'  => isset( $data['name'] ) ? $data['name'] : null,
+			'page_url'       => isset( $data['url'] ) ? $data['url'] : null,
 			'image_url'      => $image_url,
-			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
+			'rating'         => isset( $data['rating'] ) ? $data['rating'] : null,
 			'rating_count'   => null, // Unavailable.
-			'phone'          => isset( $data['formatted_phone_number'] ) ? $data['formatted_phone_number'] : '',
+			'phone'          => isset( $data['formatted_phone_number'] ) ? $data['formatted_phone_number'] : null,
 			'street_address' => $street_address,
-			'city'           => isset( $address_components['city'] ) ? $address_components['city'] : '',
-			'state_province' => isset( $address_components['state_province'] ) ? $address_components['state_province'] : '',
-			'postal_code'    => isset( $address_components['postal_code'] ) ? $address_components['postal_code'] : '',
-			'country'        => isset( $address_components['country'] ) ? $address_components['country'] : '',
-			'latitude'       => isset( $data['geometry']['location']['lat'] ) ? $data['geometry']['location']['lat'] : '',
-			'longitude'      => isset( $data['geometry']['location']['lng'] ) ? $data['geometry']['location']['lng'] : '',
+			'city'           => isset( $address_components['city'] ) ? $address_components['city'] : null,
+			'state_province' => isset( $address_components['state_province'] ) ? $address_components['state_province'] : null,
+			'postal_code'    => isset( $address_components['postal_code'] ) ? $address_components['postal_code'] : null,
+			'country'        => isset( $address_components['country'] ) ? $address_components['country'] : null,
+			'latitude'       => isset( $data['geometry']['location']['lat'] ) ? $data['geometry']['location']['lat'] : null,
+			'longitude'      => isset( $data['geometry']['location']['lng'] ) ? $data['geometry']['location']['lng'] : null,
 
 		);
 

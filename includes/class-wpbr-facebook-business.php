@@ -41,19 +41,19 @@ class WPBR_Facebook_Business extends WPBR_Business {
 		// Standardize data to match class properties.
 		$properties = array(
 
-			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'page_url'       => isset( $data['link'] ) ? $data['link'] : '',
+			'business_name'  => isset( $data['name'] ) ? $data['name'] : null,
+			'page_url'       => isset( $data['link'] ) ? $data['link'] : null,
 			'image_url'      => "https://graph.facebook.com/v2.9/{$this->business_id}/picture/?height=192",
-			'rating'         => isset( $data['overall_star_rating'] ) ? $data['overall_star_rating'] : '',
-			'rating_count'   => isset( $data['rating_count'] ) ? $data['rating_count'] : '',
-			'phone'          => isset( $data['phone'] ) ? $data['phone'] : '',
-			'street_address' => isset( $data['location']['street_address'] ) ? $data['location']['street_address'] : '',
-			'city'           => isset( $data['location']['city'] ) ? $data['location']['city'] : '',
-			'state_province' => isset( $data['location']['state'] ) ? $data['location']['state'] : '',
-			'postal_code'    => isset( $data['location']['zip'] ) ? $data['location']['zip'] : '',
-			'country'        => isset( $data['location']['country'] ) ? $data['location']['country'] : '',
-			'latitude'       => isset( $data['location']['latitude'] ) ? $data['location']['latitude'] : '',
-			'longitude'      => isset( $data['location']['longitude'] ) ? $data['location']['longitude'] : '',
+			'rating'         => isset( $data['overall_star_rating'] ) ? $data['overall_star_rating'] : null,
+			'rating_count'   => isset( $data['rating_count'] ) ? $data['rating_count'] : null,
+			'phone'          => isset( $data['phone'] ) ? $data['phone'] : null,
+			'street_address' => isset( $data['location']['street_address'] ) ? $data['location']['street_address'] : null,
+			'city'           => isset( $data['location']['city'] ) ? $data['location']['city'] : null,
+			'state_province' => isset( $data['location']['state'] ) ? $data['location']['state'] : null,
+			'postal_code'    => isset( $data['location']['zip'] ) ? $data['location']['zip'] : null,
+			'country'        => isset( $data['location']['country'] ) ? $data['location']['country'] : null,
+			'latitude'       => isset( $data['location']['latitude'] ) ? $data['location']['latitude'] : null,
+			'longitude'      => isset( $data['location']['longitude'] ) ? $data['location']['longitude'] : null,
 
 		);
 

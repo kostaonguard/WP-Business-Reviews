@@ -42,19 +42,19 @@ class WPBR_YP_Business extends WPBR_Business {
 		// Standardize data to match class properties.
 		$properties = array(
 
-			'business_name'  => isset( $data['businessName'] ) ? $data['businessName'] : '',
-			'page_url'       => isset( $data['moreInfoURL'] ) ? $data['moreInfoURL'] : '',
+			'business_name'  => isset( $data['businessName'] ) ? $data['businessName'] : null,
+			'page_url'       => isset( $data['moreInfoURL'] ) ? $data['moreInfoURL'] : null,
 			'image_url'      => null, // Unavailable.
-			'rating'         => isset( $data['averageRating'] ) ? $data['averageRating'] : '',
-			'rating_count'   => isset( $data['ratingCount'] ) ? $data['ratingCount'] : '',
-			'phone'          => isset( $data['phone'] ) ? $data['phone'] : '',
-			'street_address' => isset( $data['street'] ) ? $data['street'] : '',
-			'city'           => isset( $data['city'] ) ? $data['city'] : '',
-			'state_province' => isset( $data['state'] ) ? $data['state'] : '',
-			'postal_code'    => isset( $data['zip'] ) ? $data['zip'] : '',
+			'rating'         => isset( $data['averageRating'] ) ? $data['averageRating'] : null,
+			'rating_count'   => isset( $data['ratingCount'] ) ? $data['ratingCount'] : null,
+			'phone'          => isset( $data['phone'] ) ? $data['phone'] : null,
+			'street_address' => isset( $data['street'] ) ? $data['street'] : null,
+			'city'           => isset( $data['city'] ) ? $data['city'] : null,
+			'state_province' => isset( $data['state'] ) ? $data['state'] : null,
+			'postal_code'    => isset( $data['zip'] ) ? $data['zip'] : null,
 			'country'        => null, // Unavailable.
-			'latitude'       => isset( $data['latitude'] ) ? $data['latitude'] : '',
-			'longitude'      => isset( $data['longitude'] ) ? $data['longitude'] : '',
+			'latitude'       => isset( $data['latitude'] ) ? $data['latitude'] : null,
+			'longitude'      => isset( $data['longitude'] ) ? $data['longitude'] : null,
 
 		);
 
