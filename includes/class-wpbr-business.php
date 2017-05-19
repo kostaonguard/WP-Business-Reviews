@@ -407,7 +407,7 @@ abstract class WPBR_Business {
 	 */
 	public function set_rating( $rating ) {
 
-		$this->rating = is_numeric( $rating ) ? $rating : '';
+		$this->rating = is_numeric( $rating ) ? $rating : null;
 
 	}
 
@@ -420,7 +420,7 @@ abstract class WPBR_Business {
 	 */
 	public function set_rating_count( $rating_count ) {
 
-		$this->rating_count = is_int( $rating_count ) ? $rating_count : '';
+		$this->rating_count = is_int( $rating_count ) ? $rating_count : null;
 
 	}
 
@@ -511,7 +511,7 @@ abstract class WPBR_Business {
 	 */
 	public function set_latitude( $latitude ) {
 
-		$this->latitude = is_float( $latitude ) ? $latitude : '';
+		$this->latitude = is_float( $latitude ) ? $latitude : null;
 
 	}
 
@@ -524,7 +524,7 @@ abstract class WPBR_Business {
 	 */
 	public function set_longitude( $longitude ) {
 
-		$this->longitude = is_float( $longitude ) ? $longitude : '';
+		$this->longitude = is_float( $longitude ) ? $longitude : null;
 
 	}
 
