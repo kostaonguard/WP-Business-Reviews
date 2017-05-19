@@ -331,7 +331,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set properties from array of key-value pairs.
+	 * Sets properties from array of key-value pairs.
 	 *
 	 * @since 1.0.0
 	 *
@@ -356,7 +356,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set business name.
+	 * Sets business name.
 	 *
 	 * @since 1.0.0
 	 *
@@ -369,7 +369,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set business URL.
+	 * Sets business URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -382,7 +382,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set image URL.
+	 * Sets image URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -395,7 +395,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set rating.
+	 * Sets rating.
 	 *
 	 * @since 1.0.0
 	 *
@@ -408,7 +408,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set rating count.
+	 * Sets rating count.
 	 *
 	 * @since 1.0.0
 	 *
@@ -421,7 +421,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set phone number.
+	 * Sets phone number.
 	 *
 	 * @since 1.0.0
 	 *
@@ -434,7 +434,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set street address.
+	 * Sets street address.
 	 *
 	 * @since 1.0.0
 	 *
@@ -447,7 +447,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set city.
+	 * Sets city.
 	 *
 	 * @since 1.0.0
 	 *
@@ -460,7 +460,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set state/province.
+	 * Sets state/province.
 	 *
 	 * @since 1.0.0
 	 *
@@ -473,7 +473,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set postal code.
+	 * Sets postal code.
 	 *
 	 * @since 1.0.0
 	 *
@@ -486,7 +486,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set country.
+	 * Sets country.
 	 *
 	 * @since 1.0.0
 	 *
@@ -499,7 +499,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set latitude.
+	 * Sets latitude.
 	 *
 	 * @since 1.0.0
 	 *
@@ -512,7 +512,7 @@ abstract class WPBR_Business {
 	}
 
 	/**
-	 * Set longitude.
+	 * Sets longitude.
 	 *
 	 * @since 1.0.0
 	 *
