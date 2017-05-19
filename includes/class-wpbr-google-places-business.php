@@ -39,7 +39,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	public function standardize_properties( $data ) {
 
 		// Build image URL.
-		$image_url = '';
+		$image_url = null;
 
 		if ( isset( $data['photos'][0]['photo_reference'] ) ) {
 

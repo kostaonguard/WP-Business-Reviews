@@ -42,7 +42,7 @@ class WPBR_Yelp_Business extends WPBR_Business {
 		$page_url = 'https://www.yelp.com/biz/' . $this->business_id;
 
 		// Build image URL.
-		$image_url = '';
+		$image_url = null;
 
 		if ( isset( $data['image_url'] ) ) {
 
