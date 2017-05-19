@@ -28,7 +28,7 @@ abstract class WPBR_Review {
 	protected $platform;
 
 	/**
-	 * ID of the business.
+	 * ID of the parent business on the platform.
 	 *
 	 * @since 1.0.0
 	 * @access protected
@@ -37,7 +37,16 @@ abstract class WPBR_Review {
 	protected $business_id;
 
 	/**
-	 * ID of the review.
+	 * Post ID of the parent business in the database.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $business_post_id;
+
+	/**
+	 * ID of the review on the platform.
 	 *
 	 * @since 1.0.0
 	 * @access protected
@@ -46,31 +55,13 @@ abstract class WPBR_Review {
 	protected $review_id;
 
 	/**
-	 * Slug of the review post in the database.
+	 * ID of the review post in the database.
 	 *
 	 * @since 1.0.0
 	 * @access protected
-	 * @var string
+	 * @var int
 	 */
-	protected $slug;
-
-	/**
-	 * ID of the reviewer.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $reviewer_id;
-
-	/**
-	 * Name of the person who submitted the review.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $reviewer_name;
+	protected $post_id;
 
 	/**
 	 * Numerical rating associated with the review.
@@ -109,13 +100,13 @@ abstract class WPBR_Review {
 	protected $review_url;
 
 	/**
-	 * URL of the reviewer's page on the platform.
+	 * Name of the person who submitted the review.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
-	protected $reviewer_url;
+	protected $reviewer_name;
 
 	/**
 	 * Image URL of the reviewer on the platform.
@@ -138,42 +129,39 @@ abstract class WPBR_Review {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $business_id ID of the business.
+	 * @param string $business_id ID of the parent business on the platform.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct( $business_id ) {
 
 		$this->business_id = $business_id;
-//		$this->slug        = $this->create_slug();
-//
-//		if ( $this->review_exists() ) {
-//
-//			$this->set_properties_from_post();
-//
-//		} else {
-//
-//			$this->set_properties_from_api();
-//
-//		}
-
-//		$this->set_properties_from_api();
 
 	}
 
 	/**
-	 * Creates unique slug by concatenating reviewer name and time created.
+	 * Builds unique post slug by concatenating reviewer name and time created.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return string Business post slug.
+	 * @param string $business_id ID of the parent business on the platform.
+	 * @param string $time_created Time at which the review was created.
+	 *
+	 * @return string Review post slug.
 	 */
-	protected function create_slug() {
+	protected function build_post_slug( $business_id, $time_created ) {
 
-		$slug = $this->reviewer_name . '-' . $this->time_created;
+		if ( empty( $business_id ) || empty( $time_created ) ) {
+
+			return '';
+
+		}
+
+		$slug = $business_id . '-' . $time_created;
 		$slug = str_replace( '_', '-', strtolower( $slug ) );
+		$slug = sanitize_title( $slug );
 
-		return sanitize_title( $slug );
+		return $slug;
 
 	}
 
@@ -189,18 +177,7 @@ abstract class WPBR_Review {
 	abstract public function standardize_properties( $data );
 
 	/**
-	 * Sets properties from existing post in database.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $post_id Post ID.
-	 */
-	public function set_properties_from_post( $post_id ) {
-
-	}
-
-	/**
-	 * Set properties from array of key-value pairs.
+	 * Sets properties from array of key-value pairs.
 	 *
 	 * @since 1.0.0
 	 *
@@ -231,40 +208,34 @@ abstract class WPBR_Review {
 	 */
 	public function insert_post() {
 
-		// Define post meta.
-		$meta_input = array(
-
-			'wpbr_review_id'          => $this->review_id,
-			'wpbr_reviewer_id'        => $this->reviewer_id,
-			'wpbr_reviewer_name'      => $this->reviewer_name,
-			'wpbr_rating'             => $this->rating,
-			'wpbr_review_title'       => $this->review_title,
-			'wpbr_review_text'        => $this->review_text,
-			'wpbr_review_url'         => $this->review_url,
-			'wpbr_reviewer_url'       => $this->reviewer_url,
-			'wpbr_reviewer_image_url' => $this->reviewer_image_url,
-			'wpbr_time_created'       => $this->time_created,
-
-
-		);
-
-		// Define taxonomy terms.
-		$tax_input = array(
-
-			'wpbr_platform' => $this->platform,
-
-		);
+		// Build post slug that is unique to the review on the platform.
+		$post_slug = $this->build_post_slug( $this->business_id, $this->time_created );
 
 		// Define array of post elements.
 		$postarr = array(
 
 			'post_type'   => 'wpbr_review',
 			'post_title'  => $this->review_title,
-			'post_name'   => $this->slug,
+			'post_name'   => $post_slug,
 			'post_status' => 'publish',
-			'post_parent' => 111,
-			'meta_input'  => $meta_input,
-			'tax_input'   => $tax_input,
+			'post_parent' => 999,
+			'meta_input'  => array(
+
+				'wpbr_review_id'          => $this->review_id,
+				'wpbr_rating'             => $this->rating,
+				'wpbr_review_title'       => $this->review_title,
+				'wpbr_review_text'        => $this->review_text,
+				'wpbr_review_url'         => $this->review_url,
+				'wpbr_reviewer_name'      => $this->reviewer_name,
+				'wpbr_reviewer_image_url' => $this->reviewer_image_url,
+				'wpbr_time_created'       => $this->time_created,
+
+			),
+			'tax_input'   => array(
+
+				'wpbr_platform' => $this->platform,
+
+			),
 
 		);
 
@@ -274,20 +245,20 @@ abstract class WPBR_Review {
 	}
 
 	/**
-	 * Set review ID.
+	 * Sets review ID.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $review_id ID of the review.
+	 * @param string $review_platform_id ID of the review.
 	 */
-	protected function set_review_id( $review_id ) {
+	protected function set_review_platform_id( $review_platform_id ) {
 
-		$this->review_id = sanitize_text_field( $review_id );
+		$this->review_platform_id = sanitize_text_field( $review_platform_id );
 
 	}
 
 	/**
-	 * Set review ID.
+	 * Sets review ID.
 	 *
 	 * @since 1.0.0
 	 *
@@ -300,7 +271,7 @@ abstract class WPBR_Review {
 	}
 
 	/**
-	 * Set reviewer name.
+	 * Sets reviewer name.
 	 *
 	 * @since 1.0.0
 	 *
@@ -313,7 +284,7 @@ abstract class WPBR_Review {
 	}
 
 	/**
-	 * Set rating.
+	 * Sets rating.
 	 *
 	 * @since 1.0.0
 	 *
@@ -327,7 +298,7 @@ abstract class WPBR_Review {
 
 
 	/**
-	 * Set review title.
+	 * Sets review title.
 	 *
 	 * @since 1.0.0
 	 *
@@ -341,14 +312,17 @@ abstract class WPBR_Review {
 
 		} else {
 
-			$this->review_title = sanitize_text_field( 'Review by ' . $this->reviewer_name );
+			$platform_term = get_term_by( 'slug', $this->platform, 'wpbr_platform' );
+			$platform_name = $platform_term->name;
+
+			$this->review_title = sanitize_text_field( $platform_name . ' Review' );
 
 		}
 
 	}
 
 	/**
-	 * Set review text.
+	 * Sets review text.
 	 *
 	 * @since 1.0.0
 	 *
@@ -361,7 +335,7 @@ abstract class WPBR_Review {
 	}
 
 	/**
-	 * Set review URL.
+	 * Sets review URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -375,7 +349,7 @@ abstract class WPBR_Review {
 
 
 	/**
-	 * Set reviewer URL.
+	 * Sets reviewer URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -388,7 +362,7 @@ abstract class WPBR_Review {
 	}
 
 	/**
-	 * Set reviewer image URL.
+	 * Sets reviewer image URL.
 	 *
 	 * @since 1.0.0
 	 *
@@ -401,7 +375,7 @@ abstract class WPBR_Review {
 	}
 
 	/**
-	 * Set time created.
+	 * Sets time created.
 	 *
 	 * @since 1.0.0
 	 *
