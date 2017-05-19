@@ -209,10 +209,6 @@ abstract class WPBR_Business {
 				// Set properties from array of standardized key-value pairs.
 				$this->set_properties_from_array( $properties );
 
-			} else {
-
-				echo '<pre>'; var_dump( $business_data ); echo '</pre>';
-
 			}
 
 		}
