@@ -32,7 +32,7 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param array $data Business portion of the API response.
 	 *
 	 * @return array Standardized properties and values.
 	 */
@@ -41,11 +41,11 @@ class WPBR_Facebook_Business extends WPBR_Business {
 		// Build image URL.
 		$image_url = $this->build_image_url();
 
-		// Prepare properties to be set.
+		// Standardize data to match class properties.
 		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'page_url'       => isset( $data['link'] ) ? $data['link'] : '',
+			'platform_url'   => isset( $data['link'] ) ? $data['link'] : '',
 			'image_url'      => $image_url,
 			'rating'         => isset( $data['overall_star_rating'] ) ? $data['overall_star_rating'] : '',
 			'rating_count'   => isset( $data['rating_count'] ) ? $data['rating_count'] : '',
