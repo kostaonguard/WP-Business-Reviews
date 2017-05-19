@@ -39,6 +39,15 @@ abstract class WPBR_Business {
 	protected $platform_id;
 
 	/**
+	 * URL of the business page on the platform.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform_url;
+
+	/**
 	 * ID of the business post in the database.
 	 *
 	 * @since 1.0.0
@@ -64,15 +73,6 @@ abstract class WPBR_Business {
 	 * @var string
 	 */
 	protected $business_name;
-
-	/**
-	 * URL of the business page on the platform.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $page_url;
 
 	/**
 	 * URL of the business image.
@@ -186,7 +186,7 @@ abstract class WPBR_Business {
 	public function __construct( $platform_id ) {
 
 		$this->platform_id = $platform_id;
-		$this->post_slug   = $this->build_post_slug();
+		$this->post_slug   = $this->build_post_slug( $this->platform, $platform_id );
 
 		// Attempt to retrieve post from database using the post slug.
 		$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_business' );
@@ -224,11 +224,20 @@ abstract class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
+	 * @param string $platform Reviews platform associated with the business.
+	 * @param string $platform_id ID of the business on the platform.
+	 *
 	 * @return string Slug of the business post in the database.
 	 */
-	protected function build_post_slug() {
+	protected function build_post_slug( $platform, $platform_id ) {
 
-		$post_slug = $this->platform . '-' . $this->platform_id;
+		if ( empty( $platform ) || empty( $platform_id ) ) {
+
+			return '';
+
+		}
+
+		$post_slug = $this->platform . '-' . $platform_id;
 		$post_slug = str_replace( '_', '-', strtolower( $post_slug ) );
 
 		return sanitize_title( $post_slug );
@@ -240,7 +249,7 @@ abstract class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $business_data Relevant portion of the API response.
+	 * @param array $business_data Business portion of the API response.
 	 *
 	 * @return array Standardized properties and values.
 	 */
@@ -257,7 +266,7 @@ abstract class WPBR_Business {
 		$meta_input = array(
 
 			'wpbr_platform_id'    => $this->platform_id,
-			'wpbr_page_url'       => $this->page_url,
+			'wpbr_platform_url'       => $this->platform_url,
 			'wpbr_image_url'      => $this->image_url,
 			'wpbr_rating'         => $this->rating,
 			'wpbr_rating_count'   => $this->rating_count,
@@ -310,7 +319,7 @@ abstract class WPBR_Business {
 		// Set properties from post.
 		$this->post_id        = $post_id;
 		$this->business_name  = get_the_title( $post_id );
-		$this->page_url   = get_post_meta( $post_id, 'wpbr_page_url', true );
+		$this->platform_url   = get_post_meta( $post_id, 'wpbr_platform_url', true );
 		$this->image_url      = get_post_meta( $post_id, 'wpbr_image_url', true );
 		$this->rating         = get_post_meta( $post_id, 'wpbr_rating', true );
 		$this->rating_count   = get_post_meta( $post_id, 'wpbr_rating_count', true );
@@ -368,11 +377,11 @@ abstract class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $page_url URL of the business page on the platform.
+	 * @param string $platform_url URL of the business page on the platform.
 	 */
-	public function set_page_url( $page_url ) {
+	public function set_platform_url( $platform_url ) {
 
-		$this->page_url = filter_var( $page_url, FILTER_VALIDATE_URL ) ? $page_url : '';
+		$this->platform_url = filter_var( $platform_url, FILTER_VALIDATE_URL ) ? $platform_url : '';
 
 	}
 

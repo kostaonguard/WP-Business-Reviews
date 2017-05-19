@@ -32,28 +32,29 @@ class WPBR_Yelp_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param array $data Business portion of the API response.
 	 *
 	 * @return array Standardized properties and values.
 	 */
 	public function standardize_properties( $data ) {
 
 		// Define variables that need special handling for this API.
-		$page_url  = 'https://www.yelp.com/biz/' . $this->platform_id;
-		$image_url = '';
+		$platform_url  = 'https://www.yelp.com/biz/' . $this->platform_id;
 
 		// Build image URL.
+		$image_url = '';
+
 		if ( isset( $data['image_url'] ) ) {
 
 			$image_url = $this->build_image_url( $data['image_url'] );
 
 		}
 
-		// Prepare properties to be set.
+		// Standardize data to match class properties.
 		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'page_url'       => $page_url,
+			'platform_url'   => $platform_url,
 			'image_url'      => $image_url,
 			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
 			'rating_count'   => isset( $data['review_count'] ) ? $data['review_count'] : '',

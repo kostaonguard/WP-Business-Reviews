@@ -32,25 +32,24 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param array $data Business portion of the API response.
 	 *
 	 * @return array Standardized properties and values.
 	 */
 	public function standardize_properties( $data ) {
 
-		// Define variables that need special handling for this API.
+		// Build image URL.
 		$image_url = '';
-		$address_components = array();
 
-		// Build image URL if photo reference is available.
 		if ( isset( $data['photos'][0]['photo_reference'] ) ) {
 
-			$photo_reference = sanitize_text_field( $data['photos'][0]['photo_reference'] );
-			$image_url       = $this->build_image_url( $photo_reference );
+			$image_url = $this->build_image_url( $data['photos'][0]['photo_reference'] );
 
 		}
 
 		// Prepare address components.
+		$address_components = array();
+
 		if ( isset( $data['address_components'] ) ) {
 
 			// Parse address components per Google Places' unique format.
@@ -65,7 +64,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'page_url'       => isset( $data['url'] ) ? $data['url'] : '',
+			'platform_url'   => isset( $data['url'] ) ? $data['url'] : '',
 			'image_url'      => $image_url,
 			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
 			'rating_count'   => '', // Unavailable.

@@ -33,17 +33,17 @@ class WPBR_YP_Business extends WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $data Relevant portion of the API response.
+	 * @param array $data Business portion of the API response.
 	 *
 	 * @return array Standardized properties and values.
 	 */
 	public function standardize_properties( $data ) {
 
-		// Prepare properties to be set.
+		// Standardize data to match class properties.
 		$properties = array(
 
 			'business_name'  => isset( $data['businessName'] ) ? $data['businessName'] : '',
-			'page_url'       => isset( $data['moreInfoURL'] ) ? $data['moreInfoURL'] : '',
+			'platform_url'   => isset( $data['moreInfoURL'] ) ? $data['moreInfoURL'] : '',
 			'image_url'      => '', // Unavailable.
 			'rating'         => isset( $data['averageRating'] ) ? $data['averageRating'] : '',
 			'rating_count'   => isset( $data['ratingCount'] ) ? $data['ratingCount'] : '',
