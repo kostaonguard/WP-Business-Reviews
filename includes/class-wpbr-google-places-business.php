@@ -49,6 +49,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 
 		// Prepare address components.
 		$address_components = array();
+		$street_address = null;
 
 		if ( isset( $data['address_components'] ) ) {
 
@@ -67,7 +68,7 @@ class WPBR_Google_Places_Business extends WPBR_Business {
 			'page_url'       => isset( $data['url'] ) ? $data['url'] : '',
 			'image_url'      => $image_url,
 			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
-			'rating_count'   => '', // Unavailable.
+			'rating_count'   => null, // Unavailable.
 			'phone'          => isset( $data['formatted_phone_number'] ) ? $data['formatted_phone_number'] : '',
 			'street_address' => $street_address,
 			'city'           => isset( $address_components['city'] ) ? $address_components['city'] : '',

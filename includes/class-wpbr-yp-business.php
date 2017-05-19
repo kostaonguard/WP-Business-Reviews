@@ -44,7 +44,7 @@ class WPBR_YP_Business extends WPBR_Business {
 
 			'business_name'  => isset( $data['businessName'] ) ? $data['businessName'] : '',
 			'page_url'       => isset( $data['moreInfoURL'] ) ? $data['moreInfoURL'] : '',
-			'image_url'      => '', // Unavailable.
+			'image_url'      => null, // Unavailable.
 			'rating'         => isset( $data['averageRating'] ) ? $data['averageRating'] : '',
 			'rating_count'   => isset( $data['ratingCount'] ) ? $data['ratingCount'] : '',
 			'phone'          => isset( $data['phone'] ) ? $data['phone'] : '',
@@ -52,7 +52,7 @@ class WPBR_YP_Business extends WPBR_Business {
 			'city'           => isset( $data['city'] ) ? $data['city'] : '',
 			'state_province' => isset( $data['state'] ) ? $data['state'] : '',
 			'postal_code'    => isset( $data['zip'] ) ? $data['zip'] : '',
-			'country'        => '', // Unavailable.
+			'country'        => null, // Unavailable.
 			'latitude'       => isset( $data['latitude'] ) ? $data['latitude'] : '',
 			'longitude'      => isset( $data['longitude'] ) ? $data['longitude'] : '',
 
