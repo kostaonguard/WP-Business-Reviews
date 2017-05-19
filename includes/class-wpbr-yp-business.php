@@ -43,7 +43,7 @@ class WPBR_YP_Business extends WPBR_Business {
 		$properties = array(
 
 			'business_name'  => isset( $data['businessName'] ) ? $data['businessName'] : '',
-			'platform_url'   => isset( $data['moreInfoURL'] ) ? $data['moreInfoURL'] : '',
+			'page_url'       => isset( $data['moreInfoURL'] ) ? $data['moreInfoURL'] : '',
 			'image_url'      => '', // Unavailable.
 			'rating'         => isset( $data['averageRating'] ) ? $data['averageRating'] : '',
 			'rating_count'   => isset( $data['ratingCount'] ) ? $data['ratingCount'] : '',

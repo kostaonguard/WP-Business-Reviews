@@ -36,16 +36,7 @@ abstract class WPBR_Business {
 	 * @access protected
 	 * @var string
 	 */
-	protected $platform_id;
-
-	/**
-	 * URL of the business page on the platform.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $platform_url;
+	protected $business_id;
 
 	/**
 	 * ID of the business post in the database.
@@ -73,6 +64,15 @@ abstract class WPBR_Business {
 	 * @var string
 	 */
 	protected $business_name;
+
+	/**
+	 * URL of the business page on the platform.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $page_url;
 
 	/**
 	 * URL of the business image.
@@ -179,14 +179,14 @@ abstract class WPBR_Business {
 	 * If business post exists in database, then properties are set from post.
 	 * Otherwise properties are set from platform API.
 	 *
-	 * @param string $platform_id ID of the business.
+	 * @param string $business_id ID of the business.
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $platform_id ) {
+	public function __construct( $business_id ) {
 
-		$this->platform_id = $platform_id;
-		$this->post_slug   = $this->build_post_slug( $this->platform, $platform_id );
+		$this->business_id = $business_id;
+		$this->post_slug   = $this->build_post_slug( $this->platform, $business_id );
 
 		// Attempt to retrieve post from database using the post slug.
 		$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_business' );
@@ -198,7 +198,7 @@ abstract class WPBR_Business {
 		} else {
 
 			// Request business data from API.
-			$request       = WPBR_Request_Factory::create( $this->platform_id, $this->platform );
+			$request       = WPBR_Request_Factory::create( $this->business_id, $this->platform );
 			$business_data = $request->request_business();
 
 			if ( ! is_wp_error( $business_data ) ) {
@@ -225,19 +225,19 @@ abstract class WPBR_Business {
 	 * @since 1.0.0
 	 *
 	 * @param string $platform Reviews platform associated with the business.
-	 * @param string $platform_id ID of the business on the platform.
+	 * @param string $business_id ID of the business on the platform.
 	 *
 	 * @return string Slug of the business post in the database.
 	 */
-	protected function build_post_slug( $platform, $platform_id ) {
+	protected function build_post_slug( $platform, $business_id ) {
 
-		if ( empty( $platform ) || empty( $platform_id ) ) {
+		if ( empty( $platform ) || empty( $business_id ) ) {
 
 			return '';
 
 		}
 
-		$post_slug = $this->platform . '-' . $platform_id;
+		$post_slug = $this->platform . '-' . $business_id;
 		$post_slug = str_replace( '_', '-', strtolower( $post_slug ) );
 
 		return sanitize_title( $post_slug );
@@ -265,8 +265,8 @@ abstract class WPBR_Business {
 		// Define post meta.
 		$meta_input = array(
 
-			'wpbr_platform_id'    => $this->platform_id,
-			'wpbr_platform_url'       => $this->platform_url,
+			'wpbr_business_id'    => $this->business_id,
+			'wpbr_page_url'       => $this->page_url,
 			'wpbr_image_url'      => $this->image_url,
 			'wpbr_rating'         => $this->rating,
 			'wpbr_rating_count'   => $this->rating_count,
@@ -319,18 +319,18 @@ abstract class WPBR_Business {
 		// Set properties from post.
 		$this->post_id        = $post_id;
 		$this->business_name  = get_the_title( $post_id );
-		$this->platform_url   = get_post_meta( $post_id, 'wpbr_platform_url', true );
+		$this->page_url       = get_post_meta( $post_id, 'wpbr_page_url', true );
 		$this->image_url      = get_post_meta( $post_id, 'wpbr_image_url', true );
 		$this->rating         = get_post_meta( $post_id, 'wpbr_rating', true );
 		$this->rating_count   = get_post_meta( $post_id, 'wpbr_rating_count', true );
 		$this->phone          = get_post_meta( $post_id, 'wpbr_phone', true );
-		$this->latitude       = get_post_meta( $post_id, 'wpbr_latitude', true );
-		$this->longitude      = get_post_meta( $post_id, 'wpbr_longitude', true );
 		$this->street_address = get_post_meta( $post_id, 'wpbr_street_address', true );
 		$this->city           = get_post_meta( $post_id, 'wpbr_city', true );
 		$this->state_province = get_post_meta( $post_id, 'wpbr_state_province', true );
 		$this->postal_code    = get_post_meta( $post_id, 'wpbr_postal_code', true );
 		$this->country        = get_post_meta( $post_id, 'wpbr_country', true );
+		$this->latitude       = get_post_meta( $post_id, 'wpbr_latitude', true );
+		$this->longitude      = get_post_meta( $post_id, 'wpbr_longitude', true );
 
 	}
 
@@ -377,11 +377,11 @@ abstract class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $platform_url URL of the business page on the platform.
+	 * @param string $page_url URL of the business page on the platform.
 	 */
-	public function set_platform_url( $platform_url ) {
+	public function set_page_url( $page_url ) {
 
-		$this->platform_url = filter_var( $platform_url, FILTER_VALIDATE_URL ) ? $platform_url : '';
+		$this->page_url = filter_var( $page_url, FILTER_VALIDATE_URL ) ? $page_url : '';
 
 	}
 

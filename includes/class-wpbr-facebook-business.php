@@ -38,15 +38,12 @@ class WPBR_Facebook_Business extends WPBR_Business {
 	 */
 	public function standardize_properties( $data ) {
 
-		// Build image URL.
-		$image_url = $this->build_image_url();
-
 		// Standardize data to match class properties.
 		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'platform_url'   => isset( $data['link'] ) ? $data['link'] : '',
-			'image_url'      => $image_url,
+			'page_url'       => isset( $data['link'] ) ? $data['link'] : '',
+			'image_url'      => "https://graph.facebook.com/v2.9/{$this->business_id}/picture/?height=192",
 			'rating'         => isset( $data['overall_star_rating'] ) ? $data['overall_star_rating'] : '',
 			'rating_count'   => isset( $data['rating_count'] ) ? $data['rating_count'] : '',
 			'phone'          => isset( $data['phone'] ) ? $data['phone'] : '',
@@ -61,21 +58,6 @@ class WPBR_Facebook_Business extends WPBR_Business {
 		);
 
 		return $properties;
-
-	}
-
-	/**
-	 * Format image URL from API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string URL of the business image.
-	 */
-	protected function build_image_url() {
-
-		$image_url = "https://graph.facebook.com/v2.9/{$this->platform_id}/picture/?height=192";
-
-		return $image_url;
 
 	}
 

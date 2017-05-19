@@ -39,7 +39,7 @@ class WPBR_Yelp_Business extends WPBR_Business {
 	public function standardize_properties( $data ) {
 
 		// Define variables that need special handling for this API.
-		$platform_url  = 'https://www.yelp.com/biz/' . $this->platform_id;
+		$page_url = 'https://www.yelp.com/biz/' . $this->business_id;
 
 		// Build image URL.
 		$image_url = '';
@@ -54,7 +54,7 @@ class WPBR_Yelp_Business extends WPBR_Business {
 		$properties = array(
 
 			'business_name'  => isset( $data['name'] ) ? $data['name'] : '',
-			'platform_url'   => $platform_url,
+			'page_url'       => $page_url,
 			'image_url'      => $image_url,
 			'rating'         => isset( $data['rating'] ) ? $data['rating'] : '',
 			'rating_count'   => isset( $data['review_count'] ) ? $data['review_count'] : '',
