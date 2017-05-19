@@ -258,32 +258,6 @@ abstract class WPBR_Business {
 	 */
 	public function insert_post() {
 
-		// Define post meta.
-		$meta_input = array(
-
-			'wpbr_business_id'    => $this->business_id,
-			'wpbr_page_url'       => $this->page_url,
-			'wpbr_image_url'      => $this->image_url,
-			'wpbr_rating'         => $this->rating,
-			'wpbr_rating_count'   => $this->rating_count,
-			'wpbr_phone'          => $this->phone,
-			'wpbr_latitude'       => $this->latitude,
-			'wpbr_longitude'      => $this->longitude,
-			'wpbr_street_address' => $this->street_address,
-			'wpbr_city'           => $this->city,
-			'wpbr_state_province' => $this->state_province,
-			'wpbr_postal_code'    => $this->postal_code,
-			'wpbr_country'        => $this->country,
-
-		);
-
-		// Define taxonomy terms.
-		$tax_input = array(
-
-			'wpbr_platform' => $this->platform,
-
-		);
-
 		// Define array of post elements.
 		$postarr = array(
 
@@ -291,10 +265,37 @@ abstract class WPBR_Business {
 			'post_title'  => $this->business_name,
 			'post_name'   => $this->post_slug,
 			'post_status' => 'publish',
-			'meta_input'  => $meta_input,
-			'tax_input'   => $tax_input,
+			'meta_input'  => array(
+
+				'wpbr_business_id'    => $this->business_id,
+				'wpbr_page_url'       => $this->page_url,
+				'wpbr_image_url'      => $this->image_url,
+				'wpbr_rating'         => $this->rating,
+				'wpbr_rating_count'   => $this->rating_count,
+				'wpbr_phone'          => $this->phone,
+				'wpbr_latitude'       => $this->latitude,
+				'wpbr_longitude'      => $this->longitude,
+				'wpbr_street_address' => $this->street_address,
+				'wpbr_city'           => $this->city,
+				'wpbr_state_province' => $this->state_province,
+				'wpbr_postal_code'    => $this->postal_code,
+				'wpbr_country'        => $this->country,
+
+			),
+			'tax_input'   => array(
+
+				'wpbr_platform' => $this->platform,
+
+			),
 
 		);
+
+		// If post ID exists, update existing posts
+		if ( ! empty( $this->post_id ) ) {
+
+			$postarr['ID'] = $this->post_id;
+
+		}
 
 		// Insert or update post in database.
 		wp_insert_post( $postarr );
