@@ -17,7 +17,16 @@
  * @see WPBR_Request
  */
 class WPBR_Facebook_Request extends WPBR_Request {
-	
+
+	/**
+	 * Reviews platform used in the request.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform = 'facebook';
+
 	/**
 	 * API host used in the request URL.
 	 *

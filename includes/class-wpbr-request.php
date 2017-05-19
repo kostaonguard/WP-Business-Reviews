@@ -22,7 +22,18 @@
 abstract class WPBR_Request {
 
 	/**
+	 * Reviews platform used in the request.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform;
+
+	/**
 	 * ID of the business used in the request URL.
+	 * 
+	 * This is the ID of business on the reviews platform (not the post ID).
 	 *
 	 * @since 1.0.0
 	 * @access protected

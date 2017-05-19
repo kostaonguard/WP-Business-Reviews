@@ -22,8 +22,8 @@ class WPBR_Request_Factory {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $business_id ID of the business.
-	 * @param string $platform Reviews platform associated with the business.
+	 * @param string $business_id ID of the business on the platform.
+	 * @param string $platform    Reviews platform used in the request.
 	 *
 	 * @return WPBR_Request Instance of WPBR_Request for the provided platform.
 	 */

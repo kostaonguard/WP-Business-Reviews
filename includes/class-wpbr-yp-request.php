@@ -19,6 +19,15 @@
 class WPBR_YP_Request extends WPBR_Request {
 
 	/**
+	 * Reviews platform used in the request.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform = 'yp';
+
+	/**
 	 * API host used in the request URL.
 	 *
 	 * @since 1.0.0
