@@ -37,13 +37,22 @@ class WPBR_YP_Request extends WPBR_Request {
 	protected $api_host = 'http://api2.yp.com';
 
 	/**
-	 * URL path used for business requests.
+	 * Path used in the business request URL.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
 	protected $business_path = '/listings/v1/details';
+
+	/**
+	 * Path used in the reviews request URL.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $reviews_path = '/listings/v1/reviews';
 
 	/**
 	 * API key used in the request URL.
@@ -77,11 +86,9 @@ class WPBR_YP_Request extends WPBR_Request {
 	public function request_business() {
 		// Define URL parameters of the request URL.
 		$url_params = array(
-
 			'key'       => $this->api_key,
 			'format'    => 'json',
 			'listingid' => $this->business_id,
-
 		);
 
 		// Request data from remote API.
@@ -98,7 +105,17 @@ class WPBR_YP_Request extends WPBR_Request {
 	 * @return WP_Error|array Reviews data or WP_Error on failure.
 	 */
 	public function request_reviews() {
-		// TODO: Define how reviews are requested.
+		// Define URL parameters of the request URL.
+		$url_params = array(
+			'key'       => $this->api_key,
+			'format'    => 'json',
+			'listingid' => $this->business_id,
+		);
+
+		// Request data from remote API.
+		$response = $this->request( $this->reviews_path, $url_params );
+
+		return $response;
 	}
 
 	/**
@@ -111,7 +128,7 @@ class WPBR_YP_Request extends WPBR_Request {
 	 *
 	 * @return array Standardized business properties.
 	 */
-	public function standardize_business( $response ) {
+	public function standardize_business( array $response ) {
 		// Drill down to the relevant portion of the response.
 		$r = $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
 
@@ -204,4 +221,65 @@ class WPBR_YP_Request extends WPBR_Request {
 		return $business;
 	}
 
+	/**
+	 * Standardizes reviews response for a set of reviews.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $response Reviews data from remote API.
+	 *
+	 * @return array Standardized set of reviews data.
+	 */
+	public function standardize_reviews( array $response ) {
+		// Initialize array to store standardized properties.
+		$reviews = array();
+
+		// Loop through reviews and standardize properties.
+		foreach ( $response['ratingsAndReviewsResult']['reviews']['review'] as $r ) {
+			// Set defaults.
+			$review = array(
+				'platform'           => $this->platform,
+				'business_id'        => $this->business_id,
+				'review_title'       => null,
+				'review_text'        => null,
+				'review_url'         => null,
+				'reviewer_name'      => null,
+				'reviewer_image_url' => null,
+				'rating'             => null,
+				'time_created'       => null,
+			);
+
+			// Set review title.
+			if ( isset( $r['reviewSubject'] ) ) {
+				$review['review_title'] = sanitize_text_field( $r['reviewSubject'] );
+			}
+
+			// Set review text.
+			if ( isset( $r['reviewBody'] ) ) {
+				$review['review_text'] = sanitize_text_field( $r['reviewBody'] );
+			}
+
+			// Set reviewer name.
+			if ( isset( $r['reviewer'] ) ) {
+				$review['reviewer_name'] = sanitize_text_field( $r['reviewer'] );
+			}
+
+			// Set rating.
+			if (
+				isset( $r['rating'] )
+				&& is_numeric( $r['rating'] )
+			) {
+				$review['rating'] = $r['rating'];
+			}
+
+			// Set time created.
+			if ( isset( $r['reviewDate'] ) ) {
+				$review['time_created'] = strtotime( $r['reviewDate'] );
+			}
+
+			$reviews[] = $review;
+		}
+
+		return $reviews;
+	}
 }
