@@ -46,7 +46,7 @@ class WPBR_Reviews_Set {
 	protected $business_post_id;
 
 	/**
-	 * Set of reviews from the parent business.
+	 * Set of review objects for the parent business.
 	 *
 	 * @since 1.0.0
 	 * @access protected
@@ -110,9 +110,9 @@ class WPBR_Reviews_Set {
 
 		if ( is_array( $response ) ) {
 			// Standardize API response data to match class properties.
-			$standardized_reviews = $request->standardize_reviews( $response );
+			$reviews = $request->standardize_reviews( $response );
 
-			foreach ( $standardized_reviews as $properties ) {
+			foreach ( $reviews as $properties ) {
 				$review = new WPBR_Review( $this->business_id, $this->platform );
 				$review->set_properties( $properties );
 				$this->reviews[] = $review;
