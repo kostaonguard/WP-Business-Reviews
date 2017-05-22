@@ -37,6 +37,24 @@ class WPBR_Facebook_Request extends WPBR_Request {
 	protected $api_host = 'https://graph.facebook.com';
 
 	/**
+	 * Path used in the business request URL.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $business_path;
+
+	/**
+	 * Path used in the reviews request URL.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $reviews_path;
+
+	/**
 	 * Page Access Token required for Open Graph Page requests.
 	 *
 	 * @since 1.0.0
@@ -54,7 +72,8 @@ class WPBR_Facebook_Request extends WPBR_Request {
 	 */
 	public function __construct( $business_id ) {
 		$this->business_id   = $business_id;
-		$this->business_path = '/v2.9/' . $this->business_id;
+		$this->business_path = "/v2.9/$this->business_id";
+		$this->reviews_path  = "/v2.9/{$this->business_id}/ratings";
 		// TODO: Get Page Access Token from database instead of using constant.
 		$this->access_token = FACEBOOK_PAGE_ACCESS_TOKEN;
 	}
@@ -72,6 +91,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			'id',
 			'name',
 			'link',
+			'picture.height(192)',
 			'overall_star_rating',
 			'rating_count',
 			'phone',
@@ -104,11 +124,8 @@ class WPBR_Facebook_Request extends WPBR_Request {
 	public function request_reviews() {
 		// Define fields to be included in response.
 		$fields = array(
-			'rating',
-			'reviewer',
-			'review_text',
+			'reviewer{id,name,picture.height(144)}',
 			'open_graph_story',
-			'created_time',
 		);
 
 		// Concatenate fields as required by Open Graph API.
@@ -123,9 +140,8 @@ class WPBR_Facebook_Request extends WPBR_Request {
 		);
 
 		// Request data from remote API.
-		$response = $this->request( $this->ratings_path, $url_params );
+		$response = $this->request( $this->reviews_path, $url_params );
 
-		// Return only the relevant portion of the response.
 		return $response;
 	}
 
@@ -175,7 +191,12 @@ class WPBR_Facebook_Request extends WPBR_Request {
 		}
 
 		// Set image URL.
-		$business['image_url'] = "https://graph.facebook.com/v2.9/{$this->business_id}/picture/?height=192";
+		if (
+			isset( $r['picture']['data']['url'] )
+			&& filter_var( $r['picture']['data']['url'], FILTER_VALIDATE_URL )
+		) {
+			$business['image_url'] = $r['picture']['data']['url'];
+		}
 
 		// Set rating.
 		if (
@@ -240,5 +261,88 @@ class WPBR_Facebook_Request extends WPBR_Request {
 		}
 
 		return $business;
+	}
+
+	/**
+	 * Standardizes reviews response for a set of reviews.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $response Reviews data from remote API.
+	 *
+	 * @return array Standardized set of reviews data.
+	 */
+	public function standardize_reviews( $response ) {
+		// Initialize array to store standardized properties.
+		$reviews = array();
+
+		// Loop through reviews and standardize properties.
+		foreach ( $response['data'] as $r ) {
+			// Set defaults.
+			$review = array(
+				'platform'           => $this->platform,
+				'business_id'        => $this->business_id,
+				'review_title'       => null,
+				'review_text'        => null,
+				'review_url'         => null,
+				'reviewer_name'      => null,
+				'reviewer_image_url' => null,
+				'rating'             => null,
+				'time_created'       => null,
+			);
+
+			// Set review text.
+			if ( isset( $r['open_graph_story']['message'] ) ) {
+				$review['review_text'] = sanitize_text_field( $r['open_graph_story']['message'] );
+			}
+
+			// Get reviewer ID in order to build review URL.
+			if ( isset( $r['reviewer']['id'] ) ) {
+				$reviewer_id = intval( $r['reviewer']['id'] );
+			}
+
+			// Get review ID in order to build review URL.
+			if ( isset( $r['open_graph_story']['id'] ) ) {
+				$review_id = intval( $r['open_graph_story']['id'] );
+			}
+
+			// Set review URL using the reviewer ID and review ID.
+			if (
+				isset( $reviewer_id )
+				&& isset( $review_id )
+			) {
+				$review['review_url'] = "https://www.facebook.com/{$reviewer_id}/posts/{$review_id}";
+			}
+
+			// Set reviewer name.
+			if ( isset( $r['reviewer']['name'] ) ) {
+				$review['reviewer_name'] = sanitize_text_field( $r['reviewer']['name'] );
+			}
+
+			// Set reviewer image URL.
+			if (
+				isset( $r['reviewer']['picture']['data']['url'] )
+				&& filter_var( $r['reviewer']['picture']['data']['url'], FILTER_VALIDATE_URL )
+			) {
+				$review['reviewer_image_url'] = $r['reviewer']['picture']['data']['url'];
+			}
+
+			// Set rating.
+			if (
+				isset( $r['open_graph_story']['data']['rating']['value'] )
+				&& is_numeric( $r['open_graph_story']['data']['rating']['value'] )
+			) {
+				$review['rating'] = $r['open_graph_story']['data']['rating']['value'];
+			}
+
+			// Set time created.
+			if ( isset( $r['open_graph_story']['start_time'] ) ) {
+				$review['time_created'] = strtotime( $r['open_graph_story']['start_time'] );
+			}
+
+			$reviews[] = $review;
+		}
+
+		return $reviews;
 	}
 }
