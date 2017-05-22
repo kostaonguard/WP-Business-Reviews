@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Business abstract class
+ * Defines the WPBR_Business class
  *
  * @link       https://wordimpress.com
  *
@@ -18,7 +18,7 @@
  *
  * @since 1.0.0
  */
-abstract class WPBR_Business {
+class WPBR_Business {
 
 	/**
 	 * Reviews platform associated with the business.
@@ -180,39 +180,26 @@ abstract class WPBR_Business {
 	 * Otherwise properties are set from platform API.
 	 *
 	 * @param string $business_id ID of the business.
+	 * @param string $platform    Reviews platform associated with the business.
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct( $business_id ) {
-
+	public function __construct( $business_id, $platform ) {
 		$this->business_id = $business_id;
-		$this->post_slug   = $this->build_post_slug( $this->platform, $business_id );
+		$this->platform    = $platform;
+		$this->post_slug   = $this->build_post_slug();
 
 		// Attempt to retrieve post from database using the post slug.
 		$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_business' );
 
 		if ( ! empty( $post ) ) {
-
-			$this->set_properties_from_post( $post->ID );
-
+			$properties = $this->get_local_business_properties( $post->ID );
 		} else {
-
-			// Request business data from API.
-			$request       = WPBR_Request_Factory::create( $this->business_id, $this->platform );
-			$business_data = $request->request_business();
-
-			if ( ! is_wp_error( $business_data ) ) {
-
-				// Standardize API response data to match class properties.
-				$properties = $this->standardize_properties( $business_data );
-
-				// Set properties from array of standardized key-value pairs.
-				$this->set_properties_from_array( $properties );
-
-			}
-
+			$properties = $this->get_remote_business_properties();
 		}
 
+		// Set properties from array of standardized key-value pairs.
+		$this->set_properties( $properties );
 	}
 
 	/**
@@ -220,36 +207,14 @@ abstract class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $platform Reviews platform associated with the business.
-	 * @param string $business_id ID of the business on the platform.
-	 *
 	 * @return string Slug of the business post in the database.
 	 */
-	protected function build_post_slug( $platform, $business_id ) {
-
-		if ( empty( $platform ) || empty( $business_id ) ) {
-
-			return '';
-
-		}
-
-		$post_slug = $this->platform . '-' . $business_id;
+	protected function build_post_slug() {
+		$post_slug = $this->platform . '-' . $this->business_id;
 		$post_slug = str_replace( '_', '-', strtolower( $post_slug ) );
 
 		return sanitize_title( $post_slug );
-
 	}
-
-	/**
-	 * Standardizes business properties from the remote API response.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $business_data Business portion of the API response.
-	 *
-	 * @return array Standardized properties and values.
-	 */
-	abstract protected function standardize_properties( $business_data );
 
 	/**
 	 * Inserts wpbr_business post into the database.
@@ -257,16 +222,13 @@ abstract class WPBR_Business {
 	 * @since 1.0.0
 	 */
 	public function insert_post() {
-
 		// Define array of post elements.
 		$postarr = array(
-
 			'post_type'   => 'wpbr_business',
 			'post_title'  => $this->business_name,
 			'post_name'   => $this->post_slug,
 			'post_status' => 'publish',
 			'meta_input'  => array(
-
 				'wpbr_business_id'    => $this->business_id,
 				'wpbr_page_url'       => $this->page_url,
 				'wpbr_image_url'      => $this->image_url,
@@ -280,17 +242,13 @@ abstract class WPBR_Business {
 				'wpbr_state_province' => $this->state_province,
 				'wpbr_postal_code'    => $this->postal_code,
 				'wpbr_country'        => $this->country,
-
 			),
 			'tax_input'   => array(
-
 				'wpbr_platform' => $this->platform,
-
 			),
-
 		);
 
-		// If post ID exists, update existing posts
+		// If post ID exists, update existing post.
 		if ( ! empty( $this->post_id ) ) {
 
 			$postarr['ID'] = $this->post_id;
@@ -299,36 +257,63 @@ abstract class WPBR_Business {
 
 		// Insert or update post in database.
 		wp_insert_post( $postarr );
-
 	}
 
 	/**
-	 * Sets properties from existing post in database.
+	 * Gets properties from existing post in database.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param int $post_id Post ID.
+	 *
+	 * @return array Business properties.
 	 */
-	protected function set_properties_from_post( $post_id ) {
+	protected function get_local_business_properties( $post_id ) {
+		$properties['post_id']       = $post_id;
+		$properties['business_name'] = get_the_title( $post_id );
 
-		echo '<br><strong>SET FROM POST</strong>';
+		// Define properties to set from post meta.
+		$post_meta_properties = array(
+			'page_url',
+			'image_url',
+			'rating',
+			'rating_count',
+			'phone',
+			'street_address',
+			'city',
+			'state_province',
+			'postal_code',
+			'country',
+			'latitude',
+			'longitude',
+		);
 
-		// Set properties from post.
-		$this->post_id        = $post_id;
-		$this->business_name  = get_the_title( $post_id );
-		$this->page_url       = get_post_meta( $post_id, 'wpbr_page_url', true );
-		$this->image_url      = get_post_meta( $post_id, 'wpbr_image_url', true );
-		$this->rating         = get_post_meta( $post_id, 'wpbr_rating', true );
-		$this->rating_count   = get_post_meta( $post_id, 'wpbr_rating_count', true );
-		$this->phone          = get_post_meta( $post_id, 'wpbr_phone', true );
-		$this->street_address = get_post_meta( $post_id, 'wpbr_street_address', true );
-		$this->city           = get_post_meta( $post_id, 'wpbr_city', true );
-		$this->state_province = get_post_meta( $post_id, 'wpbr_state_province', true );
-		$this->postal_code    = get_post_meta( $post_id, 'wpbr_postal_code', true );
-		$this->country        = get_post_meta( $post_id, 'wpbr_country', true );
-		$this->latitude       = get_post_meta( $post_id, 'wpbr_latitude', true );
-		$this->longitude      = get_post_meta( $post_id, 'wpbr_longitude', true );
+		foreach ( $post_meta_properties as $property ) {
+			$properties[$property] = get_post_meta( $post_id, "wpbr_{$property}", true);
+		}
 
+		return $properties;
+	}
+
+	/**
+	 * Gets business from remote API.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array|null Standardized business properties or null on error.
+	 */
+	public function get_remote_business_properties() {
+		$request    = WPBR_Request_Factory::create( $this->business_id, $this->platform );
+		$response   = $request->request_business();
+
+		if ( ! is_wp_error( $response ) ) {
+			// Standardize API response data to match class properties.
+			$properties = $request->standardize_business_properties( $response );
+
+			return $properties;
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -338,191 +323,9 @@ abstract class WPBR_Business {
 	 *
 	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
-	protected function set_properties_from_array( $properties ) {
-
+	protected function set_properties( $properties ) {
 		foreach ( $properties as $property => $value ) {
-
-			// Build function name (e.g. set_business_name_from_api).
-			$setter = 'set_' . $property;
-
-			// Set property.
-			if ( method_exists( $this, $setter ) ) {
-
-				$this->$setter( $value );
-
-			}
-
+			$this->$property = $value;
 		}
-
 	}
-
-	/**
-	 * Sets business name.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $business_name Name of the business.
-	 */
-	public function set_business_name( $business_name ) {
-
-		$this->business_name = sanitize_text_field( $business_name );
-
-	}
-
-	/**
-	 * Sets business URL.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $page_url URL of the business page on the platform.
-	 */
-	public function set_page_url( $page_url ) {
-
-		$this->page_url = filter_var( $page_url, FILTER_VALIDATE_URL ) ? $page_url : '';
-
-	}
-
-	/**
-	 * Sets image URL.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $image_url URL of the business image.
-	 */
-	public function set_image_url( $image_url ) {
-
-		$this->image_url = filter_var( $image_url, FILTER_VALIDATE_URL ) ? $image_url : '';
-
-	}
-
-	/**
-	 * Sets rating.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param float $rating Average numerical rating of the business.
-	 */
-	public function set_rating( $rating ) {
-
-		$this->rating = is_numeric( $rating ) ? $rating : null;
-
-	}
-
-	/**
-	 * Sets rating count.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $rating_count Total number of ratings of the business.
-	 */
-	public function set_rating_count( $rating_count ) {
-
-		$this->rating_count = is_int( $rating_count ) ? $rating_count : null;
-
-	}
-
-	/**
-	 * Sets phone number.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $phone Relevant portion of the API response.
-	 */
-	public function set_phone( $phone ) {
-
-		$this->phone = sanitize_text_field( $phone );
-
-	}
-
-	/**
-	 * Sets street address.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $street_address Street address where the business is located.
-	 */
-	public function set_street_address( $street_address ) {
-
-		$this->street_address = sanitize_text_field( $street_address );
-
-	}
-
-	/**
-	 * Sets city.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $city City where the business is located.
-	 */
-	public function set_city( $city ) {
-
-		$this->city = sanitize_text_field( $city );
-
-	}
-
-	/**
-	 * Sets state/province.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $state_province State or province where the business is located.
-	 */
-	public function set_state_province( $state_province ) {
-
-		$this->state_province = sanitize_text_field( $state_province );
-
-	}
-
-	/**
-	 * Sets postal code.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $postal_code Postal code where the business is located.
-	 */
-	public function set_postal_code( $postal_code ) {
-
-		$this->postal_code = sanitize_text_field( $postal_code );
-
-	}
-
-	/**
-	 * Sets country.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $country Country where the business is located.
-	 */
-	public function set_country( $country ) {
-
-		$this->country = sanitize_text_field( $country );
-
-	}
-
-	/**
-	 * Sets latitude.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param float $latitude Latitude of the business location.
-	 */
-	public function set_latitude( $latitude ) {
-
-		$this->latitude = is_float( $latitude ) ? $latitude : null;
-
-	}
-
-	/**
-	 * Sets longitude.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param float $longitude Longitude of the business location.
-	 */
-	public function set_longitude( $longitude ) {
-
-		$this->longitude = is_float( $longitude ) ? $longitude : null;
-
-	}
-
 }

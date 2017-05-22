@@ -69,6 +69,17 @@ abstract class WPBR_Request {
 	protected $reviews_path;
 
 	/**
+	 * Constructor.
+	 *
+	 * Sets business_id property and API keys used in the request.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $business_id ID of the business passed in the API request.
+	 */
+	abstract public function __construct( $business_id );
+
+	/**
 	 * Requests data from remote API.
 	 *
 	 * This method dynamically creates requests based on the path and URL
@@ -123,7 +134,7 @@ abstract class WPBR_Request {
 	}
 
 	/**
-	 * Request business data from remote API.
+	 * Requests business data from remote API.
 	 *
 	 * @since 1.0.0
 	 *
@@ -132,12 +143,37 @@ abstract class WPBR_Request {
 	abstract public function request_business();
 
 	/**
-	 * Request reviews data from remote API.
+	 * Standardizes business properties.
+	 *
+	 * @since 1.0.0
+	 * @see WPBR_Business
+	 *
+	 * @param array $response Business data from remote API.
+	 *
+	 * @return array Standardized business properties.
+	 */
+	abstract public function standardize_business_properties( $response );
+
+
+	/**
+	 * Requests reviews data from remote API.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return WP_Error|array Reviews data or WP_Error on failure.
 	 */
 	abstract public function request_reviews();
+
+	/**
+	 * Standardizes properties for a set of reviews.
+	 *
+	 * @since 1.0.0
+	 * @see WPBR_Business
+	 *
+	 * @param array $response Reviews data from remote API.
+	 *
+	 * @return array Multi-dimensional array of standardized review properties.
+	 */
+//	abstract public function standardize_review_properties( $response );
 
 }

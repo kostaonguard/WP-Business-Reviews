@@ -104,24 +104,18 @@ class WPBR {
 		 * Classes responsible for implementing the WPBR_Business object.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-business.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-business.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-business.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-business.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-business.php';
 
 		/**
 		 * Classes responsible for implementing the WPBR_Review object.
 		 */
 //		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-review.php';
+//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-review-factory.php';
 //		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-review.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-review.php';
 
 		/**
 		 * Classes responsible for requesting and standardizing remote reviews.
 		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-reviews.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-reviews.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-reviews.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-reviews-set.php';
 
 		/**
 		 * Classes responsible for API requests to various reviews platforms.
@@ -129,9 +123,9 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request-factory.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-request.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-request.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-request.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-request.php';
+//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-request.php';
+//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-request.php';
+//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-request.php';
 
 		/**
 		 * Class responsible for defining all actions that occur in the admin area.
