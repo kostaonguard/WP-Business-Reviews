@@ -123,9 +123,9 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request-factory.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-request.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-request.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-request.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-request.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-request.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-request.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-request.php';
 
 		/**
 		 * Class responsible for defining all actions that occur in the admin area.
