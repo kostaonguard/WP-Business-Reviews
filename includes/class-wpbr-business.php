@@ -193,13 +193,10 @@ class WPBR_Business {
 		$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_business' );
 
 		if ( ! empty( $post ) ) {
-			$properties = $this->get_local_business_properties( $post->ID );
+			$this->set_properties_from_post( $post->ID );
 		} else {
-			$properties = $this->get_remote_business_properties();
+			$this->set_properties_from_api();
 		}
-
-		// Set properties from array of standardized key-value pairs.
-		$this->set_properties( $properties );
 	}
 
 	/**
@@ -260,19 +257,18 @@ class WPBR_Business {
 	}
 
 	/**
-	 * Gets properties from existing post in database.
+	 * Sets properties from existing post in database.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param int $post_id Post ID.
-	 *
-	 * @return array Business properties.
 	 */
-	protected function get_local_business_properties( $post_id ) {
+	protected function set_properties_from_post( $post_id ) {
 		$properties['post_id']       = $post_id;
 		$properties['business_name'] = get_the_title( $post_id );
 
 		// Define properties to set from post meta.
+		// TODO: Add property for all meta fields, set in constructor, and add filter.
 		$post_meta_properties = array(
 			'page_url',
 			'image_url',
@@ -292,17 +288,15 @@ class WPBR_Business {
 			$properties[$property] = get_post_meta( $post_id, "wpbr_{$property}", true);
 		}
 
-		return $properties;
+		$this->set_properties( $properties );
 	}
 
 	/**
-	 * Gets business from remote API.
+	 * Sets properties from remote API.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @return array|null Standardized business properties or null on error.
 	 */
-	public function get_remote_business_properties() {
+	public function set_properties_from_api() {
 		$request    = WPBR_Request_Factory::create( $this->business_id, $this->platform );
 		$response   = $request->request_business();
 
@@ -310,9 +304,7 @@ class WPBR_Business {
 			// Standardize API response data to match class properties.
 			$properties = $request->standardize_business_properties( $response );
 
-			return $properties;
-		} else {
-			return null;
+			$this->set_properties( $properties );
 		}
 	}
 
@@ -323,7 +315,7 @@ class WPBR_Business {
 	 *
 	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
-	protected function set_properties( $properties ) {
+	protected function set_properties( array $properties ) {
 		foreach ( $properties as $property => $value ) {
 			$this->$property = $value;
 		}
