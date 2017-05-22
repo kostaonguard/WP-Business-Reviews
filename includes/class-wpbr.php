@@ -64,7 +64,6 @@ class WPBR {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-
 		$this->plugin_name = 'wpbr';
 		$this->version = '1.0.0';
 
@@ -73,7 +72,6 @@ class WPBR {
 		$this->define_registration_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -82,7 +80,6 @@ class WPBR {
 	 * @since    1.0.0
 	 */
 	private function load_dependencies() {
-
 		/**
 		 * Class responsible for orchestrating the actions and filters of the
 		 * core plugin.
@@ -109,8 +106,6 @@ class WPBR {
 		 * Classes responsible for implementing the WPBR_Review object.
 		 */
 //		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-review.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-review-factory.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-review.php';
 
 		/**
 		 * Classes responsible for requesting and standardizing remote reviews.
@@ -139,7 +134,6 @@ class WPBR {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpbr-public.php';
 
 		$this->loader = new WPBR_Loader();
-
 	}
 
 	/**
@@ -151,11 +145,9 @@ class WPBR {
 	 * @since    1.0.0
 	 */
 	private function set_locale() {
-
 		$plugin_i18n = new WPBR_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -165,12 +157,10 @@ class WPBR {
 	 * @since    1.0.0
 	 */
 	private function define_registration_hooks() {
-
 		$post_types = new WPBR_Post_Types();
 
 		$this->loader->add_action( 'init', $post_types, 'register_post_types' );
 		$this->loader->add_action( 'init', $post_types, 'register_taxonomies' );
-
 	}
 
 	/**
@@ -180,14 +170,12 @@ class WPBR {
 	 * @since    1.0.0
 	 */
 	private function define_admin_hooks() {
-
 		$plugin_admin = new WPBR_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
 		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'display_business' );
-
 	}
 
 	/**
@@ -197,12 +185,10 @@ class WPBR {
 	 * @since    1.0.0
 	 */
 	private function define_public_hooks() {
-
 		$plugin_public = new WPBR_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -211,9 +197,7 @@ class WPBR {
 	 * @since    1.0.0
 	 */
 	public function run() {
-
 		$this->loader->run();
-
 	}
 
 	/**
@@ -224,9 +208,7 @@ class WPBR {
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name() {
-
 		return $this->plugin_name;
-
 	}
 
 	/**
@@ -236,9 +218,7 @@ class WPBR {
 	 * @return    WPBR_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
-
 		return $this->loader;
-
 	}
 
 	/**
@@ -248,9 +228,6 @@ class WPBR {
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version() {
-
 		return $this->version;
-
 	}
-
 }
