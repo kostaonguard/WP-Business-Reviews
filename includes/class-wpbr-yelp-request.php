@@ -37,6 +37,24 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	protected $api_host = 'https://api.yelp.com';
 
 	/**
+	 * Path used in the business request URL.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $business_path;
+
+	/**
+	 * Path used in the reviews request URL.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $reviews_path;
+
+	/**
 	 * OAuth2 token required for Yelp Fusion API requests.
 	 *
 	 * @since 1.0.0
@@ -54,7 +72,8 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	 */
 	public function __construct( $business_id ) {
 		$this->business_id   = $business_id;
-		$this->business_path = '/v3/businesses/' . $this->business_id;
+		$this->business_path = "/v3/businesses/$this->business_id";
+		$this->reviews_path = "/v3/businesses/{$this->business_id}/reviews";
 		// TODO: Get Yelp access token from database instead of using constant.
 		$this->access_token  = YELP_OAUTH_TOKEN;
 	}
@@ -71,9 +90,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		$args = array(
 			'user-agent' => '',
 			'headers' => array(
-
 				'authorization' => 'Bearer ' . $this->access_token,
-
 			),
 		);
 
@@ -91,7 +108,18 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	 * @return WP_Error|array Reviews data or WP_Error on failure.
 	 */
 	public function request_reviews() {
-		// TODO: Define how reviews are requested.
+		// Define args to be passed with the request.
+		$args = array(
+			'user-agent' => '',
+			'headers' => array(
+				'authorization' => 'Bearer ' . $this->access_token,
+			),
+		);
+
+		// Request data from remote API.
+		$response = $this->request( $this->reviews_path, array(), $args );
+
+		return $response;
 	}
 
 	/**
@@ -135,7 +163,9 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		$business['page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
 
 		// Set image URL.
-		$business['image_url'] = $this->build_image_url( $r['image_url'] );
+		if ( isset( $r['image_url'] ) ) {
+			$business['image_url'] = $this->build_image_url( $r['image_url'] );
+		}
 
 		// Set rating.
 		if (
@@ -200,6 +230,79 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		}
 
 		return $business;
+	}
+
+	/**
+	 * Standardizes reviews response for a set of reviews.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $response Reviews data from remote API.
+	 *
+	 * @return array Standardized set of reviews data.
+	 */
+	public function standardize_reviews( $response ) {
+		// Initialize array to store standardized properties.
+		$reviews = array();
+
+		// Loop through reviews and standardize properties.
+		foreach ( $response['reviews'] as $r ) {
+			// Set defaults.
+			$review = array(
+				'platform'           => $this->platform,
+				'business_id'        => $this->business_id,
+				'review_title'       => null,
+				'review_text'        => null,
+				'review_url'         => null,
+				'reviewer_name'      => null,
+				'reviewer_image_url' => null,
+				'rating'             => null,
+				'time_created'       => null,
+			);
+
+			// Set review text.
+			if ( isset( $r['text'] ) ) {
+				$review['review_text'] = sanitize_text_field( $r['text'] );
+			}
+
+			// Set review URL.
+			if (
+				isset( $r['url'] )
+				&& filter_var( $r['url'], FILTER_VALIDATE_URL )
+			) {
+				$review['review_url'] = $r['url'];
+			}
+
+			// Set reviewer name.
+			if ( isset( $r['user']['name'] ) ) {
+				$review['reviewer_name'] = sanitize_text_field( $r['user']['name'] );
+			}
+
+			// Set reviewer image URL.
+			if (
+				isset( $r['user']['image_url'] )
+				&& filter_var( $r['user']['image_url'], FILTER_VALIDATE_URL )
+			) {
+				$review['reviewer_image_url'] = $this->build_image_url( $r['user']['image_url'] );
+			}
+
+			// Set rating.
+			if (
+				isset( $r['rating'] )
+				&& is_numeric( $r['rating'] )
+			) {
+				$review['rating'] = $r['rating'];
+			}
+
+			// Set time created.
+			if ( isset( $r['time_created'] ) ) {
+				$review['time_created'] = strtotime( $r['time_created'] );
+			}
+
+			$reviews[] = $review;
+		}
+
+		return $reviews;
 	}
 
 	/**
