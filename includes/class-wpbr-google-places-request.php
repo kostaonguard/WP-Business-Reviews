@@ -72,7 +72,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return WP_Error|array Business data or WP_Error on failure.
+	 * @return array|WP_Error Business data or WP_Error on failure.
 	 */
 	public function request_business() {
 		// Define URL parameters of the request URL.
@@ -95,7 +95,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return WP_Error|array Reviews data or WP_Error on failure.
+	 * @return array|WP_Error Reviews data or WP_Error on failure.
 	 */
 	public function request_reviews() {
 		// Use the business request as a starting point.
@@ -120,8 +120,6 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 * @return array Standardized business properties.
 	 */
 	public function standardize_business_properties( $response ) {
-
-		// Drill down to the business portion of response.
 		$r = $response['result'];
 
 		// Set defaults.
@@ -258,47 +256,35 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 * @return array Address parts organized by type.
 	 */
 	protected function parse_address_components( array $address_components ) {
-
 		$formatted_components = array();
 
 		foreach ( $address_components as $component ) {
-
 			switch ( $component['types'][0] ) {
-
 				case 'subpremise' :
 					$formatted_components['subpremise'] = $component['short_name'];
 					break;
-
 				case 'street_number' :
 					$formatted_components['street_number'] = $component['short_name'];
 					break;
-
 				case 'route' :
 					$formatted_components['route'] = $component['short_name'];
 					break;
-
 				case 'locality' :
 					$formatted_components['city'] = $component['short_name'];
 					break;
-
 				case 'administrative_area_level_1' :
 					$formatted_components['state_province'] = $component['short_name'];
 					break;
-
 				case 'country' :
 					$formatted_components['country'] = $component['short_name'];
 					break;
-
 				case 'postal_code' :
 					$formatted_components['postal_code'] = $component['short_name'];
 					break;
-
 			}
-
 		}
 
 		return $formatted_components;
-
 	}
 
 	/**
@@ -311,15 +297,11 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 * @return string Street address where the business is located.
 	 */
 	protected function build_street_address( $address_components ) {
-
-		$street_number = isset( $address_components['street_number'] ) ? $address_components['street_number'] . ' ' : '';
-		$route         = isset( $address_components['route'] ) ? $address_components['route'] : '';
-		$subpremise    = isset( $address_components['subpremise'] ) ? ' #' . $address_components['subpremise'] : '';
-
+		$street_number  = isset( $address_components['street_number'] ) ? $address_components['street_number'] . ' ' : '';
+		$route          = isset( $address_components['route'] ) ? $address_components['route'] : '';
+		$subpremise     = isset( $address_components['subpremise'] ) ? ' #' . $address_components['subpremise'] : '';
 		$street_address = $street_number . $route . $subpremise;
 
 		return $street_address;
-
 	}
-
 }
