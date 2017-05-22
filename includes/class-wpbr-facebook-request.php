@@ -64,12 +64,11 @@ class WPBR_Facebook_Request extends WPBR_Request {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return WP_Error|array Business data or WP_Error on failure.
+	 * @return array|WP_Error Business data or WP_Error on failure.
 	 */
 	public function request_business() {
 		// Define fields to be included in response.
 		$fields = array(
-
 			'id',
 			'name',
 			'link',
@@ -77,7 +76,6 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			'rating_count',
 			'phone',
 			'location',
-
 		);
 
 		// Concatenate fields as required by Open Graph API.
@@ -85,11 +83,9 @@ class WPBR_Facebook_Request extends WPBR_Request {
 
 		// Set up URL parameters.
 		$url_params = array(
-
 			'fields'       => $fields,
 			// TODO: Replace FACEBOOK_PAGE_ACCESS_TOKEN constant.
 			'access_token' => FACEBOOK_PAGE_ACCESS_TOKEN,
-
 		);
 
 		// Request data from remote API.
@@ -103,18 +99,16 @@ class WPBR_Facebook_Request extends WPBR_Request {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return WP_Error|array Reviews data or WP_Error on failure.
+	 * @return array|WP_Error Reviews data or WP_Error on failure.
 	 */
 	public function request_reviews() {
 		// Define fields to be included in response.
 		$fields = array(
-
 			'rating',
 			'reviewer',
 			'review_text',
 			'open_graph_story',
 			'created_time',
-
 		);
 
 		// Concatenate fields as required by Open Graph API.
@@ -122,12 +116,10 @@ class WPBR_Facebook_Request extends WPBR_Request {
 
 		// Set up URL parameters.
 		$url_params = array(
-
 			'limit'        => 24,
 			'fields'       => $fields,
 			// TODO: Replace FACEBOOK_PAGE_ACCESS_TOKEN constant.
 			'access_token' => FACEBOOK_PAGE_ACCESS_TOKEN,
-
 		);
 
 		// Request data from remote API.
@@ -135,7 +127,6 @@ class WPBR_Facebook_Request extends WPBR_Request {
 
 		// Return only the relevant portion of the response.
 		return $response;
-
 	}
 
 	/**
