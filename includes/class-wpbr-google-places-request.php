@@ -84,10 +84,6 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 		// Request data from remote API.
 		$response = $this->request( $this->business_path, $url_params );
 
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
-
 		return $response;
 	}
 
