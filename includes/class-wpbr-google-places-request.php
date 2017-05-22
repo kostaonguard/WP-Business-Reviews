@@ -88,7 +88,21 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	}
 
 	/**
-	 * Standardize business properties.
+	 * Requests reviews data from remote API.
+	 *
+	 * Since Google Places API returns business and reviews data together, the
+	 * business request logic can be reused to access reviews.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array|WP_Error Reviews data or WP_Error on failure.
+	 */
+	public function request_reviews() {
+		return $this->request_business();
+	}
+
+	/**
+	 * Standardize business response.
 	 *
 	 * @since 1.0.0
 	 * @see WPBR_Business
@@ -97,7 +111,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 *
 	 * @return array Standardized business properties.
 	 */
-	public function standardize_business_properties( $response ) {
+	public function standardize_business( $response ) {
 		// Drill down to the relevant portion of the response.
 		$r = $response['result'];
 
@@ -196,29 +210,15 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	}
 
 	/**
-	 * Requests reviews data from remote API.
-	 *
-	 * Since Google Places API returns business and reviews data together, the
-	 * business request logic can be reused to access reviews.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array|WP_Error Reviews data or WP_Error on failure.
-	 */
-	public function request_reviews() {
-		return $this->request_business();
-	}
-
-	/**
-	 * Standardizes review data for a set of reviews.
+	 * Standardizes reviews response for a set of reviews.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param array $response Reviews data from remote API.
 	 *
-	 * @return array Standardized properties and values.
+	 * @return array Standardized set of reviews data.
 	 */
-	public function standardize_reviews_response( $response ) {
+	public function standardize_reviews( $response ) {
 		// Initialize array to store standardized properties.
 		$standardized_reviews = array();
 

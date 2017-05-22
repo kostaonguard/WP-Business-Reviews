@@ -110,7 +110,7 @@ class WPBR_Reviews_Set {
 
 		if ( is_array( $response ) ) {
 			// Standardize API response data to match class properties.
-			$standardized_reviews = $request->standardize_reviews_response( $response );
+			$standardized_reviews = $request->standardize_reviews( $response );
 
 			foreach ( $standardized_reviews as $properties ) {
 				$review = new WPBR_Review( $this->business_id, $this->platform );
@@ -141,8 +141,7 @@ class WPBR_Reviews_Set {
 	 * @since 1.0.0
 	 */
 	public function update_reviews_from_api() {
-		$this->set_properties_from_api();
+		$this->set_reviews_from_api();
 		$this->insert_posts();
 	}
-
 }

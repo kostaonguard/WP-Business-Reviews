@@ -257,6 +257,19 @@ class WPBR_Business {
 	}
 
 	/**
+	 * Sets properties from array of key-value pairs.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $properties Key-value pairs corresponding to class properties.
+	 */
+	protected function set_properties( array $properties ) {
+		foreach ( $properties as $property => $value ) {
+			$this->$property = $value;
+		}
+	}
+
+	/**
 	 * Sets properties from existing post in database.
 	 *
 	 * @since 1.0.0
@@ -296,28 +309,15 @@ class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 */
-	public function set_properties_from_api() {
+	protected function set_properties_from_api() {
 		$request    = WPBR_Request_Factory::create( $this->business_id, $this->platform );
 		$response   = $request->request_business();
 
 		if ( ! is_wp_error( $response ) ) {
 			// Standardize API response data to match class properties.
-			$properties = $request->standardize_business_properties( $response );
+			$properties = $request->standardize_business( $response );
 
 			$this->set_properties( $properties );
-		}
-	}
-
-	/**
-	 * Sets properties from array of key-value pairs.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $properties Key-value pairs corresponding to class properties.
-	 */
-	protected function set_properties( array $properties ) {
-		foreach ( $properties as $property => $value ) {
-			$this->$property = $value;
 		}
 	}
 }

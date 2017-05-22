@@ -95,7 +95,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	}
 
 	/**
-	 * Standardize business properties.
+	 * Standardize business response.
 	 *
 	 * @since 1.0.0
 	 * @see WPBR_Business
@@ -104,7 +104,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	 *
 	 * @return array Standardized business properties.
 	 */
-	public function standardize_business_properties( $response ) {
+	public function standardize_business( $response ) {
 		$r = $response;
 
 		// Set defaults.

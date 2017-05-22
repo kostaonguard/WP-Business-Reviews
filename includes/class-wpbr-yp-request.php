@@ -102,7 +102,7 @@ class WPBR_YP_Request extends WPBR_Request {
 	}
 
 	/**
-	 * Standardize business properties.
+	 * Standardize business response.
 	 *
 	 * @since 1.0.0
 	 * @see WPBR_Business
@@ -111,7 +111,7 @@ class WPBR_YP_Request extends WPBR_Request {
 	 *
 	 * @return array Standardized business properties.
 	 */
-	public function standardize_business_properties( $response ) {
+	public function standardize_business( $response ) {
 		// Drill down to the relevant portion of the response.
 		$r = $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
 
