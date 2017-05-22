@@ -88,28 +88,6 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	}
 
 	/**
-	 * Requests reviews data from remote API.
-	 *
-	 * Since Google Places API returns business and reviews data together, the
-	 * business request logic can be reused to access reviews.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array|WP_Error Reviews data or WP_Error on failure.
-	 */
-	public function request_reviews() {
-		// Use the business request as a starting point.
-		$response = $this->request_business();
-
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
-
-		// Return only the relevant portion of the response.
-		return $response['reviews'];
-	}
-
-	/**
 	 * Standardize business properties.
 	 *
 	 * @since 1.0.0
@@ -120,6 +98,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 * @return array Standardized business properties.
 	 */
 	public function standardize_business_properties( $response ) {
+		// Drill down to the relevant portion of the response.
 		$r = $response['result'];
 
 		// Set defaults.
@@ -217,6 +196,93 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	}
 
 	/**
+	 * Requests reviews data from remote API.
+	 *
+	 * Since Google Places API returns business and reviews data together, the
+	 * business request logic can be reused to access reviews.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array|WP_Error Reviews data or WP_Error on failure.
+	 */
+	public function request_reviews() {
+		return $this->request_business();
+	}
+
+	/**
+	 * Standardizes review data for a set of reviews.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $response Reviews data from remote API.
+	 *
+	 * @return array Standardized properties and values.
+	 */
+	public function standardize_reviews_response( $response ) {
+		// Initialize array to store standardized properties.
+		$standardized_reviews = array();
+
+		// Loop through reviews and standardize properties.
+		foreach ( $response['result']['reviews'] as $r ) {
+			// Set defaults.
+			$review = array(
+				'platform'           => $this->platform,
+				'business_id'        => $this->business_id,
+				'review_title'       => null,
+				'review_text'        => null,
+				'review_url'         => null,
+				'reviewer_name'      => null,
+				'reviewer_image_url' => null,
+				'rating'             => null,
+				'time_created'       => null,
+			);
+
+			// Set review text.
+			if ( isset( $r['text'] ) ) {
+				$review['review_text'] = sanitize_text_field( $r['text'] );
+			}
+
+			// Set review URL.
+			if (
+				isset( $r['author_url'] )
+				&& filter_var( $r['profile_photo_url'], FILTER_VALIDATE_URL )
+			) {
+				$review['review_url'] = $this->build_review_url( $r['author_url'] );
+			}
+
+			// Set reviewer name.
+			if ( isset( $r['author_name'] ) ) {
+				$review['reviewer_name'] = sanitize_text_field( $r['author_name'] );
+			}
+
+			// Set reviewer image URL.
+			if (
+				isset( $r['profile_photo_url'] )
+				&& filter_var( $r['profile_photo_url'], FILTER_VALIDATE_URL )
+			) {
+				$review['reviewer_image_url'] = $r['profile_photo_url'];
+			}
+
+			// Set rating.
+			if (
+				isset( $r['rating'] )
+				&& is_numeric( $r['rating'] )
+			) {
+				$review['rating'] = $r['rating'];
+			}
+
+			// Set time created.
+			if ( isset( $r['time'] ) && is_int( $r['time'] ) ) {
+				$review['time_created'] = $r['time'];
+			}
+
+			$standardized_reviews[] = $review;
+		}
+
+		return $standardized_reviews;
+	}
+
+	/**
 	 * Build image URL from photo reference in Google Places API response.
 	 *
 	 * @since 1.0.0
@@ -303,5 +369,28 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 		$street_address = $street_number . $route . $subpremise;
 
 		return $street_address;
+	}
+
+	/**
+	 * Build Google Places review URL from author URL.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $author_url Author URL returned by the API.
+	 *
+	 * @return string URL to a single Google Places review.
+	 */
+	protected function build_review_url( $author_url ) {
+		if (
+			! empty( $author_url )
+			&& filter_var( $author_url, FILTER_VALIDATE_URL )
+		) {
+			// Parse reviewer ID to use when building the review URL.
+			preg_match( '/contrib\/(.+)\/reviews/', $author_url, $matches );
+			$reviewer_id = $matches[1];
+
+			// Build review URL.
+			return "https://www.google.com/maps/contrib/{$reviewer_id}/place/{$this->business_id}";
+		}
 	}
 }

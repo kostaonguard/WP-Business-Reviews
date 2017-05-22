@@ -63,10 +63,9 @@ class WPBR_Reviews_Set {
 	 * @since 1.0.0
 	 */
 	public function __construct( $business_id, $platform ) {
-
 		$this->business_id = $business_id;
 		$this->platform    = $platform;
-
+		$this->set_reviews_from_api();
 	}
 
 	/**
@@ -83,63 +82,42 @@ class WPBR_Reviews_Set {
 	 * @return array Set of standardized review objects.
 	 */
 	public function get_local_reviews( $args ) {
-
-		// TODO: Define WP_Query to get local reviews in database.
-
+		// TODO: Define WP_Query to get local reviews in database
 	}
 
 	/**
-	 * Gets reviews from remote API.
+	 * Sets properties from array of key-value pairs.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array Set of standardized review objects.
+	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
-	public function get_remote_reviews() {
+	protected function set_properties( array $properties ) {
+		foreach ( $properties as $property => $value ) {
+			$this->$property = $value;
+		}
+	}
 
-		// Initialize array in which standardized reviews will be added.
-		$standardized_reviews = array();
-
+	/**
+	 * Sets reviews from remote API.
+	 *
+	 * @since 1.0.0
+	 */
+	public function set_reviews_from_api() {
 		// Request reviews from remote API.
-		$request        = WPBR_Request_Factory::create( $this->business_id, $this->platform );
-		$remote_reviews = $request->request_reviews();
+		$request  = WPBR_Request_Factory::create( $this->business_id, $this->platform );
+		$response = $request->request_reviews();
 
+		if ( is_array( $response ) ) {
+			// Standardize API response data to match class properties.
+			$standardized_reviews = $request->standardize_reviews_response( $response );
 
-		if ( ! is_array( $remote_reviews ) || empty( $remote_reviews ) ) {
-
-			return array();
-
+			foreach ( $standardized_reviews as $properties ) {
+				$review = new WPBR_Review( $this->business_id, $this->platform );
+				$review->set_properties( $properties );
+				$this->reviews[] = $review;
+			}
 		}
-
-		// Standardize reviews so that properties are consistent, regardless of platform.
-		foreach ( $remote_reviews as $remote_review ) {
-
-			// Create new review based on platform.
-			$review = WPBR_Review_Factory::create( $this->business_id, $this->platform );
-
-			// Standardize data to match class properties.
-			$properties = $review->standardize_properties( $remote_review );
-			$review->set_properties_from_array( $properties );
-
-			$standardized_reviews[] = $review;
-
-		}
-
-		return $standardized_reviews;
-
-	}
-
-	/**
-	 * Sets reviews.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $reviews Array of review objects.
-	 */
-	public function set_reviews( $reviews ) {
-
-		$this->reviews = is_array( $reviews ) ? $reviews : null;
-
 	}
 
 	/**
@@ -148,23 +126,13 @@ class WPBR_Reviews_Set {
 	 * @since 1.0.0
 	 */
 	public function insert_posts() {
-
-		if ( ! is_array( $this->reviews ) || empty( $this->reviews ) ) {
-
-			return;
-
-		}
-
-		foreach ( $this->reviews as $review ) {
-
-			if ( $review instanceof WPBR_Review ) {
-
-				$review->insert_post();
-
+		if ( is_array( $this->reviews ) && ! empty( $this->reviews ) ) {
+			foreach ( $this->reviews as $review ) {
+				if ( $review instanceof WPBR_Review ) {
+					$review->insert_post();
+				}
 			}
-
 		}
-
 	}
 
 	/**
@@ -173,11 +141,8 @@ class WPBR_Reviews_Set {
 	 * @since 1.0.0
 	 */
 	public function update_reviews_from_api() {
-
-		$remote_reviews = $this->get_remote_reviews();
-		$this->set_reviews( $remote_reviews );
+		$this->set_properties_from_api();
 		$this->insert_posts();
-
 	}
 
 }

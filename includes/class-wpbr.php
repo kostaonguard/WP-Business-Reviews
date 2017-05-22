@@ -105,7 +105,7 @@ class WPBR {
 		/**
 		 * Classes responsible for implementing the WPBR_Review object.
 		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-review.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-review.php';
 
 		/**
 		 * Classes responsible for requesting and standardizing remote reviews.
