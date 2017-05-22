@@ -108,7 +108,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		$r = $response;
 
 		// Set defaults.
-		$properties = array(
+		$business = array(
 			'platform'       => $this->platform,
 			'business_id'    => $this->business_id,
 			'business_name'  => null,
@@ -128,21 +128,21 @@ class WPBR_Yelp_Request extends WPBR_Request {
 
 		// Set business name.
 		if ( isset( $r['name'] ) ) {
-			$properties['business_name'] = sanitize_text_field( $r['name'] );
+			$business['business_name'] = sanitize_text_field( $r['name'] );
 		}
 
 		// Set page URL.
-		$properties['page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
+		$business['page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
 
 		// Set image URL.
-		$properties['image_url'] = $this->build_image_url( $r['image_url'] );
+		$business['image_url'] = $this->build_image_url( $r['image_url'] );
 
 		// Set rating.
 		if (
 			isset( $r['rating'] )
 			&& is_numeric( $r['rating'] )
 		) {
-			$properties['rating'] = $r['rating'];
+			$business['rating'] = $r['rating'];
 		}
 
 		// Set rating count.
@@ -150,37 +150,37 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['review_count'] )
 			&& is_numeric( $r['review_count'] )
 		) {
-			$properties['rating_count'] = $r['review_count'];
+			$business['rating_count'] = $r['review_count'];
 		}
 
 		// Set phone.
 		if ( isset( $r['display_phone'] ) ) {
-			$properties['phone'] = sanitize_text_field( $r['display_phone'] );
+			$business['phone'] = sanitize_text_field( $r['display_phone'] );
 		}
 
 		// Set street address.
 		if ( isset( $r['location']['address1'] ) ) {
-			$properties['street_address'] = sanitize_text_field( $r['location']['address1'] );
+			$business['street_address'] = sanitize_text_field( $r['location']['address1'] );
 		}
 
 		// Set city.
 		if ( isset( $r['location']['city'] ) ) {
-			$properties['city'] = sanitize_text_field( $r['location']['city'] );
+			$business['city'] = sanitize_text_field( $r['location']['city'] );
 		}
 
 		// Set state.
 		if ( isset( $r['location']['state'] ) ) {
-			$properties['state_province'] = sanitize_text_field( $r['location']['state'] );
+			$business['state_province'] = sanitize_text_field( $r['location']['state'] );
 		}
 
 		// Set postal code.
 		if ( isset( $r['location']['zip_code'] ) ) {
-			$properties['postal_code'] = sanitize_text_field( $r['location']['zip_code'] );
+			$business['postal_code'] = sanitize_text_field( $r['location']['zip_code'] );
 		}
 
 		// Set country.
 		if ( isset( $r['location']['country'] ) ) {
-			$properties['country'] = sanitize_text_field( $r['location']['country'] );
+			$business['country'] = sanitize_text_field( $r['location']['country'] );
 		}
 
 		// Set latitude.
@@ -188,7 +188,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['coordinates']['latitude'] )
 			&& is_float( $r['coordinates']['latitude'] )
 		) {
-			$properties['latitude'] = sanitize_text_field( $r['coordinates']['latitude'] );
+			$business['latitude'] = sanitize_text_field( $r['coordinates']['latitude'] );
 		}
 
 		// Set longitude.
@@ -196,10 +196,10 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['coordinates']['longitude'] )
 			&& is_float( $r['coordinates']['longitude'] )
 		) {
-			$properties['longitude'] = sanitize_text_field( $r['coordinates']['longitude'] );
+			$business['longitude'] = sanitize_text_field( $r['coordinates']['longitude'] );
 		}
 
-		return $properties;
+		return $business;
 	}
 
 	/**

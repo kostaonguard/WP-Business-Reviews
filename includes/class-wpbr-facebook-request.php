@@ -143,7 +143,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 		$r = $response;
 
 		// Set defaults.
-		$properties = array(
+		$business = array(
 			'platform'       => $this->platform,
 			'business_id'    => $this->business_id,
 			'business_name'  => null,
@@ -163,7 +163,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 
 		// Set business name.
 		if ( isset( $r['name'] ) ) {
-			$properties['business_name'] = sanitize_text_field( $r['name'] );
+			$business['business_name'] = sanitize_text_field( $r['name'] );
 		}
 
 		// Set page URL.
@@ -171,18 +171,18 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['link'] )
 			&& filter_var( $r['link'], FILTER_VALIDATE_URL )
 		) {
-			$properties['page_url'] = $r['link'];
+			$business['page_url'] = $r['link'];
 		}
 
 		// Set image URL.
-		$properties['image_url'] = "https://graph.facebook.com/v2.9/{$this->business_id}/picture/?height=192";
+		$business['image_url'] = "https://graph.facebook.com/v2.9/{$this->business_id}/picture/?height=192";
 
 		// Set rating.
 		if (
 			isset( $r['overall_star_rating'] )
 			&& is_numeric( $r['overall_star_rating'] )
 		) {
-			$properties['rating'] = $r['overall_star_rating'];
+			$business['rating'] = $r['overall_star_rating'];
 		}
 
 		// Set rating count.
@@ -190,37 +190,37 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['rating_count'] )
 			&& is_numeric( $r['rating_count'] )
 		) {
-			$properties['rating_count'] = $r['rating_count'];
+			$business['rating_count'] = $r['rating_count'];
 		}
 
 		// Set phone.
 		if ( isset( $r['phone'] ) ) {
-			$properties['phone'] = sanitize_text_field( $r['phone'] );
+			$business['phone'] = sanitize_text_field( $r['phone'] );
 		}
 
 		// Set street address.
 		if ( isset( $r['location']['street'] ) ) {
-			$properties['street_address'] = sanitize_text_field( $r['location']['street'] );
+			$business['street_address'] = sanitize_text_field( $r['location']['street'] );
 		}
 
 		// Set city.
 		if ( isset( $r['location']['city'] ) ) {
-			$properties['city'] = sanitize_text_field( $r['location']['city'] );
+			$business['city'] = sanitize_text_field( $r['location']['city'] );
 		}
 
 		// Set state.
 		if ( isset( $r['location']['state'] ) ) {
-			$properties['state_province'] = sanitize_text_field( $r['location']['state'] );
+			$business['state_province'] = sanitize_text_field( $r['location']['state'] );
 		}
 
 		// Set postal code.
 		if ( isset( $r['location']['zip'] ) ) {
-			$properties['postal_code'] = sanitize_text_field( $r['location']['zip'] );
+			$business['postal_code'] = sanitize_text_field( $r['location']['zip'] );
 		}
 
 		// Set country.
 		if ( isset( $r['location']['country'] ) ) {
-			$properties['country'] = sanitize_text_field( $r['location']['country'] );
+			$business['country'] = sanitize_text_field( $r['location']['country'] );
 		}
 
 		// Set latitude.
@@ -228,7 +228,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['location']['latitude'] )
 			&& is_float( $r['location']['latitude'] )
 		) {
-			$properties['latitude'] = sanitize_text_field( $r['location']['latitude'] );
+			$business['latitude'] = sanitize_text_field( $r['location']['latitude'] );
 		}
 
 		// Set longitude.
@@ -236,9 +236,9 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['location']['longitude'] )
 			&& is_float( $r['location']['longitude'] )
 		) {
-			$properties['longitude'] = sanitize_text_field( $r['location']['longitude'] );
+			$business['longitude'] = sanitize_text_field( $r['location']['longitude'] );
 		}
 
-		return $properties;
+		return $business;
 	}
 }

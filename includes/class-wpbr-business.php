@@ -315,9 +315,9 @@ class WPBR_Business {
 
 		if ( ! is_wp_error( $response ) ) {
 			// Standardize API response data to match class properties.
-			$properties = $request->standardize_business( $response );
+			$business = $request->standardize_business( $response );
 
-			$this->set_properties( $properties );
+			$this->set_properties( $business );
 		}
 	}
 }

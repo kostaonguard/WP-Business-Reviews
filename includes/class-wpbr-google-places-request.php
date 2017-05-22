@@ -116,7 +116,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 		$r = $response['result'];
 
 		// Set defaults.
-		$properties = array(
+		$business = array(
 			'platform'       => $this->platform,
 			'business_id'    => $this->business_id,
 			'business_name'  => null,
@@ -136,7 +136,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 
 		// Set business name.
 		if ( isset( $r['name'] ) ) {
-			$properties['business_name'] = sanitize_text_field( $r['name'] );
+			$business['business_name'] = sanitize_text_field( $r['name'] );
 		}
 
 		// Set page URL.
@@ -144,12 +144,12 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			isset( $r['url'] )
 			&& filter_var( $r['url'], FILTER_VALIDATE_URL )
 		) {
-			$properties['page_url'] = $r['url'];
+			$business['page_url'] = $r['url'];
 		}
 
 		// Set image URL.
 		if ( isset( $r['photos'][0]['photo_reference'] ) ) {
-			$properties['image_url'] = $this->build_image_url( $r['photos'][0]['photo_reference'] );
+			$business['image_url'] = $this->build_image_url( $r['photos'][0]['photo_reference'] );
 		}
 
 		// Set rating.
@@ -157,12 +157,12 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			isset( $r['rating'] )
 			&& is_numeric( $r['rating'] )
 		) {
-			$properties['rating'] = $r['rating'];
+			$business['rating'] = $r['rating'];
 		}
 
 		// Set phone.
 		if ( isset( $r['formatted_phone_number'] ) ) {
-			$properties['phone'] = sanitize_text_field( $r['formatted_phone_number'] );
+			$business['phone'] = sanitize_text_field( $r['formatted_phone_number'] );
 		}
 
 		// Set address properties.
@@ -171,22 +171,22 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			$address_components = $this->parse_address_components( $r['address_components'] );
 
 			// Build street address since it is not provided as a single field.
-			$properties['street_address'] = $this->build_street_address( $address_components );
+			$business['street_address'] = $this->build_street_address( $address_components );
 
 			if ( isset( $address_components['city'] ) ) {
-				$properties['city'] = sanitize_text_field( $address_components['city'] );
+				$business['city'] = sanitize_text_field( $address_components['city'] );
 			}
 
 			if ( isset( $address_components['state_province'] ) ) {
-				$properties['state_province'] = sanitize_text_field( $address_components['state_province'] );
+				$business['state_province'] = sanitize_text_field( $address_components['state_province'] );
 			}
 
 			if ( isset( $address_components['postal_code'] ) ) {
-				$properties['postal_code'] = sanitize_text_field( $address_components['postal_code'] );
+				$business['postal_code'] = sanitize_text_field( $address_components['postal_code'] );
 			}
 
 			if ( isset( $address_components['country'] ) ) {
-				$properties['country'] = sanitize_text_field( $address_components['country'] );
+				$business['country'] = sanitize_text_field( $address_components['country'] );
 			}
 		}
 
@@ -195,7 +195,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			isset( $r['geometry']['location']['lat'] )
 			&& is_float( $r['geometry']['location']['lat'] )
 		) {
-			$properties['latitude'] = sanitize_text_field( $r['geometry']['location']['lat'] );
+			$business['latitude'] = sanitize_text_field( $r['geometry']['location']['lat'] );
 		}
 
 		// Set longitude.
@@ -203,10 +203,10 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			isset( $r['geometry']['location']['lng'] )
 			&& is_float( $r['geometry']['location']['lng'] )
 		) {
-			$properties['longitude'] = sanitize_text_field( $r['geometry']['location']['lng'] );
+			$business['longitude'] = sanitize_text_field( $r['geometry']['location']['lng'] );
 		}
 
-		return $properties;
+		return $business;
 	}
 
 	/**
