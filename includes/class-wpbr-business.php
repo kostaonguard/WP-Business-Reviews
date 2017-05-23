@@ -66,112 +66,13 @@ class WPBR_Business {
 	protected $business_name;
 
 	/**
-	 * URL of the business page on the platform.
+	 * Array of metadata associated with the business.
 	 *
 	 * @since 1.0.0
 	 * @access protected
-	 * @var string
+	 * @var array
 	 */
-	protected $page_url;
-
-	/**
-	 * URL of the business image.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $image_url;
-
-	/**
-	 * Average numerical rating of the business.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var float
-	 */
-	protected $rating;
-
-	/**
-	 * Total number of ratings of the business.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var int
-	 */
-	protected $rating_count;
-
-	/**
-	 * Formatted phone number of the business.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $phone;
-
-	/**
-	 * Street address where the business is located.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $street_address;
-
-	/**
-	 * City where the business is located.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $city;
-
-	/**
-	 * State or province where the business is located.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $state_province;
-
-	/**
-	 * Postal code where the business is located.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $postal_code;
-
-	/**
-	 * Country where the business is located.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $country;
-
-	/**
-	 * Latitude of the business location.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $latitude;
-
-	/**
-	 * Longitude of the business location.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $longitude;
+	protected $meta;
 
 	/**
 	 * Constructor.
@@ -187,11 +88,30 @@ class WPBR_Business {
 	public function __construct( $business_id, $platform ) {
 		$this->business_id = $business_id;
 		$this->platform    = $platform;
-		$this->post_slug   = $this->build_post_slug();
+
+		// Set metadata defaults stored as post meta in the database.
+		$this->meta = array(
+			'page_url'       => null,
+			'image_url'      => null,
+			'rating'         => null,
+			'rating_count'   => null,
+			'phone'          => null,
+			'street_address' => null,
+			'city'           => null,
+			'state_province' => null,
+			'postal_code'    => null,
+			'country'        => null,
+			'latitude'       => null,
+			'longitude'      => null,
+		);
+
+		// Build a unique slug to identify post in the database.
+		$this->post_slug = $this->build_post_slug();
 
 		// Attempt to retrieve post from database using the post slug.
 		$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_business' );
 
+		// Set properties from post if available, or else from remote API.
 		if ( ! empty( $post ) ) {
 			$this->set_properties_from_post( $post->ID );
 		} else {
@@ -219,38 +139,30 @@ class WPBR_Business {
 	 * @since 1.0.0
 	 */
 	public function insert_post() {
+		// Define post meta fields.
+		$meta_input = array(
+			'wpbr_business_id' => $this->business_id,
+		);
+
+		foreach ( $this->meta as $key => $value ) {
+			$meta_input["wpbr_$key"] = $value;
+		}
+
+		// Define taxonomy terms.
+		$tax_input = array(
+			'wpbr_platform' => $this->platform,
+		);
+
 		// Define array of post elements.
 		$postarr = array(
+			'ID'          => $this->post_id,
 			'post_type'   => 'wpbr_business',
 			'post_title'  => $this->business_name,
 			'post_name'   => $this->post_slug,
 			'post_status' => 'publish',
-			'meta_input'  => array(
-				'wpbr_business_id'    => $this->business_id,
-				'wpbr_page_url'       => $this->page_url,
-				'wpbr_image_url'      => $this->image_url,
-				'wpbr_rating'         => $this->rating,
-				'wpbr_rating_count'   => $this->rating_count,
-				'wpbr_phone'          => $this->phone,
-				'wpbr_latitude'       => $this->latitude,
-				'wpbr_longitude'      => $this->longitude,
-				'wpbr_street_address' => $this->street_address,
-				'wpbr_city'           => $this->city,
-				'wpbr_state_province' => $this->state_province,
-				'wpbr_postal_code'    => $this->postal_code,
-				'wpbr_country'        => $this->country,
-			),
-			'tax_input'   => array(
-				'wpbr_platform' => $this->platform,
-			),
+			'meta_input'  => $meta_input,
+			'tax_input'   => $tax_input,
 		);
-
-		// If post ID exists, update existing post.
-		if ( ! empty( $this->post_id ) ) {
-
-			$postarr['ID'] = $this->post_id;
-
-		}
 
 		// Insert or update post in database.
 		wp_insert_post( $postarr );
@@ -264,8 +176,12 @@ class WPBR_Business {
 	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
 	protected function set_properties( array $properties ) {
-		foreach ( $properties as $property => $value ) {
-			$this->$property = $value;
+		$keys = array_keys( get_object_vars( $this ) );
+
+		foreach ( $keys as $key ) {
+			if ( isset( $properties[ $key ] ) ) {
+				$this->$key = $properties[ $key ];
+			}
 		}
 	}
 
@@ -281,24 +197,11 @@ class WPBR_Business {
 		$properties['business_name'] = get_the_title( $post_id );
 
 		// Define properties to set from post meta.
-		// TODO: Add property for all meta fields, set in constructor, and add filter.
-		$post_meta_properties = array(
-			'page_url',
-			'image_url',
-			'rating',
-			'rating_count',
-			'phone',
-			'street_address',
-			'city',
-			'state_province',
-			'postal_code',
-			'country',
-			'latitude',
-			'longitude',
-		);
+		$properties['meta'] = $this->meta;
 
-		foreach ( $post_meta_properties as $property ) {
-			$properties[$property] = get_post_meta( $post_id, "wpbr_{$property}", true);
+		// Loop through and populate metadata.
+		foreach ( $properties['meta'] as $key => $value ) {
+			$properties['meta'][$key] = get_post_meta( $post_id, "wpbr_$key", true);
 		}
 
 		$this->set_properties( $properties );
