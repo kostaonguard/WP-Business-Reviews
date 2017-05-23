@@ -114,7 +114,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 */
 	public function standardize_business( array $response ) {
 		if ( ! isset( $response['result'] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
 		} else {
 			$r = $response['result'];
 		}
@@ -228,7 +228,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 */
 	public function standardize_reviews( array $response ) {
 		if ( ! isset( $response['result']['reviews'] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
 		}
 
 		// Initialize array to store standardized properties.

@@ -131,7 +131,7 @@ class WPBR_YP_Request extends WPBR_Request {
 	 */
 	public function standardize_business( array $response ) {
 		if ( ! isset( $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
 		} else {
 			$r = $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
 		}
@@ -239,7 +239,7 @@ class WPBR_YP_Request extends WPBR_Request {
 	 */
 	public function standardize_reviews( array $response ) {
 		if ( ! isset( $response['ratingsAndReviewsResult']['reviews']['review'] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
 		}
 
 		// Initialize array to store standardized properties.

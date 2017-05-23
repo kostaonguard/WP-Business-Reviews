@@ -135,7 +135,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	 */
 	public function standardize_business( array $response ) {
 		if ( empty( $response ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
 		} else {
 			$r = $response;
 		}
@@ -254,7 +254,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	 */
 	public function standardize_reviews( array $response ) {
 		if ( ! isset( $response['reviews'] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
 		}
 
 		// Initialize array to store standardized properties.
