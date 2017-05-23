@@ -155,7 +155,8 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 
 		// Set image URL.
 		if ( isset( $r['photos'][0]['photo_reference'] ) ) {
-			$business['meta']['image_url'] = $this->build_image_url( $r['photos'][0]['photo_reference'] );
+			$photo_reference = sanitize_text_field( $r['photos'][0]['photo_reference'] );
+			$business['meta']['image_url'] = $this->build_image_url( $photo_reference );
 		}
 
 		// Set rating.

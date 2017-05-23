@@ -170,7 +170,10 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		$business['meta']['page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
 
 		// Set image URL.
-		if ( isset( $r['image_url'] ) ) {
+		if (
+			isset( $r['image_url'] )
+			&& filter_var( $r['image_url'], FILTER_VALIDATE_URL )
+		) {
 			$business['meta']['image_url'] = $this->build_image_url( $r['image_url'] );
 		}
 
