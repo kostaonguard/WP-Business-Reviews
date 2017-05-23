@@ -91,7 +91,7 @@ abstract class WPBR_Request {
 		}
 
 		// Initiate request to the Google Places API.
-		$response = wp_safe_remote_get( 'x', $args );
+		$response = wp_safe_remote_get( $url, $args );
 
 		// Return early on error.
 		if ( is_wp_error( $response ) ) {
