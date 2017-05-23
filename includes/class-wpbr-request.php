@@ -91,11 +91,21 @@ abstract class WPBR_Request {
 		}
 
 		// Initiate request to the Google Places API.
-		$response = wp_safe_remote_get( $url, $args );
+		$response = wp_safe_remote_get( 'x', $args );
 
-		// Return WP_Error on failure.
+		// Return early on error.
 		if ( is_wp_error( $response ) ) {
 			return $response;
+		}
+
+		// Check the response code.
+		$response_code    = wp_remote_retrieve_response_code( $response );
+		$response_message = wp_remote_retrieve_response_message( $response );
+
+		if ( 200 != $response_code && ! empty( $response_message ) ) {
+			return new WP_Error( $response_code, $response_message );
+		} elseif ( 200 != $response_code ) {
+			return new WP_Error( $response_code, __( 'An unknown error occurred.', 'wpbr' ) );
 		}
 
 		// Get just the response body.

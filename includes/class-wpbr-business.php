@@ -313,11 +313,29 @@ class WPBR_Business {
 		$request    = WPBR_Request_Factory::create( $this->business_id, $this->platform );
 		$response   = $request->request_business();
 
-		if ( ! is_wp_error( $response ) ) {
+		if ( is_wp_error( $response ) ) {
+			echo $response->get_error_message();
+			return;
+		} else {
 			// Standardize API response data to match class properties.
 			$business = $request->standardize_business( $response );
 
+			if ( is_wp_error( $business ) ) {
+				echo $business->get_error_message();
+				return;
+			}
+
 			$this->set_properties( $business );
 		}
+	}
+
+	/**
+	 * Inserts or updates existing business post based on remote API response.
+	 *
+	 * @since 1.0.0
+	 */
+	public function update_reviews_from_api() {
+		$this->set_properties_from_api();
+		$this->insert_post();
 	}
 }
