@@ -123,7 +123,7 @@ class WPBR_Post_Types {
 
 			'label'                 => __( 'Business', 'wpbr' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', ),
+			'supports'              => array( '' ),
 			'taxonomies'            => array(),
 			'hierarchical'          => false,
 			'public'                => true,
@@ -195,7 +195,7 @@ class WPBR_Post_Types {
 
 			'label'                 => __( 'Review', 'wpbr' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', ),
+			'supports'              => array( '' ),
 			'taxonomies'            => array(),
 			'hierarchical'          => false,
 			'public'                => true,
