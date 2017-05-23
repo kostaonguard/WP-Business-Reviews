@@ -21,13 +21,14 @@
 class WPBR_Business {
 
 	/**
-	 * Reviews platform associated with the business.
+	 * Name of the business.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
-	protected $platform;
+	protected $business_name;
+
 
 	/**
 	 * ID of the business on the platform.
@@ -37,6 +38,15 @@ class WPBR_Business {
 	 * @var string
 	 */
 	protected $business_id;
+
+	/**
+	 * Reviews platform associated with the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform;
 
 	/**
 	 * ID of the business post in the database.
@@ -55,15 +65,6 @@ class WPBR_Business {
 	 * @var string
 	 */
 	protected $post_slug;
-
-	/**
-	 * Name of the business.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $business_name;
 
 	/**
 	 * Array of metadata associated with the business.
