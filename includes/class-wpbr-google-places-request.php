@@ -109,29 +109,35 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 *
 	 * @param array $response Business data from remote API.
 	 *
-	 * @return array Standardized business properties.
+	 * @return array|WP_Error Standardized business properties or WP_Error if
+	 *                        response structure does not meet expectations.
 	 */
-	public function standardize_business( $response ) {
-		// Drill down to the relevant portion of the response.
-		$r = $response['result'];
+	public function standardize_business( array $response ) {
+		if ( ! isset( $response['result'] ) ) {
+			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+		} else {
+			$r = $response['result'];
+		}
 
 		// Set defaults.
 		$business = array(
-			'platform'       => $this->platform,
-			'business_id'    => $this->business_id,
-			'business_name'  => null,
-			'page_url'       => null,
-			'image_url'      => null,
-			'rating'         => null,
-			'rating_count'   => null,
-			'phone'          => null,
-			'street_address' => null,
-			'city'           => null,
-			'state_province' => null,
-			'postal_code'    => null,
-			'country'        => null,
-			'latitude'       => null,
-			'longitude'      => null,
+			'platform'      => $this->platform,
+			'business_id'   => $this->business_id,
+			'business_name' => null,
+			'meta'          => array(
+				'page_url'       => null,
+				'image_url'      => null,
+				'rating'         => null,
+				'rating_count'   => null,
+				'phone'          => null,
+				'street_address' => null,
+				'city'           => null,
+				'state_province' => null,
+				'postal_code'    => null,
+				'country'        => null,
+				'latitude'       => null,
+				'longitude'      => null,
+			),
 		);
 
 		// Set business name.
@@ -144,12 +150,12 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			isset( $r['url'] )
 			&& filter_var( $r['url'], FILTER_VALIDATE_URL )
 		) {
-			$business['page_url'] = $r['url'];
+			$business['meta']['page_url'] = $r['url'];
 		}
 
 		// Set image URL.
 		if ( isset( $r['photos'][0]['photo_reference'] ) ) {
-			$business['image_url'] = $this->build_image_url( $r['photos'][0]['photo_reference'] );
+			$business['meta']['image_url'] = $this->build_image_url( $r['photos'][0]['photo_reference'] );
 		}
 
 		// Set rating.
@@ -157,12 +163,12 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			isset( $r['rating'] )
 			&& is_numeric( $r['rating'] )
 		) {
-			$business['rating'] = $r['rating'];
+			$business['meta']['rating'] = $r['rating'];
 		}
 
 		// Set phone.
 		if ( isset( $r['formatted_phone_number'] ) ) {
-			$business['phone'] = sanitize_text_field( $r['formatted_phone_number'] );
+			$business['meta']['phone'] = sanitize_text_field( $r['formatted_phone_number'] );
 		}
 
 		// Set address properties.
@@ -171,22 +177,22 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			$address_components = $this->parse_address_components( $r['address_components'] );
 
 			// Build street address since it is not provided as a single field.
-			$business['street_address'] = $this->build_street_address( $address_components );
+			$business['meta']['street_address'] = $this->build_street_address( $address_components );
 
 			if ( isset( $address_components['city'] ) ) {
-				$business['city'] = sanitize_text_field( $address_components['city'] );
+				$business['meta']['city'] = sanitize_text_field( $address_components['city'] );
 			}
 
 			if ( isset( $address_components['state_province'] ) ) {
-				$business['state_province'] = sanitize_text_field( $address_components['state_province'] );
+				$business['meta']['state_province'] = sanitize_text_field( $address_components['state_province'] );
 			}
 
 			if ( isset( $address_components['postal_code'] ) ) {
-				$business['postal_code'] = sanitize_text_field( $address_components['postal_code'] );
+				$business['meta']['postal_code'] = sanitize_text_field( $address_components['postal_code'] );
 			}
 
 			if ( isset( $address_components['country'] ) ) {
-				$business['country'] = sanitize_text_field( $address_components['country'] );
+				$business['meta']['country'] = sanitize_text_field( $address_components['country'] );
 			}
 		}
 
@@ -195,7 +201,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			isset( $r['geometry']['location']['lat'] )
 			&& is_float( $r['geometry']['location']['lat'] )
 		) {
-			$business['latitude'] = sanitize_text_field( $r['geometry']['location']['lat'] );
+			$business['meta']['latitude'] = sanitize_text_field( $r['geometry']['location']['lat'] );
 		}
 
 		// Set longitude.
@@ -203,7 +209,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			isset( $r['geometry']['location']['lng'] )
 			&& is_float( $r['geometry']['location']['lng'] )
 		) {
-			$business['longitude'] = sanitize_text_field( $r['geometry']['location']['lng'] );
+			$business['meta']['longitude'] = sanitize_text_field( $r['geometry']['location']['lng'] );
 		}
 
 		return $business;
@@ -218,9 +224,9 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 *
 	 * @return array Standardized set of reviews data.
 	 */
-	public function standardize_reviews( $response ) {
+	public function standardize_reviews( array $response ) {
 		// Initialize array to store standardized properties.
-		$standardized_reviews = array();
+		$reviews = array();
 
 		// Loop through reviews and standardize properties.
 		foreach ( $response['result']['reviews'] as $r ) {
@@ -245,7 +251,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			// Set review URL.
 			if (
 				isset( $r['author_url'] )
-				&& filter_var( $r['profile_photo_url'], FILTER_VALIDATE_URL )
+				&& filter_var( $r['author_url'], FILTER_VALIDATE_URL )
 			) {
 				$review['review_url'] = $this->build_review_url( $r['author_url'] );
 			}
@@ -272,14 +278,14 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 			}
 
 			// Set time created.
-			if ( isset( $r['time'] ) && is_int( $r['time'] ) ) {
-				$review['time_created'] = $r['time'];
+			if ( isset( $r['time'] ) ) {
+				$review['time_created'] = intval( $r['time'] );
 			}
 
-			$standardized_reviews[] = $review;
+			$reviews[] = $review;
 		}
 
-		return $standardized_reviews;
+		return $reviews;
 	}
 
 	/**

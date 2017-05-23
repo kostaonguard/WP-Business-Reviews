@@ -153,28 +153,35 @@ class WPBR_Facebook_Request extends WPBR_Request {
 	 *
 	 * @param array $response Business data from remote API.
 	 *
-	 * @return array Standardized business properties.
+	 * @return array|WP_Error Standardized business properties or WP_Error if
+	 *                        response structure does not meet expectations.
 	 */
-	public function standardize_business( $response ) {
-		$r = $response;
+	public function standardize_business( array $response ) {
+		if ( empty( $response ) ) {
+			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+		} else {
+			$r = $response;
+		}
 
 		// Set defaults.
 		$business = array(
-			'platform'       => $this->platform,
-			'business_id'    => $this->business_id,
-			'business_name'  => null,
-			'page_url'       => null,
-			'image_url'      => null,
-			'rating'         => null,
-			'rating_count'   => null,
-			'phone'          => null,
-			'street_address' => null,
-			'city'           => null,
-			'state_province' => null,
-			'postal_code'    => null,
-			'country'        => null,
-			'latitude'       => null,
-			'longitude'      => null,
+			'platform'      => $this->platform,
+			'business_id'   => $this->business_id,
+			'business_name' => null,
+			'meta'          => array(
+				'page_url'       => null,
+				'image_url'      => null,
+				'rating'         => null,
+				'rating_count'   => null,
+				'phone'          => null,
+				'street_address' => null,
+				'city'           => null,
+				'state_province' => null,
+				'postal_code'    => null,
+				'country'        => null,
+				'latitude'       => null,
+				'longitude'      => null,
+			),
 		);
 
 		// Set business name.
@@ -187,7 +194,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['link'] )
 			&& filter_var( $r['link'], FILTER_VALIDATE_URL )
 		) {
-			$business['page_url'] = $r['link'];
+			$business['meta']['page_url'] = $r['link'];
 		}
 
 		// Set image URL.
@@ -195,7 +202,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['picture']['data']['url'] )
 			&& filter_var( $r['picture']['data']['url'], FILTER_VALIDATE_URL )
 		) {
-			$business['image_url'] = $r['picture']['data']['url'];
+			$business['meta']['image_url'] = $r['picture']['data']['url'];
 		}
 
 		// Set rating.
@@ -203,7 +210,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['overall_star_rating'] )
 			&& is_numeric( $r['overall_star_rating'] )
 		) {
-			$business['rating'] = $r['overall_star_rating'];
+			$business['meta']['rating'] = $r['overall_star_rating'];
 		}
 
 		// Set rating count.
@@ -211,37 +218,37 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['rating_count'] )
 			&& is_numeric( $r['rating_count'] )
 		) {
-			$business['rating_count'] = $r['rating_count'];
+			$business['meta']['rating_count'] = $r['rating_count'];
 		}
 
 		// Set phone.
 		if ( isset( $r['phone'] ) ) {
-			$business['phone'] = sanitize_text_field( $r['phone'] );
+			$business['meta']['phone'] = sanitize_text_field( $r['phone'] );
 		}
 
 		// Set street address.
 		if ( isset( $r['location']['street'] ) ) {
-			$business['street_address'] = sanitize_text_field( $r['location']['street'] );
+			$business['meta']['street_address'] = sanitize_text_field( $r['location']['street'] );
 		}
 
 		// Set city.
 		if ( isset( $r['location']['city'] ) ) {
-			$business['city'] = sanitize_text_field( $r['location']['city'] );
+			$business['meta']['city'] = sanitize_text_field( $r['location']['city'] );
 		}
 
 		// Set state.
 		if ( isset( $r['location']['state'] ) ) {
-			$business['state_province'] = sanitize_text_field( $r['location']['state'] );
+			$business['meta']['state_province'] = sanitize_text_field( $r['location']['state'] );
 		}
 
 		// Set postal code.
 		if ( isset( $r['location']['zip'] ) ) {
-			$business['postal_code'] = sanitize_text_field( $r['location']['zip'] );
+			$business['meta']['postal_code'] = sanitize_text_field( $r['location']['zip'] );
 		}
 
 		// Set country.
 		if ( isset( $r['location']['country'] ) ) {
-			$business['country'] = sanitize_text_field( $r['location']['country'] );
+			$business['meta']['country'] = sanitize_text_field( $r['location']['country'] );
 		}
 
 		// Set latitude.
@@ -249,7 +256,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['location']['latitude'] )
 			&& is_float( $r['location']['latitude'] )
 		) {
-			$business['latitude'] = sanitize_text_field( $r['location']['latitude'] );
+			$business['meta']['latitude'] = sanitize_text_field( $r['location']['latitude'] );
 		}
 
 		// Set longitude.
@@ -257,7 +264,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['location']['longitude'] )
 			&& is_float( $r['location']['longitude'] )
 		) {
-			$business['longitude'] = sanitize_text_field( $r['location']['longitude'] );
+			$business['meta']['longitude'] = sanitize_text_field( $r['location']['longitude'] );
 		}
 
 		return $business;
@@ -272,7 +279,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 	 *
 	 * @return array Standardized set of reviews data.
 	 */
-	public function standardize_reviews( $response ) {
+	public function standardize_reviews( array $response ) {
 		// Initialize array to store standardized properties.
 		$reviews = array();
 

@@ -130,28 +130,35 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	 *
 	 * @param array $response Business data from remote API.
 	 *
-	 * @return array Standardized business properties.
+	 * @return array|WP_Error Standardized business properties or WP_Error if
+	 *                        response structure does not meet expectations.
 	 */
-	public function standardize_business( $response ) {
-		$r = $response;
+	public function standardize_business( array $response ) {
+		if ( empty( $response ) ) {
+			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+		} else {
+			$r = $response;
+		}
 
 		// Set defaults.
 		$business = array(
-			'platform'       => $this->platform,
-			'business_id'    => $this->business_id,
-			'business_name'  => null,
-			'page_url'       => null,
-			'image_url'      => null,
-			'rating'         => null,
-			'rating_count'   => null,
-			'phone'          => null,
-			'street_address' => null,
-			'city'           => null,
-			'state_province' => null,
-			'postal_code'    => null,
-			'country'        => null,
-			'latitude'       => null,
-			'longitude'      => null,
+			'platform'      => $this->platform,
+			'business_id'   => $this->business_id,
+			'business_name' => null,
+			'meta'          => array(
+				'page_url'       => null,
+				'image_url'      => null,
+				'rating'         => null,
+				'rating_count'   => null,
+				'phone'          => null,
+				'street_address' => null,
+				'city'           => null,
+				'state_province' => null,
+				'postal_code'    => null,
+				'country'        => null,
+				'latitude'       => null,
+				'longitude'      => null,
+			),
 		);
 
 		// Set business name.
@@ -160,11 +167,11 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		}
 
 		// Set page URL.
-		$business['page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
+		$business['meta']['page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
 
 		// Set image URL.
 		if ( isset( $r['image_url'] ) ) {
-			$business['image_url'] = $this->build_image_url( $r['image_url'] );
+			$business['meta']['image_url'] = $this->build_image_url( $r['image_url'] );
 		}
 
 		// Set rating.
@@ -172,7 +179,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['rating'] )
 			&& is_numeric( $r['rating'] )
 		) {
-			$business['rating'] = $r['rating'];
+			$business['meta']['rating'] = $r['rating'];
 		}
 
 		// Set rating count.
@@ -180,37 +187,37 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['review_count'] )
 			&& is_numeric( $r['review_count'] )
 		) {
-			$business['rating_count'] = $r['review_count'];
+			$business['meta']['rating_count'] = $r['review_count'];
 		}
 
 		// Set phone.
 		if ( isset( $r['display_phone'] ) ) {
-			$business['phone'] = sanitize_text_field( $r['display_phone'] );
+			$business['meta']['phone'] = sanitize_text_field( $r['display_phone'] );
 		}
 
 		// Set street address.
 		if ( isset( $r['location']['address1'] ) ) {
-			$business['street_address'] = sanitize_text_field( $r['location']['address1'] );
+			$business['meta']['street_address'] = sanitize_text_field( $r['location']['address1'] );
 		}
 
 		// Set city.
 		if ( isset( $r['location']['city'] ) ) {
-			$business['city'] = sanitize_text_field( $r['location']['city'] );
+			$business['meta']['city'] = sanitize_text_field( $r['location']['city'] );
 		}
 
 		// Set state.
 		if ( isset( $r['location']['state'] ) ) {
-			$business['state_province'] = sanitize_text_field( $r['location']['state'] );
+			$business['meta']['state_province'] = sanitize_text_field( $r['location']['state'] );
 		}
 
 		// Set postal code.
 		if ( isset( $r['location']['zip_code'] ) ) {
-			$business['postal_code'] = sanitize_text_field( $r['location']['zip_code'] );
+			$business['meta']['postal_code'] = sanitize_text_field( $r['location']['zip_code'] );
 		}
 
 		// Set country.
 		if ( isset( $r['location']['country'] ) ) {
-			$business['country'] = sanitize_text_field( $r['location']['country'] );
+			$business['meta']['country'] = sanitize_text_field( $r['location']['country'] );
 		}
 
 		// Set latitude.
@@ -218,7 +225,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['coordinates']['latitude'] )
 			&& is_float( $r['coordinates']['latitude'] )
 		) {
-			$business['latitude'] = sanitize_text_field( $r['coordinates']['latitude'] );
+			$business['meta']['latitude'] = sanitize_text_field( $r['coordinates']['latitude'] );
 		}
 
 		// Set longitude.
@@ -226,7 +233,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['coordinates']['longitude'] )
 			&& is_float( $r['coordinates']['longitude'] )
 		) {
-			$business['longitude'] = sanitize_text_field( $r['coordinates']['longitude'] );
+			$business['meta']['longitude'] = sanitize_text_field( $r['coordinates']['longitude'] );
 		}
 
 		return $business;
@@ -241,7 +248,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	 *
 	 * @return array Standardized set of reviews data.
 	 */
-	public function standardize_reviews( $response ) {
+	public function standardize_reviews( array $response ) {
 		// Initialize array to store standardized properties.
 		$reviews = array();
 

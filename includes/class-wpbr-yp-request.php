@@ -126,29 +126,35 @@ class WPBR_YP_Request extends WPBR_Request {
 	 *
 	 * @param array $response Business data from remote API.
 	 *
-	 * @return array Standardized business properties.
+	 * @return array|WP_Error Standardized business properties or WP_Error if
+	 *                        response structure does not meet expectations.
 	 */
 	public function standardize_business( array $response ) {
-		// Drill down to the relevant portion of the response.
-		$r = $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
+		if ( ! isset( $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0] ) ) {
+			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+		} else {
+			$r = $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
+		}
 
 		// Set defaults.
 		$business = array(
-			'platform'       => $this->platform,
-			'business_id'    => $this->business_id,
-			'business_name'  => null,
-			'page_url'       => null,
-			'image_url'      => null,
-			'rating'         => null,
-			'rating_count'   => null,
-			'phone'          => null,
-			'street_address' => null,
-			'city'           => null,
-			'state_province' => null,
-			'postal_code'    => null,
-			'country'        => null,
-			'latitude'       => null,
-			'longitude'      => null,
+			'platform'      => $this->platform,
+			'business_id'   => $this->business_id,
+			'business_name' => null,
+			'meta'          => array(
+				'page_url'       => null,
+				'image_url'      => null,
+				'rating'         => null,
+				'rating_count'   => null,
+				'phone'          => null,
+				'street_address' => null,
+				'city'           => null,
+				'state_province' => null,
+				'postal_code'    => null,
+				'country'        => null,
+				'latitude'       => null,
+				'longitude'      => null,
+			),
 		);
 
 		// Set business name.
@@ -158,7 +164,7 @@ class WPBR_YP_Request extends WPBR_Request {
 
 		// Set page URL.
 		if ( isset( $r['moreInfoURL'] ) ) {
-			$business['page_url'] = sanitize_text_field( $r['moreInfoURL'] );
+			$business['meta']['page_url'] = sanitize_text_field( $r['moreInfoURL'] );
 		}
 
 		// Set rating.
@@ -166,7 +172,7 @@ class WPBR_YP_Request extends WPBR_Request {
 			isset( $r['averageRating'] )
 			&& is_numeric( $r['averageRating'] )
 		) {
-			$business['rating'] = $r['averageRating'];
+			$business['meta']['rating'] = $r['averageRating'];
 		}
 
 		// Set rating count.
@@ -174,32 +180,32 @@ class WPBR_YP_Request extends WPBR_Request {
 			isset( $r['ratingCount'] )
 			&& is_numeric( $r['ratingCount'] )
 		) {
-			$business['rating_count'] = $r['ratingCount'];
+			$business['meta']['rating_count'] = $r['ratingCount'];
 		}
 
 		// Set phone.
 		if ( isset( $r['phone'] ) ) {
-			$business['phone'] = sanitize_text_field( $r['phone'] );
+			$business['meta']['phone'] = sanitize_text_field( $r['phone'] );
 		}
 
 		// Set street address.
 		if ( isset( $r['street'] ) ) {
-			$business['street_address'] = sanitize_text_field( $r['street'] );
+			$business['meta']['street_address'] = sanitize_text_field( $r['street'] );
 		}
 
 		// Set city.
 		if ( isset( $r['city'] ) ) {
-			$business['city'] = sanitize_text_field( $r['city'] );
+			$business['meta']['city'] = sanitize_text_field( $r['city'] );
 		}
 
 		// Set state.
 		if ( isset( $r['state'] ) ) {
-			$business['state_province'] = sanitize_text_field( $r['state'] );
+			$business['meta']['state_province'] = sanitize_text_field( $r['state'] );
 		}
 
 		// Set postal code.
 		if ( isset( $r['zip'] ) ) {
-			$business['postal_code'] = sanitize_text_field( $r['zip'] );
+			$business['meta']['postal_code'] = sanitize_text_field( $r['zip'] );
 		}
 
 		// Set latitude.
@@ -207,7 +213,7 @@ class WPBR_YP_Request extends WPBR_Request {
 			isset( $r['latitude'] )
 			&& is_float( $r['latitude'] )
 		) {
-			$business['latitude'] = sanitize_text_field( $r['latitude'] );
+			$business['meta']['latitude'] = sanitize_text_field( $r['latitude'] );
 		}
 
 		// Set longitude.
@@ -215,7 +221,7 @@ class WPBR_YP_Request extends WPBR_Request {
 			isset( $r['longitude'] )
 			&& is_float( $r['longitude'] )
 		) {
-			$business['longitude'] = sanitize_text_field( $r['longitude'] );
+			$business['meta']['longitude'] = sanitize_text_field( $r['longitude'] );
 		}
 
 		return $business;
