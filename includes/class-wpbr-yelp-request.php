@@ -249,9 +249,14 @@ class WPBR_Yelp_Request extends WPBR_Request {
 	 *
 	 * @param array $response Reviews data from remote API.
 	 *
-	 * @return array Standardized set of reviews data.
+	 * @return array|WP_Error Standardized review properties or WP_Error if
+	 *                        response structure does not meet expectations.
 	 */
 	public function standardize_reviews( array $response ) {
+		if ( ! isset( $response['reviews'] ) ) {
+			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+		}
+
 		// Initialize array to store standardized properties.
 		$reviews = array();
 
@@ -259,15 +264,15 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		foreach ( $response['reviews'] as $r ) {
 			// Set defaults.
 			$review = array(
-				'platform'           => $this->platform,
-				'business_id'        => $this->business_id,
 				'review_title'       => null,
 				'review_text'        => null,
-				'review_url'         => null,
-				'reviewer_name'      => null,
-				'reviewer_image_url' => null,
-				'rating'             => null,
-				'time_created'       => null,
+				'meta'               => array(
+					'review_url'         => null,
+					'reviewer_name'      => null,
+					'reviewer_image_url' => null,
+					'rating'             => null,
+					'time_created'       => null,
+				),
 			);
 
 			// Set review text.
@@ -280,12 +285,12 @@ class WPBR_Yelp_Request extends WPBR_Request {
 				isset( $r['url'] )
 				&& filter_var( $r['url'], FILTER_VALIDATE_URL )
 			) {
-				$review['review_url'] = $r['url'];
+				$review['meta']['review_url'] = $r['url'];
 			}
 
 			// Set reviewer name.
 			if ( isset( $r['user']['name'] ) ) {
-				$review['reviewer_name'] = sanitize_text_field( $r['user']['name'] );
+				$review['meta']['reviewer_name'] = sanitize_text_field( $r['user']['name'] );
 			}
 
 			// Set reviewer image URL.
@@ -293,7 +298,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 				isset( $r['user']['image_url'] )
 				&& filter_var( $r['user']['image_url'], FILTER_VALIDATE_URL )
 			) {
-				$review['reviewer_image_url'] = $this->build_image_url( $r['user']['image_url'] );
+				$review['meta']['reviewer_image_url'] = $this->build_image_url( $r['user']['image_url'] );
 			}
 
 			// Set rating.
@@ -301,12 +306,12 @@ class WPBR_Yelp_Request extends WPBR_Request {
 				isset( $r['rating'] )
 				&& is_numeric( $r['rating'] )
 			) {
-				$review['rating'] = $r['rating'];
+				$review['meta']['rating'] = $r['rating'];
 			}
 
 			// Set time created.
 			if ( isset( $r['time_created'] ) ) {
-				$review['time_created'] = strtotime( $r['time_created'] );
+				$review['meta']['time_created'] = strtotime( $r['time_created'] );
 			}
 
 			$reviews[] = $review;

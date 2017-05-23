@@ -277,9 +277,14 @@ class WPBR_Facebook_Request extends WPBR_Request {
 	 *
 	 * @param array $response Reviews data from remote API.
 	 *
-	 * @return array Standardized set of reviews data.
+	 * @return array|WP_Error Standardized review properties or WP_Error if
+	 *                        response structure does not meet expectations.
 	 */
 	public function standardize_reviews( array $response ) {
+		if ( ! isset( $response['data'] ) ) {
+			return new WP_Error( 'invalid_response_structure', __( 'Response structure is not suitable for standardization.', 'wpbr' ) );
+		}
+
 		// Initialize array to store standardized properties.
 		$reviews = array();
 
@@ -287,15 +292,15 @@ class WPBR_Facebook_Request extends WPBR_Request {
 		foreach ( $response['data'] as $r ) {
 			// Set defaults.
 			$review = array(
-				'platform'           => $this->platform,
-				'business_id'        => $this->business_id,
 				'review_title'       => null,
 				'review_text'        => null,
-				'review_url'         => null,
-				'reviewer_name'      => null,
-				'reviewer_image_url' => null,
-				'rating'             => null,
-				'time_created'       => null,
+				'meta'               => array(
+					'review_url'         => null,
+					'reviewer_name'      => null,
+					'reviewer_image_url' => null,
+					'rating'             => null,
+					'time_created'       => null,
+				),
 			);
 
 			// Set review text.
@@ -318,12 +323,12 @@ class WPBR_Facebook_Request extends WPBR_Request {
 				isset( $reviewer_id )
 				&& isset( $review_id )
 			) {
-				$review['review_url'] = "https://www.facebook.com/{$reviewer_id}/posts/{$review_id}";
+				$review['meta']['review_url'] = "https://www.facebook.com/{$reviewer_id}/posts/{$review_id}";
 			}
 
 			// Set reviewer name.
 			if ( isset( $r['reviewer']['name'] ) ) {
-				$review['reviewer_name'] = sanitize_text_field( $r['reviewer']['name'] );
+				$review['meta']['reviewer_name'] = sanitize_text_field( $r['reviewer']['name'] );
 			}
 
 			// Set reviewer image URL.
@@ -331,7 +336,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 				isset( $r['reviewer']['picture']['data']['url'] )
 				&& filter_var( $r['reviewer']['picture']['data']['url'], FILTER_VALIDATE_URL )
 			) {
-				$review['reviewer_image_url'] = $r['reviewer']['picture']['data']['url'];
+				$review['meta']['reviewer_image_url'] = $r['reviewer']['picture']['data']['url'];
 			}
 
 			// Set rating.
@@ -339,12 +344,12 @@ class WPBR_Facebook_Request extends WPBR_Request {
 				isset( $r['open_graph_story']['data']['rating']['value'] )
 				&& is_numeric( $r['open_graph_story']['data']['rating']['value'] )
 			) {
-				$review['rating'] = $r['open_graph_story']['data']['rating']['value'];
+				$review['meta']['rating'] = $r['open_graph_story']['data']['rating']['value'];
 			}
 
 			// Set time created.
 			if ( isset( $r['open_graph_story']['start_time'] ) ) {
-				$review['time_created'] = strtotime( $r['open_graph_story']['start_time'] );
+				$review['meta']['time_created'] = strtotime( $r['open_graph_story']['start_time'] );
 			}
 
 			$reviews[] = $review;

@@ -73,49 +73,13 @@ class WPBR_Review {
 	protected $review_text;
 
 	/**
-	 * URL of the review.
+	 * Array of metadata associated with the review.
 	 *
 	 * @since 1.0.0
 	 * @access protected
-	 * @var string
+	 * @var array
 	 */
-	protected $review_url;
-
-	/**
-	 * Name of the person who submitted the review.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $reviewer_name;
-
-	/**
-	 * Image URL of the reviewer on the platform.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $reviewer_image_url;
-
-	/**
-	 * Numerical rating associated with the review.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $rating;
-
-	/**
-	 * Time at which the review was created on the platform.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $time_created;
+	protected $meta;
 
 	/**
 	 * Constructor.
@@ -128,6 +92,16 @@ class WPBR_Review {
 	public function __construct( $business_id, $platform ) {
 		$this->business_id = $business_id;
 		$this->platform    = $platform;
+
+		// Set metadata defaults stored as post meta in the database.
+		$this->meta = array(
+			'review_url'         => null,
+			'reviewer_name'      => null,
+			'reviewer_image_url' => null,
+			'rating'             => null,
+			'time_created'       => null,
+		);
+		// TODO: Filter these meta keys.
 	}
 
 	/**
@@ -156,8 +130,12 @@ class WPBR_Review {
 	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
 	public function set_properties( array $properties ) {
-		foreach ( $properties as $property => $value ) {
-			$this->$property = $value;
+		$keys = array_keys( get_object_vars( $this ) );
+
+		foreach ( $keys as $key ) {
+			if ( isset( $properties[ $key ] ) ) {
+				$this->$key = $properties[ $key ];
+			}
 		}
 	}
 
