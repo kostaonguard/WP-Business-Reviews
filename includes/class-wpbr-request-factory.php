@@ -28,25 +28,17 @@ class WPBR_Request_Factory {
 	 * @return WPBR_Request Instance of WPBR_Request for the provided platform.
 	 */
 	public static function create( $business_id, $platform ) {
-
 		switch ( $platform ) {
-
 			case 'google_places' :
-
 				return new WPBR_Google_Places_Request( $business_id, $platform );
-
 			case 'facebook' :
-
 				return new WPBR_Facebook_Request( $business_id, $platform );
-
 			case 'yelp' :
-
 				return new WPBR_Yelp_Request( $business_id, $platform );
-
 			case 'yp' :
-
 				return new WPBR_YP_Request( $business_id, $platform );
-
+			case 'wp_org' :
+				return new WPBR_WP_Org_Request( $business_id, $platform );
 		}
 
 	}

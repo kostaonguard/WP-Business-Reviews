@@ -53,6 +53,7 @@ class WPBR_Post_Types {
 			'facebook'      => 'Facebook',
 			'yelp'          => 'Yelp',
 			'yp'            => 'Yellow Pages',
+			'wp_org'        => 'WordPress.org',
 
 		);
 
