@@ -117,43 +117,6 @@ class WPBR_Business {
 	}
 
 	/**
-	 * Inserts wpbr_business post into the database.
-	 *
-	 * @since 1.0.0
-	 */
-	public function insert_post() {
-		// Define post meta fields.
-		$meta_input = array(
-			'wpbr_business_id' => $this->business_id,
-		);
-
-		if ( is_array( $this->meta ) ) {
-			foreach ( $this->meta as $key => $value ) {
-				$meta_input[ $key ] = $value;
-			}
-		}
-
-		// Define taxonomy terms.
-		$tax_input = array(
-			'wpbr_platform' => $this->platform,
-		);
-
-		// Define array of post elements.
-		$postarr = array(
-			'ID'          => $this->post_id,
-			'post_type'   => 'wpbr_business',
-			'post_title'  => $this->business_name,
-			'post_name'   => $this->post_slug,
-			'post_status' => 'publish',
-			'meta_input'  => $meta_input,
-			'tax_input'   => $tax_input,
-		);
-
-		// Insert or update post in database.
-		$this->post_id = wp_insert_post( $postarr );
-	}
-
-	/**
 	 * Sets properties from array of key-value pairs.
 	 *
 	 * @since 1.0.0
@@ -223,6 +186,43 @@ class WPBR_Business {
 
 			$this->set_properties( $business );
 		}
+	}
+
+	/**
+	 * Inserts wpbr_business post into the database.
+	 *
+	 * @since 1.0.0
+	 */
+	public function insert_post() {
+		// Define post meta fields.
+		$meta_input = array(
+			'wpbr_business_id' => $this->business_id,
+		);
+
+		if ( is_array( $this->meta ) ) {
+			foreach ( $this->meta as $key => $value ) {
+				$meta_input[ $key ] = $value;
+			}
+		}
+
+		// Define taxonomy terms.
+		$tax_input = array(
+			'wpbr_platform' => $this->platform,
+		);
+
+		// Define array of post elements.
+		$postarr = array(
+			'ID'          => $this->post_id,
+			'post_type'   => 'wpbr_business',
+			'post_title'  => $this->business_name,
+			'post_name'   => $this->post_slug,
+			'post_status' => 'publish',
+			'meta_input'  => $meta_input,
+			'tax_input'   => $tax_input,
+		);
+
+		// Insert or update post in database.
+		$this->post_id = wp_insert_post( $postarr );
 	}
 
 	/**
