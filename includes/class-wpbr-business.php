@@ -19,17 +19,6 @@
  * @since 1.0.0
  */
 class WPBR_Business {
-
-	/**
-	 * Name of the business.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $business_name;
-
-
 	/**
 	 * ID of the business on the platform.
 	 *
@@ -67,6 +56,15 @@ class WPBR_Business {
 	protected $post_slug;
 
 	/**
+	 * Name of the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $business_name;
+
+	/**
 	 * Array of metadata associated with the business.
 	 *
 	 * @since 1.0.0
@@ -90,22 +88,6 @@ class WPBR_Business {
 		$this->business_id = $business_id;
 		$this->platform    = $platform;
 
-		// Set metadata defaults stored as post meta in the database.
-		$this->meta = array(
-			'page_url'       => null,
-			'image_url'      => null,
-			'rating'         => null,
-			'rating_count'   => null,
-			'phone'          => null,
-			'street_address' => null,
-			'city'           => null,
-			'state_province' => null,
-			'postal_code'    => null,
-			'country'        => null,
-			'latitude'       => null,
-			'longitude'      => null,
-		);
-
 		// Build a unique slug to identify post in the database.
 		$this->post_slug = $this->build_post_slug();
 
@@ -113,8 +95,8 @@ class WPBR_Business {
 		$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_business' );
 
 		// Set properties from post if available, or else from remote API.
-		if ( ! empty( $post ) ) {
-			$this->set_properties_from_post( $post->ID );
+		if ( $post instanceof WP_Post ) {
+			$this->set_properties_from_post( $post );
 		} else {
 			$this->set_properties_from_api();
 		}
@@ -145,8 +127,10 @@ class WPBR_Business {
 			'wpbr_business_id' => $this->business_id,
 		);
 
-		foreach ( $this->meta as $key => $value ) {
-			$meta_input["wpbr_$key"] = $value;
+		if ( is_array( $this->meta ) ) {
+			foreach ( $this->meta as $key => $value ) {
+				$meta_input[ $key ] = $value;
+			}
 		}
 
 		// Define taxonomy terms.
@@ -166,7 +150,7 @@ class WPBR_Business {
 		);
 
 		// Insert or update post in database.
-		wp_insert_post( $postarr );
+		$this->post_id = wp_insert_post( $postarr );
 	}
 
 	/**
@@ -191,18 +175,22 @@ class WPBR_Business {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $post_id Post ID.
+	 * @param WP_Post $post Business post object.
 	 */
-	protected function set_properties_from_post( $post_id ) {
-		$properties['post_id']       = $post_id;
-		$properties['business_name'] = get_the_title( $post_id );
+	protected function set_properties_from_post( $post ) {
+		echo 'DATA FROM POST';
 
-		// Define properties to set from post meta.
-		$properties['meta'] = $this->meta;
+		$properties['post_id']       = $post->ID;
+		$properties['business_name'] = $post->post_title;
 
-		// Loop through and populate metadata.
-		foreach ( $properties['meta'] as $key => $value ) {
-			$properties['meta'][$key] = get_post_meta( $post_id, "wpbr_$key", true);
+		$post_meta = get_post_meta( $post->ID );
+
+		foreach ( $post_meta as $key => $value ) {
+			// Do not set if meta key is private.
+			if ( '_' != substr( $key, 0, 1 ) ) {
+				// TODO: Recondsider this approach and maybe set explicit post meta keys instead.
+				$properties['meta'][ $key ] = maybe_unserialize( array_shift( $value ) );
+			}
 		}
 
 		$this->set_properties( $properties );
