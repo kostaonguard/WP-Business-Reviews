@@ -202,18 +202,22 @@ class WPBR_Business {
 	 * @since 1.0.0
 	 */
 	protected function set_properties_from_api() {
+		echo 'DATA FROM API';
+
 		$request    = WPBR_Request_Factory::create( $this->business_id, $this->platform );
 		$response   = $request->request_business();
 
 		if ( is_wp_error( $response ) ) {
-			echo $response->get_error_message();
+			/* translators: 1: Error code, 2: Error message. */
+			printf( __( 'Business Error: [%1$s] %2$s' ) . '<br>', $response->get_error_code(), $response->get_error_message() );
 			return;
 		} else {
 			// Standardize API response data to match class properties.
 			$business = $request->standardize_business( $response );
 
 			if ( is_wp_error( $business ) ) {
-				echo $business->get_error_message();
+				/* translators: 1: Error code, 2: Error message. */
+				printf( __( 'Business Error: %1$s' ) . '<br>', $business->get_error_message() );
 				return;
 			}
 
