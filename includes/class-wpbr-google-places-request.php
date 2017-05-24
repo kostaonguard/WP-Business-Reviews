@@ -128,7 +128,6 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 				'page_url'       => null,
 				'image_url'      => null,
 				'rating'         => null,
-				'rating_count'   => null,
 				'phone'          => null,
 				'street_address' => null,
 				'city'           => null,

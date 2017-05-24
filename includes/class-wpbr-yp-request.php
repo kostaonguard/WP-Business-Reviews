@@ -143,7 +143,6 @@ class WPBR_YP_Request extends WPBR_Request {
 			'business_name' => null,
 			'meta'          => array(
 				'page_url'       => null,
-				'image_url'      => null,
 				'rating'         => null,
 				'rating_count'   => null,
 				'phone'          => null,
@@ -151,7 +150,6 @@ class WPBR_YP_Request extends WPBR_Request {
 				'city'           => null,
 				'state_province' => null,
 				'postal_code'    => null,
-				'country'        => null,
 				'latitude'       => null,
 				'longitude'      => null,
 			),
