@@ -169,18 +169,18 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			'business_id'   => $this->business_id,
 			'business_name' => null,
 			'meta'          => array(
-				'page_url'       => null,
-				'image_url'      => null,
-				'rating'         => null,
-				'rating_count'   => null,
-				'phone'          => null,
-				'street_address' => null,
-				'city'           => null,
-				'state_province' => null,
-				'postal_code'    => null,
-				'country'        => null,
-				'latitude'       => null,
-				'longitude'      => null,
+				'wpbr_page_url'       => null,
+				'wpbr_image_url'      => null,
+				'wpbr_rating'         => null,
+				'wpbr_rating_count'   => null,
+				'wpbr_phone'          => null,
+				'wpbr_street_address' => null,
+				'wpbr_city'           => null,
+				'wpbr_state_province' => null,
+				'wpbr_postal_code'    => null,
+				'wpbr_country'        => null,
+				'wpbr_latitude'       => null,
+				'wpbr_longitude'      => null,
 			),
 		);
 
@@ -194,7 +194,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['link'] )
 			&& filter_var( $r['link'], FILTER_VALIDATE_URL )
 		) {
-			$business['meta']['page_url'] = $r['link'];
+			$business['meta']['wpbr_page_url'] = $r['link'];
 		}
 
 		// Set image URL.
@@ -202,7 +202,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['picture']['data']['url'] )
 			&& filter_var( $r['picture']['data']['url'], FILTER_VALIDATE_URL )
 		) {
-			$business['meta']['image_url'] = $r['picture']['data']['url'];
+			$business['meta']['wpbr_image_url'] = $r['picture']['data']['url'];
 		}
 
 		// Set rating.
@@ -210,7 +210,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['overall_star_rating'] )
 			&& is_numeric( $r['overall_star_rating'] )
 		) {
-			$business['meta']['rating'] = $r['overall_star_rating'];
+			$business['meta']['wpbr_rating'] = $r['overall_star_rating'];
 		}
 
 		// Set rating count.
@@ -218,37 +218,37 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['rating_count'] )
 			&& is_numeric( $r['rating_count'] )
 		) {
-			$business['meta']['rating_count'] = $r['rating_count'];
+			$business['meta']['wpbr_rating_count'] = $r['rating_count'];
 		}
 
 		// Set phone.
 		if ( isset( $r['phone'] ) ) {
-			$business['meta']['phone'] = sanitize_text_field( $r['phone'] );
+			$business['meta']['wpbr_phone'] = sanitize_text_field( $r['phone'] );
 		}
 
 		// Set street address.
 		if ( isset( $r['location']['street'] ) ) {
-			$business['meta']['street_address'] = sanitize_text_field( $r['location']['street'] );
+			$business['meta']['wpbr_street_address'] = sanitize_text_field( $r['location']['street'] );
 		}
 
 		// Set city.
 		if ( isset( $r['location']['city'] ) ) {
-			$business['meta']['city'] = sanitize_text_field( $r['location']['city'] );
+			$business['meta']['wpbr_city'] = sanitize_text_field( $r['location']['city'] );
 		}
 
 		// Set state.
 		if ( isset( $r['location']['state'] ) ) {
-			$business['meta']['state_province'] = sanitize_text_field( $r['location']['state'] );
+			$business['meta']['wpbr_state_province'] = sanitize_text_field( $r['location']['state'] );
 		}
 
 		// Set postal code.
 		if ( isset( $r['location']['zip'] ) ) {
-			$business['meta']['postal_code'] = sanitize_text_field( $r['location']['zip'] );
+			$business['meta']['wpbr_postal_code'] = sanitize_text_field( $r['location']['zip'] );
 		}
 
 		// Set country.
 		if ( isset( $r['location']['country'] ) ) {
-			$business['meta']['country'] = sanitize_text_field( $r['location']['country'] );
+			$business['meta']['wpbr_country'] = sanitize_text_field( $r['location']['country'] );
 		}
 
 		// Set latitude.
@@ -256,7 +256,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['location']['latitude'] )
 			&& is_float( $r['location']['latitude'] )
 		) {
-			$business['meta']['latitude'] = sanitize_text_field( $r['location']['latitude'] );
+			$business['meta']['wpbr_latitude'] = sanitize_text_field( $r['location']['latitude'] );
 		}
 
 		// Set longitude.
@@ -264,7 +264,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 			isset( $r['location']['longitude'] )
 			&& is_float( $r['location']['longitude'] )
 		) {
-			$business['meta']['longitude'] = sanitize_text_field( $r['location']['longitude'] );
+			$business['meta']['wpbr_longitude'] = sanitize_text_field( $r['location']['longitude'] );
 		}
 
 		return $business;
@@ -295,11 +295,11 @@ class WPBR_Facebook_Request extends WPBR_Request {
 				'review_title'       => null,
 				'review_text'        => null,
 				'meta'               => array(
-					'review_url'         => null,
-					'reviewer_name'      => null,
-					'reviewer_image_url' => null,
-					'rating'             => null,
-					'time_created'       => null,
+					'wpbr_review_url'         => null,
+					'wpbr_reviewer_name'      => null,
+					'wpbr_reviewer_image_url' => null,
+					'wpbr_rating'             => null,
+					'wpbr_time_created'       => null,
 				),
 			);
 
@@ -323,12 +323,12 @@ class WPBR_Facebook_Request extends WPBR_Request {
 				isset( $reviewer_id )
 				&& isset( $review_id )
 			) {
-				$review['meta']['review_url'] = "https://www.facebook.com/{$reviewer_id}/posts/{$review_id}";
+				$review['meta']['wpbr_review_url'] = "https://www.facebook.com/{$reviewer_id}/posts/{$review_id}";
 			}
 
 			// Set reviewer name.
 			if ( isset( $r['reviewer']['name'] ) ) {
-				$review['meta']['reviewer_name'] = sanitize_text_field( $r['reviewer']['name'] );
+				$review['meta']['wpbr_reviewer_name'] = sanitize_text_field( $r['reviewer']['name'] );
 			}
 
 			// Set reviewer image URL.
@@ -336,7 +336,7 @@ class WPBR_Facebook_Request extends WPBR_Request {
 				isset( $r['reviewer']['picture']['data']['url'] )
 				&& filter_var( $r['reviewer']['picture']['data']['url'], FILTER_VALIDATE_URL )
 			) {
-				$review['meta']['reviewer_image_url'] = $r['reviewer']['picture']['data']['url'];
+				$review['meta']['wpbr_reviewer_image_url'] = $r['reviewer']['picture']['data']['url'];
 			}
 
 			// Set rating.
@@ -344,12 +344,12 @@ class WPBR_Facebook_Request extends WPBR_Request {
 				isset( $r['open_graph_story']['data']['rating']['value'] )
 				&& is_numeric( $r['open_graph_story']['data']['rating']['value'] )
 			) {
-				$review['meta']['rating'] = $r['open_graph_story']['data']['rating']['value'];
+				$review['meta']['wpbr_rating'] = $r['open_graph_story']['data']['rating']['value'];
 			}
 
 			// Set time created.
 			if ( isset( $r['open_graph_story']['start_time'] ) ) {
-				$review['meta']['time_created'] = strtotime( $r['open_graph_story']['start_time'] );
+				$review['meta']['wpbr_time_created'] = strtotime( $r['open_graph_story']['start_time'] );
 			}
 
 			$reviews[] = $review;

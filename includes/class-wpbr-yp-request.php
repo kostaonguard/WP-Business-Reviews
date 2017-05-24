@@ -142,17 +142,16 @@ class WPBR_YP_Request extends WPBR_Request {
 			'business_id'   => $this->business_id,
 			'business_name' => null,
 			'meta'          => array(
-				'page_url'       => null,
-				'rating'         => null,
-				'rating_count'   => null,
-				'phone'          => null,
-				'street_address' => null,
-				'city'           => null,
-				'state_province' => null,
-				'postal_code'    => null,
-				'latitude'       => null,
-				'longitude'      => null,
-			),
+				'wpbr_page_url'       => null,
+				'wpbr_rating'         => null,
+				'wpbr_rating_count'   => null,
+				'wpbr_phone'          => null,
+				'wpbr_street_address' => null,
+				'wpbr_city'           => null,
+				'wpbr_state_province' => null,
+				'wpbr_postal_code'    => null,
+				'wpbr_latitude'       => null,
+				'wpbr_longitude'      => null,			),
 		);
 
 		// Set business name.
@@ -162,7 +161,7 @@ class WPBR_YP_Request extends WPBR_Request {
 
 		// Set page URL.
 		if ( isset( $r['moreInfoURL'] ) ) {
-			$business['meta']['page_url'] = sanitize_text_field( $r['moreInfoURL'] );
+			$business['meta']['wpbr_page_url'] = sanitize_text_field( $r['moreInfoURL'] );
 		}
 
 		// Set rating.
@@ -170,7 +169,7 @@ class WPBR_YP_Request extends WPBR_Request {
 			isset( $r['averageRating'] )
 			&& is_numeric( $r['averageRating'] )
 		) {
-			$business['meta']['rating'] = $r['averageRating'];
+			$business['meta']['wpbr_rating'] = $r['averageRating'];
 		}
 
 		// Set rating count.
@@ -178,32 +177,32 @@ class WPBR_YP_Request extends WPBR_Request {
 			isset( $r['ratingCount'] )
 			&& is_numeric( $r['ratingCount'] )
 		) {
-			$business['meta']['rating_count'] = $r['ratingCount'];
+			$business['meta']['wpbr_rating_count'] = $r['ratingCount'];
 		}
 
 		// Set phone.
 		if ( isset( $r['phone'] ) ) {
-			$business['meta']['phone'] = sanitize_text_field( $r['phone'] );
+			$business['meta']['wpbr_phone'] = sanitize_text_field( $r['phone'] );
 		}
 
 		// Set street address.
 		if ( isset( $r['street'] ) ) {
-			$business['meta']['street_address'] = sanitize_text_field( $r['street'] );
+			$business['meta']['wpbr_street_address'] = sanitize_text_field( $r['street'] );
 		}
 
 		// Set city.
 		if ( isset( $r['city'] ) ) {
-			$business['meta']['city'] = sanitize_text_field( $r['city'] );
+			$business['meta']['wpbr_city'] = sanitize_text_field( $r['city'] );
 		}
 
 		// Set state.
 		if ( isset( $r['state'] ) ) {
-			$business['meta']['state_province'] = sanitize_text_field( $r['state'] );
+			$business['meta']['wpbr_state_province'] = sanitize_text_field( $r['state'] );
 		}
 
 		// Set postal code.
 		if ( isset( $r['zip'] ) ) {
-			$business['meta']['postal_code'] = sanitize_text_field( $r['zip'] );
+			$business['meta']['wpbr_postal_code'] = sanitize_text_field( $r['zip'] );
 		}
 
 		// Set latitude.
@@ -211,7 +210,7 @@ class WPBR_YP_Request extends WPBR_Request {
 			isset( $r['latitude'] )
 			&& is_float( $r['latitude'] )
 		) {
-			$business['meta']['latitude'] = sanitize_text_field( $r['latitude'] );
+			$business['meta']['wpbr_latitude'] = sanitize_text_field( $r['latitude'] );
 		}
 
 		// Set longitude.
@@ -219,7 +218,7 @@ class WPBR_YP_Request extends WPBR_Request {
 			isset( $r['longitude'] )
 			&& is_float( $r['longitude'] )
 		) {
-			$business['meta']['longitude'] = sanitize_text_field( $r['longitude'] );
+			$business['meta']['wpbr_longitude'] = sanitize_text_field( $r['longitude'] );
 		}
 
 		return $business;
@@ -250,11 +249,11 @@ class WPBR_YP_Request extends WPBR_Request {
 				'review_title'       => null,
 				'review_text'        => null,
 				'meta'               => array(
-					'review_url'         => null,
-					'reviewer_name'      => null,
-					'reviewer_image_url' => null,
-					'rating'             => null,
-					'time_created'       => null,
+					'wpbr_review_url'         => null,
+					'wpbr_reviewer_name'      => null,
+					'wpbr_reviewer_image_url' => null,
+					'wpbr_rating'             => null,
+					'wpbr_time_created'       => null,
 				),
 			);
 
@@ -270,7 +269,7 @@ class WPBR_YP_Request extends WPBR_Request {
 
 			// Set reviewer name.
 			if ( isset( $r['reviewer'] ) ) {
-				$review['meta']['reviewer_name'] = sanitize_text_field( $r['reviewer'] );
+				$review['meta']['wpbr_reviewer_name'] = sanitize_text_field( $r['reviewer'] );
 			}
 
 			// Set rating.
@@ -278,12 +277,12 @@ class WPBR_YP_Request extends WPBR_Request {
 				isset( $r['rating'] )
 				&& is_numeric( $r['rating'] )
 			) {
-				$review['meta']['rating'] = $r['rating'];
+				$review['meta']['wpbr_rating'] = $r['rating'];
 			}
 
 			// Set time created.
 			if ( isset( $r['reviewDate'] ) ) {
-				$review['meta']['time_created'] = strtotime( $r['reviewDate'] );
+				$review['meta']['wpbr_time_created'] = strtotime( $r['reviewDate'] );
 			}
 
 			$reviews[] = $review;

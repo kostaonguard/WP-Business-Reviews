@@ -146,18 +146,18 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			'business_id'   => $this->business_id,
 			'business_name' => null,
 			'meta'          => array(
-				'page_url'       => null,
-				'image_url'      => null,
-				'rating'         => null,
-				'rating_count'   => null,
-				'phone'          => null,
-				'street_address' => null,
-				'city'           => null,
-				'state_province' => null,
-				'postal_code'    => null,
-				'country'        => null,
-				'latitude'       => null,
-				'longitude'      => null,
+				'wpbr_page_url'       => null,
+				'wpbr_image_url'      => null,
+				'wpbr_rating'         => null,
+				'wpbr_rating_count'   => null,
+				'wpbr_phone'          => null,
+				'wpbr_street_address' => null,
+				'wpbr_city'           => null,
+				'wpbr_state_province' => null,
+				'wpbr_postal_code'    => null,
+				'wpbr_country'        => null,
+				'wpbr_latitude'       => null,
+				'wpbr_longitude'      => null,
 			),
 		);
 
@@ -167,14 +167,14 @@ class WPBR_Yelp_Request extends WPBR_Request {
 		}
 
 		// Set page URL.
-		$business['meta']['page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
+		$business['meta']['wpbr_page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
 
 		// Set image URL.
 		if (
 			isset( $r['image_url'] )
 			&& filter_var( $r['image_url'], FILTER_VALIDATE_URL )
 		) {
-			$business['meta']['image_url'] = $this->build_image_url( $r['image_url'] );
+			$business['meta']['wpbr_image_url'] = $this->build_image_url( $r['image_url'] );
 		}
 
 		// Set rating.
@@ -182,7 +182,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['rating'] )
 			&& is_numeric( $r['rating'] )
 		) {
-			$business['meta']['rating'] = $r['rating'];
+			$business['meta']['wpbr_rating'] = $r['rating'];
 		}
 
 		// Set rating count.
@@ -190,37 +190,37 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['review_count'] )
 			&& is_numeric( $r['review_count'] )
 		) {
-			$business['meta']['rating_count'] = $r['review_count'];
+			$business['meta']['wpbr_rating_count'] = $r['review_count'];
 		}
 
 		// Set phone.
 		if ( isset( $r['display_phone'] ) ) {
-			$business['meta']['phone'] = sanitize_text_field( $r['display_phone'] );
+			$business['meta']['wpbr_phone'] = sanitize_text_field( $r['display_phone'] );
 		}
 
 		// Set street address.
 		if ( isset( $r['location']['address1'] ) ) {
-			$business['meta']['street_address'] = sanitize_text_field( $r['location']['address1'] );
+			$business['meta']['wpbr_street_address'] = sanitize_text_field( $r['location']['address1'] );
 		}
 
 		// Set city.
 		if ( isset( $r['location']['city'] ) ) {
-			$business['meta']['city'] = sanitize_text_field( $r['location']['city'] );
+			$business['meta']['wpbr_city'] = sanitize_text_field( $r['location']['city'] );
 		}
 
 		// Set state.
 		if ( isset( $r['location']['state'] ) ) {
-			$business['meta']['state_province'] = sanitize_text_field( $r['location']['state'] );
+			$business['meta']['wpbr_state_province'] = sanitize_text_field( $r['location']['state'] );
 		}
 
 		// Set postal code.
 		if ( isset( $r['location']['zip_code'] ) ) {
-			$business['meta']['postal_code'] = sanitize_text_field( $r['location']['zip_code'] );
+			$business['meta']['wpbr_postal_code'] = sanitize_text_field( $r['location']['zip_code'] );
 		}
 
 		// Set country.
 		if ( isset( $r['location']['country'] ) ) {
-			$business['meta']['country'] = sanitize_text_field( $r['location']['country'] );
+			$business['meta']['wpbr_country'] = sanitize_text_field( $r['location']['country'] );
 		}
 
 		// Set latitude.
@@ -228,7 +228,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['coordinates']['latitude'] )
 			&& is_float( $r['coordinates']['latitude'] )
 		) {
-			$business['meta']['latitude'] = sanitize_text_field( $r['coordinates']['latitude'] );
+			$business['meta']['wpbr_latitude'] = sanitize_text_field( $r['coordinates']['latitude'] );
 		}
 
 		// Set longitude.
@@ -236,7 +236,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 			isset( $r['coordinates']['longitude'] )
 			&& is_float( $r['coordinates']['longitude'] )
 		) {
-			$business['meta']['longitude'] = sanitize_text_field( $r['coordinates']['longitude'] );
+			$business['meta']['wpbr_longitude'] = sanitize_text_field( $r['coordinates']['longitude'] );
 		}
 
 		return $business;
@@ -267,11 +267,11 @@ class WPBR_Yelp_Request extends WPBR_Request {
 				'review_title'       => null,
 				'review_text'        => null,
 				'meta'               => array(
-					'review_url'         => null,
-					'reviewer_name'      => null,
-					'reviewer_image_url' => null,
-					'rating'             => null,
-					'time_created'       => null,
+					'wpbr_review_url'         => null,
+					'wpbr_reviewer_name'      => null,
+					'wpbr_reviewer_image_url' => null,
+					'wpbr_rating'             => null,
+					'wpbr_time_created'       => null,
 				),
 			);
 
@@ -285,12 +285,12 @@ class WPBR_Yelp_Request extends WPBR_Request {
 				isset( $r['url'] )
 				&& filter_var( $r['url'], FILTER_VALIDATE_URL )
 			) {
-				$review['meta']['review_url'] = $r['url'];
+				$review['meta']['wpbr_review_url'] = $r['url'];
 			}
 
 			// Set reviewer name.
 			if ( isset( $r['user']['name'] ) ) {
-				$review['meta']['reviewer_name'] = sanitize_text_field( $r['user']['name'] );
+				$review['meta']['wpbr_reviewer_name'] = sanitize_text_field( $r['user']['name'] );
 			}
 
 			// Set reviewer image URL.
@@ -298,7 +298,7 @@ class WPBR_Yelp_Request extends WPBR_Request {
 				isset( $r['user']['image_url'] )
 				&& filter_var( $r['user']['image_url'], FILTER_VALIDATE_URL )
 			) {
-				$review['meta']['reviewer_image_url'] = $this->build_image_url( $r['user']['image_url'] );
+				$review['meta']['wpbr_reviewer_image_url'] = $this->build_image_url( $r['user']['image_url'] );
 			}
 
 			// Set rating.
@@ -306,12 +306,12 @@ class WPBR_Yelp_Request extends WPBR_Request {
 				isset( $r['rating'] )
 				&& is_numeric( $r['rating'] )
 			) {
-				$review['meta']['rating'] = $r['rating'];
+				$review['meta']['wpbr_rating'] = $r['rating'];
 			}
 
 			// Set time created.
 			if ( isset( $r['time_created'] ) ) {
-				$review['meta']['time_created'] = strtotime( $r['time_created'] );
+				$review['meta']['wpbr_time_created'] = strtotime( $r['time_created'] );
 			}
 
 			$reviews[] = $review;
