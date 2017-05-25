@@ -16,10 +16,6 @@
 <div class="wrap">
 
 	<?php
-	$google_places_business_id = '';
-	$facebook_business_id      = '';
-	$yelp_business_id          = '';
-	$yp_business_id            = '';
 
 	if ( ! empty( $_POST ) ) {
 
@@ -27,6 +23,15 @@
 		$facebook_business_id = isset( $_POST[ 'facebook_business_id' ] ) ? $_POST['facebook_business_id'] : '';
 		$yelp_business_id = isset( $_POST[ 'yelp_business_id' ] ) ? $_POST['yelp_business_id'] : '';
 		$yp_business_id = isset( $_POST[ 'yp_business_id' ] ) ? $_POST['yp_business_id'] : '';
+		$wp_org_business_id = isset( $_POST[ 'wp_org_business_id' ] ) ? $_POST['wp_org_business_id'] : '';
+
+	} else {
+
+		$google_places_business_id = GOOGLE_PLACES_ID;
+		$facebook_business_id      = FACEBOOK_PAGE_ID;
+		$yelp_business_id          = YELP_BUSINESS_ID;
+		$yp_business_id            = YP_LISTING_ID;
+		$wp_org_business_id        = 'give';
 
 	}
 	?>
