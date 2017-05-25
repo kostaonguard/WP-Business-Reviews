@@ -134,39 +134,28 @@ class WPBR_Admin {
 	 * @since  1.0.0
 	 */
 	public function display_business( $post ) {
-
 		if ( 'wpbr_business' !== $post->post_type ) {
-
 			return;
-
 		}
 
 		$business_id    = get_post_meta( $post->ID, 'wpbr_business_id', true );
 		$platform_terms = get_the_terms( $post->ID, 'wpbr_platform' );
 		$platform       = $platform_terms[0]->slug;
+		$business       = new WPBR_Business( $business_id, $platform );
 
-		switch ( $platform ) {
+		echo '<pre class="postbox" style="overflow-x: scroll; padding: 12px ;">';
+		esc_html_e( print_r( $business, true ) );
+		echo '</pre>';
+	}
 
-			case 'google_places':
-
-				$business = new WPBR_Google_Places_Business( $business_id, $platform );
-				break;
-
-			case 'facebook':
-
-				$business = new WPBR_Facebook_Business( $business_id, $platform );
-				break;
-
-			case 'yelp':
-
-				$business = new WPBR_Yelp_Business( $business_id, $platform );
-				break;
-
-			case 'yp':
-
-				$business = new WPBR_YP_Business( $business_id, $platform );
-				break;
-
+	/**
+	 * Render a business object from a post.
+	 *
+	 * @since  1.0.0
+	 */
+	public function display_review( $post ) {
+		if ( 'wpbr_review' !== $post->post_type ) {
+			return;
 		}
 
 		if ( ! empty( $business ) ) {
