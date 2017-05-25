@@ -48,16 +48,6 @@
 		<button type="submit">Submit</button>
 	</form>
 
-	<?php
-	if ( ! empty( $google_places_business_id ) ) {
-
-		$google_places_business = new WPBR_Google_Places_Business( $_POST[ 'google_places_business_id' ], 'google_places' );
-		echo '<pre>'; print_r( $google_places_business ); echo '</pre>';
-//		$google_places_reviews = new WPBR_Google_Places_Reviews( $_POST[ 'google_places_business_id' ], 'google_places' );
-
-	}
-	?>
-
 	<h2>Facebook</h2>
 
 	<a href="https://developers.facebook.com/tools/explorer/">Find a Facebook Business ID</a><br>
@@ -69,15 +59,6 @@
 		<button type="submit">Submit</button>
 	</form>
 
-	<?php
-	if ( ! empty( $facebook_business_id ) ) {
-
-		$facebook_business = new WPBR_Facebook_Business( $_POST[ 'facebook_business_id' ], 'facebook' );
-		echo '<pre>'; print_r( $facebook_business ); echo '</pre>';
-
-	}
-	?>
-
 	<h2>Yelp</h2>
 
 	<p>The Yelp Business ID is the last part of the URL following /biz/.</p>
@@ -87,15 +68,6 @@
 		<input type="text" id="yelp_business_id" name="yelp_business_id" value="<?php esc_attr_e( $yelp_business_id ); ?>">
 		<button type="submit">Submit</button>
 	</form>
-
-	<?php
-	if ( ! empty( $yelp_business_id ) ) {
-
-		$yelp_business = new WPBR_Yelp_Business( $_POST[ 'yelp_business_id' ], 'yelp' );
-		echo '<pre>'; print_r( $yelp_business ); echo '</pre>';
-
-	}
-	?>
 
 	<h2>YP</h2>
 
@@ -107,12 +79,38 @@
 		<button type="submit">Submit</button>
 	</form>
 
+	<h2>WordPress.org</h2>
+
+	<p>The WordPress.org ID is the plugin slug.</p>
+
+	<form method="post" action="/wp-admin/options-general.php?page=wpbr">
+		<label for="wp_org_business_id">WordPress.org Plugin Slug:</label>
+		<input type="text" id="wp_org_business_id" name="wp_org_business_id" value="<?php esc_attr_e( $wp_org_business_id ); ?>">
+		<button type="submit">Submit</button>
+	</form>
+
+	<h2>Results</h2>
+
 	<?php
-	if ( ! empty( $yp_business_id ) ) {
+	$platforms = array(
+		'google_places',
+		'facebook',
+		'yelp',
+		'yp',
+		'wp_org',
+	);
 
-		$yp_business = new WPBR_YP_Business( $_POST[ 'yp_business_id' ], 'yp' );
-		echo '<pre>'; print_r( $yp_business ); echo '</pre>';
-
+	foreach ( $platforms as $platform ) {
+		if ( ! empty( $_POST[ "{$platform}_business_id" ] ) ) {
+			$business = new WPBR_Business( ${$platform . "_business_id"}, $platform );
+			$business->insert_post();
+			echo '<pre>'; print_r( $business ); echo '</pre>';
+			if ( 'wp_org' !== $platform ) {
+				$reviews = new WPBR_Reviews_Set( ${$platform . "_business_id"}, $platform );
+				$reviews->insert_posts();
+				echo '<pre>'; print_r( $reviews ); echo '</pre>';
+			}
+		}
 	}
 	?>
 
