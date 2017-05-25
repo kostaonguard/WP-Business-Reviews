@@ -158,14 +158,16 @@ class WPBR_Admin {
 			return;
 		}
 
-		if ( ! empty( $business ) ) {
+		$business_id    = get_post_meta( $post->ID, 'wpbr_business_id', true );
+		$platform_terms = get_the_terms( $post->ID, 'wpbr_platform' );
+		$platform       = $platform_terms[0]->slug;
+		$review         = new WPBR_Review( $business_id, $platform );
 
-			echo '<pre class="postbox" style="overflow-x: scroll; padding: 12px ;">';
-			print_r( $business );
-			echo '</pre>';
+		$review->set_properties_from_post( $post );
 
-		}
-
+		echo '<pre class="postbox" style="overflow-x: scroll; padding: 12px ;">';
+		esc_html_e( print_r( $review, true ) );
+		echo '</pre>';
 	}
 
 }
