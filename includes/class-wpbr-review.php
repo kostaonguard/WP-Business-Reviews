@@ -19,15 +19,6 @@
 class WPBR_Review {
 
 	/**
-	 * Reviews platform associated with the business.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $platform;
-
-	/**
 	 * ID of the parent business on the platform.
 	 *
 	 * @since 1.0.0
@@ -35,6 +26,15 @@ class WPBR_Review {
 	 * @var string
 	 */
 	protected $business_id;
+
+	/**
+	 * Reviews platform associated with the business.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $platform;
 
 	/**
 	 * Post ID of the parent business in the database.
@@ -55,13 +55,22 @@ class WPBR_Review {
 	protected $post_id;
 
 	/**
+	 * Slug of the review post in the database.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $post_slug;
+
+	/**
 	 * Title of the review.
 	 *
 	 * @since 1.0.0
 	 * @access protected
 	 * @var string
 	 */
-	protected $review_title;
+	protected $review_title = '';
 
 	/**
 	 * Review text submitted by the reviewer.
@@ -70,7 +79,7 @@ class WPBR_Review {
 	 * @access protected
 	 * @var string
 	 */
-	protected $review_text;
+	protected $review_text = '';
 
 	/**
 	 * Array of metadata associated with the review.
@@ -112,8 +121,8 @@ class WPBR_Review {
 	 * @return string|null Review post slug.
 	 */
 	protected function build_post_slug() {
-		if ( ! empty( $this->business_id ) && ! empty( $this->time_created ) ) {
-			$slug = $business_id . '-' . $time_created;
+		if ( ! empty( $this->business_id ) && ! empty( $this->meta['time_created'] ) ) {
+			$slug = $this->business_id . '-' . $this->meta['time_created'];
 			$slug = str_replace( '_', '-', strtolower( $slug ) );
 
 			return sanitize_title( $slug );
@@ -140,46 +149,85 @@ class WPBR_Review {
 	}
 
 	/**
+	 * Sets properties from existing post in database.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int|WP_Post $post Post ID or post object.
+	 */
+	public function set_properties_from_post( $post ) {
+		if ( is_int( $post ) && 0 < $post ) {
+			$post = get_post( $post );
+		}
+
+		if ( ! $post instanceof WP_Post ) {
+			return;
+		}
+
+		$properties['post_id']      = $post->ID;
+		$properties['review_title'] = $post->post_title;
+		$properties['review_text']  = $post->post_content;
+
+		$post_meta = get_post_meta( $post->ID );
+
+		foreach ( $post_meta as $key => $value ) {
+			// Do not set if meta key is private.
+			if ( '_' != substr( $key, 0, 1 ) ) {
+				// TODO: Recondsider this approach and maybe set explicit post meta keys instead.
+				$properties['meta'][ $key ] = maybe_unserialize( array_shift( $value ) );
+			}
+		}
+
+		$this->set_properties( $properties );
+	}
+
+	/**
 	 * Inserts wpbr_review post into the database.
 	 *
 	 * @since 1.0.0
 	 */
 	public function insert_post() {
-		// Build post slug that is unique to the review on the platform.
-		$post_slug = $this->build_post_slug();
+		// Build slug if it has not been set.
+		if ( ! isset( $this->post_slug ) ) {
+			$this->post_slug = $this->build_post_slug();
+		}
+
+		// Look up post slug to determine if review post already exists.
+		if ( ! isset( $this->post_id ) ) {
+			$post = get_page_by_path( $this->post_slug, OBJECT, 'wpbr_review' );
+
+			if ( $post instanceof WP_Post ) {
+				$this->post_id = $post->ID;
+			}
+		}
+
+		// Define post meta fields.
+		$meta_input = array(
+			'wpbr_business_id' => $this->business_id,
+		);
+
+		foreach ( $this->meta as $key => $value ) {
+			$meta_input["wpbr_$key"] = $value;
+		}
+
+		// Define taxonomy terms.
+		$tax_input = array(
+			'wpbr_platform' => $this->platform,
+		);
 
 		// Define array of post elements.
 		$postarr = array(
-			'post_type'   => 'wpbr_review',
-			'post_title'  => $this->review_title,
-			'post_name'   => $post_slug,
-			'post_status' => 'publish',
-			// TODO: Get post_parent from $this->business_post_id.
-			// 'post_parent' => 999,
-			'meta_input'  => array(
-				'wpbr_review_id'          => $this->review_id,
-				'wpbr_rating'             => $this->rating,
-				'wpbr_review_title'       => $this->review_title,
-				'wpbr_review_text'        => $this->review_text,
-				'wpbr_review_url'         => $this->review_url,
-				'wpbr_reviewer_name'      => $this->reviewer_name,
-				'wpbr_reviewer_image_url' => $this->reviewer_image_url,
-				'wpbr_time_created'       => $this->time_created,
-			),
-			'tax_input'   => array(
-				'wpbr_platform' => $this->platform,
-			),
+			'ID'           => $this->post_id,
+			'post_type'    => 'wpbr_review',
+			'post_title'   => $this->review_title,
+			'post_content' => $this->review_text,
+			'post_name'    => $this->post_slug,
+			'post_status'  => 'publish',
+			'meta_input'   => $meta_input,
+			'tax_input'    => $tax_input,
 		);
-
-		// Attempt to retrieve post from database using the post slug.
-		$post = get_page_by_path( $post_slug, OBJECT, 'wpbr_review' );
-
-		if ( ! empty( $post ) ) {
-			$postarr['ID'] = $post->ID;
-		}
 
 		// Insert or update post in database.
 		wp_insert_post( $postarr );
 	}
-
 }
