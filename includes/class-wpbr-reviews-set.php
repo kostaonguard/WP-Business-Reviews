@@ -69,23 +69,6 @@ class WPBR_Reviews_Set {
 	}
 
 	/**
-	 * Gets local review posts from database.
-	 *
-	 * Wrapper for WP_Query that gets review posts based on the post ID of the
-	 * parent business.
-	 *
-	 * @since 1.0.0
-	 * @see WP_Query
-	 *
-	 * @param array $args Args passed to WP_Query.
-	 *
-	 * @return array Set of standardized review objects.
-	 */
-	public function get_local_reviews( $args ) {
-		// TODO: Define WP_Query to get local reviews in database
-	}
-
-	/**
 	 * Sets properties from array of key-value pairs.
 	 *
 	 * @since 1.0.0
@@ -99,6 +82,23 @@ class WPBR_Reviews_Set {
 	}
 
 	/**
+	 * Sets reviews from database.
+	 *
+	 * Wrapper for WP_Query that queries review posts based on the post ID of the
+	 * parent business.
+	 *
+	 * @since 1.0.0
+	 * @see WP_Query
+	 *
+	 * @param array $args Args passed to WP_Query.
+	 *
+	 * @return array Set of standardized review objects.
+	 */
+	public function set_reviews_from_posts( $args ) {
+		// TODO: Define WP_Query to get local reviews in database
+	}
+
+	/**
 	 * Sets reviews from remote API.
 	 *
 	 * @since 1.0.0
@@ -108,9 +108,19 @@ class WPBR_Reviews_Set {
 		$request  = WPBR_Request_Factory::create( $this->business_id, $this->platform );
 		$response = $request->request_reviews();
 
-		if ( is_array( $response ) ) {
+		if ( is_wp_error( $response ) ) {
+			/* translators: 1: Error code, 2: Error message. */
+			printf( __( 'Reviews Error: [%1$s] %2$s' ) . '<br>', $response->get_error_code(), $response->get_error_message() );
+			return;
+		} else {
 			// Standardize API response data to match class properties.
 			$reviews = $request->standardize_reviews( $response );
+
+			if ( is_wp_error( $reviews ) ) {
+				/* translators: 1: Error code, 2: Error message. */
+				printf( __( 'Reviews Error: %1$s' ) . '<br>', $reviews->get_error_message() );
+				return;
+			}
 
 			foreach ( $reviews as $properties ) {
 				$review = new WPBR_Review( $this->business_id, $this->platform );
