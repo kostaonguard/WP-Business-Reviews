@@ -11,6 +11,7 @@
  */
 
 namespace WP_Business_Reviews\Includes\Review;
+use WP_Post;
 
 /**
  * Implements the Review object which contains normalized review data
