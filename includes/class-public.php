@@ -10,6 +10,8 @@
  * @subpackage WPBR/public
  */
 
+namespace WP_Business_Reviews\Includes;
+
 /**
  * The public-facing functionality of the plugin.
  *

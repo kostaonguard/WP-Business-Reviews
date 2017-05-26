@@ -25,22 +25,22 @@
  * Domain Path:       /languages
  */
 
+namespace WP_Business_Reviews;
+use WP_Business_Reviews\Includes;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-
 	die;
-
 }
+
+require_once __DIR__ . '/autoloader.php';
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wpbr-activator.php
  */
 function activate_wpbr() {
-
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpbr-activator.php';
-	WPBR_Activator::activate();
-
+	Includes\Activator::activate();
 }
 
 /**
@@ -48,20 +48,11 @@ function activate_wpbr() {
  * This action is documented in includes/class-wpbr-deactivator.php
  */
 function deactivate_wpbr() {
-
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wpbr-deactivator.php';
-	WPBR_Deactivator::deactivate();
-
+	Includes\Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_wpbr' );
-register_deactivation_hook( __FILE__, 'deactivate_wpbr' );
-
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path( __FILE__ ) . 'includes/class-wpbr.php';
+register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wpbr' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wpbr' );
 
 /**
  * Begins execution of the plugin.
@@ -72,11 +63,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wpbr.php';
  *
  * @since    1.0.0
  */
-function run_wpbr() {
-
-	$plugin = new WPBR();
+function run_wp_business_reviews() {
+	$plugin = new Includes\WP_Business_Reviews;
 	$plugin->run();
-
 }
 
-run_wpbr();
+run_wp_business_reviews();

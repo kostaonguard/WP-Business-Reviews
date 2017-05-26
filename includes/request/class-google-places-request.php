@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Google_Places_Request subclass
+ * Defines the Google_Places_Request subclass
  *
  * @link       https://wordimpress.com
  *
@@ -10,13 +10,16 @@
  * @since      1.0.0
  */
 
+namespace WP_Business_Reviews\Includes\Request;
+use WP_Error;
+
 /***
  * Requests data from the Google Places API.
  *
  * @since 1.0.0
- * @see WPBR_Request
+ * @see Request
  */
-class WPBR_Google_Places_Request extends WPBR_Request {
+class Google_Places_Request extends Request {
 
 	/**
 	 * Reviews platform used in the request.
@@ -105,7 +108,7 @@ class WPBR_Google_Places_Request extends WPBR_Request {
 	 * Standardize business response.
 	 *
 	 * @since 1.0.0
-	 * @see WPBR_Business
+	 * @see Business
 	 *
 	 * @param array $response Business data from remote API.
 	 *

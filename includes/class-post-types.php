@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Post_Types class
+ * Defines the Post_Types class
  *
  * @link       https://wordimpress.com
  *
@@ -10,12 +10,14 @@
  * @since      1.0.0
  */
 
+namespace WP_Business_Reviews\Includes;
+
 /**
  * Registers custom post types and taxonomies.
  *
  * @since 1.0.0
  */
-class WPBR_Post_Types {
+class Post_Types {
 
 	/**
 	 * Registers all custom post types.

@@ -10,6 +10,8 @@
  * @subpackage WPBR/includes
  */
 
+namespace WP_Business_Reviews\Includes;
+
 /**
  * Fired during plugin activation.
  *
@@ -20,7 +22,7 @@
  * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class WPBR_Activator {
+class Activator {
 
 	/**
 	 * Short Description. (use period)
@@ -31,7 +33,7 @@ class WPBR_Activator {
 	 */
 	public static function activate() {
 
-		$post_types = new WPBR_Post_Types();
+		$post_types = new Post_Types();
 		$post_types->register_post_types();
 		$post_types->register_taxonomies();
 		$post_types->insert_terms();

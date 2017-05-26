@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Reviews_Set class
+ * Defines the Review_Series class
  *
  * @link       https://wordimpress.com
  *
@@ -10,13 +10,16 @@
  * @since      1.0.0
  */
 
+namespace WP_Business_Reviews\Includes\Review;
+use WP_Business_Reviews\Includes\Request;
+
 /**
- * Implements the WPBR_Reviews_Set object which contains a set of
+ * Implements the Review_Series object which contains a series of
  * standardized reviews for a single business.
  *
  * @since 1.0.0
  */
-class WPBR_Reviews_Set {
+class Review_Series {
 
 	/**
 	 * Reviews platform associated with the business.
@@ -46,7 +49,7 @@ class WPBR_Reviews_Set {
 	protected $business_post_id;
 
 	/**
-	 * Set of review objects for the parent business.
+	 * Series of review objects for the parent business.
 	 *
 	 * @since 1.0.0
 	 * @access protected
@@ -105,7 +108,7 @@ class WPBR_Reviews_Set {
 	 */
 	public function set_reviews_from_api() {
 		// Request reviews from remote API.
-		$request  = WPBR_Request_Factory::create( $this->business_id, $this->platform );
+		$request  = Request\Request_Factory::create( $this->business_id, $this->platform );
 		$response = $request->request_reviews();
 
 		if ( is_wp_error( $response ) ) {
@@ -123,7 +126,7 @@ class WPBR_Reviews_Set {
 			}
 
 			foreach ( $reviews as $properties ) {
-				$review = new WPBR_Review( $this->business_id, $this->platform );
+				$review = new Review( $this->business_id, $this->platform );
 				$review->set_properties( $properties );
 				$this->reviews[] = $review;
 			}
@@ -138,7 +141,7 @@ class WPBR_Reviews_Set {
 	public function insert_posts() {
 		if ( is_array( $this->reviews ) && ! empty( $this->reviews ) ) {
 			foreach ( $this->reviews as $review ) {
-				if ( $review instanceof WPBR_Review ) {
+				if ( $review instanceof Review ) {
 					$review->insert_post();
 				}
 			}

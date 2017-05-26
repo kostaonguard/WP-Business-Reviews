@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Request abstract class
+ * Defines the Request abstract class
  *
  * @link       https://wordimpress.com
  *
@@ -9,6 +9,9 @@
  * @subpackage WPBR/includes
  * @since      1.0.0
  */
+
+namespace WP_Business_Reviews\Includes\Request;
+use WP_Error;
 
 /**
  * Requests data from remote API.
@@ -19,7 +22,7 @@
  *
  * @since 1.0.0
  */
-abstract class WPBR_Request {
+abstract class Request {
 
 	/**
 	 * Reviews platform used in the request.
