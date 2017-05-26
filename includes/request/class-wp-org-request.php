@@ -46,7 +46,7 @@ class WP_Org_Request extends Request {
 	 * @access protected
 	 * @var string
 	 */
-	protected $business_path = '/listings/v1/details';
+	protected $business_path;
 
 	/**
 	 * Constructor.
