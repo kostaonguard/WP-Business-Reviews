@@ -13,6 +13,8 @@
  * @subpackage WPBR/includes
  */
 
+namespace WP_Business_Reviews\Includes;
+
 /**
  * Define the internationalization functionality.
  *
@@ -24,7 +26,7 @@
  * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class WPBR_i18n {
+class I18n {
 
 
 	/**

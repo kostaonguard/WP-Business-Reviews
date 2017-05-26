@@ -11,6 +11,9 @@
  * @package    WPBR
  * @subpackage WPBR/admin/partials
  */
+
+use WP_Business_Reviews\Includes\Business;
+use WP_Business_Reviews\Includes\Review;
 ?>
 
 <div class="wrap">
@@ -102,11 +105,11 @@
 
 	foreach ( $platforms as $platform ) {
 		if ( ! empty( $_POST[ "{$platform}_business_id" ] ) ) {
-			$business = new WPBR_Business( ${$platform . "_business_id"}, $platform );
+			$business = new Business\Business( ${$platform . "_business_id"}, $platform );
 			$business->insert_post();
 			echo '<pre>'; print_r( $business ); echo '</pre>';
 			if ( 'wp_org' !== $platform ) {
-				$reviews = new WPBR_Reviews_Set( ${$platform . "_business_id"}, $platform );
+				$reviews = new Review\Review_Series( ${$platform . "_business_id"}, $platform );
 				$reviews->insert_posts();
 				echo '<pre>'; print_r( $reviews ); echo '</pre>';
 			}

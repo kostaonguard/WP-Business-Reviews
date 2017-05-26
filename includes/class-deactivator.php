@@ -10,6 +10,8 @@
  * @subpackage WPBR/includes
  */
 
+namespace WP_Business_Reviews\Includes;
+
 /**
  * Fired during plugin deactivation.
  *
@@ -20,7 +22,7 @@
  * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class WPBR_Deactivator {
+class Deactivator {
 
 	/**
 	 * Short Description. (use period)

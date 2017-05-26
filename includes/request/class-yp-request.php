@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_YP_Request subclass
+ * Defines the YP_Request subclass
  *
  * @link       https://wordimpress.com
  *
@@ -10,13 +10,16 @@
  * @since      1.0.0
  */
 
+namespace WP_Business_Reviews\Includes\Request;
+use WP_Error;
+
 /***
  * Requests data from the YP API.
  *
  * @since 1.0.0
- * @see WPBR_Request
+ * @see Request
  */
-class WPBR_YP_Request extends WPBR_Request {
+class YP_Request extends Request {
 
 	/**
 	 * Reviews platform used in the request.
@@ -122,7 +125,7 @@ class WPBR_YP_Request extends WPBR_Request {
 	 * Standardize business response.
 	 *
 	 * @since 1.0.0
-	 * @see WPBR_Business
+	 * @see Business
 	 *
 	 * @param array $response Business data from remote API.
 	 *
