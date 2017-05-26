@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Review abstract class
+ * Defines the Review abstract class
  *
  * @link       https://wordimpress.com
  *
@@ -10,13 +10,15 @@
  * @since      1.0.0
  */
 
+namespace WP_Business_Reviews\Includes\Review;
+
 /**
- * Implements the WPBR_Review object which contains normalized review data
+ * Implements the Review object which contains normalized review data
  * that has been parsed from a remote API response.
  *
  * @since 1.0.0
  */
-class WPBR_Review {
+class Review {
 
 	/**
 	 * ID of the parent business on the platform.

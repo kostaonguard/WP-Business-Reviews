@@ -10,6 +10,8 @@
  * @subpackage WPBR/includes
  */
 
+namespace WP_Business_Reviews\Includes;
+
 /**
  * Register all actions and filters for the plugin.
  *
@@ -21,7 +23,7 @@
  * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class WPBR_Loader {
+class Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

@@ -10,6 +10,8 @@
  * @subpackage WPBR/admin
  */
 
+namespace WP_Business_Reviews\Includes;
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -20,7 +22,7 @@
  * @subpackage WPBR/admin
  * @author     WordImpress, LLC <info@wordimpress.com>
  */
-class WPBR_Admin {
+class Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -124,7 +126,7 @@ class WPBR_Admin {
 	 */
 	public function display_options_page() {
 
-		include_once 'partials/wpbr-admin-display.php';
+		include_once dirname(__FILE__) . '/../templates/api-test.php';
 
 	}
 
@@ -141,7 +143,7 @@ class WPBR_Admin {
 		$business_id    = get_post_meta( $post->ID, 'wpbr_business_id', true );
 		$platform_terms = get_the_terms( $post->ID, 'wpbr_platform' );
 		$platform       = $platform_terms[0]->slug;
-		$business       = new WPBR_Business( $business_id, $platform );
+		$business       = new Business\Business( $business_id, $platform );
 
 		echo '<pre class="postbox" style="overflow-x: scroll; padding: 12px ;">';
 		esc_html_e( print_r( $business, true ) );
@@ -161,7 +163,7 @@ class WPBR_Admin {
 		$business_id    = get_post_meta( $post->ID, 'wpbr_business_id', true );
 		$platform_terms = get_the_terms( $post->ID, 'wpbr_platform' );
 		$platform       = $platform_terms[0]->slug;
-		$review         = new WPBR_Review( $business_id, $platform );
+		$review         = new Review\Review( $business_id, $platform );
 
 		$review->set_properties_from_post( $post );
 

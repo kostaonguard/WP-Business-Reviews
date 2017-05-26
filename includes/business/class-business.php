@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Defines the WPBR_Business class
+ * Defines the Business class
  *
  * @link       https://wordimpress.com
  *
@@ -10,15 +10,18 @@
  * @since      1.0.0
  */
 
+namespace WP_Business_Reviews\Includes\Business;
+use WP_Business_Reviews\Includes\Request;
+
 /**
- * Implements the WPBR_Business object.
+ * Implements the Business object.
  *
  * This class checks for an existing business in the database, and if it does
  * not exist, an API call is generated to request the business data remotely.
  *
  * @since 1.0.0
  */
-class WPBR_Business {
+class Business {
 	/**
 	 * ID of the business on the platform.
 	 *
@@ -80,7 +83,7 @@ class WPBR_Business {
 	 * Otherwise properties are set from platform API.
 	 *
 	 * @param string $business_id ID of the business.
-	 * @param string $platform    Reviews platform associated with the business.
+	 * @param string $platform Reviews platform associated with the business.
 	 *
 	 * @since 1.0.0
 	 */
@@ -167,12 +170,17 @@ class WPBR_Business {
 	protected function set_properties_from_api() {
 		echo 'DATA FROM API';
 
-		$request    = WPBR_Request_Factory::create( $this->business_id, $this->platform );
-		$response   = $request->request_business();
+		$request  = Request\Request_Factory::create( $this->business_id, $this->platform );
+		$response = $request->request_business();
 
-		if ( is_wp_error( $response ) ) {
+		if ( empty( $response ) ) {
+			printf( __( 'Business Error: An empty response body was returned.' ) );
+
+			return;
+		} elseif ( is_wp_error( $response ) ) {
 			/* translators: 1: Error code, 2: Error message. */
 			printf( __( 'Business Error: [%1$s] %2$s' ) . '<br>', $response->get_error_code(), $response->get_error_message() );
+
 			return;
 		} else {
 			// Standardize API response data to match class properties.
@@ -181,6 +189,7 @@ class WPBR_Business {
 			if ( is_wp_error( $business ) ) {
 				/* translators: 1: Error code, 2: Error message. */
 				printf( __( 'Business Error: %1$s' ) . '<br>', $business->get_error_message() );
+
 				return;
 			}
 
