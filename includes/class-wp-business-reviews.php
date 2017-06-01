@@ -69,74 +69,11 @@ class WP_Business_Reviews {
 		$this->plugin_name = 'wpbr';
 		$this->version = '1.0.0';
 
-		$this->load_dependencies();
+		$this->loader = new Loader();
 		$this->set_locale();
 		$this->define_registration_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-	}
-
-	/**
-	 * Load the required dependencies for this plugin.
-	 *
-	 * @since    1.0.0
-	 */
-	private function load_dependencies() {
-//		/**
-//		 * Class responsible for orchestrating the actions and filters of the
-//		 * core plugin.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-loader.php';
-//
-//		/**
-//		 * Class responsible for defining internationalization functionality
-//		 * of the plugin.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-i18n.php';
-//
-//		/**
-//		 * Class responsible for registering custom post types and taxonomies.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-post-types.php';
-//
-//		/**
-//		 * Classes responsible for implementing the Business object.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-business.php';
-//
-//		/**
-//		 * Classes responsible for implementing the Review object.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-review.php';
-//
-//		/**
-//		 * Classes responsible for requesting and standardizing remote reviews.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-reviews-set.php';
-//
-//		/**
-//		 * Classes responsible for API requests to various reviews platforms.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-request-factory.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-google-places-request.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-facebook-request.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yelp-request.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-yp-request.php';
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpbr-wp-org-request.php';
-//
-//		/**
-//		 * Class responsible for defining all actions that occur in the admin area.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wpbr-admin.php';
-//
-//		/**
-//		 * Class responsible for defining all actions that occur in the public-facing
-//		 * side of the site.
-//		 */
-//		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpbr-public.php';
-//
-		$this->loader = new Loader();
 	}
 
 	/**
