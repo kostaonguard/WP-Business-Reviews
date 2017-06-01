@@ -6,7 +6,7 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    WPBR
+ * @package    WP_Business_Reviews
  * @subpackage WPBR/includes
  */
 
@@ -19,7 +19,7 @@ namespace WP_Business_Reviews\Includes;
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    WPBR
+ * @package    WP_Business_Reviews
  * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */

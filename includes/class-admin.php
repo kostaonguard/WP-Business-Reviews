@@ -6,7 +6,7 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    WPBR
+ * @package    WP_Business_Reviews
  * @subpackage WPBR/admin
  */
 
@@ -18,7 +18,7 @@ namespace WP_Business_Reviews\Includes;
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    WPBR
+ * @package    WP_Business_Reviews
  * @subpackage WPBR/admin
  * @author     WordImpress, LLC <info@wordimpress.com>
  */

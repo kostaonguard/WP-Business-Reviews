@@ -6,7 +6,7 @@
  * @link       https://wordimpress.com
  * @since      1.0.0
  *
- * @package    WPBR
+ * @package    WP_Business_Reviews
  * @subpackage WPBR/includes
  */
 
@@ -18,7 +18,7 @@ namespace WP_Business_Reviews\Includes;
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    WPBR
+ * @package    WP_Business_Reviews
  * @subpackage WPBR/includes
  * @author     WordImpress, LLC <info@wordimpress.com>
  */

@@ -5,7 +5,7 @@
  *
  * @link       https://wordimpress.com
  *
- * @package    WPBR
+ * @package    WP_Business_Reviews
  * @subpackage WPBR/includes
  * @since      1.0.0
  */

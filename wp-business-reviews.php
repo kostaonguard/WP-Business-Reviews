@@ -10,7 +10,7 @@
  *
  * @link              https://wordimpress.com
  * @since             1.0.0
- * @package           WPBR
+ * @package           WP_Business_Reviews
  *
  * @wordpress-plugin
  * Plugin Name:       WP Business Reviews Core
@@ -26,6 +26,7 @@
  */
 
 namespace WP_Business_Reviews;
+
 use WP_Business_Reviews\Includes;
 
 // If this file is called directly, abort.
