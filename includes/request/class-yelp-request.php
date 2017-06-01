@@ -3,11 +3,8 @@
 /**
  * Defines the Yelp_Request subclass
  *
- * @link       https://wordimpress.com
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
- * @since      1.0.0
+ * @package WP_Business_Reviews\Includes\Request
+ * @since   1.0.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
@@ -17,7 +14,7 @@ use WP_Error;
  * Requests data from the Yelp Fusion API.
  *
  * @since 1.0.0
- * @see Request
+ * @see   Request
  */
 class Yelp_Request extends Request {
 

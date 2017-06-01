@@ -3,6 +3,7 @@
  * Automatically loads the specified file
  *
  * @package WP_Business_Reviews
+ * @since   1.0.0
  */
 
 /**
@@ -11,7 +12,7 @@
  * Examines the fully qualified class name, separates it into components, then creates
  * a string that represents where the file is loaded on disk.
  *
- * @package WP_Business_Reviews
+ * @since   1.0.0
  */
 spl_autoload_register( function ( $filename ) {
 	// First, separate the components of the incoming file.

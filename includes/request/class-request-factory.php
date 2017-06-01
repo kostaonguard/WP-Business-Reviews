@@ -3,11 +3,8 @@
 /**
  * Defines the Request_Factory class
  *
- * @link       https://wordimpress.com
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
- * @since      1.0.0
+ * @package WP_Business_Reviews\Includes\Request
+ * @since   1.0.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
@@ -16,6 +13,7 @@ namespace WP_Business_Reviews\Includes\Request;
  * Determines the appropriate Request subclass based on platform.
  *
  * @since 1.0.0
+ * @see   Request
  */
 class Request_Factory {
 

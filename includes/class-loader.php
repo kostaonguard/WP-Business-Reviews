@@ -3,11 +3,8 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://wordimpress.com
- * @since      1.0.0
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
+ * @package WP_Business_Reviews\Includes
+ * @since   1.0.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -19,9 +16,7 @@ namespace WP_Business_Reviews\Includes;
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
- * @author     WordImpress, LLC <info@wordimpress.com>
+ * @since 1.0.0
  */
 class Loader {
 

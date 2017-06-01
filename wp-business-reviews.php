@@ -9,8 +9,8 @@
  * that starts the plugin.
  *
  * @link              https://wordimpress.com
- * @since             1.0.0
  * @package           WP_Business_Reviews
+ * @since             1.0.0
  *
  * @wordpress-plugin
  * Plugin Name:       WP Business Reviews Core

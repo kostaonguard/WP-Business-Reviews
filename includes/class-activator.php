@@ -3,11 +3,8 @@
 /**
  * Fired during plugin activation
  *
- * @link       https://wordimpress.com
- * @since      1.0.0
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
+ * @package WP_Business_Reviews\Includes
+ * @since   1.0.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -17,10 +14,7 @@ namespace WP_Business_Reviews\Includes;
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
- * @since      1.0.0
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
- * @author     WordImpress, LLC <info@wordimpress.com>
+ * @since 1.0.0
  */
 class Activator {
 

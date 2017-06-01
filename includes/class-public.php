@@ -3,11 +3,8 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://wordimpress.com
- * @since      1.0.0
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/public
+ * @package WP_Business_Reviews\Includes
+ * @since   1.0.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -18,9 +15,7 @@ namespace WP_Business_Reviews\Includes;
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/public
- * @author     WordImpress, LLC <info@wordimpress.com>
+ * @since 1.0.0
  */
 class WPBR_Public {
 

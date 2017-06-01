@@ -3,11 +3,8 @@
 /**
  * Defines the Post_Types class
  *
- * @link       https://wordimpress.com
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
- * @since      1.0.0
+ * @package WP_Business_Reviews\Includes
+ * @since   1.0.0
  */
 
 namespace WP_Business_Reviews\Includes;

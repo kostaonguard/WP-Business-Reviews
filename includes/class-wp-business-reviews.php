@@ -6,11 +6,8 @@
  * This class includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://wordimpress.com
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
- * @since      1.0.0
+ * @package WP_Business_Reviews\Includes
+ * @since   1.0.0
  */
 
 namespace WP_Business_Reviews\Includes;

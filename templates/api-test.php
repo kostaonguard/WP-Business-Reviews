@@ -5,11 +5,8 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       https://wordimpress.com
- * @since      1.0.0
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/admin/partials
+ * @package WP_Business_Reviews\Templates
+ * @since   1.0.0
  */
 
 use WP_Business_Reviews\Includes\Business;

@@ -2,11 +2,8 @@
 /**
  * Defines the Facebook_Request subclass
  *
- * @link       https://wordimpress.com
- *
- * @package    WP_Business_Reviews
- * @subpackage WPBR/includes
- * @since      1.0.0
+ * @package WP_Business_Reviews\Includes\Request
+ * @since   1.0.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
@@ -16,7 +13,7 @@ use WP_Error;
  * Requests data from the Facebook Open Graph API.
  *
  * @since 1.0.0
- * @see Request
+ * @see   Request
  */
 class Facebook_Request extends Request {
 
