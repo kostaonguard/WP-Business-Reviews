@@ -9,6 +9,11 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Determines the appropriate Request subclass based on platform.
  *

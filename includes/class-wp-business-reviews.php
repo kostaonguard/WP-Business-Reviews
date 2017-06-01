@@ -12,6 +12,11 @@
 
 namespace WP_Business_Reviews\Includes;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The core plugin class.
  *

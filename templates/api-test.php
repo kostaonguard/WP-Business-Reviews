@@ -11,7 +11,14 @@
 
 use WP_Business_Reviews\Includes\Business;
 use WP_Business_Reviews\Includes\Review;
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
+
+
 
 <div class="wrap">
 

@@ -9,6 +9,11 @@
 
 namespace WP_Business_Reviews\Includes;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Registers custom post types and taxonomies.
  *

@@ -9,6 +9,11 @@
 
 namespace WP_Business_Reviews\Includes;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The admin-specific functionality of the plugin.
  *

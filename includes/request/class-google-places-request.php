@@ -10,6 +10,11 @@
 namespace WP_Business_Reviews\Includes\Request;
 use WP_Error;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /***
  * Requests data from the Google Places API.
  *

@@ -10,6 +10,11 @@
 namespace WP_Business_Reviews\Includes\Review;
 use WP_Business_Reviews\Includes\Request;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Implements the Review_Series object which contains a series of
  * standardized reviews for a single business.

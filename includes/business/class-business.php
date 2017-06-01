@@ -10,6 +10,11 @@
 namespace WP_Business_Reviews\Includes\Business;
 use WP_Business_Reviews\Includes\Request;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Implements the Business object.
  *

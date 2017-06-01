@@ -10,6 +10,11 @@
 namespace WP_Business_Reviews\Includes\Review;
 use WP_Post;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Implements the Review object which contains normalized review data
  * that has been parsed from a remote API response.

@@ -12,6 +12,11 @@
 
 namespace WP_Business_Reviews\Includes;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Define the internationalization functionality.
  *

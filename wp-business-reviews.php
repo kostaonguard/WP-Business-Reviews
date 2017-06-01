@@ -29,9 +29,9 @@ namespace WP_Business_Reviews;
 
 use WP_Business_Reviews\Includes;
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 require_once __DIR__ . '/autoloader.php';
