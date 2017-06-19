@@ -38,22 +38,22 @@ require_once __DIR__ . '/autoloader.php';
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-wpbr-activator.php
+ * This action is documented in includes/class-activator.php
  */
-function activate_wpbr() {
+function activate_wp_business_reviews() {
 	Includes\Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wpbr-deactivator.php
+ * This action is documented in includes/class-deactivator.php
  */
-function deactivate_wpbr() {
+function deactivate_wp_business_reviews() {
 	Includes\Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wpbr' );
-register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wpbr' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wp_business_reviews' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wp_business_reviews' );
 
 /**
  * Begins execution of the plugin.
