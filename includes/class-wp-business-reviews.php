@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class WP_Business_Reviews {
+final class WP_Business_Reviews {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -101,12 +101,9 @@ class WP_Business_Reviews {
 	private function define_registration_hooks() {
 		$post_types = new Post_Types;
 
-		// TODO: Update hook registration to use namespaces.
-//		$this->loader->add_action( 'init', __NAMESPACE__ . 'Post_Types\register_post_types' );
-//		$this->loader->add_action( 'init', __NAMESPACE__ . 'Post_Types\register_taxonomies' );
-
 		$this->loader->add_action( 'init', $post_types, 'register_post_types' );
 		$this->loader->add_action( 'init', $post_types, 'register_taxonomies' );
+		$this->loader->add_action( 'widgets_init', $this, 'register_widgets' );
 	}
 
 	/**
@@ -136,6 +133,15 @@ class WP_Business_Reviews {
 //
 //		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 //		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+	}
+
+	/**
+	 * Register the plugin's widgets.
+	 *
+	 * @since    1.0.0
+	 */
+	public function register_widgets() {
+		register_widget( __NAMESPACE__ . '\Widget\Business_Widget' );
 	}
 
 	/**
