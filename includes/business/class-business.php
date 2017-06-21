@@ -8,6 +8,7 @@
  */
 
 namespace WP_Business_Reviews\Includes\Business;
+
 use WP_Business_Reviews\Includes\Request;
 
 // Exit if accessed directly.

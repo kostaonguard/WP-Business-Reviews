@@ -34,26 +34,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Define plugin version.
+if ( ! defined( 'WPBR_VERSION' ) ) {
+	define( 'WPBR_VERSION', '1.0.0' );
+}
+
+// Define plugin folder Path.
+if ( ! defined( 'WPBR_PLUGIN_DIR' ) ) {
+	define( 'WPBR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
+
+// Define plugin folder URL.
+if ( ! defined( 'WPBR_PLUGIN_URL' ) ) {
+	define( 'WPBR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
+// Define plugin root File.
+if ( ! defined( 'WPBR_PLUGIN_FILE' ) ) {
+	define( 'WPBR_PLUGIN_FILE', __FILE__ );
+}
+
+// Require WP Business Reviews autoloader.
 require_once __DIR__ . '/autoloader.php';
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-wpbr-activator.php
+ * This action is documented in includes/class-activator.php
  */
-function activate_wpbr() {
+function activate_wp_business_reviews() {
 	Includes\Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wpbr-deactivator.php
+ * This action is documented in includes/class-deactivator.php
  */
-function deactivate_wpbr() {
+function deactivate_wp_business_reviews() {
 	Includes\Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wpbr' );
-register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wpbr' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wp_business_reviews' );
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wp_business_reviews' );
 
 /**
  * Begins execution of the plugin.

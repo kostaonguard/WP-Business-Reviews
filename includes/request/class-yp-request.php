@@ -156,7 +156,8 @@ class YP_Request extends Request {
 				'wpbr_state_province' => null,
 				'wpbr_postal_code'    => null,
 				'wpbr_latitude'       => null,
-				'wpbr_longitude'      => null,			),
+				'wpbr_longitude'      => null,
+			),
 		);
 
 		// Set business name.
