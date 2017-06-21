@@ -34,6 +34,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Define plugin version.
+if ( ! defined( 'WPBR_VERSION' ) ) {
+	define( 'WPBR_VERSION', '1.0.0' );
+}
+
+// Define plugin folder Path.
+if ( ! defined( 'WPBR_PLUGIN_DIR' ) ) {
+	define( 'WPBR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
+
+// Define plugin folder URL.
+if ( ! defined( 'WPBR_PLUGIN_URL' ) ) {
+	define( 'WPBR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
+// Define plugin root File.
+if ( ! defined( 'WPBR_PLUGIN_FILE' ) ) {
+	define( 'WPBR_PLUGIN_FILE', __FILE__ );
+}
+
+// Require WP Business Reviews autoloader.
 require_once __DIR__ . '/autoloader.php';
 
 /**
