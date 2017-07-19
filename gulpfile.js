@@ -22,7 +22,7 @@ gulp.task( 'styles', function () {
 	           .pipe( sourcemaps.init() )
 	           .pipe( postcss( plugins ) )
 	           .pipe( sourcemaps.write( '.' ) )
-	           .pipe( gulp.dest( 'assets/css' ) )
+	           .pipe( gulp.dest( 'dist/css' ) )
 	           .pipe( browsersync.stream() );
 } );
 
@@ -34,14 +34,14 @@ gulp.task( 'scripts', function () {
 	return gulp.src( scripts )
 	           .pipe( concat( 'main.js' ) )
 	           .pipe( uglify() )
-	           .pipe( gulp.dest( 'assets/js' ) )
+	           .pipe( gulp.dest( 'dist/js' ) )
 	           .pipe( browsersync.reload( { stream: true } ) );
 } );
 
 gulp.task( 'images', function () {
-	return gulp.src( 'assets/img/raw/**/*.+(png|jpg|jpeg|gif|svg)' )
+	return gulp.src( 'assets/images/**/*.+(png|jpg|jpeg|gif|svg)' )
 	           .pipe( imagemin() )
-	           .pipe( gulp.dest( 'assets/img' ) )
+	           .pipe( gulp.dest( 'dist/images' ) )
 	           .pipe( browsersync.reload( { stream: true } ) );
 } );
 
@@ -55,7 +55,7 @@ gulp.task( 'watch', [ 'browsersync', 'styles', 'scripts' ], function () {
 	gulp.watch( '**/*.php', browsersync.reload );
 	gulp.watch( 'assets/scss/**/*.scss', [ 'styles' ] );
 	gulp.watch( 'assets/js/**/*.js', [ 'scripts' ] );
-	gulp.watch( 'assets/img/raw/**/*.+(png|jpg|jpeg|gif|svg)', [ 'images' ] );
+	gulp.watch( 'assets/images/**/*.+(png|jpg|jpeg|gif|svg)', [ 'images' ] );
 } );
 
 gulp.task( 'default', [ 'styles', 'scripts', 'images' ] );
