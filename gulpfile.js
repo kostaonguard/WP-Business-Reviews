@@ -11,7 +11,9 @@ var imagemin = require( 'gulp-imagemin' );
 
 gulp.task( 'styles', function () {
 	var plugins = [
-		autoprefixer(),
+		autoprefixer( {
+			browsers: [ 'last 2 versions' ],
+		} ),
 		cssnano(),
 	];
 
