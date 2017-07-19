@@ -52,6 +52,7 @@ gulp.task( 'browsersync', function () {
 } );
 
 gulp.task( 'watch', [ 'browsersync', 'styles', 'scripts' ], function () {
+	gulp.watch( '**/*.php', browsersync.reload );
 	gulp.watch( 'assets/scss/**/*.scss', [ 'styles' ] );
 	gulp.watch( 'assets/js/**/*.js', [ 'scripts' ] );
 	gulp.watch( 'assets/img/raw/**/*.+(png|jpg|jpeg|gif|svg)', [ 'images' ] );
