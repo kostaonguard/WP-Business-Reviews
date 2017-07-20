@@ -216,6 +216,10 @@ class Post_Types {
 			'publicly_queryable'    => true,
 			'rewrite'               => $rewrite,
 			'capability_type'       => 'post',
+			'capabilities' => array(
+				'create_posts' => 'do_not_allow', // Removes support for the "Add New" function.
+			),
+			'map_meta_cap' => true, // Allow users to still edit and delete posts.
 
 		);
 
