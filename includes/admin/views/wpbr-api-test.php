@@ -18,8 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-
-
 <div class="wrap">
 
 	<?php

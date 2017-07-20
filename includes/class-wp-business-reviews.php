@@ -74,8 +74,12 @@ final class WP_Business_Reviews {
 		$this->loader = new Loader();
 		$this->set_locale();
 		$this->define_registration_hooks();
-		$this->define_admin_hooks();
 		$this->define_public_hooks();
+
+		if ( is_admin() ) {
+			$this->define_admin_hooks();
+			$this->add_admin_pages();
+		}
 	}
 
 	/**
@@ -117,7 +121,6 @@ final class WP_Business_Reviews {
 //
 //		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_styles' );
 //		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_menu', $admin, 'add_options_page' );
 		$this->loader->add_action( 'edit_form_after_editor', $admin, 'display_business' );
 		$this->loader->add_action( 'edit_form_after_editor', $admin, 'display_review' );
 	}
@@ -142,6 +145,17 @@ final class WP_Business_Reviews {
 	 */
 	public function register_widgets() {
 		register_widget( __NAMESPACE__ . '\Widget\Business_Widget' );
+	}
+
+	/**
+	 * Adds admin pages.
+	 *
+	 * @since    1.0.0
+	 */
+	private function add_admin_pages() {
+		// Create new admin menu and pass page instance used to render pages.
+		$admin_menu = new Admin\Admin_Menu( new Admin\Admin_Page() );
+		$admin_menu->init();
 	}
 
 	/**
