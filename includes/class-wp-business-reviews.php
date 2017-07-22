@@ -29,17 +29,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 final class WP_Business_Reviews {
-
-	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Loader    $loader    Maintains and registers all hooks for the plugin.
-	 */
-	protected $loader;
-
 	/**
 	 * The unique identifier of this plugin.
 	 *
@@ -70,16 +59,7 @@ final class WP_Business_Reviews {
 	public function __construct() {
 		$this->plugin_name = 'wpbr';
 		$this->version = '1.0.0';
-
-		$this->loader = new Loader();
 		$this->set_locale();
-		$this->define_registration_hooks();
-		$this->define_public_hooks();
-
-		if ( is_admin() ) {
-			$this->define_admin_hooks();
-			$this->add_admin_pages();
-		}
 	}
 
 	/**
@@ -88,6 +68,13 @@ final class WP_Business_Reviews {
 	 * @since    1.0.0
 	 */
 	public function init() {
+		// Register post types.
+		$post_types = new Post_Types();
+		$post_types->init();
+
+		if ( is_admin() ) {
+			$this->add_admin_pages();
+		}
 	}
 
 	/**
@@ -101,49 +88,7 @@ final class WP_Business_Reviews {
 	private function set_locale() {
 		$plugin_i18n = new I18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-	}
-
-	/**
-	 * Register all of the hooks related to the registration of custom post
-	 * types and taxonomies.
-	 *
-	 * @since    1.0.0
-	 */
-	private function define_registration_hooks() {
-		$post_types = new Post_Types;
-
-		$this->loader->add_action( 'init', $post_types, 'register_post_types' );
-		$this->loader->add_action( 'init', $post_types, 'register_taxonomies' );
-		$this->loader->add_action( 'widgets_init', $this, 'register_widgets' );
-	}
-
-	/**
-	 * Register all of the hooks related to the admin area functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 */
-	private function define_admin_hooks() {
-		$admin = new Admin( $this->get_plugin_name(), $this->get_version() );
-//
-//		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_styles' );
-//		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'edit_form_after_editor', $admin, 'display_business' );
-		$this->loader->add_action( 'edit_form_after_editor', $admin, 'display_review' );
-	}
-
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 */
-	private function define_public_hooks() {
-//		$plugin_public = new Public( $this->get_plugin_name(), $this->get_version() );
-//
-//		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-//		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		add_action( 'plugins_loaded', array( $plugin_i18n, 'load_plugin_textdomain' ) );
 	}
 
 	/**
@@ -167,15 +112,6 @@ final class WP_Business_Reviews {
 	}
 
 	/**
-	 * Run the loader to execute all of the hooks with WordPress.
-	 *
-	 * @since    1.0.0
-	 */
-	public function run() {
-		$this->loader->run();
-	}
-
-	/**
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
@@ -184,16 +120,6 @@ final class WP_Business_Reviews {
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
-	}
-
-	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    Loader    Orchestrates the hooks of the plugin.
-	 */
-	public function get_loader() {
-		return $this->loader;
 	}
 
 	/**

@@ -20,6 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 class Post_Types {
+	/**
+	 * Hooks functionality responsible for registering post types and taxonomies.
+	 *
+	 * @since 1.0.0
+	 */
+	public function init() {
+		add_action( 'init', array( $this, 'register_post_types' ) );
+		add_action( 'init', array( $this, 'register_taxonomies' ) );
+	}
 
 	/**
 	 * Registers all custom post types.
