@@ -5,8 +5,7 @@
  *
  * This file is read by WordPress to generate the plugin information in the plugin
  * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
+ * registers the activation and deactivation functions, and starts the plugin.
  *
  * @link              https://wordimpress.com
  * @package           WP_Business_Reviews
@@ -76,18 +75,6 @@ function deactivate_wp_business_reviews() {
 register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wp_business_reviews' );
 register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wp_business_reviews' );
 
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- */
-function run_wp_business_reviews() {
-	$plugin = new Includes\WP_Business_Reviews;
-	$plugin->run();
-}
-
-run_wp_business_reviews();
+// Initialize plugin.
+$plugin = new Includes\WP_Business_Reviews;
+$plugin->init();

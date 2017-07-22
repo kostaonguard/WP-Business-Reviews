@@ -83,6 +83,14 @@ final class WP_Business_Reviews {
 	}
 
 	/**
+	 * Begins execution of the plugin.
+	 *
+	 * @since    1.0.0
+	 */
+	public function init() {
+	}
+
+	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
 	 * Uses the i18n class in order to set the domain and to register the hook
