@@ -48,18 +48,14 @@ final class WP_Business_Reviews {
 	protected $version;
 
 	/**
-	 * Define the core functionality of the plugin.
-	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
-	 * the public-facing side of the site.
+	 * Sets up the plugin.
 	 *
 	 * @since    1.0.0
 	 */
 	public function __construct() {
 		$this->plugin_name = 'wpbr';
 		$this->version = '1.0.0';
-		$this->set_locale();
+		$this->define_locale();
 	}
 
 	/**
@@ -68,47 +64,12 @@ final class WP_Business_Reviews {
 	 * @since    1.0.0
 	 */
 	public function init() {
-		// Register post types.
-		$post_types = new Post_Types();
-		$post_types->init();
+		$this->load_assets();
+		$this->register_post_types();
 
 		if ( is_admin() ) {
 			$this->add_admin_pages();
 		}
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 */
-	private function set_locale() {
-		$plugin_i18n = new I18n();
-
-		add_action( 'plugins_loaded', array( $plugin_i18n, 'load_plugin_textdomain' ) );
-	}
-
-	/**
-	 * Register the plugin's widgets.
-	 *
-	 * @since    1.0.0
-	 */
-	public function register_widgets() {
-		register_widget( __NAMESPACE__ . '\Widget\Business_Widget' );
-	}
-
-	/**
-	 * Adds admin pages.
-	 *
-	 * @since    1.0.0
-	 */
-	private function add_admin_pages() {
-		// Create new admin menu and pass page instance used to render pages.
-		$admin_menu = new Admin\Admin_Menu( new Admin\Admin_Page() );
-		$admin_menu->init();
 	}
 
 	/**
@@ -130,5 +91,47 @@ final class WP_Business_Reviews {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/**
+	 * Defines the locale for this plugin for internationalization.
+	 *
+	 * @since    1.0.0
+	 */
+	private function define_locale() {
+		$plugin_i18n = new I18n();
+		$plugin_i18n->init();
+	}
+
+	/**
+	 * Loads assets such as scripts, styles, fonts, etc.
+	 *
+	 * @since    1.0.0
+	 */
+	private function load_assets() {
+		$assets = new Assets( WPBR_PLUGIN_URL . '/assets/', WPBR_VERSION );
+		$assets->init();
+	}
+
+	/**
+	 * Loads assets such as scripts, styles, fonts, etc.
+	 *
+	 * @since    1.0.0
+	 */
+	private function register_post_types() {
+		$post_types = new Post_Types();
+		$post_types->init();
+	}
+
+	/**
+	 * Adds admin pages.
+	 *
+	 * Creates new admin menu and passes page instance used to render page.
+	 *
+	 * @since    1.0.0
+	 */
+	private function add_admin_pages() {
+		$admin_menu = new Admin\Admin_Menu( new Admin\Admin_Page() );
+		$admin_menu->init();
 	}
 }
