@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Define the internationalization functionality
- *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
+ * Defines the I18n class
  *
  * @package WP_Business_Reviews\Includes
  * @since   1.0.0
@@ -18,18 +15,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Define the internationalization functionality.
+ * Defines the internationalization functionality.
  *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
+ * Loads and defines the internationalization files for this plugin so that it
+ * is ready for translation.
  *
  * @since 1.0.0
  */
 class I18n {
 	/**
+	 * Hooks functionality responsible for building the admin menu.
+	 *
+	 * @since 1.0.0
+	 */
+	function init() {
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+	}
+
+	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
 	 */
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain(
