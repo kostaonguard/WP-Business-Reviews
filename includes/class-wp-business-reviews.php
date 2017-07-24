@@ -70,6 +70,7 @@ final class WP_Business_Reviews {
 		if ( is_admin() ) {
 			$this->add_admin_pages();
 			$this->add_admin_header();
+			$this->add_admin_footer();
 		}
 	}
 
@@ -144,5 +145,15 @@ final class WP_Business_Reviews {
 	private function add_admin_header() {
 		$admin_header = new Admin\Admin_Header();
 		$admin_header->init();
+	}
+
+	/**
+	 * Adds admin footer.
+	 *
+	 * @since    1.0.0
+	 */
+	private function add_admin_footer() {
+		$admin_footer = new Admin\Admin_Footer();
+		$admin_footer->init();
 	}
 }
