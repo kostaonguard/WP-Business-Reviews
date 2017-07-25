@@ -133,7 +133,12 @@ final class WP_Business_Reviews {
 	 * @since    1.0.0
 	 */
 	private function add_admin_pages() {
-		$admin_menu = new Admin\Admin_Menu( new Admin\Admin_Page() );
+		// The page object used to render admin pages.
+		$admin_page = new Admin\Admin_Page();
+		$admin_page->init();
+
+		// The menu object used to add admin pages.
+		$admin_menu = new Admin\Admin_Menu( $admin_page );
 		$admin_menu->init();
 	}
 

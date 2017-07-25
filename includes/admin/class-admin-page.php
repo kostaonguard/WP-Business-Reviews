@@ -26,6 +26,34 @@ class Admin_Page {
 	// TODO: Add constructor with deserializer to read saved options.
 
 	/**
+	 * Hooks functionality responsible for creating the admin page.
+	 *
+	 * @since 1.0.0
+	 */
+	public function init() {
+		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
+	}
+
+	/**
+	 * Adds admin body class to all admin pages within the plugin.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $classes Space-separated list of CSS classes.
+	 *
+	 * @return string Filtered list of CSS classes.
+	 */
+	public function add_body_class( $classes ) {
+		$current_screen = get_current_screen();
+
+		if ( ! empty( $current_screen->id ) && false !== strpos( $current_screen->id, 'wpbr' ) ) {
+			$classes .= ' wpbr-admin ';
+		}
+
+		return $classes;
+	}
+
+	/**
 	 * Renders content of the page associated with menu item.
 	 *
 	 * Detects the current page based on $_GET parameter and includes a view
