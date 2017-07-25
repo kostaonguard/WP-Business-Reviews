@@ -36,10 +36,8 @@ class Post_Types {
 	 * @since 1.0.0
 	 */
 	public function register_post_types() {
-
 		$this->register_business_post_type();
 		$this->register_review_post_type();
-
 	}
 
 	/**
@@ -48,9 +46,7 @@ class Post_Types {
 	 * @since 1.0.0
 	 */
 	public function register_taxonomies() {
-
 		$this->register_platform_taxonomy();
-
 	}
 
 	/**
@@ -59,33 +55,23 @@ class Post_Types {
 	 * @since 1.0.0
 	 */
 	public function insert_terms() {
-
 		$platforms = array(
-
 			'google_places' => 'Google Places',
 			'facebook'      => 'Facebook',
 			'yelp'          => 'Yelp',
 			'yp'            => 'Yellow Pages',
 			'wp_org'        => 'WordPress.org',
-
 		);
 
 		foreach ( $platforms as $slug => $term ) {
-
 			if ( ! term_exists( $slug ) ) {
-
 				$args = array(
-
 					'slug' => $slug,
-
 				);
 
 				wp_insert_term( $term, 'wpbr_platform', $args );
-
 			}
-
 		}
-
 	}
 
 	/**
@@ -94,9 +80,7 @@ class Post_Types {
 	 * @since 1.0.0
 	 */
 	public function register_business_post_type() {
-
 		$labels = array(
-
 			'name'                  => _x( 'Businesses', 'Post Type General Name', 'wpbr' ),
 			'singular_name'         => _x( 'Business', 'Post Type Singular Name', 'wpbr' ),
 			'menu_name'             => __( 'Businesses', 'wpbr' ),
@@ -124,40 +108,34 @@ class Post_Types {
 			'items_list'            => __( 'Businesses list', 'wpbr' ),
 			'items_list_navigation' => __( 'Businesses list navigation', 'wpbr' ),
 			'filter_items_list'     => __( 'Filter items list', 'wpbr' ),
-
 		);
 
 		$rewrite = array(
-
 			'slug' => 'wpbr-businesses',
-
 		);
 
 		$args = array(
-
-			'label'                 => __( 'Business', 'wpbr' ),
-			'labels'                => $labels,
-			'supports'              => array( '' ),
-			'taxonomies'            => array(),
-			'hierarchical'          => false,
-			'public'                => true,
-			'show_ui'               => true,
-			'show_in_menu'          => true,
-			'menu_position'         => 5,
-			'menu_icon'             => 'dashicons-store',
-			'show_in_admin_bar'     => false,
-			'show_in_nav_menus'     => false,
-			'can_export'            => true,
-			'has_archive'           => false,
-			'exclude_from_search'   => true,
-			'publicly_queryable'    => true,
-			'rewrite'               => $rewrite,
-			'capability_type'       => 'post',
-
+			'label'               => __( 'Business', 'wpbr' ),
+			'labels'              => $labels,
+			'supports'            => array( '' ),
+			'taxonomies'          => array(),
+			'hierarchical'        => false,
+			'public'              => true,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'menu_position'       => 5,
+			'menu_icon'           => 'dashicons-store',
+			'show_in_admin_bar'   => false,
+			'show_in_nav_menus'   => false,
+			'can_export'          => true,
+			'has_archive'         => false,
+			'exclude_from_search' => true,
+			'publicly_queryable'  => true,
+			'rewrite'             => $rewrite,
+			'capability_type'     => 'post',
 		);
 
 		register_post_type( 'wpbr_business', $args );
-
 	}
 
 	/**
@@ -168,7 +146,6 @@ class Post_Types {
 	public function register_review_post_type() {
 
 		$labels = array(
-
 			'name'                  => _x( 'Reviews', 'Post Type General Name', 'wpbr' ),
 			'singular_name'         => _x( 'Review', 'Post Type Singular Name', 'wpbr' ),
 			'menu_name'             => __( 'Reviews', 'wpbr' ),
@@ -196,44 +173,39 @@ class Post_Types {
 			'items_list'            => __( 'Reviews list', 'wpbr' ),
 			'items_list_navigation' => __( 'Reviews list navigation', 'wpbr' ),
 			'filter_items_list'     => __( 'Filter items list', 'wpbr' ),
-
 		);
 
 		$rewrite = array(
-
 			'slug' => 'wpbr-reviews',
-
 		);
 
 		$args = array(
-
-			'label'                 => __( 'Review', 'wpbr' ),
-			'labels'                => $labels,
-			'supports'              => array( '' ),
-			'taxonomies'            => array(),
-			'hierarchical'          => false,
-			'public'                => true,
-			'show_ui'               => true,
-			'show_in_menu'          => true,
-			'menu_position'         => 5,
-			'menu_icon'             => WPBR_PLUGIN_URL . '/assets/images/wpbr-menu-icon-white.png',
-			'show_in_admin_bar'     => false,
-			'show_in_nav_menus'     => false,
-			'can_export'            => true,
-			'has_archive'           => false,
-			'exclude_from_search'   => true,
-			'publicly_queryable'    => true,
-			'rewrite'               => $rewrite,
-			'capability_type'       => 'post',
-			'capabilities' => array(
+			'label'               => __( 'Review', 'wpbr' ),
+			'labels'              => $labels,
+			'supports'            => array( '' ),
+			'taxonomies'          => array(),
+			'hierarchical'        => false,
+			'public'              => true,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'menu_position'       => 5,
+			'menu_icon'           => WPBR_PLUGIN_URL . '/assets/images/wpbr-menu-icon-white.png',
+			'show_in_admin_bar'   => false,
+			'show_in_nav_menus'   => false,
+			'can_export'          => true,
+			'has_archive'         => false,
+			'exclude_from_search' => true,
+			'publicly_queryable'  => true,
+			'rewrite'             => $rewrite,
+			'capability_type'     => 'post',
+			'capabilities'        => array(
 				'create_posts' => 'do_not_allow', // Removes support for the "Add New" function.
 			),
-			'map_meta_cap' => true, // Allow users to still edit and delete posts.
+			'map_meta_cap'        => true, // Allow users to still edit and delete posts.
 
 		);
 
 		register_post_type( 'wpbr_review', $args );
-
 	}
 
 	/**
@@ -242,9 +214,7 @@ class Post_Types {
 	 * @since 1.0.0
 	 */
 	public function register_platform_taxonomy() {
-
 		$labels = array(
-
 			'name'                       => _x( 'Platforms', 'Taxonomy General Name', 'wpbr' ),
 			'singular_name'              => _x( 'Platform', 'Taxonomy Singular Name', 'wpbr' ),
 			'menu_name'                  => __( 'Platforms', 'wpbr' ),
@@ -265,23 +235,19 @@ class Post_Types {
 			'no_terms'                   => __( 'No items', 'wpbr' ),
 			'items_list'                 => __( 'Platforms list', 'wpbr' ),
 			'items_list_navigation'      => __( 'Platforms list navigation', 'wpbr' ),
-
 		);
 
 		$args = array(
-
-			'labels'                     => $labels,
-			'hierarchical'               => false,
-			'public'                     => true,
-			'show_ui'                    => false,
-			'show_admin_column'          => true,
-			'show_in_nav_menus'          => false,
-			'show_tagcloud'              => true,
-			'show_in_rest'               => false,
-
+			'labels'            => $labels,
+			'hierarchical'      => false,
+			'public'            => true,
+			'show_ui'           => false,
+			'show_admin_column' => true,
+			'show_in_nav_menus' => false,
+			'show_tagcloud'     => true,
+			'show_in_rest'      => false,
 		);
 
 		register_taxonomy( 'wpbr_platform', array( 'wpbr_business', 'wpbr_review' ), $args );
-
 	}
 }
