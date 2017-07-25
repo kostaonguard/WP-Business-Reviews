@@ -53,6 +53,11 @@ if ( ! defined( 'WPBR_PLUGIN_FILE' ) ) {
 	define( 'WPBR_PLUGIN_FILE', __FILE__ );
 }
 
+// Define assets folder URL.
+if ( ! defined( 'WPBR_ASSETS_URL' ) ) {
+	define( 'WPBR_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
+}
+
 // Require WP Business Reviews autoloader.
 require_once __DIR__ . '/autoloader.php';
 
