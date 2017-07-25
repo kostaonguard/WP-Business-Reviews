@@ -38,3 +38,15 @@ intermediate
 .idea
 cache
 node_modules
+
+# Compiled CSS
+assets/css/*
+!assets/css/src
+
+# Compiled JS
+assets/js/*
+!assets/js/src
+
+# Optimized Images
+assets/images/*
+!assets/images/src
