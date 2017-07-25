@@ -1,0 +1,16 @@
+/*--------------------------------------------------------------
+# Admin-Header
+--------------------------------------------------------------*/
+
+.wpbr-admin-header {
+	background-color: $wpbr-color-blue-dark;
+	box-sizing: border-box;
+	font-size: $wpbr-global-font-size;
+	padding: $wpbr-space;
+	width: 100%;
+
+	&__logo {
+		display: block;
+		height: 3 * $wpbr-space;
+	}
+}
