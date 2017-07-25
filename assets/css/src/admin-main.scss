@@ -28,7 +28,7 @@
 # WordPress - Modifications to WP Core styles.
 --------------------------------------------------------------*/
 
-@import "wordpress.wp-menu-image"; // Admin menu icon.
+@import "wordpress.wp-admin"; // WP admin modifications.
 
 /*--------------------------------------------------------------
 # Elements - Unclassed HTML elements (type selectors).
@@ -41,6 +41,8 @@
 /*--------------------------------------------------------------
 # Components - Designed components, chunks of UI.
 --------------------------------------------------------------*/
+
+@import "components.admin-header"; //
 
 /*--------------------------------------------------------------
 # Utilities - Helpers and overrides.

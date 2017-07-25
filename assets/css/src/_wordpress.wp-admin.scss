@@ -1,7 +1,13 @@
 /*--------------------------------------------------------------
-## Global
+# WP-Admin
 --------------------------------------------------------------*/
 
+// Remove padding from admin pages.
+.wpbr-admin #wpcontent {
+	padding: 0;
+}
+
+// Custom menu icon.
 .menu-icon-wpbr_review .wp-menu-image img {
 	height: 18px;
 	width: 18px;
