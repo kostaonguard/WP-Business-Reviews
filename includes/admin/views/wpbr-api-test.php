@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<div class="wrap">
+<div class="wpbr-admin-page">
 
 	<?php
 
