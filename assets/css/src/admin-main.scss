@@ -1,0 +1,40 @@
+/**
+ * Main stylesheet for admin-facing styles.
+ *
+ * Plugin styles follow http://cssguidelin.es/ and are organized according to
+ * Inverted Triangle CSS (ITCSS) principles put forth by Harry Roberts. In
+ * short, each layer of CSS gets more specific as you move down this file.
+ */
+
+/*--------------------------------------------------------------
+# Settings - Global variables, config switches.
+--------------------------------------------------------------*/
+@import "settings.global"; // Global variables.
+
+/*--------------------------------------------------------------
+# Tools - Default mixins and functions.
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Generic - Ground-zero styles (Normalize.css, resets, box-sizing).
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Vendors - Third-party styles or extensions thereof.
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Elements - Unclassed HTML elements (type selectors).
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Objects - Cosmetic-free design patterns.
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Components - Designed components, chunks of UI.
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Utilities - Helpers and overrides.
+--------------------------------------------------------------*/

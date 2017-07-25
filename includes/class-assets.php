@@ -84,6 +84,7 @@ class Assets {
 	 */
 	public function register_styles() {
 		wp_register_style( 'wpbr-admin-main', $this->url . 'css/admin-main' . $this->suffix, array(), $this->version );
+		wp_register_style( 'wpbr-public-main', $this->url . 'css/public-main' . $this->suffix, array(), $this->version );
 	}
 
 	/**
@@ -109,6 +110,7 @@ class Assets {
 	 * @since 1.0.0
 	 */
 	public function enqueue_public_styles() {
+		wp_enqueue_style( 'wpbr-public-main' );
 	}
 
 	/**

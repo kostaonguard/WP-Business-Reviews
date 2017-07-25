@@ -1,0 +1,89 @@
+/*--------------------------------------------------------------
+## Global
+--------------------------------------------------------------*/
+/**
+ * These variables are used to calculate many other settings throughout the
+ * theme. Be aware of where they are used before changing their value.
+ */
+$wpbr-global-font-size: 1em;
+$wpbr-global-line-height: 1.5;
+
+/*--------------------------------------------------------------
+## Spacing
+--------------------------------------------------------------*/
+$wpbr-space: $wpbr-global-line-height * 1em;
+
+/*--------------------------------------------------------------
+## Colors
+--------------------------------------------------------------*/
+/**
+ * Brand Colors
+ */
+$wpbr-color-blue: #3498DB;
+$wpbr-color-blue-dark: #2980B9;
+$wpbr-color-navy: #2C3E50;
+$wpbr-color-red: #E74C3C;
+$wpbr-color-off-white: #ECF0F1;
+
+/**
+ * Platform Colors
+ */
+$wpbr-color-google-rating: #e7711b;
+
+/**
+ * Other Colors
+ */
+$wpbr-color-white: #fff;
+$wpbr-color-gray-light: #d9d9d9;
+$wpbr-color-gray-lighter: #f0f0f0;
+$wpbr-color-gray-lightest: #f7f7f7;
+$wpbr-color-black: #000;
+
+$wpbr-color-green: #65b854;
+$wpbr-color-yellow: #f2c318;
+$wpbr-color-dim: darken( $wpbr-color-off-white, 6 );
+
+/**
+ * Alert Colors
+ */
+$wpbr-color-success: $wpbr-color-green;
+$wpbr-color-success-light: lighten( $wpbr-color-success, 36 );
+$wpbr-color-success-dark: darken( $wpbr-color-success, 30 );
+$wpbr-color-error: $wpbr-color-red;
+$wpbr-color-error-light: lighten( $wpbr-color-error, 36 );
+$wpbr-color-error-dark: darken( $wpbr-color-error, 30 );
+$wpbr-color-warning: $wpbr-color-yellow;
+$wpbr-color-warning-light: lighten( $wpbr-color-warning, 36 );
+$wpbr-color-warning-dark: darken( $wpbr-color-warning, 30 );
+
+/**
+ * Colors by Use Case
+ */
+$wpbr-color-accent: $wpbr-color-red;
+$wpbr-color-link: $wpbr-color-blue;
+$wpbr-color-link-hover: lighten( $wpbr-color-link, 4 );
+$wpbr-color-text: #5d6f80;
+$wpbr-color-text-light: lighten( $wpbr-color-text, 24 );
+$wpbr-color-text-inverted: $wpbr-color-white;
+
+/*--------------------------------------------------------------
+## Borders
+--------------------------------------------------------------*/
+$wpbr-border-width: 0.0625em;
+$wpbr-border-width-double: 2 * $wpbr-border-width;
+$wpbr-border-radius: 0.5em;
+
+/*--------------------------------------------------------------
+## Box-Shadow
+--------------------------------------------------------------*/
+$wpbr-box-shadow-distance: 0.25 * $wpbr-space;
+$wpbr-box-shadow: 0 $wpbr-box-shadow-distance $wpbr-box-shadow-distance transparentize( $wpbr-color-navy, 0.95 );
+
+/*--------------------------------------------------------------
+## Buttons
+--------------------------------------------------------------*/
+$wpbr-button-background-color: $wpbr-color-accent;
+$wpbr-button-background-color-hover: lighten( $wpbr-button-background-color, 3 );
+$wpbr-button-color: $wpbr-color-white;
+$wpbr-button-border-radius: $wpbr-border-radius;
+$wpbr-button-border-width: $wpbr-border-width;
