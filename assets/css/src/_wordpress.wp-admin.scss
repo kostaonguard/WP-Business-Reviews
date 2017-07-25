@@ -2,8 +2,8 @@
 # WP-Admin
 --------------------------------------------------------------*/
 
-// Remove padding from admin pages.
-.wpbr-admin #wpcontent {
+// Remove padding from admin pages except for post edit pages.
+body[class*="wpbr_review_page"] #wpcontent {
 	padding: 0;
 }
 
