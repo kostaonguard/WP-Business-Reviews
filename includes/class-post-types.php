@@ -216,7 +216,7 @@ class Post_Types {
 			'show_ui'               => true,
 			'show_in_menu'          => true,
 			'menu_position'         => 5,
-			'menu_icon'             => 'dashicons-star-filled',
+			'menu_icon'             => WPBR_PLUGIN_URL . '/assets/images/wpbr-menu-icon-white.png',
 			'show_in_admin_bar'     => false,
 			'show_in_nav_menus'     => false,
 			'can_export'            => true,
