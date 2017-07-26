@@ -1,0 +1,32 @@
+/*--------------------------------------------------------------
+# Admin-Callout
+--------------------------------------------------------------*/
+
+/**
+ * Displays brief message in WP Admin.
+ *
+ * Comprised of a heading, text, and optional call to action. Appears within
+ * empty list tables.
+ */
+.wpbr-admin-callout {
+	margin: 0 auto;
+	text-align: center;
+
+	:last-child {
+		margin-bottom: 0;
+	}
+
+	.wp-list-table & {
+		max-width: $wpbr-space * 24;
+		padding: $wpbr-space;
+	}
+
+	&__heading {
+		margin: 0 0 $wpbr-space-half;
+	}
+
+	&__message,
+	.widefat td &__message {
+		margin: 0 0 $wpbr-space-half;
+	}
+}
