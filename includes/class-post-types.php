@@ -161,7 +161,7 @@ class Post_Types {
 			'view_item'             => __( 'View Review', 'wpbr' ),
 			'view_items'            => __( 'View Reviews', 'wpbr' ),
 			'search_items'          => __( 'Search Review', 'wpbr' ),
-			'not_found'             => __( 'Not found', 'wpbr' ),
+			'not_found'             => $this->cusotmize_no_reviews_found(),
 			'not_found_in_trash'    => __( 'Not found in Trash', 'wpbr' ),
 			'featured_image'        => __( 'Featured Image', 'wpbr' ),
 			'set_featured_image'    => __( 'Set featured image', 'wpbr' ),
@@ -247,5 +247,23 @@ class Post_Types {
 		);
 
 		register_taxonomy( 'wpbr_platform', array( 'wpbr_business', 'wpbr_review' ), $args );
+	}
+
+	/**
+	 * Customizes the contents of WP List Table when no reviews are found.
+	 *
+	 * @since 1.0.0
+	 */
+	private function cusotmize_no_reviews_found() {
+		$heading  = __( 'No Reviews Found', 'wpbr' );
+		$message  = __( 'Reviews will appear here after building your first set of reviews.', 'wpbr' );
+		$cta_text = __( 'Build Reviews', 'wpbr' );
+		$cta_link = admin_url( 'edit.php?post_type=wpbr_review&page=wpbr-reviews-builder' );
+
+		ob_start();
+
+		include WPBR_PLUGIN_DIR . 'includes/admin/views/partials/wpbr-admin-callout.php';
+
+		return ob_get_clean();
 	}
 }
