@@ -69,8 +69,6 @@ final class WP_Business_Reviews {
 
 		if ( is_admin() ) {
 			$this->add_admin_pages();
-			$this->add_admin_header();
-			$this->add_admin_footer();
 		}
 	}
 
@@ -133,31 +131,19 @@ final class WP_Business_Reviews {
 	 * @since    1.0.0
 	 */
 	private function add_admin_pages() {
-		// The page object used to render admin pages.
+		// Admin page.
 		$admin_page = new Admin\Admin_Page();
 		$admin_page->init();
 
-		// The menu object used to add admin pages.
+		// Admin menu.
 		$admin_menu = new Admin\Admin_Menu( $admin_page );
 		$admin_menu->init();
-	}
 
-	/**
-	 * Adds admin header.
-	 *
-	 * @since    1.0.0
-	 */
-	private function add_admin_header() {
+		// Admin header.
 		$admin_header = new Admin\Admin_Header();
 		$admin_header->init();
-	}
 
-	/**
-	 * Adds admin footer.
-	 *
-	 * @since    1.0.0
-	 */
-	private function add_admin_footer() {
+		// Admin footer.
 		$admin_footer = new Admin\Admin_Footer();
 		$admin_footer->init();
 	}
