@@ -6,14 +6,22 @@
  * These variables are used to calculate many other settings throughout the
  * theme. Be aware of where they are used before changing their value.
  */
-$wpbr-global-font-size: 1rem;
+$wpbr-global-font-size: 1em;
 $wpbr-global-line-height: 1.5;
 
 /*--------------------------------------------------------------
 # Spacing
 --------------------------------------------------------------*/
 
-$wpbr-space: $wpbr-global-line-height * 1em;
+$wpbr-space: 20px;
+$wpbr-space-quarter: $wpbr-space * 0.25;
+$wpbr-space-half: $wpbr-space * 0.5;
+$wpbr-space-three-quarters: $wpbr-space * 0.75;
+$wpbr-space-and-quarter: $wpbr-space * 1.25;
+$wpbr-space-and-half: $wpbr-space * 1.5;
+$wpbr-space-and-three-quarters: $wpbr-space * 1.75;
+$wpbr-space-double: $wpbr-space * 2;
+$wpbr-space-triple: $wpbr-space * 3;
 
 /*--------------------------------------------------------------
 # Colors
