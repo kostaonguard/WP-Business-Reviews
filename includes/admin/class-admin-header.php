@@ -34,7 +34,7 @@ class Admin_Header {
 	 * @since 1.0.0
 	 */
 	public function render() {
-		$file = dirname( __FILE__ ) . '/views/partials/wpbr-admin-header.php';
+		$file = WPBR_PLUGIN_DIR . 'includes/admin/views/partials/wpbr-admin-header.php';
 
 		if ( file_exists( $file ) ) {
 			include_once( $file );
