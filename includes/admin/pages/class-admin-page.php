@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Admin_Page class
+ * Defines the Admin_Page abstract class
  *
  * @package WP_Business_Reviews\Includes\Admin\Pages
  * @since   1.0.0
@@ -16,25 +16,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Creates the admin page for the plugin.
  *
- * Provides the functionality necessary for rendering the page corresponding
- * to the menu item with which this page is associated.
+ * Each individual admin page should extend this abstract class and provide its
+ * own method to render the page per its needs.
  *
  * @since 1.0.0
  * @see Admin_Menu
  */
-class Admin_Page {
+abstract class Admin_Page {
 	/**
-	 * Renders content of the page associated with menu item.
-	 *
-	 * Detects the current page based on $_GET parameter and includes a view
-	 * of the same name.
+	 * Renders content of the admin page.
 	 *
 	 * @since 1.0.0
 	 */
-	public function render() {
-		if ( ! empty( $_GET['page'] ) ) {
-			$view = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/' . urldecode( $_GET['page'] ) . '.php';
-			include $view;
-		}
-	}
+	abstract public function render();
 }

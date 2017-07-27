@@ -50,8 +50,9 @@ class Admin_Menu {
 			array( $page_reviews_builder, 'render' )
 		);
 
-		// Add Settings page.
-		$page_settings = new Pages\Admin_Page_Settings();
+		// Pass settings array to settings page.
+		$settings = new Settings\WPBR_Settings();
+		$page_settings = new Pages\Admin_Page_Settings( $settings );
 
 		add_submenu_page(
 			'edit.php?post_type=wpbr_review',
