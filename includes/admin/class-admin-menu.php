@@ -39,7 +39,7 @@ class Admin_Menu {
 	 */
 	public function add_pages() {
 		// Add Reviews Builder page.
-		$page_reviews_builder = new Pages\Admin_Page_Settings();
+		$page_reviews_builder = new Pages\Admin_Page_Reviews_Builder();
 
 		add_submenu_page(
 			'edit.php?post_type=wpbr_review',
@@ -47,11 +47,11 @@ class Admin_Menu {
 			__( 'Reviews Builder', 'wpbr' ),
 			'manage_options',
 			'wpbr-reviews-builder',
-			array( $page_reviews_builder, 'render_page' )
+			array( $page_reviews_builder, 'render' )
 		);
 
 		// Add Settings page.
-		$page_settings = new Pages\Admin_Page_Reviews_Builder();
+		$page_settings = new Pages\Admin_Page_Settings();
 
 		add_submenu_page(
 			'edit.php?post_type=wpbr_review',
@@ -59,7 +59,7 @@ class Admin_Menu {
 			__( 'Settings', 'wpbr' ),
 			'manage_options',
 			'wpbr-settings',
-			array( $page_settings, 'render_page' )
+			array( $page_settings, 'render' )
 		);
 
 		// TODO: Remove API Test page prior to launch.
@@ -72,7 +72,7 @@ class Admin_Menu {
 			__( 'API Test', 'wpbr' ),
 			'manage_options',
 			'wpbr-api-test',
-			array( $page_api_test, 'render_page' )
+			array( $page_api_test, 'render' )
 		);
 	}
 }

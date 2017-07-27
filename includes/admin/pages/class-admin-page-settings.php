@@ -8,6 +8,8 @@
 
 namespace WP_Business_Reviews\Includes\Admin\Pages;
 
+use WP_Business_Reviews\Includes\Admin\Settings;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,4 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see Admin_Page
  */
 class Admin_Page_Settings extends Admin_Page {
+	private $settings;
+
+	public function __construct() {
+		$this->settings = Settings\Settings::define_settings();
+	}
+
+	public function render() {
+		$view = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/settings.php';
+		include $view;
+	}
 }

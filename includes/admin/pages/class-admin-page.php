@@ -31,7 +31,7 @@ class Admin_Page {
 	 *
 	 * @since 1.0.0
 	 */
-	public function render_page() {
+	public function render() {
 		if ( ! empty( $_GET['page'] ) ) {
 			$view = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/' . urldecode( $_GET['page'] ) . '.php';
 			include $view;
