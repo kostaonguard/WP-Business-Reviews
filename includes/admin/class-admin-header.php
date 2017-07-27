@@ -34,25 +34,11 @@ class Admin_Header {
 	 * @since 1.0.0
 	 */
 	public function render() {
-		/**
-		 * Fires before an admin header renders.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $page Slug of the current admin page.
-		 */
-		do_action( 'wpbr_before_admin_header_render', $page );
+		$current_screen = get_current_screen();
 
-		$view = WPBR_PLUGIN_DIR . 'includes/admin/views/wpbr-admin-header.php';
-		include $view;
-
-		/**
-		 * Fires after an admin header renders.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $page Slug of the current admin page.
-		 */
-		do_action( 'wpbr_after_admin_header_render', $page );
+		if ( ! empty( $current_screen->id ) && false !== strpos( $current_screen->id, 'wpbr_review_page' ) ) {
+			$view = WPBR_PLUGIN_DIR . 'includes/admin/views/wpbr-admin-header.php';
+			include $view;
+		}
 	}
 }
