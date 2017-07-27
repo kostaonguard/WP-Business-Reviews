@@ -28,8 +28,8 @@ class WPBR_Settings {
 						'name'    => __( 'Platforms', 'wpbr' ),
 						'heading' => __( 'Platform Settings', 'wpbr' ),
 						'desc'    => sprintf(
-							__( 'Need help? See docs on %sWP Business Reviews 101%s', 'wbpr' ),
-							'<a href="https://wpbusinessreviews.com/documentation/">',
+							__( 'Need help? See docs on %sWP Business Reviews 101%s.', 'wbpr' ),
+							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
 						'fields'  => array(
@@ -50,8 +50,8 @@ class WPBR_Settings {
 						'name'    => __( 'Google', 'wpbr' ),
 						'heading' => __( 'Google Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
-							__( 'Need help? See docs on %sGoogle Reviews 101%s', 'wbpr' ),
-							'<a href="https://wpbusinessreviews.com/documentation/">',
+							__( 'Need help? See docs on %sGoogle Reviews 101%s.', 'wbpr' ),
+							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
 						'fields'  => array(
@@ -64,14 +64,49 @@ class WPBR_Settings {
 								'name' => __( 'Google Places API Key', 'wpbr' ),
 								'desc' => sprintf(
 									__( 'Enter a Google Places API Key required to retrieve business reviews. For step-by-step instructions, see docs on %sHow to Generate a Google Places API Key%s.', 'wbpr' ),
-									'<a href="https://wpbusinessreviews.com/documentation/">',
+									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
 								'type' => 'api_key',
 							),
 						),
 					),
-					// TODO: Add other platforms here.
+					'facebook'    => array(
+						'name'    => __( 'Facebook', 'wpbr' ),
+						'heading' => __( 'Facebook Reviews Settings', 'wpbr' ),
+						'desc'    => sprintf(
+							__( 'Need help? See docs on %sFacebook Reviews 101%s.', 'wbpr' ),
+							'<a href="https://wpbusinessreviews.com/">',
+							'</a>'
+						),
+						'fields'  => array(
+							// TODO: Add Facebook fields.
+						),
+					),
+					'yelp'    => array(
+						'name'    => __( 'Yelp', 'wpbr' ),
+						'heading' => __( 'Yelp Reviews Settings', 'wpbr' ),
+						'desc'    => sprintf(
+							__( 'Need help? See docs on %sYelp Reviews 101%s.', 'wbpr' ),
+							'<a href="https://wpbusinessreviews.com/">',
+							'</a>'
+						),
+						'fields'  => array(
+							// TODO: Add Facebook fields.
+						),
+					),
+					'yp'    => array(
+						'name'    => __( 'YP', 'wpbr' ),
+						'heading' => __( 'YP Reviews Settings', 'wpbr' ),
+						'desc'    => sprintf(
+							__( 'Need help? See docs on %sYP Reviews 101%s.', 'wbpr' ),
+							'<a href="https://wpbusinessreviews.com/">',
+							'</a>'
+						),
+						'fields'  => array(
+							// TODO: Add Facebook fields.
+						),
+					),
 				),
 			),
 			'advanced' => array(
@@ -81,8 +116,8 @@ class WPBR_Settings {
 						'name'    => __( 'Advanced', 'wpbr' ),
 						'heading' => __( 'Advanced Settings', 'wpbr' ),
 						'desc'    => sprintf(
-							__( 'Need help? See docs on %sGoogle Reviews 101%s', 'wbpr' ),
-							'<a href="https://wpbusinessreviews.com/documentation/">',
+							__( 'Need help? See docs on %sGoogle Reviews 101%s.', 'wbpr' ),
+							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
 						'fields' => array(
