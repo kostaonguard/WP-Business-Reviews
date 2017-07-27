@@ -47,6 +47,7 @@ $wpbr-color-black: #000;
 $wpbr-color-green: #65b854;
 $wpbr-color-yellow: #f2c318;
 $wpbr-color-dim: darken( $wpbr-color-off-white, 6 );
+$wpbr-color-navy-light: lighten( $wpbr-color-navy, 10 );
 
 // Alert colors.
 $wpbr-color-success: $wpbr-color-green;

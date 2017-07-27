@@ -1,5 +1,5 @@
 <!-- Tabs -->
-<ul class="wpbr-nav-tabs">
+<ul class="wpbr-admin-tabs">
 	<?php foreach ( $settings as $tab ) : ?>
 		<li><a href=""><?php echo esc_html( $tab['name'] ) ?></a></li>
 	<?php endforeach; ?>

@@ -45,8 +45,9 @@
 --------------------------------------------------------------*/
 
 @import "components.admin-header"; // Admin header.
+@import "components.admin-tabs"; // Admin tabs.
 @import "components.admin-page"; // Admin page container.
-@import "components.admin-section"; // Admin section for settings.
+@import "components.admin-section"; // Admin section (sub-tab).
 @import "components.admin-callout"; // Admin callout.
 @import "components.button"; // Button used throughout plugin.
 
