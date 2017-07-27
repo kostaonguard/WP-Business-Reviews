@@ -1,0 +1,15 @@
+/*--------------------------------------------------------------
+# Admin-Section
+--------------------------------------------------------------*/
+
+.wpbr-admin-section {
+	border: 1px solid black;
+
+	&__header {
+		margin: 0 0 $wpbr-space;
+	}
+
+		&__heading {
+			margin: 0 0 $wpbr-space-half;
+		}
+}

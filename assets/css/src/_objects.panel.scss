@@ -4,24 +4,26 @@
 
 .wpbr-panel {
 	background-color: $wpbr-color-white;
-	height: 400px;
+	border: $wpbr-border-width solid $wpbr-color-dim;
+	margin-bottom: $wpbr-space;
 
 	@media ( min-width: 48em ) {
 		display: flex;
 	}
 
 	&__main {
-		background-color: salmon;
+		margin-bottom: $wpbr-space;
+		padding: $wpbr-space;
 
 		@media ( min-width: 48em ) {
 			flex-grow: 1;
+			margin-bottom: 0;
 			order: 1;
 		}
 	}
 
 	&__sidebar {
-		background-color: lightgreen;
-
+		background-color: $wpbr-color-dim;
 
 		@media ( min-width: 48em ) {
 			flex-basis: 40%;
