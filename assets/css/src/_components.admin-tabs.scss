@@ -4,14 +4,16 @@
 
 .wpbr-admin-tabs {
 	background-color: $wpbr-color-navy;
-	//box-sizing: border-box;
 	display: flex;
 	margin: 0;
 	padding: 0 $wpbr-space;
 
 	> li {
+		align-items: center;
 		border-right: $wpbr-border-width solid $wpbr-color-navy-light;
 		margin-bottom: 0;
+		display: flex;
+		flex-basis: $wpbr-space * 6;
 
 		&:first-child {
 			border-left: $wpbr-border-width solid $wpbr-color-navy-light;
@@ -22,7 +24,9 @@
 			display: block;
 			line-height: $wpbr-space;
 			padding: $wpbr-space-half $wpbr-space;
+			text-align: center;
 			text-decoration: none;
+			width: 100%;
 
 			&:hover,
 			&:focus,
