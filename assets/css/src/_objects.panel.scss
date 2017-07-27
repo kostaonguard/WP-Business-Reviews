@@ -5,14 +5,16 @@
 .wpbr-panel {
 	background-color: $wpbr-color-white;
 	border: $wpbr-border-width solid $wpbr-color-dim;
+	display: flex;
+	flex-direction: column;
 	margin-bottom: $wpbr-space;
 
 	@media ( min-width: 48em ) {
-		display: flex;
+		flex-direction: row;
 	}
 
 	&__main {
-		margin-bottom: $wpbr-space;
+		order: 0;
 		padding: $wpbr-space;
 
 		@media ( min-width: 48em ) {
@@ -24,6 +26,7 @@
 
 	&__sidebar {
 		background-color: $wpbr-color-dim;
+		order: 1;
 
 		@media ( min-width: 48em ) {
 			flex-basis: 40%;

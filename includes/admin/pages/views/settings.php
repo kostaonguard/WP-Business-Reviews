@@ -16,6 +16,20 @@
 			}
 			?>
 
+			<?php
+			// Show sections navigation if more than one section exists.
+			if ( count( $tab['sections'] ) > 1 ) :
+				?>
+				<!-- Sidebar -->
+				<div class="wpbr-panel__sidebar">
+					<ul class="wpbr-nav-sections">
+						<?php foreach ( $tab['sections'] as $section ) : ?>
+							<li><a href=""><?php echo esc_html( $section['name'] ) ?></a></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			<?php endif; ?>
+
 			<!-- Main -->
 			<div class="wpbr-panel__main">
 				<?php foreach ( $tab['sections'] as $section ) : ?>
@@ -42,20 +56,6 @@
 					</div>
 				<?php endforeach; ?>
 			</div>
-
-			<?php
-			// Show sidebar navigation if more than one section exists.
-			if ( count( $tab['sections'] ) > 1 ) :
-			?>
-				<!-- Sidebar -->
-				<div class="wpbr-panel__sidebar">
-					<ul class="wpbr-nav-sections">
-						<?php foreach ( $tab['sections'] as $section ) : ?>
-							<li><a href=""><?php echo esc_html( $section['name'] ) ?></a></li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
-			<?php endif; ?>
 
 		</div>
 	<?php endforeach; ?>
