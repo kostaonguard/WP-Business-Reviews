@@ -1,0 +1,32 @@
+/*--------------------------------------------------------------
+# Panel
+--------------------------------------------------------------*/
+
+.wpbr-panel {
+	background-color: $wpbr-color-white;
+	height: 400px;
+
+	@media ( min-width: 48em ) {
+		display: flex;
+	}
+
+	&__main {
+		background-color: salmon;
+
+		@media ( min-width: 48em ) {
+			flex-grow: 1;
+			order: 1;
+		}
+	}
+
+	&__sidebar {
+		background-color: lightgreen;
+
+
+		@media ( min-width: 48em ) {
+			flex-basis: 40%;
+			max-width: 200px;
+			order: 0;
+		}
+	}
+}
