@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin_Footer {
 	/**
-	 * Hooks functionality responsible for rendering the admin header.
+	 * Hooks functionality responsible for rendering the admin footer.
 	 *
 	 * @since  1.0.0
 	 */
@@ -41,9 +41,9 @@ class Admin_Footer {
 			$star_link       = '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a>';
 			$text_link_open  = '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">';
 			$text_link_close = '</a>';
-			$text            = sprintf( esc_html__( 'If you enjoy WP Business Reviews, consider leaving us a %s on %sWordPress.org%s.', 'wpbr' ), $star_link, $text_link_open, $text_link_close );
+			$footer          = sprintf( esc_html__( 'If you enjoy WP Business Reviews, consider leaving us a %s on %sWordPress.org%s.', 'wpbr' ), $star_link, $text_link_open, $text_link_close );
 
-			return $text;
+			return $footer;
 		}
 	}
 }

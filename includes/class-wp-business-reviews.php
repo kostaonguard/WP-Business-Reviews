@@ -126,24 +126,20 @@ final class WP_Business_Reviews {
 	/**
 	 * Adds admin pages.
 	 *
-	 * Creates new admin menu and passes page instance used to render page.
+	 * Creates new admin menu and initializes page components.
 	 *
 	 * @since    1.0.0
 	 */
 	private function add_admin_pages() {
-		// Admin page.
-		$admin_page = new Admin\Admin_Page();
-		$admin_page->init();
-
-		// Admin menu.
-		$admin_menu = new Admin\Admin_Menu( $admin_page );
+		// Add admin menu pages.
+		$admin_menu = new Admin\Admin_Menu();
 		$admin_menu->init();
 
-		// Admin header.
+		// Add admin header.
 		$admin_header = new Admin\Admin_Header();
 		$admin_header->init();
 
-		// Admin footer.
+		// Add admin footer.
 		$admin_footer = new Admin\Admin_Footer();
 		$admin_footer->init();
 	}

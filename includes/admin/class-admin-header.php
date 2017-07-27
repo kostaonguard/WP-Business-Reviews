@@ -25,7 +25,7 @@ class Admin_Header {
 	 * @since  1.0.0
 	 */
 	public function init() {
-		add_action( 'wpbr_before_admin_page_render', array( $this, 'render' ) );
+		add_action( 'wp_after_admin_bar_render', array( $this, 'render' ) );
 	}
 
 	/**
@@ -34,10 +34,25 @@ class Admin_Header {
 	 * @since 1.0.0
 	 */
 	public function render() {
-		$file = WPBR_PLUGIN_DIR . 'includes/admin/views/partials/wpbr-admin-header.php';
+		/**
+		 * Fires before an admin header renders.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $page Slug of the current admin page.
+		 */
+		do_action( 'wpbr_before_admin_header_render', $page );
 
-		if ( file_exists( $file ) ) {
-			include_once( $file );
-		}
+		$view = WPBR_PLUGIN_DIR . 'includes/admin/views/wpbr-admin-header.php';
+		include $view;
+
+		/**
+		 * Fires after an admin header renders.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $page Slug of the current admin page.
+		 */
+		do_action( 'wpbr_after_admin_header_render', $page );
 	}
 }
