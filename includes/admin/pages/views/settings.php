@@ -1,9 +1,11 @@
 <!-- Tabs -->
-<ul class="wpbr-admin-tabs">
-	<?php foreach ( $settings as $tab ) : ?>
-		<li><a href=""><?php echo esc_html( $tab['name'] ) ?></a></li>
-	<?php endforeach; ?>
-</ul>
+<nav>
+	<ul class="wpbr-tabs">
+		<?php foreach ( $settings as $tab ) : ?>
+			<li><a href=""><?php echo esc_html( $tab['name'] ) ?></a></li>
+		<?php endforeach; ?>
+	</ul>
+</nav>
 
 <!-- Panel -->
 <div class="wpbr-admin-page">
