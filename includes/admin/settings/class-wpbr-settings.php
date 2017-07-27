@@ -21,10 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WPBR_Settings {
 	public static function define_settings() {
 		$settings = array(
-			'general'  => array(
+			'tab_general'  => array(
 				'name'     => __( 'General', 'wpbr' ),
 				'sections' => array(
-					'platforms' => array(
+					'section_platforms' => array(
 						'name'    => __( 'Platforms', 'wpbr' ),
 						'heading' => __( 'Platform Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -46,7 +46,7 @@ class WPBR_Settings {
 							),
 						),
 					),
-					'google'    => array(
+					'section_google'    => array(
 						'name'    => __( 'Google', 'wpbr' ),
 						'heading' => __( 'Google Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -71,7 +71,7 @@ class WPBR_Settings {
 							),
 						),
 					),
-					'facebook'    => array(
+					'section_facebook'    => array(
 						'name'    => __( 'Facebook', 'wpbr' ),
 						'heading' => __( 'Facebook Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -83,7 +83,7 @@ class WPBR_Settings {
 							// TODO: Add Facebook fields.
 						),
 					),
-					'yelp'    => array(
+					'section_yelp'    => array(
 						'name'    => __( 'Yelp', 'wpbr' ),
 						'heading' => __( 'Yelp Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -95,7 +95,7 @@ class WPBR_Settings {
 							// TODO: Add Facebook fields.
 						),
 					),
-					'yp'    => array(
+					'section_yp'    => array(
 						'name'    => __( 'YP', 'wpbr' ),
 						'heading' => __( 'YP Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -109,10 +109,10 @@ class WPBR_Settings {
 					),
 				),
 			),
-			'advanced' => array(
+			'tab_advanced' => array(
 				'name'   => __( 'Advanced', 'wpbr' ),
 				'sections' => array(
-					'advanced' => array(
+					'section_advanced' => array(
 						'name'    => __( 'Advanced', 'wpbr' ),
 						'heading' => __( 'Advanced Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -143,10 +143,10 @@ class WPBR_Settings {
 					),
 				),
 			),
-			'pro_features' => array(
+			'tab_pro_features' => array(
 				'name'   => __( 'Pro Features', 'wpbr' ),
 				'sections' => array(
-					'pro_features' => array(
+					'section_pro_features' => array(
 						'name'    => __( 'Pro Features', 'wpbr' ),
 						'heading' => __( 'Pro Features', 'wpbr' ),
 						'desc'    => sprintf(
