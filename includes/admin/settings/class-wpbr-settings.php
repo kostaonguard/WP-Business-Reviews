@@ -108,6 +108,26 @@ class WPBR_Settings {
 					),
 				),
 			),
+			'pro_features' => array(
+				'name'   => __( 'Pro Features', 'wpbr' ),
+				'sections' => array(
+					'pro_features' => array(
+						'name'    => __( 'Pro Features', 'wpbr' ),
+						'heading' => __( 'Pro Features', 'wpbr' ),
+						'desc'    => sprintf(
+							__( 'See a full %sFeatures Comparison%s.', 'wbpr' ),
+							'<a href="https://wpbusinessreviews.com/">',
+							'</a>'
+						),
+						'fields' => array(
+							'pro_features_gallery'      => array(
+								'name'    => __( 'Pro Features Gallery', 'wpbr' ),
+								'type'    => 'view',
+							),
+						),
+					),
+				),
+			),
 		);
 
 		return $settings;
