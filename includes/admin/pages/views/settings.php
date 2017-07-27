@@ -24,7 +24,7 @@
 				?>
 				<!-- Sidebar -->
 				<div class="wpbr-panel__sidebar">
-					<ul class="wpbr-nav-sections">
+					<ul class="wpbr-list-menu">
 						<?php foreach ( $tab['sections'] as $section ) : ?>
 							<li><a href=""><?php echo esc_html( $section['name'] ) ?></a></li>
 						<?php endforeach; ?>

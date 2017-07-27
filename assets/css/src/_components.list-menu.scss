@@ -1,0 +1,26 @@
+/*--------------------------------------------------------------
+# List-Menu
+--------------------------------------------------------------*/
+
+.wpbr-list-menu {
+	margin: 0;
+
+	> li {
+		margin-bottom: 0;
+
+		> a {
+			background-color: $wpbr-color-off-white;
+			border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+			display: block;
+			line-height: $wpbr-space;
+			padding: $wpbr-space-half $wpbr-space;
+			text-decoration: none;
+
+			&:hover,
+			&:focus,
+			&:active {
+				background-color: $wpbr-color-white;
+			}
+		}
+	}
+}

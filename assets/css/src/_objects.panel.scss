@@ -26,11 +26,14 @@
 
 	&__sidebar {
 		background-color: $wpbr-color-dim;
+		border-top: $wpbr-border-width solid $wpbr-color-dim;
 		order: 1;
 
 		@media ( min-width: 48em ) {
+			border-right: $wpbr-border-width solid $wpbr-color-dim;
+			border-top: 0;
 			flex-basis: 40%;
-			max-width: 200px;
+			max-width: $wpbr-space * 10;
 			order: 0;
 		}
 	}
