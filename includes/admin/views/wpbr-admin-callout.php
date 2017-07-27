@@ -4,14 +4,20 @@
  *
  * Available Variables:
  *
- * string $heading  Required.
- * string $message  Optional.
- * string $cta_text Optional.
- * string $cta_link Optional.
+ * string $image_url
+ * string $image_alt
+ * string $heading
+ * string $message
+ * string $cta_text
+ * string $cta_link
  */
 ?>
 
 <div class="wpbr-admin-callout">
+	<?php if ( ! empty( $image_url ) ) : ?>
+		<img class="wpbr-admin-callout__image" src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>">
+	<?php endif; ?>
+
 	<h2 class="wpbr-admin-callout__heading"><?php esc_html_e( $heading ); ?></h2>
 
 	<?php if ( ! empty( $message ) ) : ?>

@@ -255,10 +255,12 @@ class Post_Types {
 	 * @since 1.0.0
 	 */
 	private function customize_no_reviews_found() {
-		$heading  = __( 'No Reviews Found', 'wpbr' );
-		$message  = __( 'Reviews will appear here after building your first set of reviews.', 'wpbr' );
-		$cta_text = __( 'Build Reviews', 'wpbr' );
-		$cta_link = admin_url( 'edit.php?post_type=wpbr_review&page=wpbr-reviews-builder' );
+		$image_url = WPBR_ASSETS_URL . 'images/wpbr-icon-color.png';
+		$image_alt = __( 'WP Business Reviews Icon', 'wpbr' );
+		$heading   = __( 'No Reviews Found', 'wpbr' );
+		$message   = __( 'Reviews will appear here after building your first set of reviews.', 'wpbr' );
+		$cta_text  = __( 'Build Reviews', 'wpbr' );
+		$cta_link  = admin_url( 'edit.php?post_type=wpbr_review&page=wpbr-reviews-builder' );
 
 		ob_start();
 

@@ -21,6 +21,13 @@
 		padding: $wpbr-space;
 	}
 
+	&__image {
+		display: block;
+		height: $wpbr-space-triple;
+		margin: 0 auto $wpbr-space-half;
+		width: auto;
+	}
+
 	&__heading {
 		margin: 0 0 $wpbr-space-half;
 	}
