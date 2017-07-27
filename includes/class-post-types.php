@@ -257,10 +257,18 @@ class Post_Types {
 	private function customize_no_reviews_found() {
 		$image_url = WPBR_ASSETS_URL . 'images/wpbr-icon-color.png';
 		$image_alt = __( 'WP Business Reviews Icon', 'wpbr' );
-		$heading   = __( 'No Reviews Found', 'wpbr' );
-		$message   = __( 'Reviews will appear here after building your first set of reviews.', 'wpbr' );
-		$cta_text  = __( 'Build Reviews', 'wpbr' );
-		$cta_link  = admin_url( 'edit.php?post_type=wpbr_review&page=wpbr-reviews-builder' );
+		$heading  = __( 'No Reviews Found', 'wpbr' );
+
+		// TODO: Check if any platforms have been configured.
+		if ( false ) {
+			$message  = __( 'Reviews will appear here after building your first set of reviews.', 'wpbr' );
+			$cta_text = __( 'Build Reviews', 'wpbr' );
+			$cta_link = admin_url( 'edit.php?post_type=wpbr_review&page=wpbr-reviews-builder' );
+		} else {
+			$message  = __( 'Let\'s begin by connecting to at least one reviews platform.' , 'wpbr' );
+			$cta_text = __( 'Edit Settings', 'wpbr' );
+			$cta_link = admin_url( 'edit.php?post_type=wpbr_review&page=wpbr-settings' );
+		}
 
 		ob_start();
 
