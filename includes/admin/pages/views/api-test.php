@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<a href="https://developers.google.com/places/place-id">Find a Google Places ID</a><br><br>
 
-	<form method="post" action="/wp-admin/options-general.php?page=wpbr">
+	<form method="post">
 		<label for="google_places_business_id">Google Places ID:</label>
 		<input type="text" id="google_places_business_id" name="google_places_business_id" value="<?php esc_attr_e( $google_places_business_id ); ?>">
 		<button type="submit">Submit</button>
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<a href="https://developers.facebook.com/tools/explorer/">Find a Facebook Business ID</a><br>
 	<p>Note: You may need to update the Facebook Page Access Token since they expire quickly.</p>
 
-	<form method="post" action="/wp-admin/options-general.php?page=wpbr">
+	<form method="post">
 		<label for="facebook_business_id">Facebook Business ID:</label>
 		<input type="text" id="facebook_business_id" name="facebook_business_id" value="<?php esc_attr_e( $facebook_business_id ); ?>">
 		<button type="submit">Submit</button>
@@ -68,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p>The Yelp Business ID is the last part of the URL following /biz/.</p>
 
-	<form method="post" action="/wp-admin/options-general.php?page=wpbr">
+	<form method="post">
 		<label for="yelp_business_id">Yelp Business ID:</label>
 		<input type="text" id="yelp_business_id" name="yelp_business_id" value="<?php esc_attr_e( $yelp_business_id ); ?>">
 		<button type="submit">Submit</button>
@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p>The YP Listing ID is the last part of the URL following ?lid=.</p>
 
-	<form method="post" action="/wp-admin/options-general.php?page=wpbr">
+	<form method="post">
 		<label for="yp_business_id">YP Listing ID:</label>
 		<input type="text" id="yp_business_id" name="yp_business_id" value="<?php esc_attr_e( $yp_business_id ); ?>">
 		<button type="submit">Submit</button>
@@ -88,7 +88,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p>The WordPress.org ID is the plugin slug.</p>
 
-	<form method="post" action="/wp-admin/options-general.php?page=wpbr">
+	<form method="post">
 		<label for="wp_org_business_id">WordPress.org Plugin Slug:</label>
 		<input type="text" id="wp_org_business_id" name="wp_org_business_id" value="<?php esc_attr_e( $wp_org_business_id ); ?>">
 		<button type="submit">Submit</button>
