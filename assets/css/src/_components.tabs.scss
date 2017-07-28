@@ -8,7 +8,7 @@
 	margin: 0;
 	padding: 0 $wpbr-space;
 
-	> li {
+	&__item {
 		align-items: center;
 		border-right: $wpbr-border-width solid $wpbr-color-navy-light;
 		margin-bottom: 0;
@@ -18,8 +18,9 @@
 		&:first-child {
 			border-left: $wpbr-border-width solid $wpbr-color-navy-light;
 		}
+	}
 
-		> a {
+		&__link {
 			color: $wpbr-color-white;
 			display: block;
 			line-height: $wpbr-space;
@@ -32,7 +33,7 @@
 			&:focus,
 			&:active {
 				background-color: $wpbr-color-navy-light;
+				color: $wpbr-color-white;
 			}
 		}
-	}
 }

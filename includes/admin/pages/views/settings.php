@@ -2,7 +2,11 @@
 <nav>
 	<ul class="wpbr-tabs">
 		<?php foreach ( $settings as $tab ) : ?>
-			<li><a href=""><?php echo esc_html( $tab['name'] ) ?></a></li>
+			<li class="wpbr-tabs__item">
+				<a class="wpbr-tabs__link" href="">
+					<?php echo esc_html( $tab['name'] ) ?>
+				</a>
+			</li>
 		<?php endforeach; ?>
 	</ul>
 </nav>
