@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the WPBR_Settings class
+ * Defines the WPBR_Settings_API class
  *
  * @package WP_Business_Reviews\Includes\Admin\Settings
  * @since   1.0.0
@@ -14,14 +14,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Provides the custom Settings API for the plugin.
+ * Provides the custom settings API for the plugin.
  *
  * @since 1.0.0
  */
-class WPBR_Settings {
+class WPBR_Settings_API {
+	public function render_field( $field_id, $atts ) {
+		$view_dir_url = WPBR_PLUGIN_DIR . 'includes/admin/settings/views/';
+
+		switch ( $atts['type'] ) {
+			case 'checkbox':
+			case 'radio':
+			case 'platform_status':
+			case 'facebook_pages':
+			case 'password':
+				include $view_dir_url . 'field-password.php';
+				break;
+			default:
+				return null;
+		}
+	}
+
 	public static function define_settings() {
 		$settings = array(
-			'tab_general'  => array(
+			'tab_general'      => array(
 				'name'     => __( 'General', 'wpbr' ),
 				'sections' => array(
 					'section_platforms' => array(
@@ -67,11 +83,11 @@ class WPBR_Settings {
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
-								'type' => 'api_key',
+								'type' => 'password',
 							),
 						),
 					),
-					'section_facebook'    => array(
+					'section_facebook'  => array(
 						'name'    => __( 'Facebook', 'wpbr' ),
 						'heading' => __( 'Facebook Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -80,10 +96,19 @@ class WPBR_Settings {
 							'</a>'
 						),
 						'fields'  => array(
-							// TODO: Add Facebook fields.
+							'platform_status_facebook' => array(
+								'name'     => __( 'Platform Status', 'wpbr' ),
+								'type'     => 'platform_status',
+								'platform' => 'facebook',
+							),
+							'facebook_pages'  => array(
+								'name' => __( 'Facebook Pages', 'wpbr' ),
+								'desc' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
+								'type' => 'facebook_pages',
+							),
 						),
 					),
-					'section_yelp'    => array(
+					'section_yelp'      => array(
 						'name'    => __( 'Yelp', 'wpbr' ),
 						'heading' => __( 'Yelp Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -92,10 +117,22 @@ class WPBR_Settings {
 							'</a>'
 						),
 						'fields'  => array(
-							// TODO: Add Facebook fields.
+							'platform_status_yelp' => array(
+								'name'     => __( 'Platform Status', 'wpbr' ),
+								'type'     => 'platform_status',
+								'platform' => 'yelp',
+							),
+							'yelp_client_id'  => array(
+								'name' => __( 'Yelp Client ID', 'wpbr' ),
+								'type' => 'password',
+							),
+							'yelp_client_secret'  => array(
+								'name' => __( 'Yelp Client Secret', 'wpbr' ),
+								'type' => 'password',
+							),
 						),
 					),
-					'section_yp'    => array(
+					'section_yp'        => array(
 						'name'    => __( 'YP', 'wpbr' ),
 						'heading' => __( 'YP Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -103,14 +140,13 @@ class WPBR_Settings {
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
-						'fields'  => array(
-							// TODO: Add Facebook fields.
+						'fields'  => array(// TODO: Add Facebook fields.
 						),
 					),
 				),
 			),
-			'tab_advanced' => array(
-				'name'   => __( 'Advanced', 'wpbr' ),
+			'tab_advanced'     => array(
+				'name'     => __( 'Advanced', 'wpbr' ),
 				'sections' => array(
 					'section_advanced' => array(
 						'name'    => __( 'Advanced', 'wpbr' ),
@@ -120,7 +156,7 @@ class WPBR_Settings {
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
-						'fields' => array(
+						'fields'  => array(
 							'plugin_styles'      => array(
 								'name'    => __( 'Plugin Styles', 'wpbr' ),
 								'desc'    => __( 'Decide whether to output CSS that styles the presentation of reviews.', 'wpbr' ),
@@ -132,7 +168,6 @@ class WPBR_Settings {
 							),
 							'uninstall_behavior' => array(
 								'name'    => __( 'Uninstall Behavior', 'wpbr' ),
-								'desc'    => __( 'Decide whether to output CSS that styles the presentation of reviews.', 'wpbr' ),
 								'type'    => 'radio',
 								'options' => array(
 									'keep'   => __( 'Keep all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
@@ -144,7 +179,7 @@ class WPBR_Settings {
 				),
 			),
 			'tab_pro_features' => array(
-				'name'   => __( 'Pro Features', 'wpbr' ),
+				'name'     => __( 'Pro Features', 'wpbr' ),
 				'sections' => array(
 					'section_pro_features' => array(
 						'name'    => __( 'Pro Features', 'wpbr' ),
@@ -154,10 +189,10 @@ class WPBR_Settings {
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
-						'fields' => array(
-							'pro_features_gallery'      => array(
-								'name'    => __( 'Pro Features Gallery', 'wpbr' ),
-								'type'    => 'view',
+						'fields'  => array(
+							'pro_features_gallery' => array(
+								'name' => __( 'Pro Features Gallery', 'wpbr' ),
+								'type' => 'view',
 							),
 						),
 					),

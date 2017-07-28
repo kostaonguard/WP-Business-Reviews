@@ -32,7 +32,7 @@
 						<?php foreach ( $tab['sections'] as $section ) : ?>
 							<li class="wpbr-list-menu__item">
 								<a class="wpbr-list-menu__link" href="">
-									<?php echo esc_html( $section['name'] ) ?>
+									<?php echo esc_html( $section['name'] ); ?>
 								</a>
 							</li>
 						<?php endforeach; ?>
@@ -57,21 +57,11 @@
 
 							<table class="form-table">
 								<tbody>
-									<?php foreach ( $section['fields'] as $field ) : ?>
-										<?php if ( ! empty( $field['name'] ) ) : ?>
-
-											<tr class="wpbr-settings-field">
-												<th scope="row">
-													<label class="wpbr-settings-field__label" for="id1">My Field Label</label>
-												</th>
-												<td>
-													<input class="wpbr-settings-field__input regular-text" type="text">
-													<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-												</td>
-											</tr>
-
-										<?php endif; ?>
-									<?php endforeach; ?>
+									<?php
+									foreach ( $section['fields'] as $field_id => $atts ) {
+										$settings_api->render_field( $field_id, $atts );
+									}
+									?>
 								</tbody>
 							</table>
 

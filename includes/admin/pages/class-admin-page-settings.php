@@ -8,7 +8,7 @@
 
 namespace WP_Business_Reviews\Includes\Admin\Pages;
 
-use WP_Business_Reviews\Includes\Admin\Settings\WPBR_Settings;
+use WP_Business_Reviews\Includes\Admin\Settings\WPBR_Settings_API;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,22 +19,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Creates the Settings page for the plugin.
  *
  * @since 1.0.0
- * @see Admin_Page
+ * @see   Admin_Page
  */
 class Admin_Page_Settings extends Admin_Page {
-	private $settings;
-
+	private $settings_api;
 	private $tabs;
-
 	private $sections;
 
-	public function __construct( WPBR_Settings $settings ) {
-		$this->settings = $settings::define_settings();
+	public function __construct( WPBR_Settings_API $settings_api ) {
+		$this->settings_api = $settings_api;
 	}
 
 	public function render() {
-		$settings = $this->settings;
-		$view     = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/settings.php';
+		$settings_api = $this->settings_api;
+		$settings     = $settings_api::define_settings();
+		$view         = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/settings.php';
 		include $view;
 	}
 }
