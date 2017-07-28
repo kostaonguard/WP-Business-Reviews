@@ -5,13 +5,21 @@
 .wpbr-list-menu {
 	margin: 0;
 
+	@media ( min-width: 768px ) {
+		border-right: $wpbr-border-width solid $wpbr-color-dim;
+	}
+
 	&__item {
 		margin-bottom: 0;
+		border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+
+		&:last-child {
+			border-bottom: 0;
+		}
 	}
 
 		&__link {
 			background-color: $wpbr-color-off-white;
-			border-bottom: $wpbr-border-width solid $wpbr-color-dim;
 			color: $wpbr-color-text;
 			display: block;
 			font-weight: 700;

@@ -3,13 +3,29 @@
 --------------------------------------------------------------*/
 
 .wpbr-admin-section {
-	border: 1px solid black;
+	background-color: white;
+	border: $wpbr-border-width solid $wpbr-color-dim;
+	margin-bottom: $wpbr-space;
+	padding: $wpbr-space;
+
+	@media ( min-width: 768px ) {
+		border-width: 0;
+		margin-bottom: 0;
+	}
 
 	&__header {
-		margin: 0 0 $wpbr-space;
+		:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 		&__heading {
+			color: $wpbr-color-text;
 			margin: 0 0 $wpbr-space-half;
+		}
+
+		&__description {
+			font-size: 14px;
+			margin: 0;
 		}
 }

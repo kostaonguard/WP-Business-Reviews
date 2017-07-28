@@ -3,36 +3,40 @@
 --------------------------------------------------------------*/
 
 .wpbr-panel {
-	background-color: $wpbr-color-white;
-	border: $wpbr-border-width solid $wpbr-color-dim;
 	display: flex;
 	flex-direction: column;
-	margin-bottom: $wpbr-space;
 
-	@media ( min-width: 48em ) {
+	@media ( min-width: 768px ) {
+		border: $wpbr-border-width solid $wpbr-color-dim;
 		flex-direction: row;
+		margin-bottom: $wpbr-space;
 	}
 
 	&__main {
+		display: flex;
+		flex-direction: column;
 		order: 1;
-		padding: $wpbr-space;
 
-		@media ( min-width: 48em ) {
+		@media ( min-width: 768px ) {
 			flex-grow: 1;
 			margin-bottom: 0;
 		}
 	}
 
 	&__sidebar {
-		background-color: $wpbr-color-dim;
-		border-top: $wpbr-border-width solid $wpbr-color-dim;
-		order: 0;
+		display: none;
 
-		@media ( min-width: 48em ) {
-			border-right: $wpbr-border-width solid $wpbr-color-dim;
+		@media ( min-width: 768px ) {
+
+		}
+
+		@media ( min-width: 768px ) {
+			background-color: $wpbr-color-dim;
 			border-top: 0;
+			display: block;
 			flex-basis: 40%;
 			max-width: $wpbr-space * 10;
+			order: 0;
 		}
 	}
 }
