@@ -1,0 +1,49 @@
+/*--------------------------------------------------------------
+# Settings-Field
+--------------------------------------------------------------*/
+
+/* tr */.wpbr-settings-field {
+	border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+
+	&--submit {
+		border-bottom: 0;
+		padding: $wpbr-space 0;
+
+		// Adjust padding when save field appears at the end of a section.
+		.wpbr-admin-section &:last-child {
+			padding-bottom: $wpbr-space;
+		}
+
+		@media ( min-width: 768px ) {
+			padding: $wpbr-space-double 0;
+		}
+	}
+
+	th {
+		padding-top: $wpbr-space;
+
+		@media ( min-width: 768px ) {
+			padding-top: $wpbr-space-double;
+		}
+
+		@media ( min-width: 783px ) {
+			padding: $wpbr-space-double 0;
+		}
+	}
+
+	td {
+		padding-bottom: $wpbr-space;
+
+		@media ( min-width: 768px ) {
+			padding-bottom: $wpbr-space-double;
+		}
+
+		@media ( min-width: 783px ) {
+			padding: $wpbr-space-double 0;
+		}
+	}
+
+		&__label {
+			color: $wpbr-color-text;
+		}
+}

@@ -14,7 +14,7 @@
 <!-- Panel -->
 <div class="wpbr-admin-page">
 	<?php foreach ( $settings as $tab ) : ?>
-		<div class="wpbr-panel js-wpbr-panel">
+		<div class="wpbr-panel">
 			<?php
 			// Do not render if no sections.
 			if ( empty( $tab['sections'] ) ) {
@@ -43,26 +43,43 @@
 			<!-- Main -->
 			<div class="wpbr-panel__main">
 				<?php foreach ( $tab['sections'] as $section ) : ?>
-					<div class="wpbr-admin-section js-wpbr-admin-section">
-						<div class="wpbr-admin-section__header">
+					<div class="wpbr-panel__section">
 
-							<?php if ( ! empty( $section['heading'] ) ) : ?>
-								<h2 class="wpbr-admin-section__heading"><?php echo esc_html( $section['heading'] ); ?></h2>
-							<?php endif; ?>
+						<?php if ( ! empty( $section['heading'] ) ) : ?>
+							<h2 class="wpbr-panel__heading"><?php echo esc_html( $section['heading'] ); ?></h2>
+						<?php endif; ?>
 
-							<?php if ( ! empty( $section['desc'] ) ) : ?>
-								<p class="wpbr-admin-section__description"><?php echo wp_kses_post( $section['desc'] ); ?></p>
-							<?php endif; ?>
+						<?php if ( ! empty( $section['desc'] ) ) : ?>
+							<p class="wpbr-panel__description"><?php echo wp_kses_post( $section['desc'] ); ?></p>
+						<?php endif; ?>
 
-							<form method="post">
-								<?php foreach ( $section['fields'] as $field ) : ?>
-									<?php if ( ! empty( $field['name'] ) ) : ?>
-										<label><?php echo $field['name'] . ' (' . $field['type'] . ')'; ?></label><br>
-									<?php endif; ?>
-								<?php endforeach; ?>
-							</form>
+						<form method="post">
 
-						</div>
+							<table class="form-table">
+								<tbody>
+									<?php foreach ( $section['fields'] as $field ) : ?>
+										<?php if ( ! empty( $field['name'] ) ) : ?>
+
+											<tr class="wpbr-settings-field">
+												<th scope="row">
+													<label class="wpbr-settings-field__label" for="id1">My Field Label</label>
+												</th>
+												<td>
+													<input class="wpbr-settings-field__input regular-text" type="text">
+													<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+												</td>
+											</tr>
+
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+
+							<div class="wpbr-settings-field wpbr-settings-field--submit">
+								<input type="submit" name="submit" class="<?php esc_attr_e( 'wpbr-button', 'wpbr' ); ?>" value="<?php esc_attr_e( 'Save Changes', 'wpbr' ); ?>">
+							</div>
+
+						</form>
 					</div>
 				<?php endforeach; ?>
 			</div>

@@ -38,8 +38,6 @@
 # Objects - Cosmetic-free design patterns.
 --------------------------------------------------------------*/
 
-@import "objects.panel"; // Admin settings panel.
-
 /*--------------------------------------------------------------
 # Components - Designed components, chunks of UI.
 --------------------------------------------------------------*/
@@ -49,8 +47,9 @@
 @import "components.list-menu"; // Vertical menu navigation.
 @import "components.admin-header"; // Admin header.
 @import "components.admin-page"; // Admin page container.
-@import "components.admin-section"; // Admin section (sub-tab).
 @import "components.admin-callout"; // Admin callout.
+@import "components.panel"; // Settings panel.
+@import "components.settings-field"; // Settings field.
 
 /*--------------------------------------------------------------
 # Utilities - Helpers and overrides.

@@ -23,12 +23,30 @@
 		}
 	}
 
+		&__section {
+			background-color: white;
+			border: $wpbr-border-width solid $wpbr-color-dim;
+			margin-bottom: $wpbr-space;
+			padding: $wpbr-space;
+
+			@media ( min-width: 768px ) {
+				border-width: 0;
+				margin-bottom: 0;
+			}
+		}
+
+			&__heading {
+				color: $wpbr-color-text;
+				margin: 0;
+			}
+
+			&__description {
+				font-size: 14px;
+				margin: $wpbr-space-half 0 0;
+			}
+
 	&__sidebar {
 		display: none;
-
-		@media ( min-width: 768px ) {
-
-		}
 
 		@media ( min-width: 768px ) {
 			background-color: $wpbr-color-dim;
