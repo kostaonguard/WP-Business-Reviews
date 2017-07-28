@@ -10,7 +10,7 @@
 		padding: $wpbr-space 0;
 
 		// Adjust padding when save field appears at the end of a section.
-		.wpbr-admin-section &:last-child {
+		&:last-child {
 			padding-bottom: $wpbr-space;
 		}
 
@@ -45,5 +45,10 @@
 
 		&__label {
 			color: $wpbr-color-text;
+			display: block;
+
+			@media ( min-width: 783px ) {
+				margin-top: $wpbr-space-quarter;
+			}
 		}
 }
