@@ -14,27 +14,25 @@
 	}
 
 	&__main {
-		order: 0;
+		order: 1;
 		padding: $wpbr-space;
 
 		@media ( min-width: 48em ) {
 			flex-grow: 1;
 			margin-bottom: 0;
-			order: 1;
 		}
 	}
 
 	&__sidebar {
 		background-color: $wpbr-color-dim;
 		border-top: $wpbr-border-width solid $wpbr-color-dim;
-		order: 1;
+		order: 0;
 
 		@media ( min-width: 48em ) {
 			border-right: $wpbr-border-width solid $wpbr-color-dim;
 			border-top: 0;
 			flex-basis: 40%;
 			max-width: $wpbr-space * 10;
-			order: 0;
 		}
 	}
 }

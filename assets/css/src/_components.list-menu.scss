@@ -5,13 +5,16 @@
 .wpbr-list-menu {
 	margin: 0;
 
-	> li {
+	&__item {
 		margin-bottom: 0;
+	}
 
-		> a {
+		&__link {
 			background-color: $wpbr-color-off-white;
 			border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+			color: $wpbr-color-text;
 			display: block;
+			font-weight: 700;
 			line-height: $wpbr-space;
 			padding: $wpbr-space-half $wpbr-space;
 			text-decoration: none;
@@ -21,6 +24,9 @@
 			&:active {
 				background-color: $wpbr-color-white;
 			}
+
+			&--active {
+				background-color: $wpbr-color-white;
+			}
 		}
-	}
 }

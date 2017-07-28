@@ -26,7 +26,11 @@
 				<div class="wpbr-panel__sidebar">
 					<ul class="wpbr-list-menu">
 						<?php foreach ( $tab['sections'] as $section ) : ?>
-							<li><a href=""><?php echo esc_html( $section['name'] ) ?></a></li>
+							<li class="wpbr-list-menu__item">
+								<a class="wpbr-list-menu__link" href="">
+									<?php echo esc_html( $section['name'] ) ?>
+								</a>
+							</li>
 						<?php endforeach; ?>
 					</ul>
 				</div>
