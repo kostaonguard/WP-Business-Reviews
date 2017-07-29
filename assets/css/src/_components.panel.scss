@@ -12,6 +12,14 @@
 		margin-bottom: $wpbr-space;
 	}
 
+	.js & {
+		display: none;
+	}
+
+	.js &--active {
+		display: flex;
+	}
+
 	&__main {
 		display: flex;
 		flex-direction: column;

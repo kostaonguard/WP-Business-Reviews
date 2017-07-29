@@ -27,12 +27,12 @@ gulp.task( 'styles', function () {
 } );
 
 gulp.task( 'scripts', function () {
-	var scripts = [
+//	var scripts = [
 //		'assets/js/src/script1.js',
-	];
+//	];
 
-	return gulp.src( scripts )
-	           .pipe( concat( 'main.js' ) )
+	return gulp.src( 'assets/js/src/**/*.js' )
+//	           .pipe( concat( 'main.js' ) )
 	           .pipe( uglify() )
 	           .pipe( gulp.dest( 'assets/js' ) )
 	           .pipe( browsersync.reload( { stream: true } ) );

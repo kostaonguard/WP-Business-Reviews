@@ -5,15 +5,15 @@
 .wpbr-tabs {
 	background-color: $wpbr-color-navy;
 	display: flex;
+	font-size: 14px;
 	margin: 0;
 	padding: 0 $wpbr-space;
 
 	&__item {
-		align-items: center;
 		border-right: $wpbr-border-width solid $wpbr-color-navy-light;
 		margin-bottom: 0;
 		display: flex;
-		flex-basis: $wpbr-space * 6;
+		flex-basis: $wpbr-space * 7;
 
 		&:first-child {
 			border-left: $wpbr-border-width solid $wpbr-color-navy-light;
@@ -22,7 +22,9 @@
 
 		&__link {
 			color: $wpbr-color-white;
-			display: block;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			line-height: $wpbr-space;
 			padding: $wpbr-space-half $wpbr-space;
 			text-align: center;
@@ -34,6 +36,18 @@
 			&:active {
 				background-color: $wpbr-color-navy-light;
 				color: $wpbr-color-white;
+			}
+
+			&--active {
+				background-color: $wpbr-wp-admin-background-color;
+				color: $wpbr-color-text;
+
+				&:hover,
+				&:focus,
+				&:active {
+					background-color: $wpbr-wp-admin-background-color;
+					color: $wpbr-color-text;
+				}
 			}
 		}
 }

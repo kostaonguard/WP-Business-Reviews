@@ -2,10 +2,12 @@
 <nav>
 	<ul class="wpbr-tabs">
 		<?php foreach ( $settings as $tab ) : ?>
+			<?php
+			$tab_id   = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : '';
+			$tab_name = ! empty( $tab['name'] ) ? $tab['name'] : '';
+			?>
 			<li class="wpbr-tabs__item">
-				<a class="wpbr-tabs__link" href="">
-					<?php echo esc_html( $tab['name'] ) ?>
-				</a>
+				<a id="wpbr-tab-<?php echo esc_attr( $tab_id ); ?>" class="wpbr-tabs__link js-wpbr-tab" href="#wpbr-panel-<?php echo esc_attr( $tab_id ); ?>" data-tab-id="<?php echo esc_attr( $tab_id ); ?>"><?php echo esc_html( $tab_name ); ?></a>
 			</li>
 		<?php endforeach; ?>
 	</ul>
@@ -14,7 +16,8 @@
 <!-- Panel -->
 <div class="wpbr-admin-page">
 	<?php foreach ( $settings as $tab ) : ?>
-		<div class="wpbr-panel">
+		<?php $tab_id = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : ''; ?>
+		<div id="wpbr-panel-<?php echo esc_attr( $tab_id ); ?>" class="wpbr-panel js-wpbr-panel" data-panel-id="<?php echo esc_attr( $tab_id ); ?>">
 			<?php
 			// Do not render if no sections.
 			if ( empty( $tab['sections'] ) ) {
@@ -25,14 +28,18 @@
 			<?php
 			// Show sections navigation if more than one section exists.
 			if ( count( $tab['sections'] ) > 1 ) :
-				?>
+			?>
 				<!-- Sidebar -->
 				<div class="wpbr-panel__sidebar">
 					<ul class="wpbr-list-menu">
 						<?php foreach ( $tab['sections'] as $section ) : ?>
+							<?php
+							$section_id   = ! empty( $section['id'] ) ? str_replace( '_', '-', $section['id'] ) : '';
+							$section_name = ! empty( $section['name'] ) ? $section['name'] : '';
+							?>
 							<li class="wpbr-list-menu__item">
-								<a class="wpbr-list-menu__link" href="">
-									<?php echo esc_html( $section['name'] ); ?>
+								<a class="wpbr-list-menu__link" href="#wpbr-section-<?php echo esc_attr( $section_id ); ?>">
+									<?php echo esc_html( $section_name ); ?>
 								</a>
 							</li>
 						<?php endforeach; ?>
@@ -43,32 +50,42 @@
 			<!-- Main -->
 			<div class="wpbr-panel__main">
 				<?php foreach ( $tab['sections'] as $section ) : ?>
-					<div class="wpbr-panel__section">
+					<?php
+					$section_id          = ! empty( $section['id'] ) ? str_replace( '_', '-', $section['id'] ) : '';
+					$section_heading     = ! empty( $section['heading'] ) ? $section['heading'] : '';
+					$section_description = ! empty( $section['desc'] ) ? $section['desc'] : '';
+					$allowed_html        = array(
+						'a'      => array(
+							'href'   => array(),
+							'title'  => array(),
+							'target' => array(),
+						),
+						'em'     => array(),
+						'strong' => array(),
+					);
+					?>
 
-						<?php if ( ! empty( $section['heading'] ) ) : ?>
-							<h2 class="wpbr-panel__heading"><?php echo esc_html( $section['heading'] ); ?></h2>
-						<?php endif; ?>
-
-						<?php if ( ! empty( $section['desc'] ) ) : ?>
-							<p class="wpbr-panel__description"><?php echo wp_kses_post( $section['desc'] ); ?></p>
-						<?php endif; ?>
+					<!-- Section -->
+					<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section">
+						<h2 class="wpbr-panel__heading"><?php echo esc_html( $section_heading ); ?></h2>
+						<p class="wpbr-panel__description"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
 
 						<form method="post">
-
 							<table class="form-table">
 								<tbody>
 									<?php
-									foreach ( $section['fields'] as $field_id => $atts ) {
-										$settings_api->render_field( $field_id, $atts );
+									if ( ! empty( $section['fields'] ) ) {
+										// Render settings field.
+										array_map( array( $settings_api, 'render_field' ), $section['fields'] );
 									}
 									?>
 								</tbody>
 							</table>
-
-							<div class="wpbr-settings-field wpbr-settings-field--submit">
-								<input type="submit" name="submit" class="<?php esc_attr_e( 'wpbr-button', 'wpbr' ); ?>" value="<?php esc_attr_e( 'Save Changes', 'wpbr' ); ?>">
-							</div>
-
+							<?php if ( 'pro-features' !== $section_id ) : ?>
+								<div class="wpbr-settings-field wpbr-settings-field--submit">
+									<input type="submit" name="submit" class="<?php esc_attr_e( 'wpbr-button', 'wpbr' ); ?>" value="<?php esc_attr_e( 'Save Changes', 'wpbr' ); ?>">
+								</div>
+							<?php endif; ?>
 						</form>
 					</div>
 				<?php endforeach; ?>

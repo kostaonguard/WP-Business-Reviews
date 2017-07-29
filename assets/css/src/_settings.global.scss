@@ -49,6 +49,9 @@ $wpbr-color-yellow: #f2c318;
 $wpbr-color-dim: darken( $wpbr-color-off-white, 6 );
 $wpbr-color-navy-light: lighten( $wpbr-color-navy, 10 );
 
+// WordPress colors.
+$wpbr-wp-admin-background-color: #f1f1f1;
+
 // Alert colors.
 $wpbr-color-success: $wpbr-color-green;
 $wpbr-color-success-light: lighten( $wpbr-color-success, 36 );
