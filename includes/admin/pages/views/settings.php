@@ -17,7 +17,7 @@
 <div class="wpbr-admin-page">
 	<?php foreach ( $settings as $tab ) : ?>
 		<?php $tab_id = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : ''; ?>
-		<div id="wpbr-panel-<?php echo esc_attr( $tab_id ); ?>" class="wpbr-panel js-wpbr-panel" data-panel-id="<?php echo esc_attr( $tab_id ); ?>">
+		<div id="wpbr-panel-<?php echo esc_attr( $tab_id ); ?>" class="wpbr-panel js-wpbr-panel" data-tab-id="<?php echo esc_attr( $tab_id ); ?>">
 			<?php
 			// Do not render if no sections.
 			if ( empty( $tab['sections'] ) ) {
@@ -31,14 +31,14 @@
 			?>
 				<!-- Sidebar -->
 				<div class="wpbr-panel__sidebar">
-					<ul class="wpbr-list-menu">
+					<ul class="wpbr-subtabs">
 						<?php foreach ( $tab['sections'] as $section ) : ?>
 							<?php
 							$section_id   = ! empty( $section['id'] ) ? str_replace( '_', '-', $section['id'] ) : '';
 							$section_name = ! empty( $section['name'] ) ? $section['name'] : '';
 							?>
-							<li class="wpbr-list-menu__item">
-								<a class="wpbr-list-menu__link" href="#wpbr-section-<?php echo esc_attr( $section_id ); ?>">
+							<li class="wpbr-subtabs__item">
+								<a class="wpbr-subtabs__link" href="#wpbr-section-<?php echo esc_attr( $section_id ); ?>" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
 									<?php echo esc_html( $section_name ); ?>
 								</a>
 							</li>
@@ -66,7 +66,7 @@
 					?>
 
 					<!-- Section -->
-					<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section">
+					<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section js-wpbr-section" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
 						<h2 class="wpbr-panel__heading"><?php echo esc_html( $section_heading ); ?></h2>
 						<p class="wpbr-panel__description"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
 
