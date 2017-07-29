@@ -41,6 +41,14 @@
 				border-width: 0;
 				margin-bottom: 0;
 			}
+
+			.js & {
+				display: none;
+			}
+
+			.js &--active {
+				display: block;
+			}
 		}
 
 			&__heading {

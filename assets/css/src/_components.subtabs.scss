@@ -24,13 +24,14 @@
 			display: block;
 			font-weight: 700;
 			line-height: $wpbr-space;
-			padding: $wpbr-space-half $wpbr-space;
+			padding: $wpbr-space;
 			text-decoration: none;
 
 			&:hover,
 			&:focus,
 			&:active {
 				background-color: $wpbr-color-white;
+				color: $wpbr-color-text;
 			}
 
 			&--active {

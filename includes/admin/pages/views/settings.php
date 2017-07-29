@@ -38,7 +38,7 @@
 							$section_name = ! empty( $section['name'] ) ? $section['name'] : '';
 							?>
 							<li class="wpbr-subtabs__item">
-								<a class="wpbr-subtabs__link" href="#wpbr-section-<?php echo esc_attr( $section_id ); ?>" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
+								<a id="wpbr-subtab-<?php echo esc_attr( $section_id ); ?>" class="wpbr-subtabs__link js-wpbr-subtab" href="#wpbr-section-<?php echo esc_attr( $section_id ); ?>" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
 									<?php echo esc_html( $section_name ); ?>
 								</a>
 							</li>

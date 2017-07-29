@@ -5,7 +5,6 @@
 .wpbr-tabs {
 	background-color: $wpbr-color-navy;
 	display: flex;
-	font-size: 14px;
 	margin: 0;
 	padding: 0 $wpbr-space;
 
@@ -24,9 +23,10 @@
 			color: $wpbr-color-white;
 			display: flex;
 			flex-direction: column;
+			font-weight: 700;
 			justify-content: center;
 			line-height: $wpbr-space;
-			padding: $wpbr-space-half $wpbr-space;
+			padding: $wpbr-space-three-quarters $wpbr-space;
 			text-align: center;
 			text-decoration: none;
 			width: 100%;
