@@ -3,24 +3,26 @@
 --------------------------------------------------------------*/
 
 /* tr */.wpbr-settings-field {
-	border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+	@media ( min-width: 768px ) {
+		border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+	}
 
 	&--submit {
 		border-bottom: 0;
-		padding: $wpbr-space 0;
-
-		// Adjust padding when save field appears at the end of a section.
-		&:last-child {
-			padding-bottom: $wpbr-space;
-		}
+		padding-top: $wpbr-space-half;
 
 		@media ( min-width: 768px ) {
 			padding: $wpbr-space-double 0;
+
+			// Adjust padding when save field appears at the end of a section.
+			&:last-child {
+				padding-bottom: $wpbr-space;
+			}
 		}
 	}
 
 	th {
-		padding-top: $wpbr-space;
+		padding-top: $wpbr-space-half;
 
 		@media ( min-width: 768px ) {
 			padding-top: $wpbr-space-double;
@@ -32,7 +34,7 @@
 	}
 
 	td {
-		padding-bottom: $wpbr-space;
+		padding-bottom: $wpbr-space-half;
 
 		@media ( min-width: 768px ) {
 			padding-bottom: $wpbr-space-double;
