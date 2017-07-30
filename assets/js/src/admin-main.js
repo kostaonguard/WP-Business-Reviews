@@ -8,12 +8,48 @@
 		var $sections = $( '.js-wpbr-section' );
 
 		/**
+		 * @summary Initialize tabs based on location hash.
+		 *
+		 * If the location hash contains either a panel or section ID, the
+		 * relevant panel or section will be displayed by default. If no hash
+		 * is set, the first tab is activated by default.
+		 *
+		 * @since 1.0.0
+		 */
+		function initializeTabs() {
+			var hash = location.hash;
+			var tabID = '';
+			var subtabID = '';
+			var $tab = {};
+			var $subtab = {};
+
+			if ( 1 === hash.indexOf( 'wpbr-panel' ) ) {
+				tabID = hash.slice( 12 );
+				$tab = $( '#wpbr-tab-' + tabID );
+
+				activateTab( $tab );
+			} else if ( 1 === hash.indexOf( 'wpbr-section' ) ) {
+				subtabID = hash.slice( 14 );
+				$subtab = $( '#wpbr-subtab-' + subtabID );
+				tabID = $subtab.closest( '.js-wpbr-panel' ).data( 'tab-id' );
+				$tab = $( '#wpbr-tab-' + tabID );
+
+				activateTab( $tab );
+				activateSubtab( $subtab );
+			} else {
+				// Activate first tab by default.
+				activateTab( $tabs.first() );
+			}
+		}
+
+		/**
 		 * @summary Sets active tab component when selected.
 		 *
 		 * @since 1.0.0
 		 */
 		function activateTab( $tab ) {
-			var $panel = $( '#wpbr-panel-' + $tab.data( 'tab-id' ) );
+			var tabID = $tab.data( 'tab-id' );
+			var $panel = $( '#wpbr-panel-' + tabID );
 			var $subtab = $panel.find( '.js-wpbr-subtab:first' );
 			var $section = $panel.find( '.js-wpbr-section:first' );
 
@@ -36,7 +72,8 @@
 		 * @since 1.0.0
 		 */
 		function activateSubtab( $subtab ) {
-			var $section = $( '#wpbr-section-' + $subtab.data( 'subtab-id' ) );
+			var subtabID = $subtab.data( 'subtab-id' );
+			var $section = $( '#wpbr-section-' + subtabID );
 
 			// Clear all active classes.
 			$subtabs.removeClass( 'wpbr-subtabs__link--active' );
@@ -48,6 +85,25 @@
 		}
 
 		/**
+		 * @summary Update hash based on tab and type of tab.
+		 *
+		 * @param {jQuery} $tab jQuery tab object.
+		 * @param {string} type Type of tab, 'tab' or 'subtab'.
+		 * @since 1.0.0
+		 */
+		function updateHash( $tab, type = 'tab' ) {
+			var slug = $tab.data( type + '-id' );
+			var container = 'tab' === type ? 'panel' : 'section';
+
+			if ( history.pushState ) {
+				history.pushState( null, null, '#wpbr-' + container + '-' + slug );
+			}
+			else {
+				location.hash = '#wpbr-panel-' + slug;
+			}
+		}
+
+		/**
 		 * @summary Attaches click events to tabs and subtabs.
 		 *
 		 * @since 1.0.0
@@ -55,12 +111,16 @@
 		function attachClickEvents() {
 			$tabsList.on( 'click', '.js-wpbr-tab', function ( event ) {
 				event.preventDefault();
-				activateTab( $( this ) );
+				$this = $( this );
+				activateTab( $this );
+				updateHash( $this, 'tab' );
 			} );
 
 			$subtabsList.on( 'click', '.js-wpbr-subtab', function ( event ) {
 				event.preventDefault();
+				$this = $( this );
 				activateSubtab( $( this ) );
+				updateHash( $this, 'subtab' );
 			} );
 		}
 
@@ -76,16 +136,18 @@
 		 * @since 1.0.0
 		 */
 		function attachMousedownEvents() {
+			// Add modifier classes on mousedown.
 			$tabsList.on( 'mousedown', '.js-wpbr-tab', function ( event ) {
 				$( this ).addClass( 'wpbr-tabs__link--mousedown' );
 			} );
 
-			$tabsList.on( 'focusout', '.js-wpbr-tab', function ( event ) {
-				$( this ).removeClass( 'wpbr-tabs__link--mousedown' );
-			} );
-
 			$subtabsList.on( 'mousedown', '.js-wpbr-subtab', function ( event ) {
 				$( this ).addClass( 'wpbr-subtabs__link--mousedown' );
+			} );
+
+			// Remove modifier classes on focusout.
+			$tabsList.on( 'focusout', '.js-wpbr-tab', function ( event ) {
+				$( this ).removeClass( 'wpbr-tabs__link--mousedown' );
 			} );
 
 			$subtabsList.on( 'focusout', '.js-wpbr-subtab', function ( event ) {
@@ -93,10 +155,13 @@
 			} );
 		}
 
-		// Initialize first tab by default.
-		activateTab( $tabs.first() );
+		$( window ).on( "hashchange", function( e ) {
+			e.preventDefault();
+			console.log('changed');
+			initializeTabs();
+		});
 
-		// Attach events handlers.
+		initializeTabs();
 		attachClickEvents();
 		attachMousedownEvents();
 	}
