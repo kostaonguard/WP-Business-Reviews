@@ -1,6 +1,6 @@
 <!-- Tabs -->
 <nav>
-	<ul class="wpbr-tabs">
+	<ul class="wpbr-tabs js-wpbr-tabs">
 		<?php foreach ( $settings as $tab ) : ?>
 			<?php
 			$tab_id   = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : '';
@@ -31,7 +31,7 @@
 			?>
 				<!-- Sidebar -->
 				<div class="wpbr-panel__sidebar">
-					<ul class="wpbr-subtabs">
+					<ul class="wpbr-subtabs js-wpbr-subtabs">
 						<?php foreach ( $tab['sections'] as $section ) : ?>
 							<?php
 							$section_id   = ! empty( $section['id'] ) ? str_replace( '_', '-', $section['id'] ) : '';
