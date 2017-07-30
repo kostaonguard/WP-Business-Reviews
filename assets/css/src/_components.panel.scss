@@ -43,7 +43,9 @@
 			}
 
 			.js & {
-				display: none;
+				@media ( min-width: 768px ) {
+					display: none;
+				}
 			}
 
 			.js &--active {
