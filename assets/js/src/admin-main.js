@@ -91,7 +91,7 @@
 		 * @param {string} type Type of tab, 'tab' or 'subtab'.
 		 * @since 1.0.0
 		 */
-		function updateHash( $tab, type = 'tab' ) {
+		function updateHash( $tab, type ) {
 			var slug = $tab.data( type + '-id' );
 			var container = 'tab' === type ? 'panel' : 'section';
 
