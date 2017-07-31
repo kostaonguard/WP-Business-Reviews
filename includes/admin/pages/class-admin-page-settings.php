@@ -8,7 +8,7 @@
 
 namespace WP_Business_Reviews\Includes\Admin\Pages;
 
-use WP_Business_Reviews\Includes\Admin\Settings\WPBR_Settings_API;
+use WP_Business_Reviews\Includes\Settings\WPBR_Settings;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,12 +22,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see   Admin_Page
  */
 class Admin_Page_Settings extends Admin_Page {
-	private $settings_api;
+	private $settings;
 	private $tabs;
 	private $sections;
 
-	public function __construct( WPBR_Settings_API $settings_api ) {
-		$this->settings_api = $settings_api;
+	public function __construct( WPBR_Settings $settings ) {
+		$this->settings = $settings::define_settings();
 	}
 
 	public function render_field( $field ) {
@@ -66,9 +66,8 @@ class Admin_Page_Settings extends Admin_Page {
 	}
 
 	public function render_page() {
-		$settings_api = $this->settings_api;
-		$settings     = $settings_api::define_settings();
-		$view         = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/settings.php';
+		$settings = $this->settings;
+		$view     = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/settings.php';
 		include $view;
 	}
 }

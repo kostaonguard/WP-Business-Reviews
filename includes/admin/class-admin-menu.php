@@ -8,6 +8,9 @@
 
 namespace WP_Business_Reviews\Includes\Admin;
 
+use WP_Business_Reviews\Includes\Admin\Pages;
+use WP_Business_Reviews\Includes\Settings\WPBR_Settings;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -50,9 +53,9 @@ class Admin_Menu {
 			array( $page_reviews_builder, 'render_page' )
 		);
 
-		// Pass settings API to settings page.
-		$settings_api = new Settings\WPBR_Settings_API();
-		$page_settings = new Pages\Admin_Page_Settings( $settings_api );
+		// Pass settings object to settings page.
+		$settings      = new WPBR_Settings();
+		$page_settings = new Pages\Admin_Page_Settings( $settings );
 
 		add_submenu_page(
 			'edit.php?post_type=wpbr_review',

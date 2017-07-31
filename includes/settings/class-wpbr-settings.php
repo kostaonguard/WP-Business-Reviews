@@ -1,12 +1,12 @@
 <?php
 /**
- * Defines the WPBR_Settings_API class
+ * Defines the WPBR_Settings class
  *
- * @package WP_Business_Reviews\Includes\Admin\Settings
+ * @package WP_Business_Reviews\Includes\Settings
  * @since   1.0.0
  */
 
-namespace WP_Business_Reviews\Includes\Admin\Settings;
+namespace WP_Business_Reviews\Includes\Settings;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Provides the custom settings API for the plugin.
+ * Defines the settings for the plugin.
  *
  * @since 1.0.0
  */
-class WPBR_Settings_API {
+class WPBR_Settings {
 	public static function define_settings() {
 		$settings = array(
 			'general'      => array(
