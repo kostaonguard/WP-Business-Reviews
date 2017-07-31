@@ -12,3 +12,10 @@ body[class*="wpbr_review_page"] #wpcontent {
 	height: 18px;
 	width: 18px;
 }
+
+// Checkbox and radio settings fields.
+.wpbr-admin-page {
+	.form-table th {
+		color: $wpbr-color-text;
+	}
+}

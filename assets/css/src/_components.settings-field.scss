@@ -44,13 +44,4 @@
 			padding: $wpbr-space-double 0;
 		}
 	}
-
-		&__label {
-			color: $wpbr-color-text;
-			display: block;
-
-			@media ( min-width: 783px ) {
-				margin-top: $wpbr-space-quarter;
-			}
-		}
 }
