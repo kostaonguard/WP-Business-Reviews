@@ -11,7 +11,7 @@ $att_name = 'wpbr_settings[' . $field['id'] . ']';
 	<td>
 		<input id="<?php echo esc_attr( $att_id ); ?>" class="regular-text" type="password" name="<?php echo esc_attr( $att_name ); ?>" value="">
 		<?php if ( ! empty( $field['desc'] ) ) : ?>
-			<p class="description"><?php $this->render_description( $field['desc'] ); ?></p>
+			<p class="description"><?php $this->render_field_description( $field['desc'] ); ?></p>
 		<?php endif; ?>
 	</td>
 </tr>

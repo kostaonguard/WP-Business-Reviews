@@ -50,7 +50,7 @@ class Admin_Page_Settings extends Admin_Page {
 		}
 	}
 
-	public function render_description( $description ) {
+	public function render_field_description( $description ) {
 		$allowed_html = array(
 			'a'      => array(
 				'href'   => array(),

@@ -5,7 +5,7 @@
 	<td>
 		<strong class="wpbr-platform-status"><?php echo esc_html( 'Not Connected' ); ?></strong>
 		<?php if ( ! empty( $field['desc'] ) ) : ?>
-			<p class="description"><?php $this->render_description( $field['desc'] ); ?></p>
+			<p class="description"><?php $this->render_field_description( $field['desc'] ); ?></p>
 		<?php endif; ?>
 	</td>
 </tr>
