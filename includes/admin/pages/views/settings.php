@@ -83,7 +83,7 @@
 							</table>
 							<?php if ( 'pro-features' !== $section_id ) : ?>
 								<div class="wpbr-settings-field wpbr-settings-field--submit">
-									<input type="submit" name="submit" class="<?php esc_attr_e( 'wpbr-button', 'wpbr' ); ?>" value="<?php esc_attr_e( 'Save Changes', 'wpbr' ); ?>">
+									<button class="<?php esc_attr_e( 'wpbr-button', 'wpbr' ); ?>" type="submit" name="submit"  value="submit"><?php esc_attr_e( 'Save Changes', 'wpbr' ); ?></button>
 								</div>
 							<?php endif; ?>
 						</form>
