@@ -31,7 +31,7 @@ class Admin_Page_Settings extends Admin_Page {
 	}
 
 	public function render_field( $field ) {
-		$view_dir_url = WPBR_PLUGIN_DIR . 'includes/admin/settings/views/';
+		$view_dir_url = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/fields/';
 
 		switch ( $field['type'] ) {
 			case 'facebook_pages':
