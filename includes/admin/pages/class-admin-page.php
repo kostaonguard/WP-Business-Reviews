@@ -28,5 +28,5 @@ abstract class Admin_Page {
 	 *
 	 * @since 1.0.0
 	 */
-	abstract public function render();
+	abstract public function render_page();
 }

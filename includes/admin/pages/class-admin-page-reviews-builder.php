@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see Admin_Page
  */
 class Admin_Page_Reviews_Builder extends Admin_Page {
-	public function render() {
+	public function render_page() {
 		$view = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/reviews-builder.php';
 		include $view;
 	}

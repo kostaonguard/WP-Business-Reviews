@@ -47,7 +47,7 @@ class Admin_Menu {
 			__( 'Reviews Builder', 'wpbr' ),
 			'manage_options',
 			'wpbr-reviews-builder',
-			array( $page_reviews_builder, 'render' )
+			array( $page_reviews_builder, 'render_page' )
 		);
 
 		// Pass settings API to settings page.
@@ -60,7 +60,7 @@ class Admin_Menu {
 			__( 'Settings', 'wpbr' ),
 			'manage_options',
 			'wpbr-settings',
-			array( $page_settings, 'render' )
+			array( $page_settings, 'render_page' )
 		);
 
 		// TODO: Remove API Test page prior to launch.
@@ -73,7 +73,7 @@ class Admin_Menu {
 			__( 'API Test', 'wpbr' ),
 			'manage_options',
 			'wpbr-api-test',
-			array( $page_api_test, 'render' )
+			array( $page_api_test, 'render_page' )
 		);
 	}
 }

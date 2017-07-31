@@ -30,7 +30,7 @@ class Admin_Page_Settings extends Admin_Page {
 		$this->settings_api = $settings_api;
 	}
 
-	public function render() {
+	public function render_page() {
 		$settings_api = $this->settings_api;
 		$settings     = $settings_api::define_settings();
 		$view         = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/settings.php';
