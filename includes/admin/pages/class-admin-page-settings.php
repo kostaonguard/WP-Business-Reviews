@@ -34,14 +34,16 @@ class Admin_Page_Settings extends Admin_Page {
 		$view_dir_url = WPBR_PLUGIN_DIR . 'includes/admin/settings/views/';
 
 		switch ( $field['type'] ) {
-			case 'checkbox':
-			case 'radio':
 			case 'facebook_pages':
 			case 'password':
 				include $view_dir_url . 'field-password.php';
 				break;
 			case 'platform_status':
 				include $view_dir_url . 'field-platform-status.php';
+				break;
+			case 'radio':
+			case 'checkbox':
+				include $view_dir_url . 'field-radio-checkbox.php';
 				break;
 			default:
 				return null;
