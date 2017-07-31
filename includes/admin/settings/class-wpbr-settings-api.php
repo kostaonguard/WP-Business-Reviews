@@ -19,22 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 class WPBR_Settings_API {
-	public function render_field( $field ) {
-		$view_dir_url = WPBR_PLUGIN_DIR . 'includes/admin/settings/views/';
-
-		switch ( $field['type'] ) {
-			case 'checkbox':
-			case 'radio':
-			case 'platform_status':
-			case 'facebook_pages':
-			case 'password':
-				include $view_dir_url . 'field-password.php';
-				break;
-			default:
-				return null;
-		}
-	}
-
 	public static function define_settings() {
 		$settings = array(
 			'general'      => array(
@@ -164,11 +148,6 @@ class WPBR_Settings_API {
 							'api_key_yp'         => array(
 								'id'   => 'api_key_yp',
 								'name' => __( 'YP API Key', 'wpbr' ),
-								'desc' => sprintf(
-									__( 'Enter a Google Places API Key required to retrieve business reviews. For step-by-step instructions, see docs on %sHow to Generate a Google Places API Key%s.', 'wbpr' ),
-									'<a href="https://wpbusinessreviews.com/">',
-									'</a>'
-								),
 								'type' => 'password',
 							),
 						),

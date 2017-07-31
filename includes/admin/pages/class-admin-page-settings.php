@@ -30,6 +30,39 @@ class Admin_Page_Settings extends Admin_Page {
 		$this->settings_api = $settings_api;
 	}
 
+	public function render_field( $field ) {
+		$view_dir_url = WPBR_PLUGIN_DIR . 'includes/admin/settings/views/';
+
+		switch ( $field['type'] ) {
+			case 'checkbox':
+			case 'radio':
+			case 'facebook_pages':
+			case 'password':
+				include $view_dir_url . 'field-password.php';
+				break;
+			case 'platform_status':
+				include $view_dir_url . 'field-platform-status.php';
+				break;
+			default:
+				return null;
+		}
+	}
+
+	public function render_description( $description ) {
+		$allowed_html = array(
+			'a'      => array(
+				'href'   => array(),
+				'title'  => array(),
+				'target' => array(),
+			),
+			'em'     => array(),
+			'strong' => array(),
+			'code'   => array(),
+		);
+
+		echo wp_kses( $description, $allowed_html );
+	}
+
 	public function render_page() {
 		$settings_api = $this->settings_api;
 		$settings     = $settings_api::define_settings();

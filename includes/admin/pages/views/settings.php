@@ -76,7 +76,7 @@
 									<?php
 									if ( ! empty( $section['fields'] ) ) {
 										// Render settings field.
-										array_map( array( $settings_api, 'render_field' ), $section['fields'] );
+										array_map( array( $this, 'render_field' ), $section['fields'] );
 									}
 									?>
 								</tbody>
