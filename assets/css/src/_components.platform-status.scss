@@ -1,0 +1,12 @@
+/*--------------------------------------------------------------
+# Platform-Status
+--------------------------------------------------------------*/
+
+.wpbr-platform-status {
+	color: $wpbr-color-error;
+	text-transform: uppercase;
+
+	&--success {
+		color: $wpbr-color-success;
+	}
+}
