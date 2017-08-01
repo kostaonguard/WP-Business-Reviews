@@ -18,4 +18,8 @@ body[class*="wpbr_review_page"] #wpcontent {
 	.form-table th {
 		color: $wpbr-color-text;
 	}
+
+	code {
+		background-color: $wpbr-color-off-white;
+	}
 }
