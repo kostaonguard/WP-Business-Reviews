@@ -30,12 +30,18 @@
 			&:hover,
 			&:focus,
 			&:active {
-				background-color: $wpbr-color-white;
+				background-color: $wpbr-color-off-white-light;
 				color: $wpbr-color-text;
 			}
 
 			&--active {
 				background-color: $wpbr-color-white;
+
+				&:hover,
+				&:focus,
+				&:active {
+					background-color: $wpbr-color-white;
+				}
 			}
 
 			// Remove focus outline on mousedown but maintain it for keyboard navigation.
