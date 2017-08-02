@@ -40,6 +40,11 @@ class WPBR_Settings {
 								'name'    => __( 'Active Review Platforms', 'wpbr' ),
 								'desc'    => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wpbr' ),
 								'type'    => 'checkbox',
+								'default' => array(
+									'google',
+									'facebook',
+									'yelp',
+								),
 								'options' => array(
 									'google'   => __( 'Google', 'wpbr' ),
 									'facebook' => __( 'Facebook', 'wpbr' ),
@@ -63,6 +68,7 @@ class WPBR_Settings {
 								'id'       => 'platform_status_google',
 								'name'     => __( 'Platform Status', 'wpbr' ),
 								'type'     => 'platform_status',
+								'default'  => 'disconnected',
 								'platform' => 'google',
 							),
 							'api_key_google_places'  => array(
@@ -91,6 +97,7 @@ class WPBR_Settings {
 								'id'       => 'platform_status_facebook',
 								'name'     => __( 'Platform Status', 'wpbr' ),
 								'type'     => 'platform_status',
+								'default'  => 'disconnected',
 								'platform' => 'facebook',
 							),
 							'facebook_pages'           => array(
@@ -115,6 +122,7 @@ class WPBR_Settings {
 								'id'       => 'platform_status_yelp',
 								'name'     => __( 'Platform Status', 'wpbr' ),
 								'type'     => 'platform_status',
+								'default'  => 'disconnected',
 								'platform' => 'yelp',
 							),
 							'yelp_client_id'       => array(
@@ -143,6 +151,7 @@ class WPBR_Settings {
 								'id'       => 'platform_status_yp',
 								'name'     => __( 'Platform Status', 'wpbr' ),
 								'type'     => 'platform_status',
+								'default'  => 'disconnected',
 								'platform' => 'yp',
 							),
 							'api_key_yp'         => array(
@@ -173,6 +182,7 @@ class WPBR_Settings {
 								'name'    => __( 'Plugin Styles', 'wpbr' ),
 								'desc'    => __( 'Outputs CSS that styles the presentation of reviews.', 'wpbr' ),
 								'type'    => 'radio',
+								'default' => 'enabled',
 								'options' => array(
 									'enabled'  => __( 'Enabled', 'wpbr' ),
 									'disabled' => __( 'Disabled', 'wpbr' ),
@@ -186,6 +196,7 @@ class WPBR_Settings {
 									'<code>rel="nofollow"</code>'
 								),
 								'type'    => 'radio',
+								'default' => 'disabled',
 								'options' => array(
 									'enabled'  => __( 'Enabled', 'wpbr' ),
 									'disabled' => __( 'Disabled', 'wpbr' ),
@@ -199,6 +210,7 @@ class WPBR_Settings {
 									'<code>target="_blank"</code>'
 								),
 								'type'    => 'radio',
+								'default' => '_self',
 								'options' => array(
 									'_self'  => __( 'Open links in same tab.', 'wpbr' ),
 									'_blank' => __( 'Open links in new tab.', 'wpbr' ),
@@ -208,6 +220,7 @@ class WPBR_Settings {
 								'id'      => 'uninstall_behavior',
 								'name'    => __( 'Uninstall Behavior', 'wpbr' ),
 								'type'    => 'radio',
+								'default' => 'keep',
 								'options' => array(
 									'keep'   => __( 'Keep all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
 									'remove' => __( 'Remove all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
