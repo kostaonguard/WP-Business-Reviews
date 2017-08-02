@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 class WPBR_Settings {
-	public static function define_settings() {
+	public function define_settings() {
 		$settings = array(
 			'general'      => array(
 				'id'       => 'general',
@@ -38,7 +38,7 @@ class WPBR_Settings {
 							'active_platforms' => array(
 								'id'      => 'active_platforms',
 								'name'    => __( 'Active Review Platforms', 'wpbr' ),
-								'desc'    => __( 'Uncheck any review platform that is not in use to keep the plugin interface as clean as possible. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wpbr' ),
+								'desc'    => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wpbr' ),
 								'type'    => 'checkbox',
 								'options' => array(
 									'google'   => __( 'Google', 'wpbr' ),
@@ -69,7 +69,7 @@ class WPBR_Settings {
 								'id'   => 'api_key_google_places',
 								'name' => __( 'Google Places API Key', 'wpbr' ),
 								'desc' => sprintf(
-									__( 'Enter a Google Places API Key required to retrieve business reviews. For step-by-step instructions, see docs on %sHow to Generate a Google Places API Key%s.', 'wbpr' ),
+									__( 'Defines the Google Places API Key required to retrieve Google reviews. For step-by-step instructions, see docs on %sHow to Generate a Google Places API Key%s.', 'wbpr' ),
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
@@ -96,7 +96,7 @@ class WPBR_Settings {
 							'facebook_pages'           => array(
 								'id'   => 'facebook_pages',
 								'name' => __( 'Facebook Pages', 'wpbr' ),
-								'desc' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
+								'desc' => __( 'Defines the Facebook Pages from which reviews may be displayed. The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
 								'type' => 'facebook_pages',
 							),
 						),
@@ -163,7 +163,7 @@ class WPBR_Settings {
 						'name'    => __( 'Advanced', 'wpbr' ),
 						'heading' => __( 'Advanced Settings', 'wpbr' ),
 						'desc'    => sprintf(
-							__( 'Need help? See docs on %sGoogle Reviews 101%s.', 'wbpr' ),
+							__( 'Need help? See docs on %sAdvanced Settings%s.', 'wbpr' ),
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
@@ -171,7 +171,7 @@ class WPBR_Settings {
 							'plugin_styles'      => array(
 								'id'      => 'plugin_styles',
 								'name'    => __( 'Plugin Styles', 'wpbr' ),
-								'desc'    => __( 'Decide whether to output CSS that styles the presentation of reviews.', 'wpbr' ),
+								'desc'    => __( 'Outputs CSS that styles the presentation of reviews.', 'wpbr' ),
 								'type'    => 'radio',
 								'options' => array(
 									'enabled'  => __( 'Enabled', 'wpbr' ),
