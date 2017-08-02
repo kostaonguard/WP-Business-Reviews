@@ -178,6 +178,32 @@ class WPBR_Settings {
 									'disabled' => __( 'Disabled', 'wpbr' ),
 								),
 							),
+							'nofollow_links' => array(
+								'id'      => 'nofollow_links',
+								'name'    => __( 'Nofollow Links', 'wpbr' ),
+								'desc' => sprintf(
+									__( 'Adds %s to review links in order to discourage search engines from following them.', 'wbpr' ),
+									'<code>rel="nofollow"</code>'
+								),
+								'type'    => 'radio',
+								'options' => array(
+									'enabled'  => __( 'Enabled', 'wpbr' ),
+									'disabled' => __( 'Disabled', 'wpbr' ),
+								),
+							),
+							'link_targeting' => array(
+								'id'      => 'link_targeting',
+								'name'    => __( 'Link Targeting', 'wpbr' ),
+								'desc' => sprintf(
+									__( 'Adds %s to review links when set to open in new tab.', 'wbpr' ),
+									'<code>target="_blank"</code>'
+								),
+								'type'    => 'radio',
+								'options' => array(
+									'_self'  => __( 'Open links in same tab.', 'wpbr' ),
+									'_blank' => __( 'Open links in new tab.', 'wpbr' ),
+								),
+							),
 							'uninstall_behavior' => array(
 								'id'      => 'uninstall_behavior',
 								'name'    => __( 'Uninstall Behavior', 'wpbr' ),
