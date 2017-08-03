@@ -473,21 +473,18 @@ class Settings_API {
 	}
 
 	/**
-	 * Determines if the nonce variable associated with the options page is set
-	 * and is valid.
+	 * Determines if the nonce is valid.
 	 *
-	 * @access private
-	 *
-	 * @return boolean False if the field isn't set or the nonce value is invalid;
-	 *                 otherwise, true.
+	 * @return boolean False if the field isn't set or the nonce value is
+	 *                 invalid; otherwise true.
 	 */
 	private function has_valid_nonce() {
-		// If the field isn't even in the $_POST, then it's invalid.
+		// If the nonce field isn't even in the $_POST, then it's invalid.
 		if ( ! isset( $_POST['wpbr_settings_nonce'] ) ) { // Input var okay.
 			return false;
 		}
 
-		$field  = wp_unslash( $_POST['wpbr_settings_nonce'] );
+		$field  = sanitize_text_field( $_POST['wpbr_settings_nonce'] );
 		$action = 'wpbr_settings_save';
 
 		return wp_verify_nonce( $field, $action );
