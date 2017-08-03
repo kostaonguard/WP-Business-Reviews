@@ -13,9 +13,10 @@
 	</ul>
 </nav>
 
-<!-- Panel -->
+<!-- Panels -->
 <div class="wpbr-admin-page">
 	<?php foreach ( $settings as $tab ) : ?>
+		<!-- Panel -->
 		<?php $tab_id = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : ''; ?>
 		<div id="wpbr-panel-<?php echo esc_attr( $tab_id ); ?>" class="wpbr-panel js-wpbr-panel" data-tab-id="<?php echo esc_attr( $tab_id ); ?>">
 			<?php
@@ -70,23 +71,25 @@
 						<h2 class="wpbr-panel__heading"><?php echo esc_html( $section_heading ); ?></h2>
 						<p class="wpbr-panel__description"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
 
-						<form method="post">
-							<table class="form-table">
-								<tbody>
-									<?php
-									if ( ! empty( $section['fields'] ) ) {
-										// Render settings field.
+						<?php if ( ! empty( $section['fields'] ) ) : ?>
+							<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+								<input type="hidden" name="action" value="wpbr_settings_save">
+								<input type="hidden" name="wpbr_tab" value="<?php echo esc_attr( $tab_id ); ?>">
+								<input type="hidden" name="wpbr_section" value="<?php echo esc_attr( $section_id ); ?>">
+								<table class="form-table">
+									<tbody>
+										<?php
+										// Render settings fields.
 										array_map( array( $this, 'render_field' ), $section['fields'] );
-									}
-									?>
-								</tbody>
-							</table>
-							<?php if ( 'pro-features' !== $section_id ) : ?>
+										?>
+									</tbody>
+								</table>
+								<?php wp_nonce_field( 'wpbr_settings_save', 'wpbr_settings_nonce' ); ?>
 								<div class="wpbr-settings-field wpbr-settings-field--submit">
 									<button class="<?php esc_attr_e( 'wpbr-button', 'wpbr' ); ?>" type="submit" name="submit"  value="submit"><?php esc_attr_e( 'Save Changes', 'wpbr' ); ?></button>
 								</div>
-							<?php endif; ?>
-						</form>
+							</form>
+						<?php endif; ?>
 					</div>
 				<?php endforeach; ?>
 			</div>

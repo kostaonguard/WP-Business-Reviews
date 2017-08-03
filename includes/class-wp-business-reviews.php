@@ -69,6 +69,7 @@ final class WP_Business_Reviews {
 
 		if ( is_admin() ) {
 			$this->add_admin_pages();
+			$this->add_settings_api();
 		}
 	}
 
@@ -142,5 +143,15 @@ final class WP_Business_Reviews {
 		// Add admin footer.
 		$admin_footer = new Admin\Admin_Footer();
 		$admin_footer->init();
+	}
+
+	/**
+	 * Adds Settings API.
+	 *
+	 * @since    1.0.0
+	 */
+	private function add_settings_api() {
+		$settings_api = new Settings\Settings_API();
+		$settings_api->init();
 	}
 }

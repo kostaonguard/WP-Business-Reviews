@@ -9,7 +9,14 @@ $att_name = 'wpbr_settings[' . $field['id'] . ']';
 		</label>
 	</th>
 	<td>
-		<input id="<?php echo esc_attr( $att_id ); ?>" class="regular-text" type="password" name="<?php echo esc_attr( $att_name ); ?>" value="">
+		<?php
+		// Set input attributes.
+		$att_value = $saved_value;
+		$att_id   = 'wpbr-' . str_replace( '_', '-', $field['id'] ) . '-';
+		$att_name = 'wpbr_settings[' . $field['id'] . ']';
+		?>
+		<input id="<?php echo esc_attr( $att_id ); ?>" class="regular-text" type="password"
+		       name="<?php echo esc_attr( $att_name ); ?>" value="<?php echo esc_attr( $att_value ); ?>">
 		<?php if ( ! empty( $field['desc'] ) ) : ?>
 			<p class="description"><?php $this->render_field_description( $field['desc'] ); ?></p>
 		<?php endif; ?>

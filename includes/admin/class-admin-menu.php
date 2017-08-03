@@ -9,7 +9,7 @@
 namespace WP_Business_Reviews\Includes\Admin;
 
 use WP_Business_Reviews\Includes\Admin\Pages;
-use WP_Business_Reviews\Includes\Settings\WPBR_Settings;
+use WP_Business_Reviews\Includes\Settings\Settings_API;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,8 +41,10 @@ class Admin_Menu {
 	 * @since 1.0.0
 	 */
 	public function add_pages() {
+		$settings_api = new Settings_API();
+
 		// Add Reviews Builder page.
-		$page_reviews_builder = new Pages\Admin_Page_Reviews_Builder();
+		$page_reviews_builder = new Pages\Admin_Page_Reviews_Builder( $settings_api );
 
 		add_submenu_page(
 			'edit.php?post_type=wpbr_review',
@@ -54,8 +56,7 @@ class Admin_Menu {
 		);
 
 		// Pass settings object to settings page.
-		$settings      = new WPBR_Settings();
-		$page_settings = new Pages\Admin_Page_Settings( $settings );
+		$page_settings = new Pages\Admin_Page_Settings( $settings_api );
 
 		add_submenu_page(
 			'edit.php?post_type=wpbr_review',
@@ -68,7 +69,7 @@ class Admin_Menu {
 
 		// TODO: Remove API Test page prior to launch.
 		// Add API Test page.
-		$page_api_test = new Pages\Admin_Page_API_Test();
+		$page_api_test = new Pages\Admin_Page_API_Test( $settings_api );
 
 		add_submenu_page(
 			'edit.php?post_type=wpbr_review',

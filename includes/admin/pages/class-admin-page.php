@@ -8,6 +8,8 @@
 
 namespace WP_Business_Reviews\Includes\Admin\Pages;
 
+use WP_Business_Reviews\Includes\Settings\Settings_API;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -23,6 +25,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see Admin_Menu
  */
 abstract class Admin_Page {
+	protected $settings_api;
+
+	/**
+	 * Sets up the Settings API for each admin page.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct( Settings_API $settings_api ) {
+		$this->settings_api = $settings_api;
+	}
+
 	/**
 	 * Renders content of the admin page.
 	 *

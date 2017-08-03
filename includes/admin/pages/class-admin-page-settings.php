@@ -8,8 +8,6 @@
 
 namespace WP_Business_Reviews\Includes\Admin\Pages;
 
-use WP_Business_Reviews\Includes\Settings\WPBR_Settings;
-
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -22,19 +20,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see   Admin_Page
  */
 class Admin_Page_Settings extends Admin_Page {
-	private $settings;
-	private $tabs;
-	private $sections;
+	private function render_field( $field ) {
+		// Set field defaults.
 
-	public function __construct( WPBR_Settings $settings ) {
-		$this->settings = $settings::define_settings();
-	}
+		$defaults = array(
 
-	public function render_field( $field ) {
-		$view_dir_url = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/fields/';
+		);
+
+		// Get value of the field setting from database.
+		$saved_value = $this->settings_api->get_setting( $field['id'] );
+
+		// Set directory from which field views will be rendered.
+		$view_dir_url  = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/fields/';
 
 		switch ( $field['type'] ) {
-			case 'facebook_pages':
 			case 'password':
 				include $view_dir_url . 'field-password.php';
 				break;
@@ -45,12 +44,12 @@ class Admin_Page_Settings extends Admin_Page {
 			case 'checkbox':
 				include $view_dir_url . 'field-radio-checkbox.php';
 				break;
-			default:
+			case 'facebook_pages':
 				return null;
 		}
 	}
 
-	public function render_field_description( $description ) {
+	private function render_field_description( $description ) {
 		$allowed_html = array(
 			'a'      => array(
 				'href'   => array(),
@@ -66,7 +65,7 @@ class Admin_Page_Settings extends Admin_Page {
 	}
 
 	public function render_page() {
-		$settings = $this->settings;
+		$settings = $this->settings_api->define_framework();
 		$view     = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/settings.php';
 		include $view;
 	}

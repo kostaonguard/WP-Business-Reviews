@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the WPBR_Settings class
+ * Defines the Settings_API class
  *
  * @package WP_Business_Reviews\Includes\Settings
  * @since   1.0.0
@@ -9,18 +9,91 @@
 namespace WP_Business_Reviews\Includes\Settings;
 
 // Exit if accessed directly.
+use WP_Business_Reviews\Includes\WP_Business_Reviews;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Defines the settings for the plugin.
+ * Handles the custom Settings API for the plugin.
+ *
+ * The Settings API is built atop the settings framework which defines the
+ * structure of tabs, panels, sections, and fields along with default values.
+ * This framework determines the default settings for the plugin as well as the
+ * user interface that appears in WP Admin.
+ *
+ * Adding a new tab, panel, section, or field is as easy as manipulating the
+ * framework array. Any field present in the framework array will be visible
+ * in the settings UI and saved to the database.
+ *
+ * When settings are saved, the plugin stores its settings in a single option
+ * named `wpbr_settings`. This option holds an associative array of all plugin
+ * settings from which single settings can be retrieved.
  *
  * @since 1.0.0
  */
-class WPBR_Settings {
-	public function define_settings() {
-		$settings = array(
+class Settings_API {
+	/**
+	 * Associative array of field IDs and saved values from the database.
+	 *
+	 * @since  1.0.0
+	 * @var    array
+	 * @access private
+	 */
+	private $settings;
+
+	/**
+	 * Settings structure containing tabs, panels, sections, and fields.
+	 *
+	 * @since  1.0.0
+	 * @var    array
+	 * @access private
+	 */
+	private $framework;
+
+	/**
+	 * Associative array of field attributes and default values.
+	 *
+	 * @since  1.0.0
+	 * @var    array
+	 * @access private
+	 */
+	private $field_defaults;
+
+	/**
+	 * Sets up the settings framework.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		$this->settings       = get_option( 'wpbr_settings', array() );
+		$this->framework      = $this->define_framework();
+		$this->field_defaults = $this->define_field_defaults();
+	}
+
+	/**
+	 * Hooks functionality responsible for handling settings.
+	 *
+	 * @since 1.0.0
+	 */
+	public function init() {
+		add_action( 'admin_post_wpbr_settings_save', array( $this, 'save' ) );
+	}
+
+	/**
+	 * Gets the settings framework or defines it if necessary.
+	 *
+	 * The framework array of consists of tabs, panels, sections, and fields
+	 * that make up the settings UI rendered by Page_Admin_Settings.
+	 *
+	 * @return array Plugin settings.
+	 *
+	 * @since 1.0.0
+	 * @see   Page_Admin_Settings
+	 */
+	public function define_framework() {
+		$framework = array(
 			'general'      => array(
 				'id'       => 'general',
 				'name'     => __( 'General', 'wpbr' ),
@@ -255,6 +328,194 @@ class WPBR_Settings {
 			),
 		);
 
-		return $settings;
+		return $framework;
+	}
+
+	/**
+	 * Define default values of settings field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Associative array of field attributes and values.
+	 */
+	private function define_field_defaults() {
+		$field_defaults = array(
+			'id' => '',
+			'name' => '',
+			'desc' => '',
+			'type' => 'text',
+			'default' => '',
+			'options' => array(),
+
+		);
+
+		return $field_defaults;
+	}
+
+	/**
+	 * Get values of default settings from framework.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Associative array of field IDs and default values.
+	 */
+	public function get_framework() {
+		return $this->framework;
+	}
+
+	/**
+	 * Gets all settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Associative array of field IDs and saved values.
+	 */
+	public function get_settings() {
+		return $this->settings;
+	}
+
+	/**
+	 * Gets the value of a single setting.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  string $setting The array key associated with the setting.
+	 * @return mixed The value of the setting or null if unavailable.
+	 */
+	public function get_setting( $setting ) {
+		if ( ! empty( $this->settings ) && isset( $this->settings[ $setting ] ) ) {
+			return $this->settings[ $setting ];
+		}
+
+		return null;
+	}
+
+	/**
+	 * Gets default settings from framework.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Associative array of field IDs and default values.
+	 */
+	public function get_default_settings() {
+		$default_settings = array();
+
+		// Parse framework to retrieve default value of each field.
+		foreach ( $this->framework as $tab ) {
+			foreach ( $tab['sections'] as $section ) {
+				foreach ( $section['fields'] as $field ) {
+					if ( ! empty( $field['id'] ) ) {
+						$field_id                      = $field['id'];
+						$field_default                 = ! empty( $field['default'] ) ? $field['default'] : '';
+						$default_settings[ $field_id ] = $field_default;
+					}
+				}
+			}
+		}
+
+		return $default_settings;
+	}
+
+	/**
+	 * Merges default settings with existing settings.
+	 *
+	 * This method is useful during plugin activation when settings do not yet
+	 * exist in the database. It is also useful when new settings are added
+	 * during plugin updates. Default values are added to the database without
+	 * affecting existing values.
+	 *
+	 * @since 1.0.0
+	 */
+	private function merge_default_settings() {
+		$default_settings = $this->get_default_settings();
+		$current_settings = $this->get_settings();
+		$updated_settings = array_merge( $default_settings, $current_settings );
+
+		update_option( 'wpbr_settings', $updated_settings );
+	}
+
+	/**
+	 * Validates the incoming nonce value, verifies the current user has
+	 * permission to save the value from the options page and saves the
+	 * option to the database.
+	 */
+	public function save() {
+		// If settings, tab, or section are empty, return early.
+		if ( empty( $_POST['wpbr_settings'] ) || empty( $_POST['wpbr_tab'] ) || empty( $_POST['wpbr_section'] ) ) {
+			return false;
+		}
+
+		// Validate the nonce and verify the user as permission to save.
+		if ( ! ( $this->has_valid_nonce() && current_user_can( 'manage_options' ) ) ) {
+			// TODO: Display an error message.
+			error_log('not validated!!!');
+			return false;
+		}
+
+		// Settings option retrieved from the database prior to saving.
+		$old_option = get_option( 'wpbr_settings', array() );
+
+		// Get the active tab and section from hidden fields in settings form.
+		$tab = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( wp_unslash( $_POST['wpbr_tab'] ) ) : '';
+		$section = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( wp_unslash( $_POST['wpbr_section'] ) ) : '';
+
+		// Get the settings posted by the user.
+		$post_settings = wp_unslash( $_POST['wpbr_settings'] );
+
+		// Get the relevant fields being saved based on active tab and section.
+		$fields = $this->framework[ $tab ]['sections'][ $section ]['fields'];
+
+		$new_option = array_merge( $old_option, $post_settings );
+
+		update_option( 'wpbr_settings', $new_option );
+
+		$this->redirect();
+	}
+
+	/**
+	 * Determines if the nonce variable associated with the options page is set
+	 * and is valid.
+	 *
+	 * @access private
+	 *
+	 * @return boolean False if the field isn't set or the nonce value is invalid;
+	 *                 otherwise, true.
+	 */
+	private function has_valid_nonce() {
+		// If the field isn't even in the $_POST, then it's invalid.
+		if ( ! isset( $_POST['wpbr_settings_nonce'] ) ) { // Input var okay.
+			return false;
+		}
+
+		$field  = wp_unslash( $_POST['wpbr_settings_nonce'] );
+		$action = 'wpbr_settings_save';
+
+		return wp_verify_nonce( $field, $action );
+	}
+
+	/**
+	 * Redirect to the page from which we came (which should always be the
+	 * admin page. If the referred isn't set, then we redirect the user to
+	 * the login page.
+	 *
+	 * @access private
+	 */
+	private function redirect() {
+
+		// To make the Coding Standards happy, we have to initialize this.
+		if ( ! isset( $_POST['_wp_http_referer'] ) ) { // Input var okay.
+			$_POST['_wp_http_referer'] = wp_login_url();
+		}
+
+		// Sanitize the value of the $_POST collection for the Coding Standards.
+		$url = sanitize_text_field(
+			wp_unslash( $_POST['_wp_http_referer'] ) // Input var okay.
+		);
+
+		// Finally, redirect back to the admin page.
+		wp_safe_redirect( urldecode( $url ) );
+		error_log( print_r( get_option( 'wpbr_settings' ), true ) );
+		exit;
+
 	}
 }
