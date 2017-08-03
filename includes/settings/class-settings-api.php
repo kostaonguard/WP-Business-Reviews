@@ -494,28 +494,31 @@ class Settings_API {
 	}
 
 	/**
-	 * Redirect to the page from which we came (which should always be the
-	 * admin page. If the referred isn't set, then we redirect the user to
-	 * the login page.
+	 * Redirect to page and section from which settings were saved. If referer
+	 * is not set, redirect to login page.
 	 *
-	 * @access private
+	 * @since 1.0.0
 	 */
 	private function redirect() {
-
-		// To make the Coding Standards happy, we have to initialize this.
-		if ( ! isset( $_POST['_wp_http_referer'] ) ) { // Input var okay.
-			$_POST['_wp_http_referer'] = wp_login_url();
+		// Redirect to login if referer not provided.
+		if ( ! isset( $_POST['_wp_http_referer'] ) ) {
+			wp_safe_redirect( wp_login_url() );
 		}
 
-		// Sanitize the value of the $_POST collection for the Coding Standards.
-		$url = sanitize_text_field(
-			wp_unslash( $_POST['_wp_http_referer'] ) // Input var okay.
-		);
+		// Sanitize referer URL.
+		$url = sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) );
 
-		// Finally, redirect back to the admin page.
+		// Add section hash so user is redirected to the correct section of settings page.
+		if ( isset( $_POST['wpbr_section'] ) ) {
+			$section_hash = sanitize_text_field( $_POST['wpbr_section'] );
+			$url .= '#wpbr-section-' . $section_hash;
+		}
+
 		wp_safe_redirect( urldecode( $url ) );
-		error_log( print_r( get_option( 'wpbr_settings' ), true ) );
-		exit;
 
+		// TODO: Remove this error_log() before launch.
+		error_log( print_r( get_option( 'wpbr_settings' ), true ) );
+
+		exit;
 	}
 }
