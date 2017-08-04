@@ -1,0 +1,47 @@
+/*--------------------------------------------------------------
+# Notice
+--------------------------------------------------------------*/
+
+.wpbr-notice {
+	background-color: $wpbr-color-off-white;
+	border-color: $wpbr-color-dim;
+	border-style: solid;
+	border-width: 0 0 0 $wpbr-border-width * 8;
+	display: block;
+	margin-bottom: $wpbr-space;
+	padding: $wpbr-space;
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+
+	&--success {
+		background-color: $wpbr-color-success-light;
+		border-left-color: $wpbr-color-success;
+		color: $wpbr-color-success-dark;
+
+		a {
+			color: $wpbr-color-success-dark;
+		}
+	}
+
+	&--error {
+		background-color: $wpbr-color-error-light;
+		border-left-color: $wpbr-color-error;
+		color: $wpbr-color-error-dark;
+
+		a {
+			color: $wpbr-color-error-dark;
+		}
+	}
+
+	&--warning {
+		background-color: $wpbr-color-warning-light;
+		border-left-color: $wpbr-color-warning;
+		color: $wpbr-color-warning-dark;
+
+		a {
+			color: $wpbr-color-warning-dark;
+		}
+	}
+}

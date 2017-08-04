@@ -53,15 +53,21 @@
 			}
 		}
 
-			&__heading {
-				color: $wpbr-color-text;
-				margin: 0;
+			&__header {
+				> :last-child {
+					margin-bottom: 0;
+				}
 			}
 
-			&__description {
-				font-size: 14px;
-				margin: $wpbr-space-half 0 0;
-			}
+				&__heading {
+					color: $wpbr-color-text;
+					margin: 0 0 $wpbr-space-half;
+				}
+
+				&__description {
+					font-size: 14px;
+					margin: 0 0 $wpbr-space;
+				}
 
 	&__sidebar {
 		display: none;
