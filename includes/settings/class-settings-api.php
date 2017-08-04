@@ -78,7 +78,7 @@ class Settings_API {
 	 * @since 1.0.0
 	 */
 	public function init() {
-		add_action( 'admin_post_wpbr_settings_save', array( $this, 'save' ) );
+		add_action( 'admin_post_wpbr_settings_save', array( $this, 'save_section' ) );
 	}
 
 	/**
@@ -420,60 +420,114 @@ class Settings_API {
 	 * Merges default settings with existing settings.
 	 *
 	 * This method is useful during plugin activation when settings do not yet
-	 * exist in the database. It is also useful when new settings are added
-	 * during plugin updates. Default values are added to the database without
-	 * affecting existing values.
+	 * exist in the database.
 	 *
 	 * @since 1.0.0
 	 */
 	private function merge_default_settings() {
 		$default_settings = $this->get_default_settings();
-		$current_settings = $this->get_settings();
-		$updated_settings = array_merge( $default_settings, $current_settings );
-
-		update_option( 'wpbr_settings', $updated_settings );
+		$this->settings = array_merge( $default_settings, $this->settings );
+		$this->update_option;
 	}
 
 	/**
-	 * Validates the incoming nonce value, verifies the current user has
-	 * permission to save the value from the options page and saves the
-	 * option to the database.
+	 * Saves settings section.
+	 *
+	 * When user saves changes on the settings page, fields from the active
+	 * section are submitted. This validates the incoming nonce value, verifies
+	 * user permissions, sanitizes the settings, and updates the option.
+	 *
+	 * @since 1.0.0
 	 */
-	public function save() {
-		// If settings, tab, or section are empty, return early.
+	public function save_section() {
+		// If settings, tab, or section are empty, return false.
 		if ( empty( $_POST['wpbr_settings'] ) || empty( $_POST['wpbr_tab'] ) || empty( $_POST['wpbr_section'] ) ) {
 			return false;
 		}
 
 		// Validate the nonce and verify the user as permission to save.
-		if ( ! ( $this->has_valid_nonce() && current_user_can( 'manage_options' ) ) ) {
+		if ( ! ( $this->has_valid_nonce() && $this->has_permission() ) ) {
 			// TODO: Display an error message.
 			error_log('not validated!!!');
 			return false;
 		}
 
-		// Settings option retrieved from the database prior to saving.
-		$old_option = get_option( 'wpbr_settings', array() );
-
 		// Get the active tab and section from hidden fields in settings form.
-		$tab = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( wp_unslash( $_POST['wpbr_tab'] ) ) : '';
-		$section = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( wp_unslash( $_POST['wpbr_section'] ) ) : '';
+		$tab = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( $_POST['wpbr_tab'] ) : '';
+		$section = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( $_POST['wpbr_section'] ) : '';
+
+		/**
+		 * Get the relevant fields being saved based on active tab and section.
+		 * The framework is used to identify the type of field being saved in
+		 * order to validate and sanitize it appropriately.
+		 */
+		$framework_fields = $this->framework[ $tab ]['sections'][ $section ]['fields'];
 
 		// Get the settings posted by the user.
 		$post_settings = wp_unslash( $_POST['wpbr_settings'] );
 
-		// Get the relevant fields being saved based on active tab and section.
-		$fields = $this->framework[ $tab ]['sections'][ $section ]['fields'];
+		// Loop through settings and save fields.
+		foreach ( $post_settings as $field => $value ) {
+			if ( isset( $framework_fields[ $field ] ) && isset( $framework_fields[ $field ]['type']  ) ) {
+				$field_type = $framework_fields[ $field ]['type'];
+				$sanitized_value = $this->sanitize_field( $value );
+				$this->settings[ $field ] = $sanitized_value;
+			}
+		}
 
-		$new_option = array_merge( $old_option, $post_settings );
+		// Update the settings option in the database.
+		$this->update_settings_option();
 
-		update_option( 'wpbr_settings', $new_option );
-
+		// Redirect to page and section from which settings were saved.
 		$this->redirect();
 	}
 
 	/**
+	 * Sanitize text recursively.
+	 *
+	 * Arrays are cleaned recursively. Other non-scalar values return empty
+	 * string.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|array $var String or array.
+	 * @return string|array Sanitized string or array.
+	 */
+	function sanitize_field( $var ) {
+		if ( is_array( $var ) ) {
+			return array_map( array( $this, 'sanitize_field' ), $var );
+		}
+
+		return is_scalar( $var ) ? sanitize_text_field( $var ) : '';
+	}
+
+	/**
+	 * Updates the settings option in the database.
+	 *
+	 * Old settings are merged with new settings. Any settings that have
+	 * changed since last save will be updated. Unchanged settings are
+	 * preserved.
+	 *
+	 * @since 1.0.0
+	 */
+	private function update_settings_option() {
+		$settings_option = get_option( 'wpbr_settings', array() );
+
+		if ( ! empty( $settings_option ) ) {
+			// Merge saved settings with this object's settings.
+			$this->settings = array_merge( $settings_option, $this->settings );
+		}
+
+		update_option( 'wpbr_settings', $this->settings );
+
+		// TODO: Remove this error_log() before launch.
+		error_log( print_r( get_option( 'wpbr_settings' ), true ) );
+	}
+
+	/**
 	 * Determines if the nonce is valid.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @return boolean False if the field isn't set or the nonce value is
 	 *                 invalid; otherwise true.
@@ -491,8 +545,18 @@ class Settings_API {
 	}
 
 	/**
-	 * Redirect to page and section from which settings were saved. If referer
-	 * is not set, redirect to login page.
+	 * Determines if user has permissions to save settings.
+	 *
+	 * @since 1.0.0
+	 */
+	private function has_permission() {
+		return current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * Redirects to page and section from which settings were saved.
+	 *
+	 * If referer is not set, redirects to login page.
 	 *
 	 * @since 1.0.0
 	 */
@@ -512,10 +576,6 @@ class Settings_API {
 		}
 
 		wp_safe_redirect( urldecode( $url ) );
-
-		// TODO: Remove this error_log() before launch.
-		error_log( print_r( get_option( 'wpbr_settings' ), true ) );
-
 		exit;
 	}
 }
