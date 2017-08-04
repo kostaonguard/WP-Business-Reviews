@@ -41,7 +41,9 @@ class Admin_Menu {
 	 * @since 1.0.0
 	 */
 	public function add_pages() {
+		// TODO: Move Settings_API() instantiation to main Admin class.
 		$settings_api = new Settings_API();
+		$settings_api->init();
 
 		// Add Reviews Builder page.
 		$page_reviews_builder = new Pages\Admin_Page_Reviews_Builder( $settings_api );
@@ -51,7 +53,7 @@ class Admin_Menu {
 			__( 'Reviews Builder', 'wpbr' ),
 			__( 'Reviews Builder', 'wpbr' ),
 			'manage_options',
-			'wpbr-reviews-builder',
+			'wpbr_reviews_builder',
 			array( $page_reviews_builder, 'render_page' )
 		);
 
@@ -63,7 +65,7 @@ class Admin_Menu {
 			__( 'General Settings', 'wpbr' ),
 			__( 'Settings', 'wpbr' ),
 			'manage_options',
-			'wpbr-settings',
+			'wpbr_settings',
 			array( $page_settings, 'render_page' )
 		);
 
@@ -76,7 +78,7 @@ class Admin_Menu {
 			__( 'API Test', 'wpbr' ),
 			__( 'API Test', 'wpbr' ),
 			'manage_options',
-			'wpbr-api-test',
+			'wpbr_api_test',
 			array( $page_api_test, 'render_page' )
 		);
 	}
