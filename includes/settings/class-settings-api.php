@@ -108,10 +108,12 @@ class Settings_API {
 	 * @since 1.0.0
 	 */
 	public function init() {
-		// Save active section's fields.
-		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_section' ) );
-		// Display notices under the active section.
-		add_action( 'wpbr_settings_notices_' . $this->active_section, array( $this->notices, 'render_notices' ) );
+		if ( is_admin() ) {
+			// Save active section's fields.
+			add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_section' ) );
+			// Display notices under the active section.
+			add_action( 'wpbr_settings_notices_' . $this->active_section, array( $this->notices, 'render_notices' ) );
+		}
 	}
 
 	/**
