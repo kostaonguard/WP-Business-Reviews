@@ -267,7 +267,7 @@ class Post_Types {
 		} else {
 			$message  = __( 'Let\'s begin by connecting to at least one reviews platform.' , 'wpbr' );
 			$cta_text = __( 'Edit Settings', 'wpbr' );
-			$cta_link = admin_url( 'edit.php?post_type=wpbr_review&page=wpbr-settings' );
+			$cta_link = admin_url( 'edit.php?post_type=wpbr_review&page=wpbr_settings' );
 		}
 
 		ob_start();
