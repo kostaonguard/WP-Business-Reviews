@@ -68,11 +68,25 @@
 
 					<!-- Section -->
 					<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section js-wpbr-section" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
-						<h2 class="wpbr-panel__heading"><?php echo esc_html( $section_heading ); ?></h2>
-						<p class="wpbr-panel__description"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
+						<div class="wpbr-panel__header">
+							<h2 class="wpbr-panel__heading"><?php echo esc_html( $section_heading ); ?></h2>
+							<p class="wpbr-panel__description"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
+
+							<?php
+							/**
+							 * Triggers dynamic action using section ID.
+							 *
+							 * Useful for adding admin notices to a section such as
+							 * when saving setting succeed or fail.
+							 *
+							 * @since 1.0.0
+							 */
+							do_action( 'wpbr_settings_notices_' . $section_id );
+							?>
+						</div>
 
 						<?php if ( ! empty( $section['fields'] ) ) : ?>
-							<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+							<form method="post">
 								<input type="hidden" name="action" value="wpbr_settings_save">
 								<input type="hidden" name="wpbr_tab" value="<?php echo esc_attr( $tab_id ); ?>">
 								<input type="hidden" name="wpbr_section" value="<?php echo esc_attr( $section_id ); ?>">
