@@ -8,9 +8,9 @@
 
 namespace WP_Business_Reviews\Includes\Settings;
 
-// Exit if accessed directly.
-use WP_Business_Reviews\Includes\WP_Business_Reviews;
+use WP_Business_Reviews\Includes\Admin\Admin_Notices;
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -62,6 +62,33 @@ class Settings_API {
 	private $field_defaults;
 
 	/**
+	 * Active tab.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 * @access private
+	 */
+	private $active_tab;
+
+	/**
+	 * Active section.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 * @access private
+	 */
+	private $active_section;
+
+	/**
+	 * Admin notices.
+	 *
+	 * @since  1.0.0
+	 * @var    array
+	 * @access private
+	 */
+	private $notices;
+
+	/**
 	 * Sets up the settings framework.
 	 *
 	 * @since 1.0.0
@@ -70,6 +97,9 @@ class Settings_API {
 		$this->settings       = get_option( 'wpbr_settings', array() );
 		$this->framework      = $this->define_framework();
 		$this->field_defaults = $this->define_field_defaults();
+		$this->notices        = new Admin_Notices();
+		$this->active_tab     = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( $_POST['wpbr_tab'] ) : '';
+		$this->active_section = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( $_POST['wpbr_section'] ) : '';
 	}
 
 	/**
@@ -78,7 +108,10 @@ class Settings_API {
 	 * @since 1.0.0
 	 */
 	public function init() {
-		add_action( 'admin_post_wpbr_settings_save', array( $this, 'save_section' ) );
+		// Save active section's fields.
+		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_section' ) );
+		// Display notices under the active section.
+		add_action( 'wpbr_settings_notices_' . $this->active_section, array( $this->notices, 'render_notices' ) );
 	}
 
 	/**
@@ -346,7 +379,6 @@ class Settings_API {
 			'type' => 'text',
 			'default' => '',
 			'options' => array(),
-
 		);
 
 		return $field_defaults;
@@ -427,7 +459,7 @@ class Settings_API {
 	private function merge_default_settings() {
 		$default_settings = $this->get_default_settings();
 		$this->settings = array_merge( $default_settings, $this->settings );
-		$this->update_option;
+		$this->update_settings_option();
 	}
 
 	/**
@@ -440,46 +472,48 @@ class Settings_API {
 	 * @since 1.0.0
 	 */
 	public function save_section() {
-		// If settings, tab, or section are empty, return false.
-		if ( empty( $_POST['wpbr_settings'] ) || empty( $_POST['wpbr_tab'] ) || empty( $_POST['wpbr_section'] ) ) {
+		// If action is not set appropriately, return false.
+		if ( empty( $_POST['action'] ) || 'wpbr_settings_save' !== sanitize_text_field( $_POST['action'] )  ) {
 			return false;
 		}
 
-		// Validate the nonce and verify the user as permission to save.
-		if ( ! ( $this->has_valid_nonce() && $this->has_permission() ) ) {
-			// TODO: Display an error message.
-			error_log('not validated!!!');
+		// Validate nonce.
+		if ( ! $this->has_valid_nonce() ) {
+			$this->notices->add_notice( 'settings_nonce_error', 'error' );
 			return false;
 		}
 
-		// Get the active tab and section from hidden fields in settings form.
-		$tab = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( $_POST['wpbr_tab'] ) : '';
-		$section = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( $_POST['wpbr_section'] ) : '';
+		// Verify user has permission.
+		if ( ! $this->has_permission() ) {
+			$this->notices->add_notice( 'settings_permission_error', 'error' );
+			return false;
+		}
+
+		// Get active tab and section.
+		$active_tab     = $this->active_tab;
+		$active_section = $this->active_section;
+
+		// Get the settings posted by the user.
+		$posted_settings = ! empty( $_POST['wpbr_settings'] ) ? wp_unslash( $_POST['wpbr_settings'] ) : array();
 
 		/**
 		 * Get the relevant fields being saved based on active tab and section.
 		 * The framework is used to identify the type of field being saved in
 		 * order to validate and sanitize it appropriately.
 		 */
-		$framework_fields = $this->framework[ $tab ]['sections'][ $section ]['fields'];
-
-		// Get the settings posted by the user.
-		$post_settings = wp_unslash( $_POST['wpbr_settings'] );
+		$framework_fields = $this->framework[ $active_tab ]['sections'][ $active_section ]['fields'];
 
 		// Loop through settings and save fields.
-		foreach ( $post_settings as $field => $value ) {
-			if ( isset( $framework_fields[ $field ] ) && isset( $framework_fields[ $field ]['type']  ) ) {
-				$field_type = $framework_fields[ $field ]['type'];
-				$sanitized_value = $this->sanitize_field( $value );
-				$this->settings[ $field ] = $sanitized_value;
+		foreach ( $framework_fields as $field => $atts ) {
+			if ( ! empty( $posted_settings ) && isset( $posted_settings[ $field ] ) ) {
+				$this->settings[ $field ] = $this->sanitize_field( $posted_settings[ $field ] );
+			} else {
+				$this->settings[ $field ] = '';
 			}
 		}
 
 		// Update the settings option in the database.
 		$this->update_settings_option();
-
-		// Redirect to page and section from which settings were saved.
-		$this->redirect();
 	}
 
 	/**
@@ -504,21 +538,11 @@ class Settings_API {
 	/**
 	 * Updates the settings option in the database.
 	 *
-	 * Old settings are merged with new settings. Any settings that have
-	 * changed since last save will be updated. Unchanged settings are
-	 * preserved.
-	 *
 	 * @since 1.0.0
 	 */
 	private function update_settings_option() {
-		$settings_option = get_option( 'wpbr_settings', array() );
-
-		if ( ! empty( $settings_option ) ) {
-			// Merge saved settings with this object's settings.
-			$this->settings = array_merge( $settings_option, $this->settings );
-		}
-
-		update_option( 'wpbr_settings', $this->settings );
+		$updated_option = update_option( 'wpbr_settings', $this->settings );
+		$this->notices->add_notice( 'settings_update_success', 'success' );
 
 		// TODO: Remove this error_log() before launch.
 		error_log( print_r( get_option( 'wpbr_settings' ), true ) );
@@ -551,31 +575,5 @@ class Settings_API {
 	 */
 	private function has_permission() {
 		return current_user_can( 'manage_options' );
-	}
-
-	/**
-	 * Redirects to page and section from which settings were saved.
-	 *
-	 * If referer is not set, redirects to login page.
-	 *
-	 * @since 1.0.0
-	 */
-	private function redirect() {
-		// Redirect to login if referer not provided.
-		if ( ! isset( $_POST['_wp_http_referer'] ) ) {
-			wp_safe_redirect( wp_login_url() );
-		}
-
-		// Sanitize referer URL.
-		$url = sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) );
-
-		// Add section hash so user is redirected to the correct section of settings page.
-		if ( isset( $_POST['wpbr_section'] ) ) {
-			$section_hash = sanitize_text_field( $_POST['wpbr_section'] );
-			$url .= '#wpbr-section-' . $section_hash;
-		}
-
-		wp_safe_redirect( urldecode( $url ) );
-		exit;
 	}
 }
