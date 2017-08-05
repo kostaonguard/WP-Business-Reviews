@@ -4,15 +4,23 @@
 
 .wpbr-notice {
 	background-color: $wpbr-color-off-white;
-	border-color: $wpbr-color-dim;
-	border-style: solid;
-	border-width: 0 0 0 $wpbr-border-width * 8;
+	border-left: $wpbr-border-width * 8 solid $wpbr-color-dim;
 	display: block;
 	margin-bottom: $wpbr-space;
 	padding: $wpbr-space;
 
 	> :last-child {
 		margin-bottom: 0;
+	}
+
+	&--info {
+		background-color: $wpbr-color-info-light;
+		border-left-color: $wpbr-color-info;
+		color: $wpbr-color-info-dark;
+
+		a {
+			color: $wpbr-color-info-dark;
+		}
 	}
 
 	&--success {

@@ -53,7 +53,10 @@ $wpbr-color-off-white-light: lighten( $wpbr-color-off-white, 3 );
 // WordPress colors.
 $wpbr-wp-admin-background-color: #f1f1f1;
 
-// Alert colors.
+// Notice colors.
+$wpbr-color-info: $wpbr-color-blue;
+$wpbr-color-info-light: lighten( $wpbr-color-info, 36 );
+$wpbr-color-info-dark: darken( $wpbr-color-info, 30 );
 $wpbr-color-success: $wpbr-color-green;
 $wpbr-color-success-light: lighten( $wpbr-color-success, 36 );
 $wpbr-color-success-dark: darken( $wpbr-color-success, 30 );
