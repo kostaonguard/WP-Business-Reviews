@@ -37,8 +37,7 @@ class Admin_Header {
 		$current_screen = get_current_screen();
 
 		if ( ! empty( $current_screen->id ) && false !== strpos( $current_screen->id, 'wpbr_review_page' ) ) {
-			$view = WPBR_PLUGIN_DIR . 'includes/admin/views/wpbr-admin-header.php';
-			include $view;
+			include WPBR_PLUGIN_DIR . 'includes/admin/views/wpbr-admin-header.php';
 		}
 	}
 }
