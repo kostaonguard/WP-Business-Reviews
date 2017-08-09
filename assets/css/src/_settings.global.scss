@@ -14,6 +14,7 @@ $wpbr-global-line-height: 1.5;
 --------------------------------------------------------------*/
 
 $wpbr-space: 20px;
+$wpbr-space-eighth: $wpbr-space * 0.125;
 $wpbr-space-quarter: $wpbr-space * 0.25;
 $wpbr-space-half: $wpbr-space * 0.5;
 $wpbr-space-three-quarters: $wpbr-space * 0.75;
@@ -94,8 +95,8 @@ $wpbr-box-shadow: 0 $wpbr-box-shadow-distance $wpbr-box-shadow-distance transpar
 # Buttons
 --------------------------------------------------------------*/
 
-$wpbr-button-background-color: $wpbr-color-accent;
-$wpbr-button-background-color-hover: lighten( $wpbr-button-background-color, 3 );
+$wpbr-button-background-color: $wpbr-color-red;
+$wpbr-button-background-color-secondary: $wpbr-color-blue;
 $wpbr-button-color: $wpbr-color-white;
 $wpbr-button-border-radius: $wpbr-border-radius;
 $wpbr-button-border-width: $wpbr-border-width;

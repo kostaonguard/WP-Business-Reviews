@@ -24,6 +24,16 @@
 	&:hover,
 	&:focus,
 	&:active {
-		background-color: $wpbr-button-background-color-hover;
+		background-color: lighten( $wpbr-button-background-color, 3 );
+	}
+
+	&--secondary {
+		background-color: $wpbr-button-background-color-secondary;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: lighten( $wpbr-button-background-color-secondary, 3 );
+		}
 	}
 }
