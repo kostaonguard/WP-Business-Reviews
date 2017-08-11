@@ -230,14 +230,15 @@ class Settings_API {
 								),
 							),
 							'facebook'  => array(
-								'id'      => 'facebook',
-								'name'    => __( 'Facebook', 'wpbr' ),
-								'heading' => __( 'Facebook Reviews Settings', 'wpbr' ),
-								'desc'    => sprintf(
+								'id'          => 'facebook',
+								'name'        => __( 'Facebook', 'wpbr' ),
+								'heading'     => __( 'Facebook Reviews Settings', 'wpbr' ),
+								'desc'        => sprintf(
 									__( 'Need help? See docs on %sFacebook Reviews 101%s.', 'wbpr' ),
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
+								'save_button' => false,
 								/**
 								 * Filters the fields in the Facebook section.
 								 *
@@ -441,14 +442,15 @@ class Settings_API {
 						'wpbr_settings_sections_pro_features',
 						array(
 							'pro_features' => array(
-								'id'      => 'pro_features',
-								'name'    => __( 'Pro Features', 'wpbr' ),
-								'heading' => __( 'Pro Features', 'wpbr' ),
-								'desc'    => sprintf(
-									__( 'See a full %sFeatures Comparison%s.', 'wbpr' ),
+								'id'          => 'pro_features',
+								'name'        => __( 'Pro Features', 'wpbr' ),
+								'heading'     => __( 'Pro Features', 'wpbr' ),
+								'desc'        => sprintf(
+									__( 'Interested in going Pro? See a full %sFeatures Comparison%s.', 'wbpr' ),
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
+								'save_button' => false,
 								/**
 								 * Filters the fields in the Pro Features section.
 								 *
@@ -462,7 +464,7 @@ class Settings_API {
 										'pro_features_gallery' => array(
 											'id'   => 'pro_features_gallery',
 											'name' => __( 'Pro Features Gallery', 'wpbr' ),
-											'type' => 'view',
+											'type' => 'pro_features_gallery',
 										),
 									)
 								),
