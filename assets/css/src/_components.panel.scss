@@ -22,6 +22,7 @@
 
 	&__main {
 		display: flex;
+		flex: 1;
 		flex-direction: column;
 		order: 1;
 
@@ -31,44 +32,6 @@
 		}
 	}
 
-		&__section {
-			background-color: white;
-			border: $wpbr-border-width solid $wpbr-color-dim;
-			margin-bottom: $wpbr-space;
-			padding: $wpbr-space;
-
-			@media ( min-width: 768px ) {
-				border-width: 0;
-				margin-bottom: 0;
-			}
-
-			.js & {
-				@media ( min-width: 768px ) {
-					display: none;
-				}
-			}
-
-			.js &--active {
-				display: block;
-			}
-		}
-
-			&__header {
-				> :last-child {
-					margin-bottom: 0;
-				}
-			}
-
-				&__heading {
-					color: $wpbr-color-text;
-					margin: 0 0 $wpbr-space-half;
-				}
-
-				&__description {
-					font-size: 14px;
-					margin: 0 0 $wpbr-space;
-				}
-
 	&__sidebar {
 		display: none;
 
@@ -76,9 +39,46 @@
 			background-color: $wpbr-color-dim;
 			border-top: 0;
 			display: block;
-			flex-basis: 40%;
-			max-width: $wpbr-space * 10;
+			flex: 0 0 $wpbr-space * 10;
 			order: 0;
 		}
+	}
+
+	&__section {
+		background-color: white;
+		border: $wpbr-border-width solid $wpbr-color-dim;
+		margin-bottom: $wpbr-space;
+		padding: $wpbr-space;
+
+		@media ( min-width: 768px ) {
+			border-width: 0;
+			margin-bottom: 0;
+		}
+
+		.js & {
+			@media ( min-width: 768px ) {
+				display: none;
+			}
+		}
+
+		.js &--active {
+			display: block;
+		}
+	}
+
+	&__header {
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__heading {
+		color: $wpbr-color-text;
+		margin: 0 0 $wpbr-space-half;
+	}
+
+	&__description {
+		font-size: 14px;
+		margin: 0 0 $wpbr-space;
 	}
 }

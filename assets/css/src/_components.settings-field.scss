@@ -2,14 +2,23 @@
 # Settings-Field
 --------------------------------------------------------------*/
 
-/* tr */.wpbr-settings-field {
+.wpbr-settings-field {
+	border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+	padding: $wpbr-space 0;
+
 	@media ( min-width: 768px ) {
 		border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+		padding: $wpbr-space-double 0;
+		display: flex;
+
+		&:last-of-type {
+			border-bottom: 0;
+		}
 	}
 
 	&--submit {
 		border-bottom: 0;
-		padding-top: $wpbr-space-half;
+		padding: $wpbr-space-half 0 0;
 
 		@media ( min-width: 768px ) {
 			padding: $wpbr-space-double 0;
@@ -21,27 +30,62 @@
 		}
 	}
 
-	th {
-		padding-top: $wpbr-space-half;
+	&__name {
+		display: block;
+		flex: 0 0 $wpbr-space * 10;
+		font-size: 14px;
+		font-weight: 600;
+		margin-bottom: $wpbr-space-half;
 
 		@media ( min-width: 768px ) {
-			padding-top: $wpbr-space-double;
-		}
-
-		@media ( min-width: 783px ) {
-			padding: $wpbr-space-double 0;
+			margin-bottom: 0;
+			padding-right: $wpbr-space;
 		}
 	}
 
-	td {
-		padding-bottom: $wpbr-space-half;
+	&__content {
+		flex: 1;
+	}
 
-		@media ( min-width: 768px ) {
-			padding-bottom: $wpbr-space-double;
+	&__description {
+		font-style: italic;
+		margin: $wpbr-space-half 0 0;
+	}
+
+	&__options {
+		list-style: none;
+		margin: 0;
+	}
+
+	&__option {
+		display: flex;
+		margin-bottom: $wpbr-space-half;
+		padding: 0;
+
+		&:last-child {
+			margin-bottom: 0;
 		}
 
 		@media ( min-width: 783px ) {
-			padding: $wpbr-space-double 0;
+			margin-bottom: $wpbr-space-quarter;
+		}
+
+		input {
+			flex: 0 0 25px;
+			margin: 0 $wpbr-space-half 0 0;
+
+			@media ( min-width: 783px ) {
+				flex: 0 0 16px;
+			}
+		}
+
+		label {
+			margin-top: 3px;
+			flex: 1;
+
+			@media ( min-width: 783px ) {
+				margin-top: -1px;
+			}
 		}
 	}
 }
