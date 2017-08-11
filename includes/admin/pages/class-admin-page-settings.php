@@ -47,6 +47,9 @@ class Admin_Page_Settings extends Admin_Page {
 			case 'facebook_pages':
 				include $view_dir_url . 'field-facebook-pages.php';
 				break;
+			case 'pro_features_gallery':
+				include $view_dir_url . 'field-pro-features-gallery.php';
+				break;
 		}
 	}
 
