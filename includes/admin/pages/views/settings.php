@@ -70,7 +70,7 @@
 					<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section js-wpbr-section" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
 						<div class="wpbr-panel__header">
 							<h2 class="wpbr-panel__heading"><?php echo esc_html( $section_heading ); ?></h2>
-							<p class="wpbr-panel__description"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
+							<p class="wpbr-panel__description"><span class="dashicons dashicons-editor-help"  aria-hidden="true"></span> <?php echo wp_kses( $section_description, $allowed_html ); ?></p>
 
 							<?php
 							/**
