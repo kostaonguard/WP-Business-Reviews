@@ -50,16 +50,15 @@
 @import "components.admin-header"; // Admin header.
 @import "components.admin-page"; // Admin page container.
 @import "components.admin-callout"; // Admin callout.
-@import "components.button"; // Button used throughout plugin.
 
 .wpbr-admin-page {
+	@import "components.button"; // Button used throughout plugin.
 	@import "components.notice"; // Notices used throughout plugin.
 	@import "components.subtabs"; // Vertical tabbed navigation.
 	@import "components.panel"; // Settings panel.
 	@import "components.settings-field"; // Settings field.
 	@import "components.platform-status"; // Platform status.
 	@import "components.gallery"; // Multi-column gallery.
-	@import "components.card"; // Card.
 }
 
 /*--------------------------------------------------------------
