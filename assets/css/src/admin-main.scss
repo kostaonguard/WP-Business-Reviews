@@ -34,6 +34,11 @@
 # Elements - Unclassed HTML elements (type selectors).
 --------------------------------------------------------------*/
 
+.wpbr-admin-page {
+	@import "elements.a"; // Anchor elements.
+	@import "elements.input"; // Input elements.
+}
+
 /*--------------------------------------------------------------
 # Objects - Cosmetic-free design patterns.
 --------------------------------------------------------------*/
@@ -41,17 +46,21 @@
 /*--------------------------------------------------------------
 # Components - Designed components, chunks of UI.
 --------------------------------------------------------------*/
-
-@import "components.button"; // Button used throughout plugin.
-@import "components.notice"; // Notices used throughout plugin.
 @import "components.tabs"; // Horizontal tabbed navigation.
-@import "components.subtabs"; // Vertical tabbed navigation.
 @import "components.admin-header"; // Admin header.
 @import "components.admin-page"; // Admin page container.
 @import "components.admin-callout"; // Admin callout.
-@import "components.panel"; // Settings panel.
-@import "components.settings-field"; // Settings field.
-@import "components.platform-status"; // Platform status.
+@import "components.button"; // Button used throughout plugin.
+
+.wpbr-admin-page {
+	@import "components.notice"; // Notices used throughout plugin.
+	@import "components.subtabs"; // Vertical tabbed navigation.
+	@import "components.panel"; // Settings panel.
+	@import "components.settings-field"; // Settings field.
+	@import "components.platform-status"; // Platform status.
+	@import "components.gallery"; // Multi-column gallery.
+	@import "components.card"; // Card.
+}
 
 /*--------------------------------------------------------------
 # Utilities - Helpers and overrides.

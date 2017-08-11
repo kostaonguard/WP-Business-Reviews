@@ -18,7 +18,7 @@ gulp.task( 'styles', function () {
 	];
 
 	return gulp.src( 'assets/css/src/**/*.scss' )
-	           .pipe( sass() )
+	           .pipe( sass().on( 'error', sass.logError ) )
 	           .pipe( sourcemaps.init() )
 	           .pipe( postcss( plugins ) )
 	           .pipe( sourcemaps.write( '.' ) )
