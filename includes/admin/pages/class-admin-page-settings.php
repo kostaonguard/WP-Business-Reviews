@@ -45,7 +45,8 @@ class Admin_Page_Settings extends Admin_Page {
 				include $view_dir_url . 'field-radio-checkbox.php';
 				break;
 			case 'facebook_pages':
-				return null;
+				include $view_dir_url . 'field-facebook-pages.php';
+				break;
 		}
 	}
 
