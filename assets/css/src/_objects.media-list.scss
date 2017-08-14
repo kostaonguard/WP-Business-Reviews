@@ -1,0 +1,51 @@
+/*--------------------------------------------------------------
+# Media-List
+--------------------------------------------------------------*/
+
+.wpbr-media-list {
+	font-size: 14px;
+	margin: 0 0 $wpbr-space;
+	padding: 0;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&__item {
+		background: $wpbr-color-off-white;
+		display: flex;
+		margin: 0;
+
+		&:nth-child( even ) {
+			background: $wpbr-color-off-white-light;
+		}
+	}
+
+	&__link {
+		align-items: center;
+		display: flex;
+		padding: $wpbr-space-half;
+		text-decoration: none;
+		width: 100%;
+
+		&:hover,
+		&:focus,
+		&:active {
+			text-decoration: underline;
+		}
+	}
+
+	&__image {
+		height: auto;
+		margin-right: $wpbr-space;
+
+		&--avatar {
+			width: $wpbr-space-triple;
+		}
+	}
+
+	&__content {
+		flex: 1;
+		font-weight: 600;
+	}
+}

@@ -1,0 +1,31 @@
+/*--------------------------------------------------------------
+# Inline-List
+--------------------------------------------------------------*/
+
+.wpbr-inline-list {
+	font-size: 14px;
+	margin: 0 0 $wpbr-space;
+	padding: 0;
+
+	&:last-child {
+		margin-bottom: -$wpbr-space-half;
+	}
+
+	@media ( min-width: $wpbr-width-lap-small ) {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: $wpbr-space-half;
+
+		&:last-child {
+			margin-bottom: -$wpbr-space-half;
+		}
+	}
+
+	&__item {
+		margin: 0 0 $wpbr-space-half;
+
+		@media ( min-width: $wpbr-width-lap-small ) {
+			margin: 0 $wpbr-space-half $wpbr-space-half 0;
+		}
+	}
+}

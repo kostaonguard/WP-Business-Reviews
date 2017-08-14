@@ -43,6 +43,10 @@
 # Objects - Cosmetic-free design patterns.
 --------------------------------------------------------------*/
 
+@import "objects.media-list"; // List containing images and text.
+@import "objects.inline-list"; // Horizontal list.
+@import "objects.gallery"; // Multi-column gallery.
+
 /*--------------------------------------------------------------
 # Components - Designed components, chunks of UI.
 --------------------------------------------------------------*/
@@ -58,7 +62,6 @@
 	@import "components.panel"; // Settings panel.
 	@import "components.settings-field"; // Settings field.
 	@import "components.platform-status"; // Platform status.
-	@import "components.gallery"; // Multi-column gallery.
 }
 
 /*--------------------------------------------------------------

@@ -1,0 +1,41 @@
+/*--------------------------------------------------------------
+# Gallery
+--------------------------------------------------------------*/
+
+$gutter: $wpbr-space;
+$third-gutter-affordance: $gutter + ( $gutter * 1/3 );
+$half-gutter-affordance: $gutter + ( $gutter * 1/2 );
+$full-gutter-affordance: $gutter * 2;
+
+.wpbr-gallery {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+
+	@media ( min-width: $wpbr-width-lap-large ) {
+		margin-right: -$gutter;
+		margin-left: -$gutter;
+	}
+
+	&__item {
+		margin-bottom: $gutter * 2;
+
+		.wpbr-review-gallery--card & {
+			background-color: white;
+			border-radius: $wpbr-border-radius;
+			box-shadow: $wpbr-box-shadow;
+			margin-bottom: $gutter;
+			padding: $wpbr-space;
+		}
+
+		@media ( min-width: $wpbr-width-lap-large ) {
+			margin-left: $gutter;
+			width: calc( #{percentage(1/2)} - #{$half-gutter-affordance} );
+		}
+
+		@media ( min-width: $wpbr-width-desk-small ) {
+			width: calc( #{percentage(1/3)} - #{$third-gutter-affordance} );
+		}
+	}
+}
