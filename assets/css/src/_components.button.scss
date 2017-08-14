@@ -3,13 +3,13 @@
 --------------------------------------------------------------*/
 
 .wpbr-button {
-	background-color: $wpbr-button-background-color;
+	background-color: $wpbr-color-red;
 	border: 0;
 	border-radius: $wpbr-border-radius;
 	cursor: pointer;
 	display: inline-block;
 	line-height: $wpbr-space;
-	color: $wpbr-button-color;
+	color: $wpbr-color-white;
 	padding: $wpbr-space-half $wpbr-space;
 	text-align: center;
 	text-decoration: none;
@@ -18,22 +18,25 @@
 	&:hover,
 	&:focus,
 	&:active {
-		color: $wpbr-button-color;
+		color: $wpbr-color-white;
 	}
 
 	&:hover,
 	&:focus,
 	&:active {
-		background-color: lighten( $wpbr-button-background-color, 3 );
+		background-color: darken( $wpbr-color-red, 6 );
 	}
 
 	&--secondary {
-		background-color: $wpbr-button-background-color-secondary;
+		background-color: $wpbr-color-off-white-light;
+		border: $wpbr-border-width solid $wpbr-color-dim;
+		color: $wpbr-color-text;
 
 		&:hover,
 		&:focus,
 		&:active {
-			background-color: lighten( $wpbr-button-background-color-secondary, 3 );
+			background-color: darken( $wpbr-color-white, 6 );
+			color: $wpbr-color-text;
 		}
 	}
 }
