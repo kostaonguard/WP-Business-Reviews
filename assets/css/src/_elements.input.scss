@@ -54,4 +54,8 @@ input[type="radio"] {
 	border: $wpbr-border-width solid $wpbr-color-dim;
 	box-shadow: inset 0 0 $wpbr-space-eighth $wpbr-color-dim;
 	margin: -$wpbr-space-quarter $wpbr-space-quarter 0 0;
+
+	&:focus {
+		box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, .8);
+	}
 }
