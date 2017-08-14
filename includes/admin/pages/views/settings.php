@@ -88,18 +88,18 @@
 
 						<?php if ( ! empty( $section['fields'] ) ) : ?>
 							<form method="post">
+								<input type="hidden" name="action" value="wpbr_settings_save">
+								<input type="hidden" name="wpbr_tab" value="<?php echo esc_attr( $tab_id ); ?>">
+								<input type="hidden" name="wpbr_section" value="<?php echo esc_attr( $section_id ); ?>">
+
 								<?php
 								// Render settings fields.
 								array_map( array( $this, 'render_field' ), $section['fields'] );
 								?>
 
-								<input type="hidden" name="action" value="wpbr_settings_save">
-								<input type="hidden" name="wpbr_tab" value="<?php echo esc_attr( $tab_id ); ?>">
-								<input type="hidden" name="wpbr_section" value="<?php echo esc_attr( $section_id ); ?>">
-
 								<?php if ( $save_button ) : ?>
 									<?php wp_nonce_field( 'wpbr_settings_save', 'wpbr_settings_nonce' ); ?>
-									<div class="wpbr-settings-field wpbr-settings-field--submit">
+									<div class="wpbr-settings-field">
 										<button class="<?php esc_attr_e( 'wpbr-button', 'wpbr' ); ?>" type="submit" name="submit"  value="submit"><?php esc_attr_e( 'Save Changes', 'wpbr' ); ?></button>
 									</div>
 								<?php endif; ?>
