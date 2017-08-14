@@ -34,7 +34,7 @@ final class WP_Business_Reviews {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string
 	 */
 	protected $plugin_name;
 
@@ -43,9 +43,18 @@ final class WP_Business_Reviews {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string
 	 */
 	protected $version;
+
+	/**
+	 * The Settings API for the plugin.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @var    Settings_API
+	 */
+	protected $settings_api;
 
 	/**
 	 * Sets up the plugin.
@@ -65,6 +74,7 @@ final class WP_Business_Reviews {
 	 */
 	public function init() {
 		$this->load_assets();
+		$this->register_settings_api();
 		$this->register_post_types();
 
 		if ( is_admin() ) {
@@ -113,6 +123,17 @@ final class WP_Business_Reviews {
 		$assets->init();
 	}
 
+
+	/**
+	 * Registers the Settings API for the plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	private function register_settings_api() {
+		$this->settings_api = new Settings\Settings_API();
+		$this->settings_api->init();
+	}
+
 	/**
 	 * Loads assets such as scripts, styles, fonts, etc.
 	 *
@@ -132,7 +153,7 @@ final class WP_Business_Reviews {
 	 */
 	private function add_admin_pages() {
 		// Add admin menu pages.
-		$admin_menu = new Admin\Admin_Menu();
+		$admin_menu = new Admin\Admin_Menu( $this->settings_api );
 		$admin_menu->init();
 
 		// Add admin header.
@@ -143,4 +164,6 @@ final class WP_Business_Reviews {
 		$admin_footer = new Admin\Admin_Footer();
 		$admin_footer->init();
 	}
+
+
 }

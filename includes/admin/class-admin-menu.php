@@ -9,7 +9,6 @@
 namespace WP_Business_Reviews\Includes\Admin;
 
 use WP_Business_Reviews\Includes\Admin\Pages;
-use WP_Business_Reviews\Includes\Settings\Settings_API;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,6 +25,26 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin_Menu {
 	/**
+	 * The Settings API for the plugin.
+	 *
+	 * @since  1.0.0
+	 * @access protected
+	 * @var    Settings_API
+	 */
+	protected $settings_api;
+
+	/**
+	 * Provides the Settings API used in admin pages.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param Settings_API $settings_api Settings API for the plugin.
+	 */
+	public function __construct( $settings_api ) {
+		$this->settings_api = $settings_api;
+	}
+
+	/**
 	 * Hooks functionality responsible for building the admin menu.
 	 *
 	 * @since 1.0.0
@@ -41,9 +60,7 @@ class Admin_Menu {
 	 * @since 1.0.0
 	 */
 	public function add_pages() {
-		// TODO: Move Settings_API() instantiation to main Admin class.
-		$settings_api = new Settings_API();
-		$settings_api->init();
+		$settings_api = $this->settings_api;
 
 		// Add Reviews Builder page.
 		$page_reviews_builder = new Pages\Admin_Page_Reviews_Builder( $settings_api );
