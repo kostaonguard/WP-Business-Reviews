@@ -18,35 +18,35 @@
 		}
 	}
 
-		&__link {
-			background-color: $wpbr-color-off-white;
+	&__link {
+		background-color: $wpbr-color-off-white;
+		color: $wpbr-color-text;
+		display: block;
+		font-weight: 600;
+		line-height: $wpbr-space;
+		padding: $wpbr-space;
+		text-decoration: none;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: $wpbr-color-off-white-light;
 			color: $wpbr-color-text;
-			display: block;
-			font-weight: 700;
-			line-height: $wpbr-space;
-			padding: $wpbr-space;
-			text-decoration: none;
+		}
+
+		&--active {
+			background-color: $wpbr-color-white;
 
 			&:hover,
 			&:focus,
 			&:active {
-				background-color: $wpbr-color-off-white-light;
-				color: $wpbr-color-text;
-			}
-
-			&--active {
 				background-color: $wpbr-color-white;
-
-				&:hover,
-				&:focus,
-				&:active {
-					background-color: $wpbr-color-white;
-				}
-			}
-
-			// Remove focus outline on mousedown but maintain it for keyboard navigation.
-			&--mousedown:focus {
-				box-shadow: none;
 			}
 		}
+
+		// Remove focus outline on mousedown but maintain it for keyboard navigation.
+		&--mousedown:focus {
+			box-shadow: none;
+		}
+	}
 }
