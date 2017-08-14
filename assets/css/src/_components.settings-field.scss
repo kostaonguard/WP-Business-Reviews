@@ -6,27 +6,18 @@
 	border-bottom: $wpbr-border-width solid $wpbr-color-dim;
 	padding: $wpbr-space 0;
 
+	&:last-child {
+		border-bottom: 0;
+		padding: $wpbr-space 0 0;
+	}
+
 	@media ( min-width: 768px ) {
 		border-bottom: $wpbr-border-width solid $wpbr-color-dim;
 		padding: $wpbr-space-double 0;
 		display: flex;
 
-		&:last-of-type {
-			border-bottom: 0;
-		}
-	}
-
-	&--submit {
-		border-bottom: 0;
-		padding: $wpbr-space-half 0 0;
-
-		@media ( min-width: 768px ) {
-			padding: $wpbr-space-double 0;
-
-			// Adjust padding when save field appears at the end of a section.
-			&:last-child {
-				padding-bottom: $wpbr-space;
-			}
+		&:last-child {
+			padding: $wpbr-space-double 0 $wpbr-space;
 		}
 	}
 
