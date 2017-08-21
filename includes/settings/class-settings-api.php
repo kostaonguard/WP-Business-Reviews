@@ -160,6 +160,7 @@ class Settings_API {
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
+								'icon'    => 'gears',
 								/**
 								 * Filters the fields in the Platform section.
 								 *
@@ -199,6 +200,7 @@ class Settings_API {
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
+								'icon'    => 'status',
 								/**
 								 * Filters the fields in the Google section.
 								 *
@@ -238,6 +240,7 @@ class Settings_API {
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
+								'icon'        => 'status',
 								'save_button' => false,
 								/**
 								 * Filters the fields in the Facebook section.
@@ -274,6 +277,7 @@ class Settings_API {
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
+								'icon'    => 'status',
 								/**
 								 * Filters the fields in the Yelp section.
 								 *
@@ -313,6 +317,7 @@ class Settings_API {
 									'<a href="https://wpbusinessreviews.com/">',
 									'</a>'
 								),
+								'icon'    => 'status',
 								/**
 								 * Filters the fields in the YP section.
 								 *

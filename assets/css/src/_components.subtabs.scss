@@ -19,12 +19,14 @@
 	}
 
 	&__link {
+		align-items: center;
 		background-color: $wpbr-color-off-white;
 		color: $wpbr-color-text;
-		display: block;
+		display: flex;
 		font-weight: 600;
 		line-height: $wpbr-space;
 		padding: $wpbr-space;
+		position: relative;
 		text-decoration: none;
 
 		&:hover,

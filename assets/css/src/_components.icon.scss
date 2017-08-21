@@ -1,0 +1,31 @@
+/*--------------------------------------------------------------
+# Icon
+--------------------------------------------------------------*/
+
+.wpbr-icon {
+	&:before {
+		background-size: contain;
+		background-repeat: no-repeat;
+		content: '';
+		float: left;
+		height: $wpbr-space;
+		margin-right: $wpbr-space-quarter;
+		width: $wpbr-space;
+	}
+
+	&--gears:before {
+		background-image: url( "../images/icon-gears.png" );
+	}
+
+	&--success:before {
+		background-image: url( "../images/icon-success.png" );
+	}
+
+	&--error:before {
+		background-image: url( "../images/icon-error.png" );
+	}
+
+	&--question:before {
+		background-image: url( "../images/icon-question.png" );
+	}
+}

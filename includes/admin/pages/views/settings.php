@@ -37,9 +37,15 @@
 							<?php
 							$section_id   = ! empty( $section['id'] ) ? str_replace( '_', '-', $section['id'] ) : '';
 							$section_name = ! empty( $section['name'] ) ? $section['name'] : '';
+							$section_icon = ! empty( $section['icon'] ) ? $section['icon'] : 'gears';
+
+							if ( 'status' === $section_icon ) {
+								// Determine which status icon to display.
+								$section_icon = 'error';
+							}
 							?>
 							<li class="wpbr-subtabs__item">
-								<a id="wpbr-subtab-<?php echo esc_attr( $section_id ); ?>" class="wpbr-subtabs__link js-wpbr-subtab" href="#wpbr-section-<?php echo esc_attr( $section_id ); ?>" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
+								<a id="wpbr-subtab-<?php echo esc_attr( $section_id ); ?>" class="wpbr-subtabs__link wpbr-icon wpbr-icon--<?php echo esc_attr( $section_icon ); ?> js-wpbr-subtab" href="#wpbr-section-<?php echo esc_attr( $section_id ); ?>" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
 									<?php echo esc_html( $section_name ); ?>
 								</a>
 							</li>
@@ -71,7 +77,7 @@
 					<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section js-wpbr-section" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
 						<div class="wpbr-panel__header">
 							<h2 class="wpbr-panel__heading"><?php echo esc_html( $section_heading ); ?></h2>
-							<p class="wpbr-panel__description"><span class="dashicons dashicons-editor-help"  aria-hidden="true"></span> <?php echo wp_kses( $section_description, $allowed_html ); ?></p>
+							<p class="wpbr-panel__description wpbr-icon wpbr-icon--question"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
 
 							<?php
 							/**
