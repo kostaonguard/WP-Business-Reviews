@@ -1,7 +1,6 @@
 /*--------------------------------------------------------------
 # Tabs
 --------------------------------------------------------------*/
-
 .wpbr-tabs {
 	background-color: $wpbr-color-navy;
 	display: flex;
@@ -9,26 +8,21 @@
 	padding: 0 $wpbr-space;
 
 	&__item {
-		border-right: $wpbr-border-width solid $wpbr-color-navy-light;
-		margin-bottom: 0;
+		margin: 0;
 		display: flex;
 		flex-basis: $wpbr-space * 7;
-
-		&:first-child {
-			border-left: $wpbr-border-width solid $wpbr-color-navy-light;
-		}
 	}
 
 		&__link {
 			color: $wpbr-color-white;
 			display: flex;
 			flex-direction: column;
-			font-weight: 700;
 			justify-content: center;
 			line-height: $wpbr-space;
-			padding: $wpbr-space-three-quarters $wpbr-space;
+			padding: $wpbr-space;
 			text-align: center;
 			text-decoration: none;
+			transition-duration: 0s;
 			width: 100%;
 
 			&:hover,
@@ -36,16 +30,18 @@
 			&:active {
 				background-color: $wpbr-color-navy-light;
 				color: $wpbr-color-white;
+				z-index: 1;
 			}
 
 			&--active {
-				background-color: $wpbr-wp-admin-background-color;
+				background-color: $wpbr-color-off-white;
 				color: $wpbr-color-text;
+				font-weight: 600;
 
 				&:hover,
 				&:focus,
 				&:active {
-					background-color: $wpbr-wp-admin-background-color;
+					background-color: $wpbr-color-off-white;
 					color: $wpbr-color-text;
 				}
 			}

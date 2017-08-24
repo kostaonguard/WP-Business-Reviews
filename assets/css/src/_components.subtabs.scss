@@ -18,34 +18,54 @@
 		}
 	}
 
-	&__link {
+	.wpbr-admin &__link {
 		align-items: center;
-		background-color: $wpbr-color-off-white;
+		background-color: $wpbr-color-white;
 		color: $wpbr-color-text;
 		display: flex;
-		font-weight: 600;
 		line-height: $wpbr-space;
 		padding: $wpbr-space;
 		position: relative;
 		text-decoration: none;
+		transition-duration: 0s;
 
 		&:hover,
 		&:focus,
 		&:active {
-			background-color: $wpbr-color-off-white-light;
+			background-color: $wpbr-color-off-white;
 			color: $wpbr-color-text;
+			z-index: 1;
+		}
+
+		&:after {
+			background: $wpbr-color-blue;
+			content: '';
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 0;
+			transition: width 0.2s ease-out;
 		}
 
 		&--active {
 			background-color: $wpbr-color-white;
+			border-right: 0;
+			font-weight: 600;
 
 			&:hover,
 			&:focus,
 			&:active {
 				background-color: $wpbr-color-white;
 			}
+
+			&:after {
+				width: $wpbr-space-quarter;
+			}
 		}
 
+		&--error {
+			border-color: $wpbr-color-red;
 		}
 	}
 }
