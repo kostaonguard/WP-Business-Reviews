@@ -236,14 +236,4 @@ class Business {
 		// Insert or update post in database.
 		$this->post_id = wp_insert_post( $postarr );
 	}
-
-	/**
-	 * Inserts or updates existing business post based on remote API response.
-	 *
-	 * @since 1.0.0
-	 */
-	public function update_reviews_from_api() {
-		$this->set_properties_from_api();
-		$this->insert_post();
-	}
 }
