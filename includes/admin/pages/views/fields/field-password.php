@@ -2,7 +2,7 @@
 $att_id   = 'wpbr-' . str_replace( '_', '-', $field['id'] );
 $att_name = 'wpbr_settings[' . $field['id'] . ']';
 ?>
-<div class="wpbr-settings-field">
+<div class="wpbr-settings-field wpbr-settings-field--text">
 	<div class="wpbr-settings-field__name">
 		<label for="<?php echo esc_attr( $att_id ); ?>"><?php echo esc_html( $field['name'] ); ?></label>
 	</div>

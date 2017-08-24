@@ -1,4 +1,4 @@
-<div class="wpbr-settings-field">
+<div class="wpbr-settings-field wpbr-settings-field--platform-status">
 	<div class="wpbr-settings-field__name">
 		<span><?php echo esc_html( $field['name'] ); ?></span>
 	</div>
