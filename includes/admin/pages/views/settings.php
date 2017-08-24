@@ -106,7 +106,7 @@
 								<?php if ( $save_button ) : ?>
 									<?php wp_nonce_field( 'wpbr_settings_save', 'wpbr_settings_nonce' ); ?>
 									<div class="wpbr-settings-field">
-										<button class="<?php esc_attr_e( 'wpbr-button', 'wpbr' ); ?>" type="submit" name="submit"  value="submit"><?php esc_attr_e( 'Save Changes', 'wpbr' ); ?></button>
+										<button class="wpbr-admin-button button button-primary" type="submit" name="submit"  value="submit"><?php esc_attr_e( 'Save Changes', 'wpbr' ); ?></button>
 									</div>
 								<?php endif; ?>
 							</form>
