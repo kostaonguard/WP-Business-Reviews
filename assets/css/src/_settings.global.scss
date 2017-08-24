@@ -80,9 +80,9 @@ $wpbr-color-text-inverted: $wpbr-color-white;
 # Borders
 --------------------------------------------------------------*/
 
-$wpbr-border-width: 0.0625em;
-$wpbr-border-width-double: 2 * $wpbr-border-width;
-$wpbr-border-radius: 0.5em;
+$wpbr-border-width: $wpbr-space * 0.05;
+$wpbr-border-width-double: $wpbr-border-width * 2;
+$wpbr-border-radius: $wpbr-space-quarter;
 
 /*--------------------------------------------------------------
 # Box-Shadow
