@@ -46,9 +46,6 @@
 			}
 		}
 
-		// Remove focus outline on mousedown but maintain it for keyboard navigation.
-		&--mousedown:focus {
-			box-shadow: none;
 		}
 	}
 }

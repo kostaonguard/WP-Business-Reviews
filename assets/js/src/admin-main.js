@@ -124,37 +124,6 @@
 			} );
 		}
 
-		/**
-		 * @summary Attaches mousedown events to tabs and subtabs.
-		 *
-		 * Special styling may be applied to tabs on mousedown versus when
-		 * selected via keyboard navigation. For example, it may be desirable
-		 * to remove tab outlines on mousedown, but those outlines should remain
-		 * visible for accessibility when navigating by keyboard. The mousedown
-		 * modifier class makes such styling possible.
-		 *
-		 * @since 1.0.0
-		 */
-		function attachMousedownEvents() {
-			// Add modifier classes on mousedown.
-			$tabsList.on( 'mousedown', '.js-wpbr-tab', function ( event ) {
-				$( this ).addClass( 'wpbr-tabs__link--mousedown' );
-			} );
-
-			$subtabsList.on( 'mousedown', '.js-wpbr-subtab', function ( event ) {
-				$( this ).addClass( 'wpbr-subtabs__link--mousedown' );
-			} );
-
-			// Remove modifier classes on focusout.
-			$tabsList.on( 'focusout', '.js-wpbr-tab', function ( event ) {
-				$( this ).removeClass( 'wpbr-tabs__link--mousedown' );
-			} );
-
-			$subtabsList.on( 'focusout', '.js-wpbr-subtab', function ( event ) {
-				$( this ).removeClass( 'wpbr-subtabs__link--mousedown' );
-			} );
-		}
-
 		$( window ).on( "hashchange", function( e ) {
 			e.preventDefault();
 			console.log('changed');
@@ -163,6 +132,5 @@
 
 		initializeTabs();
 		attachClickEvents();
-		attachMousedownEvents();
 	}
 )( jQuery );
