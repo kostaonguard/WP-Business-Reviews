@@ -29,8 +29,8 @@
 			&:focus,
 			&:active {
 				background-color: $wpbr-color-navy-light;
+				box-shadow: none;
 				color: $wpbr-color-white;
-				z-index: 1;
 			}
 
 			&--active {
