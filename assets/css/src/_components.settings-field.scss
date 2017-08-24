@@ -31,6 +31,11 @@
 		@media ( min-width: 768px ) {
 			margin-bottom: 0;
 			padding-right: $wpbr-space;
+
+			.wpbr-settings-field--text &,
+			.wpbr-settings-field--facebook-pages & {
+				margin-top: $wpbr-space-half;
+			}
 		}
 	}
 
