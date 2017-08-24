@@ -4,4 +4,10 @@
 
 .wpbr-admin {
 	background-color: $wpbr-color-off-white;
+
+	// Change color of current menu item indicator to match background.
+	ul#adminmenu a.wp-has-current-submenu:after,
+	ul#adminmenu > li.current > a.current:after {
+		border-right-color: $wpbr-color-off-white;
+	}
 }
