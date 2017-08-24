@@ -1,0 +1,13 @@
+/*--------------------------------------------------------------
+# Admin-Button
+--------------------------------------------------------------*/
+
+/**
+ * Extends core .button styles on plugin pages within WP Admin.
+ *
+ * Example: class="wpbr-admin-button button button-primary"
+ */
+
+.wpbr-admin-page .wpbr-admin-button {
+	height: $wpbr-space-double;
+}
