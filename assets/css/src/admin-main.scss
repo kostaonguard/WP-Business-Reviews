@@ -52,6 +52,7 @@
 # Components - Designed components, chunks of UI.
 --------------------------------------------------------------*/
 
+@import "components.admin"; // Admin body class.
 @import "components.admin-header"; // Admin header.
 @import "components.tabs"; // Horizontal tabbed navigation.
 @import "components.admin-page"; // Admin page container.
