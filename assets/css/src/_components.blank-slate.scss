@@ -1,0 +1,49 @@
+/*--------------------------------------------------------------
+# Blank-Slate
+--------------------------------------------------------------*/
+
+.wpbr-blank-slate {
+	background: white;
+	border: 1px solid #e5e5e5;
+	box-shadow: 0 1px 1px rgba( 0,0,0,0.04 );
+	margin: 0 auto;
+	padding: 40px;
+	text-align: center;
+
+	:last-child {
+		margin-bottom: 0;
+	}
+
+	&__heading,
+	&__message,
+	&__cta,
+	&__help {
+		margin: 0 0 10px;
+	}
+
+	&__image {
+		display: block;
+		height: 80px;
+		margin: 0 auto 10px;
+		width: auto;
+	}
+
+	&__cta {
+		display: inline-block;
+	}
+
+	&__help {
+		color: #666;
+		font-style: italic;
+
+		a {
+			display: inline-block;
+			text-decoration: underline;
+		}
+	}
+}
+
+// Extra selectors needed to override WP Core styles.
+.wpbr-blank-slate a.wpbr-blank-slate__cta {
+	display: inline-block;
+}

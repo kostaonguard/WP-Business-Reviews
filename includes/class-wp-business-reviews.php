@@ -80,6 +80,7 @@ final class WP_Business_Reviews {
 		if ( is_admin() ) {
 			$this->add_admin_pages();
 			add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
+			add_action( 'current_screen', array( $this, 'init_blank_slate' ) );
 		}
 	}
 
@@ -119,6 +120,20 @@ final class WP_Business_Reviews {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Initializes blank slate that appears in place of empty list tables.
+	 *
+	 * @since    1.0.0
+	 */
+	public function init_blank_slate() {
+		$screen_id   = get_current_screen()->id;
+
+		if ( 'edit-wpbr_review' === $screen_id ) {
+			$blank_slate = new Admin\Blank_Slate( $screen_id );
+			$blank_slate->init();
+		}
 	}
 
 	/**
@@ -182,6 +197,4 @@ final class WP_Business_Reviews {
 		$admin_footer = new Admin\Admin_Footer();
 		$admin_footer->init();
 	}
-
-
 }
