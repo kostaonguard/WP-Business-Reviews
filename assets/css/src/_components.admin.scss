@@ -1,13 +1,7 @@
 /*--------------------------------------------------------------
-# Admin-Page
+# Admin
 --------------------------------------------------------------*/
 
-.wpbr-admin-page {
+.wpbr-admin {
 	background-color: $wpbr-color-off-white;
-	color: $wpbr-color-text;
-	padding: $wpbr-space;
-
-	* {
-		box-sizing: border-box;
-	}
 }

@@ -13,13 +13,10 @@ body[class*="wpbr_review_page"] #wpcontent {
 	width: 18px;
 }
 
-// Checkbox and radio settings fields.
-.wpbr-admin-page {
-	.form-table th {
-		color: $wpbr-color-text;
-	}
-
-	code {
-		background-color: $wpbr-color-off-white;
+// Change color of current menu item indicator to match background.
+.wpbr-admin {
+	ul#adminmenu a.wp-has-current-submenu:after,
+	ul#adminmenu > li.current > a.current:after {
+		border-right-color: $wpbr-color-off-white;
 	}
 }
