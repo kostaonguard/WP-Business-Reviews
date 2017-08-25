@@ -1,0 +1,21 @@
+/*--------------------------------------------------------------
+# Admin-Banner
+--------------------------------------------------------------*/
+
+.wpbr-admin-banner {
+	background-color: $wpbr-color-blue-dark;
+	box-sizing: border-box;
+	padding: $wpbr-space;
+	position: relative;
+	top: 46px;
+	width: 100%;
+
+	@media ( min-width: 601px ) {
+		top: 0;
+	}
+
+	&__logo {
+		display: block;
+		height: 3 * $wpbr-space;
+	}
+}

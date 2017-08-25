@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Admin_Header class
+ * Defines the Admin_Banner class
  *
  * @package WP_Business_Reviews\Includes\Admin
  * @since   1.0.0
@@ -14,13 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Creates the admin header for the plugin.
+ * Creates the admin banner for the plugin.
  *
  * @since 1.0.0
  */
-class Admin_Header {
+class Admin_Banner {
 	/**
-	 * Hooks functionality responsible for rendering the admin header.
+	 * Hooks functionality responsible for rendering the admin banner.
 	 *
 	 * @since  1.0.0
 	 */
@@ -29,7 +29,7 @@ class Admin_Header {
 	}
 
 	/**
-	 * Renders the admin header.
+	 * Renders the admin banner.
 	 *
 	 * @since 1.0.0
 	 */
@@ -37,7 +37,7 @@ class Admin_Header {
 		$current_screen = get_current_screen();
 
 		if ( ! empty( $current_screen->id ) && false !== strpos( $current_screen->id, 'wpbr_review_page' ) ) {
-			include WPBR_PLUGIN_DIR . 'includes/admin/views/wpbr-admin-header.php';
+			include WPBR_PLUGIN_DIR . 'includes/admin/views/wpbr-admin-banner.php';
 		}
 	}
 }

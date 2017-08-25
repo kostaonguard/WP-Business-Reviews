@@ -189,8 +189,8 @@ final class WP_Business_Reviews {
 		$admin_menu = new Admin\Admin_Menu( $this->settings_api );
 		$admin_menu->init();
 
-		// Add admin header.
-		$admin_header = new Admin\Admin_Header();
+		// Add admin banner.
+		$admin_header = new Admin\Admin_Banner();
 		$admin_header->init();
 
 		// Add admin footer.

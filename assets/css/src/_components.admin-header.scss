@@ -1,21 +1,19 @@
 /*--------------------------------------------------------------
-# Admin-Header
+# Admin-Heading
 --------------------------------------------------------------*/
 
 .wpbr-admin-header {
-	background-color: $wpbr-color-blue-dark;
-	box-sizing: border-box;
-	padding: $wpbr-space;
-	position: relative;
-	top: 46px;
-	width: 100%;
-
-	@media ( min-width: 601px ) {
-		top: 0;
+	> :last-child {
+		margin-bottom: 0;
 	}
 
-	&__logo {
-		display: block;
-		height: 3 * $wpbr-space;
+	&__heading {
+		color: $wpbr-color-text;
+		margin: 0 0 $wpbr-space-half;
+	}
+
+	&__subheading {
+		font-size: 14px;
+		margin: 0 0 $wpbr-space;
 	}
 }
