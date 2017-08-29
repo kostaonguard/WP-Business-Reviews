@@ -3,29 +3,20 @@
 --------------------------------------------------------------*/
 
 .wpbr-inline-list {
-	font-size: 14px;
-	margin: 0 0 $wpbr-space;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 0 $wpbr-space-half;
 	padding: 0;
 
 	&:last-child {
 		margin-bottom: -$wpbr-space-half;
 	}
 
-	@media ( min-width: $wpbr-width-lap-small ) {
-		display: flex;
-		flex-wrap: wrap;
-		margin-bottom: $wpbr-space-half;
+	&__item {
+		margin: 0 $wpbr-space-half $wpbr-space-half 0;
 
 		&:last-child {
-			margin-bottom: -$wpbr-space-half;
-		}
-	}
-
-	&__item {
-		margin: 0 0 $wpbr-space-half;
-
-		@media ( min-width: $wpbr-width-lap-small ) {
-			margin: 0 $wpbr-space-half $wpbr-space-half 0;
+			margin-right: 0;
 		}
 	}
 }
