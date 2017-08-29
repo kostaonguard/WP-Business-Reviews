@@ -79,12 +79,12 @@ abstract class Request {
 	 * @param array  $url_params Optional. URL parameters.
 	 * @param array  $args       Optional. Arguments for wp_safe_remote_get().
 	 *
-	 * @return array|WP_Error|null API response or WP_Error on failure.
+	 * @return array|WP_Error|false API response or WP_Error on failure.
 	 */
 	protected function request( $path = '', $url_params = array(), $args = array() ) {
 		// Ensure host is set to make a request.
 		if ( empty( $this->api_host ) ) {
-			return null;
+			return false;
 		}
 
 		// Build the request URL (host + path).
