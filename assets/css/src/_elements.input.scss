@@ -2,60 +2,7 @@
 # Input
 --------------------------------------------------------------*/
 
-input[type="color"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="time"],
-input[type="url"],
-input[type="week"],
-textarea {
-	background: $wpbr-color-white;
-	border: $wpbr-border-width solid $wpbr-color-dim;
-	box-shadow: inset 0 0 $wpbr-space-eighth $wpbr-color-dim;
-	color: $wpbr-color-text;
-	display: block;
-	height: 40px;
-	margin: 0;
-	max-width: $wpbr-space * 20;
-	width: 100%;
-
-	&:focus {
-		box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, .8);
-
-	}
-}
-
-input[type="color"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="time"],
-input[type="url"],
-input[type="week"] {
-	padding: 0 $wpbr-space-half;
-}
-
 input[type="checkbox"],
 input[type="radio"] {
-	background: $wpbr-color-white;
-	border: $wpbr-border-width solid $wpbr-color-dim;
-	box-shadow: inset 0 0 $wpbr-space-eighth $wpbr-color-dim;
 	margin: 0 $wpbr-space-half 0 0;
-
-	&:focus {
-		box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, .8);
-	}
 }

@@ -4,10 +4,10 @@
 
 .wpbr-notice {
 	background-color: $wpbr-color-off-white;
-	border-left: $wpbr-space-quarter solid $wpbr-color-dim;
+	border-left: $wpbr-space-fifth solid $wpbr-color-dim;
 	display: block;
 	margin-bottom: $wpbr-space;
-	padding: $wpbr-space;
+	padding: $wpbr-space-three-quarters $wpbr-space;
 
 	> :last-child {
 		margin-bottom: 0;

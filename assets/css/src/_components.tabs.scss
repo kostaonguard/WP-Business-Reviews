@@ -13,37 +13,39 @@
 		flex-basis: $wpbr-space * 7;
 	}
 
-		&__link {
+	.wpbr-admin &__link {
+		color: $wpbr-color-white;
+		display: flex;
+		flex-direction: column;
+		font-size: 14px;
+		justify-content: center;
+		line-height: $wpbr-space;
+		padding: $wpbr-space-three-quarters $wpbr-space;
+		position: relative;
+		text-align: center;
+		text-decoration: none;
+		transition-duration: 0s;
+		width: 100%;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: $wpbr-color-navy-light;
+			box-shadow: none;
 			color: $wpbr-color-white;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			line-height: $wpbr-space;
-			padding: $wpbr-space;
-			text-align: center;
-			text-decoration: none;
-			transition-duration: 0s;
-			width: 100%;
+		}
+
+		&--active {
+			background-color: $wpbr-color-off-white;
+			color: $wpbr-color-text;
+			font-weight: 600;
 
 			&:hover,
 			&:focus,
 			&:active {
-				background-color: $wpbr-color-navy-light;
-				box-shadow: none;
-				color: $wpbr-color-white;
-			}
-
-			&--active {
 				background-color: $wpbr-color-off-white;
 				color: $wpbr-color-text;
-				font-weight: 600;
-
-				&:hover,
-				&:focus,
-				&:active {
-					background-color: $wpbr-color-off-white;
-					color: $wpbr-color-text;
-				}
 			}
 		}
+	}
 }

@@ -20,11 +20,12 @@
 
 	.wpbr-admin &__link {
 		align-items: center;
-		background-color: $wpbr-color-white;
+		background-color: $wpbr-color-off-white-light;
 		color: $wpbr-color-text;
 		display: flex;
+		font-size: 14px;
 		line-height: $wpbr-space;
-		padding: $wpbr-space;
+		padding: $wpbr-space-three-quarters $wpbr-space;
 		position: relative;
 		text-decoration: none;
 		transition-duration: 0s;
@@ -49,7 +50,7 @@
 		}
 
 		&--active {
-			border-right: 0;
+			background-color: $wpbr-color-white;
 			font-weight: 600;
 
 			&:hover,
@@ -59,7 +60,7 @@
 			}
 
 			&:after {
-				width: $wpbr-space-quarter;
+				width: $wpbr-space-fifth;
 			}
 		}
 
