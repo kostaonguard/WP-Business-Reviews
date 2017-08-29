@@ -12,12 +12,12 @@
 	}
 
 	&__item {
-		background: $wpbr-color-off-white;
+		background: $wpbr-color-off-white-light;
 		display: flex;
 		margin: 0;
 
 		&:nth-child( even ) {
-			background: $wpbr-color-off-white-light;
+			background: $wpbr-color-white;
 		}
 	}
 
