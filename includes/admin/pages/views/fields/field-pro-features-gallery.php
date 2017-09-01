@@ -1,7 +1,7 @@
-<div class="wpbr-settings-field wpbr-settings-field--pro-features">
-	<ul class="wpbr-gallery wpbr-gallery--third">
+<div class="wpbr-field wpbr-field--pro-features<?php echo ! empty( $class ) ? ' ' . esc_attr( $class ) : ''; ?>">
+	<ul class="wpbr-gallery">
 		<?php for ( $features = 1; $features <= 6; $features ++ ) : ?>
-			<li class="wpbr-gallery__item">
+			<li class="wpbr-gallery__item wpbr-gallery__item--3">
 				<div class="wpbr-card">
 					<div class="wpbr-card__image"></div>
 					<div class="wpbr-card__content">

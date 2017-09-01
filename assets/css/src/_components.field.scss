@@ -1,51 +1,69 @@
 /*--------------------------------------------------------------
-# Settings-Field
+# Field
 --------------------------------------------------------------*/
 
-.wpbr-settings-field {
-	border-bottom: $wpbr-border-width solid $wpbr-color-dim;
-	padding: $wpbr-space 0;
+.wpbr-field {
+	padding-bottom: $wpbr-space;
 
 	&:last-child {
-		border-bottom: 0;
-		padding: $wpbr-space 0 0;
+		padding-bottom: 0;
 	}
 
-	@media ( min-width: 768px ) {
+	&--setting {
 		border-bottom: $wpbr-border-width solid $wpbr-color-dim;
-		padding: $wpbr-space-double 0;
-		display: flex;
+		padding: $wpbr-space 0;
 
 		&:last-child {
-			padding: $wpbr-space-double 0 $wpbr-space;
+			border-bottom: 0;
+			padding: $wpbr-space 0 0;
+		}
+
+		@media ( min-width: 768px ) {
+			border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+			padding: $wpbr-space-double 0;
+			display: flex;
+			flex-wrap: wrap;
+
+			&:last-child {
+				padding: $wpbr-space-double 0 $wpbr-space;
+			}
 		}
 	}
 
 	&__name {
 		display: block;
-		flex: 0 0 $wpbr-space * 10;
 		font-size: 14px;
 		font-weight: 600;
 		margin-bottom: $wpbr-space-half;
 
-		@media ( min-width: 768px ) {
-			margin-bottom: 0;
-			padding-right: $wpbr-space;
+		.wpbr-field--setting & {
+			@media ( min-width: 768px ) {
+				flex: 0 0 $wpbr-space * 10;
+				margin-bottom: 0;
+				padding-right: $wpbr-space;
 
-			.wpbr-settings-field--text &,
-			.wpbr-settings-field--facebook-pages & {
-				margin-top: $wpbr-space-quarter;
+				.wpbr-settings-field--text &,
+				.wpbr-settings-field--facebook-pages & {
+					margin-top: $wpbr-space-quarter;
+				}
 			}
 		}
 	}
 
-	&__content {
+	&__control {
 		flex: 1;
 	}
 
 	&__description {
 		font-style: italic;
 		margin: $wpbr-space-half 0 0;
+
+		.wpbr-field--setting & {
+			@media ( min-width: 768px ) {
+				flex: 0 0 100%;
+				padding-left: $wpbr-space * 10;
+			}
+		}
 	}
 
 	&__options {

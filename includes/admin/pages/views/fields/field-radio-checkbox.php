@@ -1,12 +1,10 @@
-<div class="wpbr-settings-field wpbr-settings-field--radio-checkbox">
-	<div class="wpbr-settings-field__name">
-		<span><?php echo esc_html( $field['name'] ); ?></span>
-	</div>
-	<div class="wpbr-settings-field__content">
+<div class="wpbr-field wpbr-field--radio-checkbox<?php echo ! empty( $class ) ? ' ' . esc_attr( $class ) : ''; ?>">
+	<span class="wpbr-field__name"><?php echo esc_html( $field['name'] ); ?></span>
+	<div class="wpbr-field__control">
 		<?php if ( ! empty( $field['options'] ) ) : ?>
-			<fieldset class="wpbr-settings-field__fieldset">
-				<legend class="wpbr-settings-field__legend screen-reader-text"><?php echo esc_html( $field['name'] ); ?></legend>
-				<ul class="wpbr-settings-field__options">
+			<fieldset class="wpbr-field__fieldset">
+				<legend class="wpbr-field__legend screen-reader-text"><?php echo esc_html( $field['name'] ); ?></legend>
+				<ul class="wpbr-field__options">
 					<?php foreach ( $field['options'] as $att_value => $label ) : ?>
 						<?php
 						// Set input attributes.
@@ -23,7 +21,7 @@
 							$checked = $att_value === $saved_value ? true : false;
 						}
 						?>
-							<li class="wpbr-settings-field__option">
+							<li class="wpbr-field__option">
 								<input id="<?php echo esc_attr( $att_id ); ?>" type="<?php echo esc_attr( $att_type ); ?>"
 								       name="<?php echo esc_attr( $att_name ); ?>"
 								       value="<?php echo esc_attr( $att_value ); ?>" <?php checked( $checked ); ?>>
@@ -35,9 +33,8 @@
 				</ul>
 			</fieldset>
 		<?php endif; ?>
-
-		<?php if ( ! empty( $field['desc'] ) ) : ?>
-			<p class="wpbr-settings-field__description"><?php $this->render_field_description( $field['desc'] ); ?></p>
-		<?php endif; ?>
 	</div>
+	<?php if ( ! empty( $field['desc'] ) ) : ?>
+		<p class="wpbr-field__description"><?php $this->render_field_description( $field['desc'] ); ?></p>
+	<?php endif; ?>
 </div>
