@@ -28,6 +28,7 @@
 		order: 1;
 
 		@media ( min-width: 768px ) {
+			background: $wpbr-color-white;
 			flex-grow: 1;
 			margin-bottom: 0;
 		}
@@ -54,7 +55,7 @@
 
 		@media ( min-width: 768px ) {
 			border-width: 0;
-			box-shadow: 0;
+			box-shadow: none;
 			margin-bottom: 0;
 		}
 
