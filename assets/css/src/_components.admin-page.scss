@@ -6,6 +6,11 @@
 	background-color: $wpbr-color-off-white;
 	color: $wpbr-color-text;
 	padding: $wpbr-space;
+	transition: background-color 0.2s ease-out;
+
+	&--dark {
+		background: #23282d;
+	}
 
 	* {
 		box-sizing: border-box;
