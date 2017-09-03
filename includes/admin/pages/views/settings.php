@@ -75,9 +75,9 @@
 
 					<!-- Section -->
 					<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section js-wpbr-section" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
-						<div class="wpbr-panel__header">
-							<h2 class="wpbr-panel__heading"><?php echo esc_html( $section_heading ); ?></h2>
-							<p class="wpbr-panel__description wpbr-icon wpbr-icon--question"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
+						<div class="wpbr-admin-header">
+							<h2 class="wpbr-admin-header__heading"><?php echo esc_html( $section_heading ); ?></h2>
+							<p class="wpbr-admin-header__subheading wpbr-icon wpbr-icon--question"><?php echo wp_kses( $section_description, $allowed_html ); ?></p>
 
 							<?php
 							/**
