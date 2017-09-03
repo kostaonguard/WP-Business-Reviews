@@ -21,36 +21,37 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin_Page_Settings extends Admin_Page {
 	private function render_field( $field ) {
-		// Set field defaults.
-
 		$defaults = array(
-
+			// TODO: Set field defaults.
 		);
 
 		// Get value of the field setting from database.
 		$saved_value = $this->settings_api->get_setting( $field['id'] );
 
-		// Set directory from which field views will be rendered.
-		$view_dir_url  = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/fields/';
+		$view         = '';
+		$view_dir_url = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/fields/';
+		$class        = 'wpbr-field--setting';
 
 		switch ( $field['type'] ) {
-			case 'password':
-				include $view_dir_url . 'field-password.php';
+			case 'text':
+				$view = 'text';
 				break;
 			case 'platform_status':
-				include $view_dir_url . 'field-platform-status.php';
+				$view = 'platform-status';
 				break;
 			case 'radio':
 			case 'checkbox':
-				include $view_dir_url . 'field-radio-checkbox.php';
+				$view = 'radio-checkbox';
 				break;
 			case 'facebook_pages':
-				include $view_dir_url . 'field-facebook-pages.php';
+				$view = 'facebook-pages';
 				break;
 			case 'pro_features_gallery':
-				include $view_dir_url . 'field-pro-features-gallery.php';
+				$view = 'pro-features-gallery';
 				break;
 		}
+
+		include $view_dir_url . 'field-' . $view . '.php';
 	}
 
 	private function render_field_description( $description ) {
