@@ -1,0 +1,15 @@
+/*--------------------------------------------------------------
+# Card-Theme
+--------------------------------------------------------------*/
+
+.wpbr-theme--card {
+	.wpbr-review {
+		@include wpbr-card();
+	}
+}
+
+.wpbr-theme--seamless-dark {
+	* {
+		color: white !important;
+	}
+}

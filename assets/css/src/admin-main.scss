@@ -64,6 +64,12 @@
 @import "components.card"; // Solid card with drop shadow.
 
 /*--------------------------------------------------------------
+# Themes - Styles that override many components.
+--------------------------------------------------------------*/
+
+@import "themes.card"; // Card theme.
+
+/*--------------------------------------------------------------
 # Utilities - Helpers and overrides.
 --------------------------------------------------------------*/
 
