@@ -226,7 +226,7 @@ class Settings_API {
 												'<a href="https://wpbusinessreviews.com/">',
 												'</a>'
 											),
-											'type' => 'password',
+											'type' => 'text',
 										),
 									)
 								),
@@ -298,12 +298,12 @@ class Settings_API {
 										'yelp_client_id'       => array(
 											'id'   => 'yelp_client_id',
 											'name' => __( 'Yelp Client ID', 'wpbr' ),
-											'type' => 'password',
+											'type' => 'text',
 										),
 										'yelp_client_secret'   => array(
 											'id'   => 'yelp_client_secret',
 											'name' => __( 'Yelp Client Secret', 'wpbr' ),
-											'type' => 'password',
+											'type' => 'text',
 										),
 									)
 								),
@@ -338,7 +338,7 @@ class Settings_API {
 										'api_key_yp'         => array(
 											'id'   => 'api_key_yp',
 											'name' => __( 'YP API Key', 'wpbr' ),
-											'type' => 'password',
+											'type' => 'text',
 										),
 									)
 								),
