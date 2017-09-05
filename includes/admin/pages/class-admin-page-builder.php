@@ -8,20 +8,20 @@
 
 namespace WP_Business_Reviews\Includes\Admin\Pages;
 
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+use WP_Business_Reviews\Includes\Admin\Builder\Builder_Controls;
+use WP_Business_Reviews\Includes\Admin\Builder\Builder_Preview;
 
 /**
- * Creates the Reviews Builder page for the plugin.
+ * Creates the Builder page for the plugin.
  *
  * @since 1.0.0
- * @see Admin_Page
+ * @see   Admin_Page
  */
 class Admin_Page_Builder extends Admin_Page {
 	public function render_page() {
-		$view = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/builder.php';
+		$builder_controls = new Builder_Controls( 'builder-config' );
+		$builder_preview  = new Builder_Preview();
+		$view             = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/page-builder.php';
 		include $view;
 	}
 }
