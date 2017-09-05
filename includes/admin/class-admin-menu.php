@@ -63,7 +63,7 @@ class Admin_Menu {
 		$settings_api = $this->settings_api;
 
 		// Add Reviews Builder page.
-		$page_reviews_builder = new Pages\Admin_Page_Reviews_Builder( $settings_api );
+		$page_builder = new Pages\Admin_Page_Builder( $settings_api );
 
 		add_submenu_page(
 			'edit.php?post_type=wpbr_review',
@@ -71,7 +71,7 @@ class Admin_Menu {
 			__( 'Reviews Builder', 'wpbr' ),
 			'manage_options',
 			'wpbr_reviews_builder',
-			array( $page_reviews_builder, 'render_page' )
+			array( $page_builder, 'render_page' )
 		);
 
 		// Pass settings object to settings page.
