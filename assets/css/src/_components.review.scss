@@ -12,7 +12,7 @@
 
 .wpbr-review {
 	border: 1px solid transparent;
-	padding: $wpbr-space;
+	font-size: 1em;
 	transition: all 0.2s ease-out;
 
 	& :last-child {
@@ -25,10 +25,21 @@
 		margin-bottom: $wpbr-space-half;
 	}
 	&__image { /* [2] */
-		border-radius: 999em;
+		background-size: contain;
+		background-image: url( '../images/demo-user-placeholder-solid.png' );
 		flex-basis: $wpbr-space * 3;
 		flex-shrink: 0;
+		height: $wpbr-space * 3;
+		margin-right: $wpbr-space-half;
 		overflow: hidden;
+
+		.wpbr-theme--seamless-light & {
+			background-image: url( '../images/demo-user-placeholder-solid.png' );
+		}
+
+		.wpbr-admin--seamless-dark & {
+			background-image: url( '../images/demo-user-placeholder-white.png' );
+		}
 
 		img {
 			display: block;
@@ -38,12 +49,10 @@
 
 	&__details { /* [3] */
 		flex-grow: 1;
-		margin-left: $wpbr-space-half;
 		overflow: hidden;
 	}
 
 	&__name {
-		//font-size: ms( 0 );
 		font-size: 1em;
 		color: $wpbr-color-text;
 		margin: 0 0 $wpbr-space * .125;
@@ -51,7 +60,7 @@
 
 	&__timestamp {
 		display: block;
-		//font-size: ms( -1 );
+		font-size: 1em;
 		font-size: 75%;
 		font-style: italic;
 	}
@@ -63,6 +72,7 @@
 
 		p {
 			font-size: 1em;
+			margin: 0 0 $wpbr-space;
 		}
 	}
 }
