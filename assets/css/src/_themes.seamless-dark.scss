@@ -1,12 +1,9 @@
 /*--------------------------------------------------------------
-# Admin-Page
+# Seamless-Dark-Theme
 --------------------------------------------------------------*/
 
-.wpbr-admin-page {
-	color: $wpbr-color-text;
-	padding: $wpbr-space;
-
+.wpbr-theme--seamless-dark {
 	* {
-		box-sizing: border-box;
+		color: white !important;
 	}
 }

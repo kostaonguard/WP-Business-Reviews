@@ -3,13 +3,11 @@
 --------------------------------------------------------------*/
 
 .wpbr-theme--card {
-	.wpbr-review {
+	.wpbr-gallery .wpbr-review {
 		@include wpbr-card();
 	}
-}
 
-.wpbr-theme--seamless-dark {
-	* {
-		color: white !important;
+	.wpbr-vertical-list {
+		@include wpbr-card();
 	}
 }
