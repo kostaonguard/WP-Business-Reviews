@@ -7,12 +7,12 @@
  * admin area. This file also includes all of the dependencies used by the plugin,
  * registers the activation and deactivation functions, and starts the plugin.
  *
- * @link              https://wordimpress.com
+ * @link              https://wpbusinessreviews.com
  * @package           WP_Business_Reviews
  * @since             1.0.0
  *
  * @wordpress-plugin
- * Plugin Name:       WP Business Reviews Core
+ * Plugin Name:       WP Business Reviews
  * Plugin URI:        https://wpbusinessreviews.com
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
