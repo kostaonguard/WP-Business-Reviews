@@ -19,7 +19,7 @@ gulp.task( 'styles', function() {
 				extends: 'stylelint-config-wordpress/scss'
 			},
 			reporters: [
-				{ formatter: 'verbose', console: true }
+				{ formatter: 'string', console: true }
 			],
 			failAfterError: false
 		}) )
