@@ -50,3 +50,6 @@ assets/js/*
 # Optimized Images
 assets/images/*
 !assets/images/src
+
+# Ignore package-lock.json in favor of yarn.lock
+package-lock.json
