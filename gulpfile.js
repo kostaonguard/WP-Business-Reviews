@@ -10,12 +10,22 @@ var cssnano = require( 'cssnano' );
 var imagemin = require( 'gulp-imagemin' );
 var rename = require( 'gulp-rename' );
 var cleancss = require( 'gulp-clean-css' );
+var stylelint = require( 'gulp-stylelint' );
 
 gulp.task( 'styles', function() {
 	return gulp.src( 'assets/css/src/**/*.scss' )
+		.pipe( stylelint({
+			config: {
+				extends: 'stylelint-config-wordpress/scss'
+			},
+			reporters: [
+				{ formatter: 'verbose', console: true }
+			],
+			failAfterError: false
+		}) )
 		.pipe( sourcemaps.init() )
-		.pipe( sass({outputStyle: 'expanded'}).on( 'error', sass.logError ) )
-        .pipe( postcss([ autoprefixer() ]) )
+		.pipe( sass({ outputStyle: 'expanded' }).on( 'error', sass.logError ) )
+		.pipe( postcss([ autoprefixer() ]) )
 		.pipe( gulp.dest( 'assets/css' ) )
 		.pipe( rename({ suffix: '.min' }) )
 		.pipe( cleancss() )
