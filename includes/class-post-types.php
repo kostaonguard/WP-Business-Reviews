@@ -181,10 +181,12 @@ class Post_Types {
 		$args = array(
 			'label'               => __( 'Review', 'wpbr' ),
 			'labels'              => $labels,
-			'supports'            => array( '' ),
+			'supports'            => array( 'title', 'editor' ),
 			'taxonomies'          => array(),
 			'hierarchical'        => false,
 			'public'              => true,
+			'show_in_rest'        => true,
+			'rest_base'          => 'reviews',
 			'show_ui'             => true,
 			'show_in_menu'        => true,
 			'menu_icon'           => WPBR_PLUGIN_URL . '/assets/images/wpbr-menu-icon-white.png',
