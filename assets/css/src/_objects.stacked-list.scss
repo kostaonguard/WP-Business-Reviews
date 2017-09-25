@@ -1,0 +1,21 @@
+/*--------------------------------------------------------------
+# Stacked-List
+--------------------------------------------------------------*/
+
+.wpbr-stacked-list {
+	list-style: none;
+	margin: 0 0 $wpbr-space;
+	max-width: 600px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&__item {
+		margin-bottom: $wpbr-space;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}

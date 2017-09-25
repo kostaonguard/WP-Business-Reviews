@@ -42,7 +42,8 @@
 --------------------------------------------------------------*/
 
 @import "objects.media-list"; // List containing images and text.
-@import "objects.h-list"; // Unstyled horizontal list.
+@import "objects.stacked-list"; // Unstyled vertical list.
+@import "objects.inline-list"; // Unstyled horizontal list.
 @import "objects.gallery"; // Multi-column gallery.
 
 /*--------------------------------------------------------------
