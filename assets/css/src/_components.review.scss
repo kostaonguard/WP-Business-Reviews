@@ -37,11 +37,12 @@
 			background-image: url( '../images/demo-user-placeholder-solid.png' );
 		}
 
-		.wpbr-admin--seamless-dark & {
+		.wpbr-theme--seamless-dark & {
 			background-image: url( '../images/demo-user-placeholder-white.png' );
 		}
 
 		img {
+			border-radius: 9999px;
 			display: block;
 			max-width: 100%;
 		}
