@@ -152,7 +152,7 @@ final class WP_Business_Reviews {
 	 * @since    1.0.0
 	 */
 	private function load_assets() {
-		$assets = new Assets( WPBR_PLUGIN_URL . '/assets/', WPBR_VERSION );
+		$assets = new Assets( WPBR_PLUGIN_URL . 'assets/', WPBR_VERSION );
 		$assets->init();
 	}
 
