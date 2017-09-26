@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack",
+    "production": "NODE_ENV=production webpack",
+    "watch": "npm run build -- --watch"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,11 @@
   "homepage": "https://github.com/WordImpress/WP-Business-Reviews-Core#readme",
   "devDependencies": {
     "autoprefixer": "^7.1.2",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
     "browser-sync": "^2.18.12",
+    "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "eslint": "^4.7.0",
     "eslint-config-wordpress": "^2.0.0",
@@ -32,6 +38,8 @@
     "gulp-sourcemaps": "^2.6.0",
     "gulp-stylelint": "^5.0.0",
     "gulp-uglify": "^3.0.0",
-    "stylelint-config-wordpress": "^12.0.0"
+    "style-loader": "^0.18.2",
+    "stylelint-config-wordpress": "^12.0.0",
+    "webpack": "^3.6.0"
   }
 }
