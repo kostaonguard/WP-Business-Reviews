@@ -1,17 +1,41 @@
-var webpack = require( 'webpack' );
-var path = require( 'path' );
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const inProduction = (process.env.NODE_ENV === 'production');
 
+// Sass plugin.
+// const extractSass = new ExtractTextPlugin('css/[name].css');
+const extractSass = new ExtractTextPlugin((inProduction ? 'css/[name].min.css' : 'css/[name].css'));
+const extractSassConfig = {
+	use: [{
+		loader: 'css-loader',
+		options: {
+			sourceMap: true
+		}
+	}, {
+		loader: 'sass-loader',
+		options: {
+			sourceMap: true,
+			outputStyle: 'production' === process.env.NODE_ENV ? 'compressed' : 'nested',
+		}
+	}]
+};
+
+// Webpack config.
 const config = {
-	entry: './assets/src/js/admin-main.js',
-	output: {
-		path: path.resolve( __dirname, './assets/dist/js' ),
-		filename: 'admin-main.js'
+	entry: {
+		'admin-main': './assets/src/js/admin-main.js'
 	},
+	output: {
+		path: path.resolve(__dirname, './assets/dist'),
+		filename: (inProduction ? 'js/[name].min.js' : 'js/[name].js')
+	},
+	devtool: "source-map",
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
-				use: [ 'style-loader', 'css-loader' ]
+				test: /\.scss$/,
+				use: extractSass.extract(extractSassConfig)
 			},
 			{
 				test: /\.js$/,
@@ -20,16 +44,16 @@ const config = {
 			}
 		]
 	},
-	plugins: []
+	plugins: [
+		extractSass
+	]
 };
 
-switch ( process.env.NODE_ENV ) {
+switch (process.env.NODE_ENV) {
 	case 'production':
-		config.plugins.push( new webpack.optimize.UglifyJsPlugin() );
+		config.plugins.push(new webpack.optimize.UglifyJsPlugin()); // Uglify JS.
+		config.plugins.push(new webpack.LoaderOptionsPlugin({minimize: true})); // Minify CSS.
 		break;
-
-	default:
-		config.devtool = 'source-map';
 }
 
 module.exports = config;
