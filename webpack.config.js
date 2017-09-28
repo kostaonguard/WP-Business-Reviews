@@ -2,8 +2,10 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const inProduction = (process.env.NODE_ENV === 'production');
-var DashboardPlugin = require('webpack-dashboard/plugin');
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 // Sass plugin.
 // const extractSass = new ExtractTextPlugin('css/[name].css');
@@ -56,16 +58,21 @@ const config = {
 	},
 	plugins: [
 		extractSass,
-		new DashboardPlugin(),
+		new CopyWebpackPlugin([{
+			from: './assets/src/images',
+			to: 'images'
+		}]),
+		new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }),
 		new BrowserSyncPlugin({
 			// Browse to http://localhost:3000/ during development.
 			files: [
-                '**/*.php',
-            ],
+				'**/*.php',
+			],
 			host: 'localhost',
 			port: 3000,
 			proxy: 'wpbr-development.dev',
-		})
+		}),
+		new DashboardPlugin()
 	]
 };
 

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "bs": "webpack --watch",
-    "dev": "webpack-dashboard -- webpack",
+    "dev": "webpack",
     "build": "NODE_ENV=production webpack",
     "watch": "npm run build:dev -- --watch"
   },
@@ -26,6 +26,7 @@
     "babel-preset-env": "^1.6.0",
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.2.0",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "eslint": "^4.7.0",
@@ -41,6 +42,7 @@
     "gulp-sourcemaps": "^2.6.0",
     "gulp-stylelint": "^5.0.0",
     "gulp-uglify": "^3.0.0",
+    "imagemin-webpack-plugin": "^1.5.2",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
