@@ -39,18 +39,7 @@ intermediate
 .idea
 cache
 node_modules
-
-# Compiled CSS
-assets/css/*
-!assets/css/src
-
-# Compiled JS
-assets/js/*
-!assets/js/src
-
-# Optimized Images
-assets/images/*
-!assets/images/src
+assets/dist/
 
 # Ignore package-lock.json in favor of yarn.lock
 package-lock.json
