@@ -3,6 +3,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const inProduction = (process.env.NODE_ENV === 'production');
 var DashboardPlugin = require('webpack-dashboard/plugin');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 // Sass plugin.
 // const extractSass = new ExtractTextPlugin('css/[name].css');
@@ -54,7 +55,15 @@ const config = {
 	},
 	plugins: [
 		extractSass,
-		new DashboardPlugin()
+		new DashboardPlugin(),
+		new BrowserSyncPlugin({
+			// browse to http://localhost:3000/ during development,
+			// ./public directory is being served
+			proxy: 'wpbr-development.dev',
+			host: 'localhost',
+			port: 3000
+			// server: { baseDir: ['public'] }
+		})
 	]
 };
 
