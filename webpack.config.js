@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const inProduction = (process.env.NODE_ENV === 'production');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
 // Sass plugin.
 // const extractSass = new ExtractTextPlugin('css/[name].css');
@@ -52,7 +53,8 @@ const config = {
 		]
 	},
 	plugins: [
-		extractSass
+		extractSass,
+		new DashboardPlugin()
 	]
 };
 
