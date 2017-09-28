@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bs": "webpack --watch",
     "dev": "webpack",
-    "build": "NODE_ENV=production webpack",
-    "watch": "npm run build:dev -- --watch"
+    "production": "NODE_ENV=production webpack",
+    "watch": "webpack-dashboard -- webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -47,6 +46,7 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "stylelint-config-wordpress": "^12.0.0",
+    "suppress-chunks-webpack-plugin": "^0.0.4",
     "url-loader": "^0.5.9",
     "webpack": "^3.6.0",
     "webpack-dashboard": "^1.0.0-5"

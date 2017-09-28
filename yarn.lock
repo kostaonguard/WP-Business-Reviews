@@ -1585,7 +1585,7 @@ copy-webpack-plugin@^4.0.1:
     minimatch "^3.0.0"
     node-dir "^0.1.10"
 
-core-js@^2.4.0, core-js@^2.5.0:
+core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.1.tgz#ae6874dc66937789b80754ff5428df66819ca50b"
 
@@ -7087,6 +7087,13 @@ supports-color@^4.0.0, supports-color@^4.2.1, supports-color@^4.4.0:
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.4.0.tgz#883f7ddabc165142b2a61427f3352ded195d1a3e"
   dependencies:
     has-flag "^2.0.0"
+
+suppress-chunks-webpack-plugin@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/suppress-chunks-webpack-plugin/-/suppress-chunks-webpack-plugin-0.0.4.tgz#451694219f524a474d4feaf374c2e403b2ca3d85"
+  dependencies:
+    core-js "^2.4.1"
+    lodash "^4.17.2"
 
 svg-tags@^1.0.0:
   version "1.0.0"

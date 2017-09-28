@@ -6,60 +6,61 @@ const DashboardPlugin = require('webpack-dashboard/plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const SuppressChunksPlugin = require('suppress-chunks-webpack-plugin').default;
 
 // Sass plugin.
 // const extractSass = new ExtractTextPlugin('css/[name].css');
-const extractSass = new ExtractTextPlugin((inProduction ? 'css/[name].min.css' : 'css/[name].css'));
+const extractSass = new ExtractTextPlugin((inProduction ? '[name].min.css' : '[name].css'));
 const extractSassConfig = {
 	use: [{
 		loader: 'css-loader',
 		options: {
-			sourceMap: true
+			sourceMap: true,
+			url: false
 		}
 	}, {
 		loader: 'sass-loader',
 		options: {
 			sourceMap: true,
-			outputStyle: 'production' === process.env.NODE_ENV ? 'compressed' : 'nested',
+			outputStyle: 'production' === process.env.NODE_ENV ? 'compressed' : 'nested'
 		}
 	}]
 };
 
+const entry = {
+	'js/admin-main': './assets/src/js/admin-main.js',
+	'css/admin-main': './assets/src/css/admin-main.scss'
+}
+
 // Webpack config.
 const config = {
-	entry: {
-		'admin-main-scripts': './assets/src/js/admin-main.js',
-		'admin-main-styles': './assets/src/css/admin-main.scss'
-	},
+	entry: entry,
 	output: {
-		path: path.resolve(__dirname, './assets/dist'),
-		filename: (inProduction ? 'js/[name].min.js' : 'js/[name].js')
+		path: path.resolve(__dirname, './assets/dist/'),
+		filename: (inProduction ? '[name].min.js' : '[name].js')
 	},
 	devtool: 'source-map',
 	module: {
 		rules: [
 			{
-				test: /\.scss$/,
-				use: extractSass.extract(extractSassConfig)
-			},
-			{
-				test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-				loader: 'url-loader',
-				options: {
-					limit: 10000
-				}
-			},
-			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader'
+			},
+			{
+				test: /\.scss$/,
+				use: extractSass.extract(extractSassConfig)
 			}
 		]
 	},
 	plugins: [
 		extractSass,
+		new SuppressChunksPlugin(
+			Object.keys(entry).filter(name => (name.indexOf('js') === -1) ),
+			{filter: /\.js(\.map)?$/}
+		),
 		new CopyWebpackPlugin([{
-			from: './assets/src/images',
+			from: './assets/src/images/',
 			to: 'images'
 		}]),
 		new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }),
