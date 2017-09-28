@@ -26,13 +26,14 @@ const extractSassConfig = {
 // Webpack config.
 const config = {
 	entry: {
-		'admin-main': './assets/src/js/admin-main.js'
+		'admin-main-scripts': './assets/src/js/admin-main.js',
+		'admin-main-styles': './assets/src/css/admin-main.scss'
 	},
 	output: {
 		path: path.resolve(__dirname, './assets/dist'),
 		filename: (inProduction ? 'js/[name].min.js' : 'js/[name].js')
 	},
-	devtool: "source-map",
+	devtool: 'source-map',
 	module: {
 		rules: [
 			{
@@ -57,12 +58,13 @@ const config = {
 		extractSass,
 		new DashboardPlugin(),
 		new BrowserSyncPlugin({
-			// browse to http://localhost:3000/ during development,
-			// ./public directory is being served
-			proxy: 'wpbr-development.dev',
+			// Browse to http://localhost:3000/ during development.
+			files: [
+                '**/*.php',
+            ],
 			host: 'localhost',
-			port: 3000
-			// server: { baseDir: ['public'] }
+			port: 3000,
+			proxy: 'wpbr-development.dev',
 		})
 	]
 };
