@@ -38,6 +38,13 @@ const config = {
 				use: extractSass.extract(extractSassConfig)
 			},
 			{
+				test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+				loader: 'url-loader',
+				options: {
+					limit: 10000
+				}
+			},
+			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader'
@@ -52,7 +59,7 @@ const config = {
 switch (process.env.NODE_ENV) {
 	case 'production':
 		config.plugins.push(new webpack.optimize.UglifyJsPlugin()); // Uglify JS.
-		config.plugins.push(new webpack.LoaderOptionsPlugin({minimize: true})); // Minify CSS.
+		config.plugins.push(new webpack.LoaderOptionsPlugin({ minimize: true })); // Minify CSS.
 		break;
 }
 
