@@ -7,6 +7,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const SuppressChunksPlugin = require('suppress-chunks-webpack-plugin').default;
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // Sass plugin.
 // const extractSass = new ExtractTextPlugin('css/[name].css');
@@ -59,6 +60,7 @@ const config = {
 			Object.keys(entry).filter(name => (name.indexOf('js') === -1) ),
 			{filter: /\.js(\.map)?$/}
 		),
+		new CleanWebpackPlugin(['assets/dist']),
 		new CopyWebpackPlugin([{
 			from: './assets/src/images/',
 			to: 'images'
