@@ -7,6 +7,9 @@
     "dev": "webpack",
     "production": "NODE_ENV=production webpack",
     "watch": "webpack --watch",
+    "lint": "npm run lint:js & npm run lint:scss",
+    "lint:js": "eslint assets/src/**/*.js",
+    "lint:scss": "stylelint assets/src/**/*.scss"
   },
   "repository": {
     "type": "git",
