@@ -61,7 +61,7 @@ const config = {
 };
 
 if ( 'production' === process.env.NODE_ENV ) {
-	config.plugins.push( new webpack.optimize.UglifyJsPlugin() ); // Uglify JS.
+	config.plugins.push( new webpack.optimize.UglifyJsPlugin({ sourceMap: true }) ); // Uglify JS.
 	config.plugins.push( new webpack.LoaderOptionsPlugin({ minimize: true }) ); // Minify CSS.
 }
 
