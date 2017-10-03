@@ -50,11 +50,10 @@ const config = {
 				test: /\.(png|jpg|gif)$/,
 				use: [
 					{
-						loader: 'url-loader',
+						loader: 'file-loader',
 						options: {
-							limit: 4096,
-							name: '[name].[ext]',
-							outputPath: 'images/'
+							name: 'images/[name].[ext]',
+							publicPath: '../'
 						}
 					}
 				]
