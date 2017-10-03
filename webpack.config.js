@@ -31,8 +31,7 @@ const config = {
 					use: [ {
 						loader: 'css-loader',
 						options: {
-							sourceMap: true,
-							url: false
+							sourceMap: true
 						}
 					}, {
 						loader: 'postcss-loader',
@@ -47,6 +46,18 @@ const config = {
 						}
 					} ]
 				})
+			}, {
+				test: /\.(png|jpg|gif)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 4096,
+							name: '[name].[ext]',
+							outputPath: 'images/'
+						}
+					}
+				]
 			}
 		]
 	},
