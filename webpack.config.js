@@ -3,9 +3,7 @@ const path = require( 'path' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const inProduction = ( 'production' === process.env.NODE_ENV );
 const BrowserSyncPlugin = require( 'browser-sync-webpack-plugin' );
-const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const ImageminPlugin = require( 'imagemin-webpack-plugin' ).default;
-const SuppressChunksPlugin = require( 'suppress-chunks-webpack-plugin' ).default;
 const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 
 // Webpack config.
@@ -75,7 +73,7 @@ const config = {
 	]
 };
 
-if ( 'production' === process.env.NODE_ENV ) {
+if ( inProduction ) {
 	config.plugins.push( new webpack.optimize.UglifyJsPlugin({ sourceMap: true }) ); // Uglify JS.
 	config.plugins.push( new webpack.LoaderOptionsPlugin({ minimize: true }) ); // Minify CSS.
 }
