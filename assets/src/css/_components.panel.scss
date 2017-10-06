@@ -17,7 +17,7 @@
 		display: none;
 	}
 
-	.js &--active {
+	.js &.is-active {
 		display: flex;
 	}
 
@@ -65,7 +65,7 @@
 			}
 		}
 
-		.js &--active {
+		.js &.is-active {
 			display: block;
 		}
 	}

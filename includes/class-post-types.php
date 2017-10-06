@@ -189,7 +189,7 @@ class Post_Types {
 			'rest_base'          => 'reviews',
 			'show_ui'             => true,
 			'show_in_menu'        => true,
-			'menu_icon'           => WPBR_PLUGIN_URL . '/assets/images/wpbr-menu-icon-white.png',
+			'menu_icon'           => WPBR_PLUGIN_URL . 'assets/dist/images/wpbr-menu-icon-white.png',
 			'show_in_admin_bar'   => false,
 			'show_in_nav_menus'   => false,
 			'can_export'          => true,
