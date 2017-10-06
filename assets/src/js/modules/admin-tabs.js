@@ -23,14 +23,12 @@ class AdminTabs {
 	}
 
 	activateTab( tab ) {
-		console.log( 'activating new tab' );
 		this.removeClass( 'is-active', ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
 		this.updateActiveTabElements( tab );
 		this.addClass( 'is-active', ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
 	}
 
 	activateSubtab( subtab ) {
-		console.log( 'activating subtab' );
 		this.removeClass( 'is-active', ...[ this.activeSubtab, this.activeSection ]);
 		this.updateActiveSubtabElements( subtab );
 		this.addClass( 'is-active', ...[ this.activeSubtab, this.activeSection ]);
