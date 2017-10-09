@@ -1,6 +1,9 @@
 class AdminTabs {
 	constructor() {
-		this.hash = location.hash;
+
+		// Set prefixes.
+		this.tabIdPrefix = 'wpbr-tab-';
+		this.subtabIdPrefix = 'wpbr-subtab-';
 
 		// Group collections of elements that make up tabbed UI.
 		this.tabs = document.querySelectorAll( '.js-wpbr-tab' );
@@ -19,45 +22,43 @@ class AdminTabs {
 	}
 
 	init() {
-		this.activateTab( this.activeTab );
+		this.toggleClass( 'is-active', ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
 	}
 
 	activateTab( tab ) {
-		this.removeClass( 'is-active', ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
+		this.toggleClass( 'is-active', ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
 		this.updateActiveTabElements( tab );
-		this.addClass( 'is-active', ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
+		this.toggleClass( 'is-active', ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
 	}
 
 	activateSubtab( subtab ) {
-		this.removeClass( 'is-active', ...[ this.activeSubtab, this.activeSection ]);
+		this.toggleClass( 'is-active', ...[ this.activeSubtab, this.activeSection ]);
 		this.updateActiveSubtabElements( subtab );
-		this.addClass( 'is-active', ...[ this.activeSubtab, this.activeSection ]);
+		this.toggleClass( 'is-active', ...[ this.activeSubtab, this.activeSection ]);
 	}
 
 	updateActiveTabElements( tab ) {
-		const tabId = tab.dataset.tabId;
+		const id = this.removePrefix( tab.id, this.tabIdPrefix );
 		this.activeTab = tab;
-		this.activePanel = document.getElementById( `wpbr-panel-${tabId}` );
+		this.activePanel = document.getElementById( `wpbr-panel-${id}` );
 		this.activeSubtab = this.activePanel.querySelector( '.js-wpbr-subtab' );
 		this.activeSection = this.activePanel.querySelector( '.js-wpbr-section' );
 	}
 
 	updateActiveSubtabElements( subtab ) {
-		const subtabId = subtab.dataset.subtabId;
-		this.activeSubtab = document.getElementById( `wpbr-subtab-${subtabId}` );
-		this.activeSection = document.getElementById( `wpbr-section-${subtabId}` );
+		const id = this.removePrefix( subtab.id, this.subtabIdPrefix );
+		this.activeSubtab = document.getElementById( `wpbr-subtab-${id}` );
+		this.activeSection = document.getElementById( `wpbr-section-${id}` );
 	}
 
-	removeClass( className, ...elements ) {
-		elements
-			.filter( element => ( null !== element ) ) // Skip empty elements.
-			.map( element => element.classList.remove( 'is-active' ) );
+	removePrefix( string, prefix ) {
+		return string.slice( prefix.length );
 	}
 
-	addClass( className, ...elements ) {
+	toggleClass( className, ...elements ) {
 		elements
 			.filter( element => ( null !== element ) ) // Skip empty elements.
-			.map( element => element.classList.add( 'is-active' ) );
+			.map( element => element.classList.toggle( 'is-active' ) );
 	}
 
 	registerEventHandlers() {
