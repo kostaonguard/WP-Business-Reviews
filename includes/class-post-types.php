@@ -38,6 +38,7 @@ class Post_Types {
 	public function register_post_types() {
 		$this->register_business_post_type();
 		$this->register_review_post_type();
+		$this->register_review_set_post_type();
 	}
 
 	/**
@@ -206,6 +207,77 @@ class Post_Types {
 		);
 
 		register_post_type( 'wpbr_review', $args );
+	}
+
+	/**
+	 * Registers the wpbr_review post type.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_review_set_post_type() {
+
+		$labels = array(
+			'name'                  => _x( 'Review Sets', 'Post Type General Name', 'wpbr' ),
+			'singular_name'         => _x( 'Review Set', 'Post Type Singular Name', 'wpbr' ),
+			'menu_name'             => __( 'Review Sets', 'wpbr' ),
+			'name_admin_bar'        => __( 'Review Set', 'wpbr' ),
+			'archives'              => __( 'Review Set Archives', 'wpbr' ),
+			'attributes'            => __( 'Review Set Attributes', 'wpbr' ),
+			'parent_item_colon'     => __( 'Parent Review Set:', 'wpbr' ),
+			'all_items'             => __( 'All Review Sets', 'wpbr' ),
+			'add_new_item'          => __( 'Add New Review Set', 'wpbr' ),
+			'add_new'               => __( 'Add Review Set', 'wpbr' ),
+			'new_item'              => __( 'New Review Set', 'wpbr' ),
+			'edit_item'             => __( 'Edit Review Set', 'wpbr' ),
+			'update_item'           => __( 'Update Review Set', 'wpbr' ),
+			'view_item'             => __( 'View Review Set', 'wpbr' ),
+			'view_items'            => __( 'View Review Sets', 'wpbr' ),
+			'search_items'          => __( 'Search Review Set', 'wpbr' ),
+			'not_found'             => __( 'Not found', 'wpbr' ),
+			'not_found_in_trash'    => __( 'Not found in Trash', 'wpbr' ),
+			'featured_image'        => __( 'Featured Image', 'wpbr' ),
+			'set_featured_image'    => __( 'Set featured image', 'wpbr' ),
+			'remove_featured_image' => __( 'Remove featured image', 'wpbr' ),
+			'use_featured_image'    => __( 'Use as featured image', 'wpbr' ),
+			'insert_into_item'      => __( 'Insert into item', 'wpbr' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wpbr' ),
+			'items_list'            => __( 'Review Sets list', 'wpbr' ),
+			'items_list_navigation' => __( 'Review Sets list navigation', 'wpbr' ),
+			'filter_items_list'     => __( 'Filter items list', 'wpbr' ),
+		);
+
+		$rewrite = array(
+			'slug' => 'wpbr-review-sets',
+		);
+
+		$args = array(
+			'label'               => __( 'Review Set', 'wpbr' ),
+			'labels'              => $labels,
+			'supports'            => array( 'title', 'editor' ),
+			'taxonomies'          => array(),
+			'hierarchical'        => false,
+			'public'              => true,
+			'show_in_rest'        => true,
+			'rest_base'          => 'review_sets',
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'menu_icon'           => 'dashicons-grid-view',
+			'show_in_admin_bar'   => false,
+			'show_in_nav_menus'   => false,
+			'can_export'          => true,
+			'has_archive'         => false,
+			'exclude_from_search' => true,
+			'publicly_queryable'  => true,
+			'rewrite'             => $rewrite,
+			'capability_type'     => 'post',
+			// 'capabilities'        => array(
+			// 	'create_posts' => 'do_not_allow', // Removes support for the "Add New" function.
+			// ),
+			// 'map_meta_cap'        => true, // Allow users to still edit and delete posts.
+
+		);
+
+		register_post_type( 'wpbr_review_set', $args );
 	}
 
 	/**
