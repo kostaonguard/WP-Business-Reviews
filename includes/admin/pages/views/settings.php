@@ -1,7 +1,7 @@
 <!-- Tabs -->
 <nav>
 	<ul class="wpbr-tabs js-wpbr-tabs">
-		<?php foreach ( $settings as $tab ) : ?>
+		<?php foreach ( $config as $tab ) : ?>
 			<?php
 			$tab_id   = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : '';
 			$tab_name = ! empty( $tab['name'] ) ? $tab['name'] : '';
@@ -15,7 +15,7 @@
 
 <!-- Panels -->
 <div class="wpbr-admin-page">
-	<?php foreach ( $settings as $tab ) : ?>
+	<?php foreach ( $config as $tab ) : ?>
 		<!-- Panel -->
 		<?php $tab_id = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : ''; ?>
 		<div id="wpbr-panel-<?php echo esc_attr( $tab_id ); ?>" class="wpbr-panel js-wpbr-panel" data-tab-id="<?php echo esc_attr( $tab_id ); ?>">
@@ -27,7 +27,7 @@
 			?>
 
 			<?php
-			// Show sections navigation if more than one section exists.
+			// Only show sections navigation if more than one section exists.
 			if ( count( $tab['sections'] ) > 1 ) :
 			?>
 				<!-- Sidebar -->

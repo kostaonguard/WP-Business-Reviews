@@ -156,14 +156,14 @@ final class WP_Business_Reviews {
 		$assets->init();
 	}
 
-
 	/**
 	 * Registers the Settings API for the plugin.
 	 *
 	 * @since 1.0.0
 	 */
 	private function register_settings_api() {
-		$this->settings_api = new Settings\Settings_API();
+		$config = new Config( WPBR_PLUGIN_DIR . 'config/config-settings.php' );
+		$this->settings_api = new Settings\Settings_API( $config );
 		$this->settings_api->init();
 	}
 

@@ -70,7 +70,7 @@ class Admin_Page_Settings extends Admin_Page {
 	}
 
 	public function render_page() {
-		$settings = $this->settings_api->define_framework();
+		$config = $this->settings_api->get_config();
 		$view     = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/settings.php';
 		include $view;
 	}
