@@ -96,10 +96,6 @@ class AdminTabs {
 		delete this.queryStringObject[ this.subtabQueryParam ];
 	}
 
-	deactivateTab() {
-		this.removeClass( this.activeClass, ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
-	}
-
 	activateSubtab( subtab = this.subtabs[0]) {
 		const subtabId = this.removePrefix( subtab.id, this.subtabIdPrefix );
 
@@ -112,6 +108,10 @@ class AdminTabs {
 
 		// Set subtab in query string.
 		this.queryStringObject[ this.subtabQueryParam ] = subtabId;
+	}
+
+	deactivateTab() {
+		this.removeClass( this.activeClass, ...[ this.activeTab, this.activePanel, this.activeSubtab, this.activeSection ]);
 	}
 
 	deactivateSubtab() {
