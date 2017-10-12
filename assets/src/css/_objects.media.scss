@@ -1,0 +1,25 @@
+/*--------------------------------------------------------------
+# Media-List
+--------------------------------------------------------------*/
+
+.wpbr-media {
+	display: flex;
+	align-items: flex-start;
+
+	&__figure {
+		margin-right: $wpbr-space;
+
+		&--icon {
+			width: $wpbr-space-double;
+		}
+
+		img {
+			width: 100%;
+		}
+	}
+
+	&__body {
+		flex: 1;
+		text-align: left;
+	}
+}
