@@ -13,9 +13,29 @@
 
 	&__item {
 		margin-bottom: $wpbr-space;
+		position: relative;
 
 		&:last-child {
 			margin-bottom: 0;
+		}
+
+		&--border-bottom {
+			border-bottom: $wpbr-border-width solid $wpbr-color-wp-form-border;
+
+			&:last-child {
+				border-bottom: 0;
+			}
+		}
+
+		.wpbr-stacked-list--striped & {
+			background-color: $wpbr-color-off-white-light;
+			margin-bottom: 0;
+			padding: $wpbr-space;
+
+			&:nth-child(even) {
+				background-color: $wpbr-color-white;
+			}
+
 		}
 	}
 }
