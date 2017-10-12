@@ -67,6 +67,7 @@
 @import "components.review"; // Review.
 @import "components.business"; // Business.
 @import "components.scrollable"; // Scrollable fixed-height container.
+@import "components.stars"; // Five-star ratings.
 
 /*--------------------------------------------------------------
 # Themes - Styles that override many components.
@@ -79,4 +80,5 @@
 # Utilities - Helpers and overrides.
 --------------------------------------------------------------*/
 
-@import "utilities.wp-admin"; // WP admin overrides.
+@import "utilities.wp-admin"; // Overrides of WP admin core styles.
+@import "utilities.hidden"; // Overrides to hide any element.
