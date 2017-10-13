@@ -45,6 +45,7 @@
     "webpack": "^3.6.0"
   },
   "dependencies": {
+    "hint.css": "^2.5.0",
     "query-string": "^5.0.0"
   }
 }

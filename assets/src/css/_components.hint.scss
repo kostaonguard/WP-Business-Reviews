@@ -1,0 +1,24 @@
+/*--------------------------------------------------------------
+# Hint
+--------------------------------------------------------------*/
+
+$hintPrefix: "wpbr-hint--";
+$hintFontFamily: inherit;
+$hintVerticalPadding: $wpbr-space-half;
+$hintHorizontalPadding: $wpbr-space-half;
+$hintTransitionDistance: $wpbr-space-quarter;
+$hintSizeSmall: $wpbr-space * 4;
+$hintSizeMedium: $wpbr-space * 7;
+$hintSizeLarge: $wpbr-space *14;
+$hintDefaultColor: $wpbr-color-navy;
+
+@import "~hint.css/src/hint.scss";
+
+.wpbr-hint {
+	font-weight: normal;
+
+	&:after {
+		box-shadow: $wpbr-box-shadow;
+		text-shadow: none;
+	}
+}
