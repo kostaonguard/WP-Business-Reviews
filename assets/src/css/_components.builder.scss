@@ -62,14 +62,6 @@
 		padding: $wpbr-space;
 	}
 
-	&__field {
-		padding-bottom: $wpbr-space;
-
-		&:last-child {
-			padding-bottom: 0;
-		}
-	}
-
 	&__label {
 		display: block;
 		font-size: 14px;
@@ -91,6 +83,10 @@
 	&__search {
 		display: flex;
 		width: 100%;
+	}
+
+	&__results {
+		margin-top: $wpbr-space;
 	}
 
 	&__description {
