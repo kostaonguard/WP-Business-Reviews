@@ -50,6 +50,7 @@ spl_autoload_register( function ( $filename ) {
 
 	for ( $i = 1; $i < count( $file_path ) - 1; $i ++ ) {
 		$dir = strtolower( $file_path[ $i ] );
+		$dir = str_ireplace( '_', '-', $dir );
 		$fully_qualified_path .= trailingslashit( $dir );
 	}
 	$fully_qualified_path .= $class_file;
