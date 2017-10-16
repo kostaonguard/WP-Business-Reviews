@@ -17,7 +17,7 @@ namespace WP_Business_Reviews\Config;
  *                         sections, and fields.
  */
 $config = apply_filters(
-	'wpbr_settings_config',
+	'wpbr_config_settings',
 	array(
 		'general'      => array(
 			'id'       => 'general',
