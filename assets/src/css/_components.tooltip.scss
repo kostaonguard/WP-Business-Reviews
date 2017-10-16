@@ -1,8 +1,9 @@
 /*--------------------------------------------------------------
-# Hint
+# Tooltip
 --------------------------------------------------------------*/
 
-$hintPrefix: "wpbr-hint--";
+$hintPrefix: "wpbr-tooltip--";
+$hintFontSize: 12px;
 $hintFontFamily: inherit;
 $hintVerticalPadding: $wpbr-space-half;
 $hintHorizontalPadding: $wpbr-space-half;
@@ -14,7 +15,7 @@ $hintDefaultColor: $wpbr-color-navy;
 
 @import "~hint.css/src/hint.scss";
 
-.wpbr-hint {
+.wpbr-tooltip {
 	font-weight: normal;
 
 	&:after {
