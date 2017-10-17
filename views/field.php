@@ -42,13 +42,14 @@ namespace WP_Business_Reviews\Views;
 	// Render the field control.
 	$this->render_partial(
 		'views/field-control-select.php',
-		$this->narrow_context( $context, array( 'default', 'value', 'control_atts', 'options' ) )
+		$this->narrow_context( $context, array( 'id', 'default', 'value', 'control_atts', 'options' ) )
 	);
 
 	// Render the field description.
 	$this->render_partial(
 		'views/field-description.php',
-		$this->narrow_context( $context, array( 'description' ) )
+		$this->narrow_context( $context, array( 'id', 'description' ) )
 	);
 	?>
+
 </div>
