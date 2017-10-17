@@ -93,7 +93,8 @@ class Assets {
 	 * @since 1.0.0
 	 */
 	public function register_scripts() {
-		wp_register_script( 'wpbr-admin-main-script', $this->url . 'js/admin-main' . $this->suffix . '.js', array(), $this->version, true );
+		wp_register_script( 'wpbr-admin-main-script', $this->url . 'js/admin-main' . $this->suffix . '.js', array( 'wpbr-google-places-library' ), $this->version, true );
+		wp_register_script( 'wpbr-google-places-library', 'https://maps.googleapis.com/maps/api/js?key=' . GOOGLE_PLACES_API_KEY . '&libraries=places', array(), $this->version, true );
 	}
 
 	/**
@@ -121,6 +122,7 @@ class Assets {
 	 */
 	public function enqueue_admin_scripts() {
 		wp_enqueue_script( 'wpbr-admin-main-script' );
+		wp_enqueue_script( 'wpbr-google-places-library' );
 	}
 
 	/**
