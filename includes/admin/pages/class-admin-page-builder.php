@@ -8,8 +8,8 @@
 
 namespace WP_Business_Reviews\Includes\Admin\Pages;
 
-use WP_Business_Reviews\Includes\Admin\Builder\Builder_Controls;
-use WP_Business_Reviews\Includes\Admin\Builder\Builder_Preview;
+use WP_Business_Reviews\Includes\Reviews_Builder\Reviews_Builder_Controls;
+use WP_Business_Reviews\Includes\Reviews_Builder\Reviews_Builder_Preview;
 
 /**
  * Creates the Builder page for the plugin.
@@ -19,8 +19,8 @@ use WP_Business_Reviews\Includes\Admin\Builder\Builder_Preview;
  */
 class Admin_Page_Builder extends Admin_Page {
 	public function render_page() {
-		$builder_controls = new Builder_Controls( 'builder-config' );
-		$builder_preview  = new Builder_Preview();
+		$builder_controls = new Reviews_Builder_Controls( 'builder-config' );
+		$builder_preview  = new Reviews_Builder_Preview();
 		$view             = WPBR_PLUGIN_DIR . 'includes/admin/pages/views/page-builder.php';
 		include $view;
 	}

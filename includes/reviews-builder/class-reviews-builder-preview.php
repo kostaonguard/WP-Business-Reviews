@@ -6,14 +6,14 @@
  * @since   1.0.0
  */
 
-namespace WP_Business_Reviews\Includes\Admin\Builder;
+namespace WP_Business_Reviews\Includes\Reviews_Builder;
 
 /**
  * Creates the admin banner for the plugin.
  *
  * @since 1.0.0
  */
-class Builder_Preview {
+class Reviews_Builder_Preview {
 	/**
 	 * Renders the builder preview.
 	 *
@@ -23,6 +23,6 @@ class Builder_Preview {
 	 * @since 1.0.0
 	 */
 	public function render() {
-		include WPBR_PLUGIN_DIR . 'includes/admin/builder/views/builder-preview.php';
+		include WPBR_PLUGIN_DIR . 'views/reviews-builder-preview.php';
 	}
 }

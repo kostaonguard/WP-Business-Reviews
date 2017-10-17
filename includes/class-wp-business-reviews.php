@@ -162,7 +162,7 @@ final class WP_Business_Reviews {
 	 * @since 1.0.0
 	 */
 	private function register_settings_api() {
-		$config = new Config( WPBR_PLUGIN_DIR . 'config/config-settings.php' );
+		$config = new Config( WPBR_PLUGIN_DIR . 'config/settings.php' );
 		$this->settings_api = new Settings\Settings_API( $config );
 		$this->settings_api->init();
 	}

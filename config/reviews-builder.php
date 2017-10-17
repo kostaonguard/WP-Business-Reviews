@@ -34,7 +34,6 @@ $section_presentation = array(
 					'reviews-carousel' => __( 'Reviews Carousel', 'wpbr' ),
 					'business-badge'   => __( 'Business Badge', 'wpbr' ),
 				),
-				'view' => 'views/field-select.php',
 			),
 		)
 	),
@@ -65,7 +64,6 @@ $section_business = array(
 					'yelp'     => __( 'Yelp', 'wpbr' ),
 					'yp'       => __( 'YP', 'wpbr' ),
 				),
-				'view' => 'views/field-select.php',
 			),
 		)
 	),
