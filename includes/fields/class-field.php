@@ -50,7 +50,7 @@ class Field {
 	 *     @type string $description  Description to clarify field use.
 	 *     @type string $default      Default field value.
 	 *     @type string $value        Field value.
-	 *     @type array  $control_atts Placeholder value for relevant input types.
+	 *     @type array  $control_atts Additional attributes for the control element.
 	 *     @type array  $options      Field options for select/radios/checkboxes.
 	 *     @type string $view         View used to render the field.
 	 * }
