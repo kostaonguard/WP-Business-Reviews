@@ -1,19 +1,23 @@
 <?php
 /**
- * Displays the field label and tooltip.
+ * Displays the field label and tooltip
  *
- * Available Variables:
+ * @link https://wpbusinessreviews.com
  *
- * @var View   $this The View object.
- * @var array  $context {
+ * @package WP_Business_Reviews\Views
+ * @since 1.0.0
+ *
+ * @var View  $this The View object.
+ * @var array $context {
  *     Associative array with context variables.
  *
- *     @type string $id           Field ID.
- *     @type string $name         Field name also used as label.
- *     @type string $tooltip      Tooltip to clarify field purpose.
+ *     @type string $id      Field ID.
+ *     @type string $name    Field name also used as label.
+ *     @type string $tooltip Tooltip to clarify field purpose.
  * }
  */
 
+namespace WP_Business_Reviews\Views;
 ?>
 
 <label id="wpbr-label-<?php echo esc_attr( $context['id'] ); ?>" class="wpbr-field__label js-wpbr-label" for="wpbr-control-<?php echo esc_attr( $context['id'] ); ?>">
