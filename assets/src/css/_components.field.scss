@@ -31,10 +31,9 @@
 	}
 
 	&__name {
-		display: block;
+		display: inline-block;
 		font-size: 14px;
 		font-weight: 600;
-		margin-bottom: $wpbr-space-half;
 
 		.wpbr-field--setting & {
 			@media ( min-width: 768px ) {
@@ -51,7 +50,19 @@
 	}
 
 	&__control {
+		display: flex;
+		margin-top: $wpbr-space-half;
+		width: 100%;
+
+	}
+
+	&__input {
 		flex: 1;
+	}
+
+	&__inline-button.button {
+		display: block;
+		margin-left: $wpbr-space-half;
 	}
 
 	&__description {
@@ -64,6 +75,12 @@
 				padding-left: $wpbr-space * 10;
 			}
 		}
+	}
+
+	&__fieldset {
+		border: 0;
+		margin: 0;
+		padding: 0;
 	}
 
 	&__options {
