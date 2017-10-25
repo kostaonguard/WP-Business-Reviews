@@ -33,7 +33,7 @@ class Field_Factory {
 		}
 
 		switch ( $atts['type'] ) {
-			case 'select':
+			default:
 				return new Field( $atts );
 		}
 
