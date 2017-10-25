@@ -76,7 +76,7 @@ class Field {
 	 * @return string|array Value of the field attribute if it exists.
 	 */
 	public function get_att( $att_key ) {
-		return isset( $this->atts[ $key ] )	? $this->atts[ $key ] : '';
+		return isset( $this->atts[ $att_key ] )	? $this->atts[ $att_key ] : '';
 	}
 
 	/**
