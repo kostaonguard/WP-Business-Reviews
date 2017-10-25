@@ -10,3 +10,4 @@ if ( document.querySelector( 'body' ).classList.contains( 'wpbr_review_page_wpbr
 }
 
 const reviewsBuilder = new ReviewsBuilder( '.js-wpbr-builder' );
+reviewsBuilder.init();

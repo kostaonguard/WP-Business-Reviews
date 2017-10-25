@@ -4,7 +4,7 @@ use WP_Business_Reviews\Includes\Fields\Field_Factory;
 
 $config = new Config( WPBR_PLUGIN_DIR . 'config/reviews-builder.php' );
 ?>
-<div class="wpbr-builder__controls">
+<div id="wpbr-control-panel" class="wpbr-builder__controls">
 	<?php foreach ( $config as $section ) : ?>
 		<div id="wpbr-section<?php echo esc_attr( $section['id'] ); ?>" class="wpbr-builder__section">
 			<div class="wpbr-builder__section-header js-wpbr-section-header">
