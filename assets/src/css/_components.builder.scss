@@ -34,6 +34,7 @@
 	}
 
 	&__controls {
+		background-color: $wpbr-color-off-white;
 		border-left: $wpbr-border-width solid $wpbr-color-dim;
 		flex: 0 0 $wpbr-space * 16;
 	}
