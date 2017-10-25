@@ -4,6 +4,10 @@
 
 .wpbr-admin-banner {
 	background-color: $wpbr-color-blue-dark;
+	background-image: url(../images/skyline-banner.png);
+	background-repeat: no-repeat;
+	background-position: ($wpbr-space * 15) bottom;
+	background-size: auto 80%;
 	box-sizing: border-box;
 	padding: $wpbr-space;
 	position: relative;

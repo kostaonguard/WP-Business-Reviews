@@ -28,7 +28,6 @@
 --------------------------------------------------------------*/
 
 .wpbr-admin-page {
-	// @import "elements.a"; // Anchor elements.
 	@import "elements.input"; // Input elements.
 	@import "elements.code"; // Code elements.
 }
@@ -72,7 +71,7 @@
 --------------------------------------------------------------*/
 
 @import "themes.card"; // Card theme.
-@import "themes.seamless-dark"; // Seamless Dark theme.
+@import "themes.dark"; // Dark theme.
 
 /*--------------------------------------------------------------
 # Utilities - Helpers and overrides.

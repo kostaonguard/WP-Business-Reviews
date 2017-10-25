@@ -31,7 +31,7 @@
 	}
 
 	&__name {
-		display: inline-block;
+		display: inline;
 		font-size: 14px;
 		font-weight: 600;
 
@@ -49,14 +49,14 @@
 		}
 	}
 
-	&__control {
+	&__control-wrap {
 		display: flex;
+		font-size: 14px;
 		margin-top: $wpbr-space-half;
 		width: 100%;
-
 	}
 
-	&__input {
+	&__control {
 		flex: 1;
 	}
 

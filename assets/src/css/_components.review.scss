@@ -13,8 +13,10 @@
 .wpbr-review {
 	border: 1px solid transparent;
 	font-size: 1em;
+	margin-bottom: $wpbr-space;
 	transition: all 0.2s ease-out;
 
+	&:last-child,
 	& :last-child {
 		margin-bottom: 0;
 	}
