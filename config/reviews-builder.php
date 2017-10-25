@@ -45,8 +45,8 @@ $section_presentation = array(
 					'min'  => 1,
 					'max'  => 6,
 					'step' => 1,
-					'list' => 'tickmarks',
 				),
+				'datalist'     => array( 1, 2, 3, 4, 5, 6 ),
 			),
 			'theme' => array(
 				'id'      => 'theme',
@@ -158,8 +158,8 @@ $section_reviews = array(
 $config = apply_filters(
 	'wpbr_config_reviews_builder',
 	array(
-		'presentation' => $section_presentation,
 		'business'     => $section_business,
+		'presentation' => $section_presentation,
 		'reviews'      => $section_reviews,
 	)
 );
