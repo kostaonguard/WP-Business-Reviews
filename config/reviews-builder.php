@@ -31,7 +31,7 @@ $section_presentation = array(
 				'options' => array(
 					'reviews-gallery'  => __( 'Reviews Gallery', 'wpbr' ),
 					'reviews-list'     => __( 'Reviews List', 'wpbr' ),
-					'reviews-carousel' => __( 'Reviews Carousel', 'wpbr' ),
+					// 'reviews-carousel' => __( 'Reviews Carousel', 'wpbr' ),
 					'business-badge'   => __( 'Business Badge', 'wpbr' ),
 				),
 			),
@@ -121,16 +121,16 @@ $section_reviews = array(
 	'fields'  => apply_filters(
 		'wpbr_fields_reviews_builder_reviews',
 		array(
-			'review_order' => array(
-				'id'      => 'review_order',
-				'name'    => __( 'Review Order', 'wpbr' ),
-				'type'    => 'select',
-				'tooltip' => __( 'Defines the order in which reviews are displayed.', 'wpbr' ),
-				'options' => array(
-					'DESC' => __( 'Newest to Oldest', 'wpbr' ),
-					'ASC'  => __( 'Oldest to Newest', 'wpbr' ),
-				),
-			),
+			// 'review_order' => array(
+			// 	'id'      => 'review_order',
+			// 	'name'    => __( 'Review Order', 'wpbr' ),
+			// 	'type'    => 'select',
+			// 	'tooltip' => __( 'Defines the order in which reviews are displayed.', 'wpbr' ),
+			// 	'options' => array(
+			// 		'DESC' => __( 'Newest to Oldest', 'wpbr' ),
+			// 		'ASC'  => __( 'Oldest to Newest', 'wpbr' ),
+			// 	),
+			// ),
 			'review_components' => array(
 				'id'      => 'review_components',
 				'name'    => __( 'Review Components', 'wpbr' ),
