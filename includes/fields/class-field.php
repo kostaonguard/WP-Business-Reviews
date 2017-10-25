@@ -24,7 +24,7 @@ class Field {
 	 * @access public
 	 * @var string
 	 */
-	const DEFAULT_VIEW = 'views/field.php';
+	const DEFAULT_VIEW = 'views/fields/field.php';
 
 	/**
 	 * Field attributes.
@@ -71,12 +71,31 @@ class Field {
 	/**
 	 * Gets a single field attribute.
 	 *
-	 * @param string $att Key associated with an attribute.
+	 * @param string $att_key Key associated with the field attribute.
 	 *
 	 * @return string|array Value of the field attribute if it exists.
 	 */
-	public function get_att( $key ) {
+	public function get_att( $att_key ) {
 		return isset( $this->atts[ $key ] )	? $this->atts[ $key ] : '';
+	}
+
+	/**
+	 * Set field attributes.
+	 *
+	 * @param array $atts Associative array of field attributes.
+	 */
+	public function set_atts( $atts ) {
+		$this->atts = $atts;
+	}
+
+	/**
+	 * Gets a single field attribute.
+	 *
+	 * @param string $att_key   Key associated with the field attribute.
+	 * @param string $att_value Value of the field attribute.
+	 */
+	public function set_att( $att_key, $att_value ) {
+		return isset( $this->atts[ $att_key ] )	? $this->atts[ $att_key ] : '';
 	}
 
 	/**
