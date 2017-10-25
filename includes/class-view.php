@@ -59,10 +59,7 @@ class View {
 	 * @param array $context Optional. Associative array with context variables.
 	 */
 	public function render( array $context = array() ) {
-		if ( ! is_readable( $this->uri ) ) {
-			return '';
-		}
-
+		$this->context = $context;
 		include $this->uri;
 	}
 
@@ -79,21 +76,7 @@ class View {
 
 		$view = new static( $uri );
 
-		return $view->render( $context ?: $this->context );
-	}
-
-	/**
-	 * Creates a subset of an associative array.
-	 *
-	 * This function is helpful for narrowing the context that is provided to
-	 * partial views.
-	 *
-	 * @param array $context Associative array with context variables.
-	 * @param array $keys Array of keys to preserve.
-	 * @return array Subset of context that includes only the designated keys.
-	 */
-	public function narrow_context( array $context, array $keys ) {
-		return array_intersect_key( $context, array_flip( $keys ) );
+		$view->render( $context ?: $this->context );
 	}
 
 	/**
