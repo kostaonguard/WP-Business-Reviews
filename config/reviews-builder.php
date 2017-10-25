@@ -137,9 +137,9 @@ $section_reviews = array(
 				'type'    => 'checkboxes',
 				'tooltip' => __( 'Defines the visible components of a review.', 'wpbr' ),
 				'options' => array(
-					'reviewer_image' => __( 'Reviewer Image', 'wpbr' ),
-					'rating'         => __( 'Star Rating', 'wpbr' ),
-					'review_date'    => __( 'Review Date', 'wpbr' ),
+					'review_image' => __( 'Review Image', 'wpbr' ),
+					'rating'       => __( 'Star Rating', 'wpbr' ),
+					'timestamp'    => __( 'Timestamp', 'wpbr' ),
 				),
 			),
 		)
