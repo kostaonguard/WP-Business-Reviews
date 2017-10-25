@@ -5,12 +5,12 @@
 			<li class="wpbr-field__option">
 				<input
 					type="checkbox"
-					id="wpbr-field-checkbox-<?php echo esc_attr( $value ); ?>"
+					id="wpbr-control-<?php echo esc_attr( $value ); ?>"
 					class="wpbr-field__checkbox"
 					name="<?php echo esc_attr( $context['id'] ); ?>"
 					value="<?php echo esc_attr( $context['value'] ); ?>"
 					>
-				<label for="wpbr-field-checkbox-<?php echo esc_attr( $value ); ?>">
+				<label for="wpbr-control-<?php echo esc_attr( $value ); ?>">
 					<?php echo esc_html( $text ); ?>
 				</label>
 			</li>
