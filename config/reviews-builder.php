@@ -158,8 +158,8 @@ $section_reviews = array(
 $config = apply_filters(
 	'wpbr_config_reviews_builder',
 	array(
-		'business'     => $section_business,
 		'presentation' => $section_presentation,
+		'business'     => $section_business,
 		'reviews'      => $section_reviews,
 	)
 );
