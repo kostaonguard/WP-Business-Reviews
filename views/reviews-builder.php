@@ -14,8 +14,10 @@
 			</div>
 		</div>
 		<div class="wpbr-builder__workspace">
-			<?php $builder_preview->render(); ?>
-			<?php $builder_controls->render(); ?>
+			<?php
+			$this->render_partial( 'views/reviews-builder-preview.php' );
+			$this->render_partial( 'views/reviews-builder-controls.php' );
+			?>
 		</div>
 	</div>
 </div>
