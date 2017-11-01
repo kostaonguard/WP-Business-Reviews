@@ -90,7 +90,7 @@ $section_business = array(
 				),
 			),
 			'business-search' => array(
-				'id'          => 'business-search',
+				'id'          => 'business_search',
 				'name'        => __( 'Business', 'wpbr' ),
 				'type'        => 'search',
 				'tooltip'     => __( 'Defines the query used when searching for a business.', 'wpbr' ),
