@@ -13,33 +13,33 @@ class ReviewsBuilder {
 		this.themeField      = document.getElementById( 'wpbr-field-theme' );
 
 		// Define controls.
-		this.controlPanel        = document.getElementById( 'wpbr-control-panel' );
-		this.settingsControl     = document.getElementById( 'wpbr-control-settings' );
-		this.saveControl         = document.getElementById( 'wpbr-control-save' );
-		this.formatControl       = document.getElementById( 'wpbr-control-format' );
-		this.maxColumnsControl   = document.getElementById( 'wpbr-control-max_columns' );
-		this.themeControl        = document.getElementById( 'wpbr-control-theme' );
-		this.reviewImageControl  = document.getElementById( 'wpbr-control-review_image' );
-		this.reviewRatingControl = document.getElementById( 'wpbr-control-rating' );
-		this.reviewTimestampControl    = document.getElementById( 'wpbr-control-timestamp' );
+		this.controlPanel           = document.getElementById( 'wpbr-control-panel' );
+		this.settingsControl        = document.getElementById( 'wpbr-control-settings' );
+		this.saveControl            = document.getElementById( 'wpbr-control-save' );
+		this.formatControl          = document.getElementById( 'wpbr-control-format' );
+		this.maxColumnsControl      = document.getElementById( 'wpbr-control-max_columns' );
+		this.themeControl           = document.getElementById( 'wpbr-control-theme' );
+		this.reviewImageControl     = document.getElementById( 'wpbr-control-review_image' );
+		this.reviewRatingControl    = document.getElementById( 'wpbr-control-rating' );
+		this.reviewTimestampControl = document.getElementById( 'wpbr-control-timestamp' );
 
 		// Define handles used to identify review elements.
-		this.wrapHandle        = 'js-wpbr-wrap';
-		this.listHandle        = 'js-wpbr-list';
-		this.itemHandle        = 'js-wpbr-item';
-		this.reviewHandle      = 'js-wpbr-review';
-		this.reviewImageHandle = 'js-wpbr-review-image';
-		this.reviewRatingHandle      = 'js-wpbr-review-rating';
-		this.reviewTimestampHandle   = 'js-wpbr-review-timestamp';
+		this.wrapHandle            = 'js-wpbr-wrap';
+		this.listHandle            = 'js-wpbr-list';
+		this.itemHandle            = 'js-wpbr-item';
+		this.reviewHandle          = 'js-wpbr-review';
+		this.reviewImageHandle     = 'js-wpbr-review-image';
+		this.reviewRatingHandle    = 'js-wpbr-review-rating';
+		this.reviewTimestampHandle = 'js-wpbr-review-timestamp';
 
 		// Define review elements.
-		this.wrap         = this.builder.querySelector( `.${this.wrapHandle}` );
-		this.list         = this.builder.querySelector( `.${this.listHandle}` );
-		this.items        = this.builder.querySelectorAll( `.${this.itemHandle}` );
-		this.reviews      = this.builder.querySelectorAll( `.${this.reviewHandle}` );
-		this.reviewImages = this.builder.querySelectorAll( `.${this.reviewImageHandle}` );
-		this.reviewRatings      = this.builder.querySelectorAll( `.${this.reviewRatingHandle}` );
-		this.reviewTimestamps   = this.builder.querySelectorAll( `.${this.reviewTimestampHandle}` );
+		this.wrap             = this.builder.querySelector( `.${this.wrapHandle}` );
+		this.list             = this.builder.querySelector( `.${this.listHandle}` );
+		this.items            = this.builder.querySelectorAll( `.${this.itemHandle}` );
+		this.reviews          = this.builder.querySelectorAll( `.${this.reviewHandle}` );
+		this.reviewImages     = this.builder.querySelectorAll( `.${this.reviewImageHandle}` );
+		this.reviewRatings    = this.builder.querySelectorAll( `.${this.reviewRatingHandle}` );
+		this.reviewTimestamps = this.builder.querySelectorAll( `.${this.reviewTimestampHandle}` );
 
 
 		// Define background element, which changes color in theme previews.
