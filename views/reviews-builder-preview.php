@@ -11,7 +11,7 @@
 							</div>
 							<div class="wpbr-review__details">
 								<h3 class="wpbr-review__name js-wpbr-review-name">Firstname Lastname</h3>
-								<div class="js-wpbr-star-rating">
+								<div class="js-wpbr-review-rating">
 									<span class="wpbr-stars wpbr-stars--generic wpbr-stars--google wpbr-stars--generic-5" aria-label="Rated 5.0 out of 5"></span>
 									<span>★★★★★</span>
 								</div>
