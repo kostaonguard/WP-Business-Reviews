@@ -27,6 +27,15 @@ class Field {
 	const DEFAULT_VIEW = 'views/fields/field.php';
 
 	/**
+	 * Default view used to render the field.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 * @var string
+	 */
+	const DEFAULT_CONTROL_VIEW = 'views/fields/field.php';
+
+	/**
 	 * Field attributes.
 	 *
 	 * @since 1.0.0
