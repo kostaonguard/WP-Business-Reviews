@@ -65,7 +65,7 @@ class Field {
 	 * }
 	 */
 	public function __construct( array $atts = array() ) {
-		$this->atts = $this->prepare_atts( $atts );
+		$this->atts = $this->process_atts( $atts );
 	}
 
 	/**
@@ -100,11 +100,11 @@ class Field {
 	/**
 	 * Gets a single field attribute.
 	 *
-	 * @param string $att_key   Key associated with the field attribute.
-	 * @param string $att_value Value of the field attribute.
+	 * @param string $key   Key associated with the field attribute.
+	 * @param string $value Value of the field attribute.
 	 */
-	public function set_att( $att_key, $att_value ) {
-		return isset( $this->atts[ $att_key ] )	? $this->atts[ $att_key ] : '';
+	public function set_att( $key, $value ) {
+		$this->atts[ $key ] = $value;
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Field {
 	 *
 	 * @return array Fully populated field attributes.
 	 */
-	protected function prepare_atts( array $atts ) {
+	protected function process_atts( array $atts ) {
 		$defaults = array(
 			'id'           => '',
 			'name'         => '',
