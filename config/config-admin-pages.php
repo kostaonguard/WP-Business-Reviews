@@ -19,6 +19,7 @@ $config = apply_filters(
 	'wpbr_config_admin_pages',
 	array(
 		'reviews_builder' => array(
+			'page_parent' => 'edit.php?post_type=wpbr_review',
 			'page_title' => __( 'Reviews Builder', 'wpbr' ),
 			'menu_title' => __( 'Reviews Builder', 'wpbr' ),
 			'capability' => 'manage_options',
@@ -26,6 +27,7 @@ $config = apply_filters(
 			'view'       => '',
 		),
 		'settings' => array(
+			'page_parent' => 'edit.php?post_type=wpbr_review',
 			'page_title' => __( 'Settings', 'wpbr' ),
 			'menu_title' => __( 'Settings', 'wpbr' ),
 			'capability' => 'manage_options',
