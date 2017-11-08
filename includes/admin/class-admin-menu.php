@@ -8,95 +8,83 @@
 
 namespace WP_Business_Reviews\Includes\Admin;
 
-use WP_Business_Reviews\Includes\Admin\Pages;
-
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+use WP_Business_Reviews\Includes\Config;
 
 /**
- * Creates the menu for the plugin.
+ * Creates the menu of admin pages for the plugin.
  *
- * Adds menu pages under 'Reviews' and provides the page objects used to render
- * their corresponding menu pages.
- *
- * @package Custom_Admin_Settings
+ * @since 1.0.0
  */
 class Admin_Menu {
 	/**
-	 * The Settings API for the plugin.
+	 * Array of admin page objects.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 * @var array
+	 */
+	private $pages;
+
+	/**
+	 * Instantiates an Admin_Menu object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param Config $config Admin menu config.
+	 */
+	public function __construct( Config $config ) {
+		$this->config = $config;
+		$this->pages  = $this->process_config( $config );
+	}
+
+	/**
+	 * Registers functionality with WordPress.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register() {
+		add_action( 'admin_menu', array( $this, 'register_pages' ) );
+	}
+
+	/**
+	 * Converts config to array of page objects.
 	 *
 	 * @since  1.0.0
-	 * @access protected
-	 * @var    Settings_API
+	 *
+	 * @param Config $config Reviews Builder config.
+	 * @return array Array of admin page objects.
 	 */
-	protected $settings_api;
+	private function process_config( Config $config ) {
+		if ( empty( $config ) ) {
+			return array();
+		}
 
-	/**
-	 * Provides the Settings API used in admin pages.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param Settings_API $settings_api Settings API for the plugin.
-	 */
-	public function __construct( $settings_api ) {
-		$this->settings_api = $settings_api;
+		$pages = array();
+
+		foreach ( $config as $page ) {
+			if ( ! isset( $page['page_parent'], $page['page_title'], $page['menu_title'], $page['capability'], $page['menu_slug'] ) ) {
+				// Skip if required keys are not set.
+				continue;
+			}
+
+			// Create new admin page based on the config item.
+			$page_obj = new Admin_Page( $page['page_parent'], $page['page_title'], $page['menu_title'], $page['capability'], $page['menu_slug'] );
+
+			// Add admin page object to pages array.
+			$pages[ $page['menu_slug'] ] = $page_obj;
+		}
+
+		return $pages;
 	}
 
 	/**
-	 * Hooks functionality responsible for building the admin menu.
+	 * Registers one or more admin pages.
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
-		add_action( 'admin_menu', array( $this, 'add_pages' ) );
-	}
-
-	/**
-	 * Creates the menu and calls on the Admin_Page object to render the actual
-	 * contents of the page.
-	 *
-	 * @since 1.0.0
-	 */
-	public function add_pages() {
-		$settings_api = $this->settings_api;
-
-		// Add Reviews Builder page.
-		$page_builder = new Pages\Admin_Page_Builder( $settings_api );
-
-		add_submenu_page(
-			'edit.php?post_type=wpbr_review',
-			__( 'Reviews Builder', 'wpbr' ),
-			__( 'Reviews Builder', 'wpbr' ),
-			'manage_options',
-			'wpbr_reviews_builder',
-			array( $page_builder, 'render_page' )
-		);
-
-		// Pass settings object to settings page.
-		$page_settings = new Pages\Admin_Page_Settings( $settings_api );
-
-		add_submenu_page(
-			'edit.php?post_type=wpbr_review',
-			__( 'General Settings', 'wpbr' ),
-			__( 'Settings', 'wpbr' ),
-			'manage_options',
-			'wpbr_settings',
-			array( $page_settings, 'render_page' )
-		);
-
-		// TODO: Remove API Test page prior to launch.
-		// Add API Test page.
-		$page_api_test = new Pages\Admin_Page_API_Test( $settings_api );
-
-		add_submenu_page(
-			'edit.php?post_type=wpbr_review',
-			__( 'API Test', 'wpbr' ),
-			__( 'API Test', 'wpbr' ),
-			'manage_options',
-			'wpbr_api_test',
-			array( $page_api_test, 'render_page' )
-		);
+	public function register_pages() {
+		foreach ( $this->pages as $page ) {
+			$page->register();
+		}
 	}
 }
