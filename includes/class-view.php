@@ -76,20 +76,20 @@ class View {
 
 		$view = new static( $uri );
 
-		$view->render( $context ?: $this->context );
+		$view->render( $context );
 	}
 
 	/**
 	 * Validates the provided URL.
 	 *
-	 * @param string $uri
+	 * @param string $uri View location relative to the plugin directory.
 	 * @return string|boolean Valid URI or empty string if unreadable.
 	 */
 	protected function validate( $uri ) {
-		$uri = trailingslashit( WPBR_PLUGIN_DIR ) . $uri;
+		$uri = WPBR_PLUGIN_DIR . $uri;
 
 		if ( ! is_readable( $uri ) ) {
-			return '';
+			return false;
 		}
 
 		return $uri;
