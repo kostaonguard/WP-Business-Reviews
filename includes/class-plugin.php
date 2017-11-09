@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-final class WP_Business_Reviews {
+final class Plugin {
 	/**
 	 * The unique identifier of this plugin.
 	 *
