@@ -26,7 +26,9 @@
 
 namespace WP_Business_Reviews;
 
-use WP_Business_Reviews\Includes;
+use WP_Business_Reviews\Includes\Activator;
+use WP_Business_Reviews\Includes\Deactivator;
+use WP_Business_Reviews\Includes\Plugin;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -66,7 +68,7 @@ require_once __DIR__ . '/autoloader.php';
  * This action is documented in includes/class-activator.php
  */
 function activate_wp_business_reviews() {
-	Includes\Activator::activate();
+	Activator::activate();
 }
 
 /**
@@ -74,12 +76,12 @@ function activate_wp_business_reviews() {
  * This action is documented in includes/class-deactivator.php
  */
 function deactivate_wp_business_reviews() {
-	Includes\Deactivator::deactivate();
+	Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wp_business_reviews' );
 register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wp_business_reviews' );
 
 // Initialize plugin.
-$plugin = new Includes\WP_Business_Reviews;
+$plugin = new Plugin();
 $plugin->init();
