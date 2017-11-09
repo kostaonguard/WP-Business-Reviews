@@ -79,6 +79,7 @@ final class WP_Business_Reviews {
 
 		if ( is_admin() ) {
 			$this->add_admin_pages();
+			$this->register_services();
 			add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 			add_action( 'current_screen', array( $this, 'init_blank_slate' ) );
 		}
@@ -186,8 +187,9 @@ final class WP_Business_Reviews {
 	 */
 	private function add_admin_pages() {
 		// Add admin menu pages.
-		$admin_menu = new Admin\Admin_Menu( $this->settings_api );
-		$admin_menu->init();
+		$config     = new Config( WPBR_PLUGIN_DIR . 'config/admin-pages.php' );
+		$admin_menu = new Admin\Admin_Menu( $config );
+		$admin_menu->register();
 
 		// Add admin banner.
 		$admin_header = new Admin\Admin_Banner();
@@ -196,5 +198,10 @@ final class WP_Business_Reviews {
 		// Add admin footer.
 		$admin_footer = new Admin\Admin_Footer();
 		$admin_footer->init();
+	}
+
+	public function register_services() {
+		$reviews_builder = new Reviews_Builder( new Config( WPBR_PLUGIN_DIR . 'config/reviews-builder.php' ) );
+		$reviews_builder->register();
 	}
 }
