@@ -110,7 +110,7 @@ class Reviews_Builder {
 	 * @param array|null  $context Optional. Context variables for use in view.
 	 */
 	public function render_view() {
-		$view_object = new View( 'views/reviews-builder/reviews-builder-main.php' );
+		$view_object = new View( WPBR_PLUGIN_DIR . 'views/reviews-builder/reviews-builder-main.php' );
 		$view_object->render( $this->field_groups );
 	}
 }

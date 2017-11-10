@@ -15,8 +15,8 @@
 		</div>
 		<div class="wpbr-reviews-builder__workspace">
 			<?php
-			$this->render_partial( 'views/reviews-builder/reviews-builder-preview.php' );
-			$this->render_partial( 'views/reviews-builder/reviews-builder-settings.php' );
+			$this->render_partial( WPBR_PLUGIN_DIR . 'views/reviews-builder/reviews-builder-preview.php' );
+			$this->render_partial( WPBR_PLUGIN_DIR . 'views/reviews-builder/reviews-builder-settings.php' );
 			?>
 		</div>
 	</div>

@@ -86,8 +86,6 @@ class View {
 	 * @return string|boolean Valid URI or empty string if unreadable.
 	 */
 	protected function validate( $uri ) {
-		$uri = WPBR_PLUGIN_DIR . $uri;
-
 		if ( ! is_readable( $uri ) ) {
 			return false;
 		}
