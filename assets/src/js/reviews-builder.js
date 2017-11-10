@@ -13,7 +13,7 @@ class ReviewsBuilder {
 		this.themeField      = document.getElementById( 'wpbr-field-theme' );
 
 		// Define controls.
-		this.controlPanel           = document.getElementById( 'wpbr-control-panel' );
+		this.controlPanel           = document.getElementById( 'wpbr-reviews-builder-settings' );
 		this.settingsControl        = document.getElementById( 'wpbr-control-settings' );
 		this.saveControl            = document.getElementById( 'wpbr-control-save' );
 		this.formatControl          = document.getElementById( 'wpbr-control-format' );

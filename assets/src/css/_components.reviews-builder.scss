@@ -1,8 +1,8 @@
 /*--------------------------------------------------------------
-# Builder
+# Reviews-Builder
 --------------------------------------------------------------*/
 
-.wpbr-builder {
+.wpbr-reviews-builder {
 	box-sizing: border-box;
 	color: $wpbr-color-text;
 
@@ -33,7 +33,7 @@
 		width: 100%;
 	}
 
-	&__controls {
+	&__settings {
 		background-color: $wpbr-color-off-white;
 		border-left: $wpbr-border-width solid $wpbr-color-dim;
 		flex: 0 0 $wpbr-space * 16;
