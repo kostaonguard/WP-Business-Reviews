@@ -85,7 +85,7 @@ class Reviews_Builder {
 					}
 
 					// Create new field.
-					$field_obj = Field_Factory::create( $field );
+					$field_obj = Field_Factory::create_field( $field );
 
 					// TODO: Update value if set.
 
