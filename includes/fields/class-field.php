@@ -36,15 +36,6 @@ class Field {
 	const DEFAULT_CONTROL_VIEW = 'views/fields/field.php';
 
 	/**
-	 * Field attributes.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 * @var array
-	 */
-	protected $atts;
-
-	/**
 	 * Instantiates the Field object.
 	 *
 	 * @since 1.0.0
@@ -55,21 +46,50 @@ class Field {
 	 *     @type string $id           Field ID.
 	 *     @type string $name         Field name also used as label.
 	 *     @type string $type         Field type to determine Field subclass.
-	 *     @type string $tooltip      Tooltip to clarify field purpose.
-	 *     @type string $description  Description to clarify field use.
 	 *     @type string $default      Default field value.
 	 *     @type string $value        Field value.
+	 *     @type string $tooltip      Tooltip to clarify field purpose.
+	 *     @type string $description  Description to clarify field use.
 	 *     @type array  $control_atts Additional attributes for the control element.
 	 *     @type array  $options      Field options for select/radios/checkboxes.
 	 *     @type string $view         View used to render the field.
 	 * }
 	 */
-	public function __construct( array $atts = array() ) {
-		$this->atts = $this->process_atts( $atts );
+	public function __construct( array $atts, $value = null ) {
+		if ( ! isset( $atts['id'], $atts['name'], $atts['control'] ) ) {
+			return false;
+		}
+
+		$this->atts  = $atts;
+		$this->value = $value;
+	}
+
+	/**
+	 * Gets the field value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Value of the field.
+	 */
+	public function get_value() {
+		return $this->value;
+	}
+
+	/**
+	 * Sets the field value.
+	 *
+	 * If a value is not provided, the default field attribute is used instead.
+	 *
+	 * @since 1.0.0
+	 */
+	public function set_value( $value = '' ) {
+		$this->value = ! empty( $value ) ? $value : $this->atts['default'];
 	}
 
 	/**
 	 * Gets field attributes.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @return array Field attributes.
 	 */
@@ -78,18 +98,9 @@ class Field {
 	}
 
 	/**
-	 * Gets a single field attribute.
-	 *
-	 * @param string $att_key Key associated with the field attribute.
-	 *
-	 * @return string|array Value of the field attribute if it exists.
-	 */
-	public function get_att( $att_key ) {
-		return isset( $this->atts[ $att_key ] )	? $this->atts[ $att_key ] : '';
-	}
-
-	/**
 	 * Set field attributes.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param array $atts Associative array of field attributes.
 	 */
@@ -100,35 +111,26 @@ class Field {
 	/**
 	 * Gets a single field attribute.
 	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $att_key Key associated with the field attribute.
+	 *
+	 * @return string|array Value of the field attribute if it exists.
+	 */
+	public function get_att( $att_key ) {
+		return isset( $this->atts[ $att_key ] )	? $this->atts[ $att_key ] : '';
+	}
+
+	/**
+	 * Gets a single field attribute.
+	 *
+	 * @since 1.0.0
+	 *
 	 * @param string $key   Key associated with the field attribute.
 	 * @param string $value Value of the field attribute.
 	 */
 	public function set_att( $key, $value ) {
 		$this->atts[ $key ] = $value;
-	}
-
-	/**
-	 * Merges default field attributes with provided attributes.
-	 *
-	 * @param array $atts Field attributes.
-	 *
-	 * @return array Fully populated field attributes.
-	 */
-	protected function process_atts( array $atts ) {
-		$defaults = array(
-			'id'           => '',
-			'name'         => '',
-			'tooltip'      => '',
-			'type'         => '',
-			'default'      => '',
-			'value'        => '',
-			'control_atts' => array(),
-			'description'  => '',
-			'options'      => array(),
-			'view'         => self::DEFAULT_VIEW,
-		);
-
-		return wp_parse_args( $atts, $defaults );
 	}
 
 	/**
@@ -142,6 +144,11 @@ class Field {
 	 */
 	public function render_view( $view ) {
 		$view_object = is_string( $view ) ? new View( $view ) : $view;
-		$view_object->render( $this->get_atts() );
+		$view_object->render(
+			array(
+				'atts'  => $this->get_atts(),
+				'value' => $this->get_value(),
+			)
+		);
 	}
 }
