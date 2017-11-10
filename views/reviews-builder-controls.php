@@ -16,7 +16,7 @@ $field_groups = $this->context;
 				<?php
 				$fields = $field_group->get_fields();
 				foreach ( $fields as $field ) {
-					$field->render_view( $field->get_att( 'view' ) );
+					$field->render_view( 'views/fields/field.php' );
 				}
 				?>
 			</div>
