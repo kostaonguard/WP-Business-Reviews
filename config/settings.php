@@ -14,7 +14,7 @@ namespace WP_Business_Reviews\Config;
  * @since 1.0.0
  *
  * @param array $config Settings config containing tabs, panels,
- *                         sections, and fields.
+ *                      sections, and fields.
  */
 $config = apply_filters(
 	'wpbr_config_settings',
@@ -56,8 +56,8 @@ $config = apply_filters(
 								'active_platforms' => array(
 									'id'      => 'active_platforms',
 									'name'    => __( 'Active Review Platforms', 'wpbr' ),
-									'desc'    => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wpbr' ),
-									'type'    => 'checkbox',
+									'control' => 'checkboxes',
+									'tooltip' => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wpbr' ),
 									'default' => array(
 										'google',
 										'facebook',
@@ -97,20 +97,23 @@ $config = apply_filters(
 								'platform_status_google' => array(
 									'id'       => 'platform_status_google',
 									'name'     => __( 'Platform Status', 'wpbr' ),
-									'type'     => 'platform_status',
+									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'google',
 								),
 								'api_key_google_places'  => array(
-									'id'   => 'api_key_google_places',
-									'name' => __( 'Google Places API Key', 'wpbr' ),
-									'desc' => sprintf(
+									'id'      => 'api_key_google_places',
+									'name'    => __( 'Google Places API Key', 'wpbr' ),
+									'control' => 'input',
+									'desc'    => sprintf(
 										/* translators: link to documentation */
 										__( 'Defines the Google Places API Key required to retrieve Google reviews. For step-by-step instructions, see docs on %1$sHow to Generate a Google Places API Key%2$s.', 'wbpr' ),
 										'<a href="https://wpbusinessreviews.com/">',
 										'</a>'
 									),
-									'type' => 'text',
+									'control_atts' => array(
+										'type' => 'text',
+									)
 								),
 							)
 						),
@@ -140,15 +143,15 @@ $config = apply_filters(
 								'platform_status_facebook' => array(
 									'id'       => 'platform_status_facebook',
 									'name'     => __( 'Platform Status', 'wpbr' ),
-									'type'     => 'platform_status',
+									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'facebook',
 								),
 								'facebook_pages'           => array(
-									'id'   => 'facebook_pages',
-									'name' => __( 'Facebook Pages', 'wpbr' ),
-									'desc' => __( 'Defines the Facebook Pages from which reviews may be displayed. The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
-									'type' => 'facebook_pages',
+									'id'      => 'facebook_pages',
+									'control' => 'facebook_pages',
+									'name'    => __( 'Facebook Pages', 'wpbr' ),
+									'desc'    => __( 'Defines the Facebook Pages from which reviews may be displayed. The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
 								),
 							)
 						),
@@ -177,19 +180,25 @@ $config = apply_filters(
 								'platform_status_yelp' => array(
 									'id'       => 'platform_status_yelp',
 									'name'     => __( 'Platform Status', 'wpbr' ),
-									'type'     => 'platform_status',
+									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'yelp',
 								),
 								'yelp_client_id'       => array(
-									'id'   => 'yelp_client_id',
-									'name' => __( 'Yelp Client ID', 'wpbr' ),
-									'type' => 'text',
+									'id'      => 'yelp_client_id',
+									'name'    => __( 'Yelp Client ID', 'wpbr' ),
+									'control' => 'input',
+									'control_atts' => array(
+										'type' => 'text',
+									),
 								),
 								'yelp_client_secret'   => array(
 									'id'   => 'yelp_client_secret',
 									'name' => __( 'Yelp Client Secret', 'wpbr' ),
-									'type' => 'text',
+									'control' => 'input',
+									'control_atts' => array(
+										'type' => 'text',
+									),
 								),
 							)
 						),
@@ -218,14 +227,17 @@ $config = apply_filters(
 								'platform_status_yp' => array(
 									'id'       => 'platform_status_yp',
 									'name'     => __( 'Platform Status', 'wpbr' ),
-									'type'     => 'platform_status',
+									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'yp',
 								),
 								'api_key_yp'         => array(
 									'id'   => 'api_key_yp',
 									'name' => __( 'YP API Key', 'wpbr' ),
-									'type' => 'text',
+									'control' => 'input',
+									'control_atts' => array(
+										'type' => 'text',
+									),
 								),
 							)
 						),
@@ -269,8 +281,8 @@ $config = apply_filters(
 								'plugin_styles'      => array(
 									'id'      => 'plugin_styles',
 									'name'    => __( 'Plugin Styles', 'wpbr' ),
+									'control' => 'radios',
 									'desc'    => __( 'Outputs CSS that styles the presentation of reviews.', 'wpbr' ),
-									'type'    => 'radio',
 									'default' => 'enabled',
 									'options' => array(
 										'enabled'  => __( 'Enabled', 'wpbr' ),
@@ -280,12 +292,12 @@ $config = apply_filters(
 								'nofollow_links'     => array(
 									'id'      => 'nofollow_links',
 									'name'    => __( 'Nofollow Links', 'wpbr' ),
+									'control' => 'radios',
 									'desc'    => sprintf(
 										/* translators: anchor attribute to discourage search engines */
 										__( 'Adds %s to review links in order to discourage search engines from following them.', 'wbpr' ),
 										'<code>rel="nofollow"</code>'
 									),
-									'type'    => 'radio',
 									'default' => 'disabled',
 									'options' => array(
 										'enabled'  => __( 'Enabled', 'wpbr' ),
@@ -295,12 +307,12 @@ $config = apply_filters(
 								'link_targeting'     => array(
 									'id'      => 'link_targeting',
 									'name'    => __( 'Link Targeting', 'wpbr' ),
+									'control' => 'radios',
 									'desc'    => sprintf(
 										/* translators: anchor attribute to open links in new tab */
 										__( 'Adds %s to review links when set to open in new tab.', 'wbpr' ),
 										'<code>target="_blank"</code>'
 									),
-									'type'    => 'radio',
 									'default' => '_self',
 									'options' => array(
 										'_self'  => __( 'Open links in same tab.', 'wpbr' ),
@@ -310,7 +322,7 @@ $config = apply_filters(
 								'uninstall_behavior' => array(
 									'id'      => 'uninstall_behavior',
 									'name'    => __( 'Uninstall Behavior', 'wpbr' ),
-									'type'    => 'radio',
+									'control'    => 'radios',
 									'default' => 'keep',
 									'options' => array(
 										'keep'   => __( 'Keep all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
@@ -358,9 +370,9 @@ $config = apply_filters(
 							'wpbr_settings_fields_pro_features',
 							array(
 								'pro_features_gallery' => array(
-									'id'   => 'pro_features_gallery',
-									'name' => __( 'Pro Features Gallery', 'wpbr' ),
-									'type' => 'pro_features_gallery',
+									'id'      => 'pro_features_gallery',
+									'name'    => __( 'Pro Features Gallery', 'wpbr' ),
+									'control' => 'pro_features_gallery',
 								),
 							)
 						),
