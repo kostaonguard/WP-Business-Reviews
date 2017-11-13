@@ -37,9 +37,16 @@ class Reviews_Builder {
 	 */
 	private $field_groups;
 
-	public function __construct( Config $config ) {
-		$this->config       = $config;
-		$this->field_groups = $this->process_config( $config );
+	/**
+	 * Instantiates a reviews builder object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|Config $config Path to config or Config object.
+	 */
+	public function __construct( $config ) {
+		$config_object = is_string( $config ) ? new Config( $config ) : $config;
+		$this->config  = $config_object;
 
 		// TODO: Use an actual Review_SET
 		$this->review_set = array(
@@ -47,16 +54,32 @@ class Reviews_Builder {
 		);
 	}
 
+	/**
+	 * Registers functionality with WordPress hooks.
+	 *
+	 * @since 1.0.0
+	 */
 	public function register() {
-		add_action( 'wpbr_review_page_reviews_builder', array( $this, 'render_view' ) );
+		add_action( 'wpbr_review_page_reviews_builder', array( $this, 'init' ) );
+		add_action( 'wpbr_review_page_reviews_builder', array( $this, 'render' ) );
 	}
 
 	/**
-	 * Converts config to array of field group objects.
+	 * Initializes processes that prepare the class
+	 *
+	 * @since 1.0.0
+	 */
+	public function init() {
+		// Process the config to create field objects.
+		$this->field_groups = $this->process_config( $this->config );
+	}
+
+	/**
+	 * Converts config to array of field objects.
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param Config $config Reviews Builder config.
+	 * @param Config $config Config object.
 	 * @return array Array of field objects.
 	 */
 	private function process_config( Config $config ) {
@@ -66,7 +89,7 @@ class Reviews_Builder {
 
 		$field_groups = array();
 
-		foreach ( $config as $field_group ) {
+		foreach ( $this->config as $field_group ) {
 			if ( ! isset( $field_group['id'], $field_group['name'] ) ) {
 				// Skip if field group ID or name is not set.
 				continue;
@@ -101,15 +124,11 @@ class Reviews_Builder {
 	}
 
 	/**
-	 * Render the Reviews Builder view.
+	 * Renders the reviews builder.
 	 *
-	 * @since 1.0.0
-	 *
-	 * @param string|View $view    View to render. Can be a path to a view file
-	 *                             or an instance of a View object.
-	 * @param array|null  $context Optional. Context variables for use in view.
+	 * @since  1.0.0
 	 */
-	public function render_view() {
+	public function render() {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/reviews-builder/reviews-builder-main.php' );
 		$view_object->render( $this->field_groups );
 	}

@@ -201,7 +201,7 @@ final class Plugin {
 	}
 
 	public function register_services() {
-		$reviews_builder = new Reviews_Builder( new Config( WPBR_PLUGIN_DIR . 'config/reviews-builder.php' ) );
+		$reviews_builder = new Reviews_Builder( WPBR_PLUGIN_DIR . 'config/reviews-builder.php' );
 		$reviews_builder->register();
 	}
 }
