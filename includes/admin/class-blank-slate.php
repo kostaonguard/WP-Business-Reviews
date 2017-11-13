@@ -147,7 +147,7 @@ class Blank_Slate {
 
 		// Define default content.
 		$defaults = array(
-			'image_url' => WPBR_PLUGIN_URL . 'assets/images/wpbr-icon-color.png',
+			'image_url' => WPBR_PLUGIN_URL . 'assets/dist/images/wpbr-icon-color.png',
 			'image_alt' => __( 'WP Business Reviews Icon', 'wpbr' ),
 			'heading'   => __( 'Welcome to WP Business Reviews!', 'wpbr' ),
 			'message'   => __( 'Let\'s begin by connecting to at least one reviews platform.', 'wpbr' ),
