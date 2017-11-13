@@ -31,7 +31,7 @@ $value = $this->context['value'];
 	<div id="wpbr-field-control-wrap-<?php echo esc_attr( $atts['id'] ); ?>" class="wpbr-field__control-wrap">
 		<?php
 		// Render field control.
-		$this->render_partial( WPBR_PLUGIN_DIR . "views/fields/controls/{$atts['control']}.php" );
+		$this->render_partial( WPBR_PLUGIN_DIR . "views/fields/controls/control-{$atts['control']}.php" );
 		?>
 	</div>
 
