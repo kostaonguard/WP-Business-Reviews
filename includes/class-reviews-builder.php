@@ -65,7 +65,7 @@ class Reviews_Builder {
 	}
 
 	/**
-	 * Initializes processes that prepare the class
+	 * Initializes processes that prepare the class for use.
 	 *
 	 * @since 1.0.0
 	 */
