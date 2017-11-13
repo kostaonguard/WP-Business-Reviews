@@ -8,8 +8,8 @@
 
 namespace WP_Business_Reviews;
 
-$atts  = $context['atts'];
-$value = $context['value'];
+$atts  = $this->context['atts'];
+$value = $this->context['value'];
 ?>
 
 <div id="wpbr-field-<?php echo esc_attr( $atts['id'] ); ?>" class="wpbr-field js-wpbr-field">

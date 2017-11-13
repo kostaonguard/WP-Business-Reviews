@@ -16,7 +16,7 @@ $field_groups = $this->context;
 				<?php
 				$fields = $field_group->get_fields();
 				foreach ( $fields as $field ) {
-					$field->render_view( WPBR_PLUGIN_DIR . 'views/fields/field.php' );
+					$field->render_view( WPBR_PLUGIN_DIR . 'views/fields/field-main.php', true );
 				}
 				?>
 			</div>
