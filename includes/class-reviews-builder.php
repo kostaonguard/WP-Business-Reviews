@@ -14,13 +14,13 @@ use WP_Business_Reviews\Includes\Fields\Field_Group;
 use WP_Business_Reviews\Includes\Fields\Field_Config_Processor;
 
 /**
- * Creates the admin banner for the plugin.
+ * Provides the interface for building review sets.
  *
  * @since 1.0.0
  */
 class Reviews_Builder {
 	/**
-	 * Reviews Builder config containing field groups and fields.
+	 * Config object containing sections and fields.
 	 *
 	 * @since  1.0.0
 	 * @var    Config
@@ -38,7 +38,7 @@ class Reviews_Builder {
 	private $field_groups;
 
 	/**
-	 * Instantiates a reviews builder object.
+	 * Instantiates a Reviews_Builder object.
 	 *
 	 * @since 1.0.0
 	 *
@@ -89,7 +89,7 @@ class Reviews_Builder {
 
 		$field_groups = array();
 
-		foreach ( $this->config as $field_group ) {
+		foreach ( $config as $field_group ) {
 			if ( ! isset( $field_group['id'], $field_group['name'] ) ) {
 				// Skip if field group ID or name is not set.
 				continue;
