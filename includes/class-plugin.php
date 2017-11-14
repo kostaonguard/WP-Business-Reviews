@@ -193,11 +193,11 @@ final class Plugin {
 
 		// Add admin banner.
 		$admin_header = new Admin\Admin_Banner();
-		$admin_header->init();
+		$admin_header->register();
 
 		// Add admin footer.
 		$admin_footer = new Admin\Admin_Footer();
-		$admin_footer->init();
+		$admin_footer->register();
 	}
 
 	public function register_services() {

@@ -20,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin_Footer {
 	/**
-	 * Hooks functionality responsible for rendering the admin footer.
+	 * Registers functionality with WordPress hooks.
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 */
-	public function init() {
+	public function register() {
 		add_filter( 'admin_footer_text', array( $this, 'render' ) );
 	}
 

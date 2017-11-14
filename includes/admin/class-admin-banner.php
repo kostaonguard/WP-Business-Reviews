@@ -20,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin_Banner {
 	/**
-	 * Hooks functionality responsible for rendering the admin banner.
+	 * Registers functionality with WordPress hooks.
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 */
-	public function init() {
+	public function register() {
 		add_action( 'wp_after_admin_bar_render', array( $this, 'render' ) );
 	}
 
