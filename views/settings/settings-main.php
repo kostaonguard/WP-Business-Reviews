@@ -1,9 +1,22 @@
+<?php
+/**
+ * Displays the settings UI for the plugin
+ *
+ * @package WP_Business_Reviews
+ * @since 1.0.0
+ */
+
+namespace WP_Business_Reviews;
+
+$field_hierarchy = $this->context;
+?>
+
 <!-- Tabs -->
 <nav>
 	<ul class="wpbr-tabs js-wpbr-tabs">
-		<?php foreach ( $config as $tab ) : ?>
+		<?php foreach ( $field_hierarchy as $tab ) : ?>
 			<?php
-			$tab_id   = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : '';
+			$tab_id   = ! empty( $tab['id'] ) ? $tab['id'] : '';
 			$tab_name = ! empty( $tab['name'] ) ? $tab['name'] : '';
 			?>
 			<li class="wpbr-tabs__item">
@@ -15,32 +28,26 @@
 
 <!-- Panels -->
 <div class="wpbr-admin-page">
-	<?php foreach ( $config as $tab ) : ?>
+	<?php foreach ( $field_hierarchy as $panel ) : ?>
 		<!-- Panel -->
-		<?php $tab_id = ! empty( $tab['id'] ) ? str_replace( '_', '-', $tab['id'] ) : ''; ?>
-		<div id="wpbr-panel-<?php echo esc_attr( $tab_id ); ?>" class="wpbr-panel js-wpbr-panel" data-tab-id="<?php echo esc_attr( $tab_id ); ?>">
-			<?php
-			// Do not render if no sections.
-			if ( empty( $tab['sections'] ) ) {
-				continue;
-			}
-			?>
-
+		<?php $panel_id = ! empty( $panel['id'] ) ? $panel['id'] : ''; ?>
+		<div id="wpbr-panel-<?php echo esc_attr( $panel_id ); ?>" class="wpbr-panel js-wpbr-panel" data-tab-id="<?php echo esc_attr( $panel_id ); ?>">
 			<?php
 			// Only show sections navigation if more than one section exists.
-			if ( count( $tab['sections'] ) > 1 ) :
+			if ( ! empty( $panel['sections'] ) && count( $panel['sections'] ) > 0 ) :
 			?>
+
 				<!-- Sidebar -->
 				<div class="wpbr-panel__sidebar">
 					<ul class="wpbr-subtabs js-wpbr-subtabs">
-						<?php foreach ( $tab['sections'] as $section ) : ?>
+						<?php foreach ( $panel['sections'] as $section ) : ?>
 							<?php
-							$section_id   = ! empty( $section['id'] ) ? str_replace( '_', '-', $section['id'] ) : '';
+							$section_id   = ! empty( $section['id'] ) ?  $section['id'] : '';
 							$section_name = ! empty( $section['name'] ) ? $section['name'] : '';
-							$section_icon = ! empty( $section['icon'] ) ? $section['icon'] : 'gears';
+							$section_icon = ! empty( $section['icon'] ) ? $section['icon'] : '';
 
 							if ( 'status' === $section_icon ) {
-								// Determine which status icon to display.
+								// TODO:Determine which status icon to display.
 								$section_icon = 'error';
 							}
 							?>
@@ -56,9 +63,10 @@
 
 			<!-- Main -->
 			<div class="wpbr-panel__main">
-				<?php foreach ( $tab['sections'] as $section ) : ?>
+				<?php foreach ( $panel['sections'] as $section ) : ?>
 					<?php
-					$section_id          = ! empty( $section['id'] ) ? str_replace( '_', '-', $section['id'] ) : '';
+					// echo '<pre>'; var_dump( $section ); echo '</pre>';
+					$section_id          = ! empty( $section['id'] ) ? $section['id'] : '';
 					$section_heading     = ! empty( $section['heading'] ) ? $section['heading'] : '';
 					$section_description = ! empty( $section['desc'] ) ? $section['desc'] : '';
 					$allowed_html        = array(
@@ -97,12 +105,12 @@
 								<input type="hidden" name="action" value="wpbr_settings_save">
 								<input type="hidden" name="wpbr_tab" value="<?php echo esc_attr( $tab_id ); ?>">
 								<input type="hidden" name="wpbr_section" value="<?php echo esc_attr( $section_id ); ?>">
-
 								<?php
 								// Render settings fields.
-								array_map( array( $this, 'render_field' ), $section['fields'] );
+								foreach ( $section['fields'] as $field ) {
+									$field->render_view( WPBR_PLUGIN_DIR . 'views/fields/field-main.php' );
+								}
 								?>
-
 								<?php if ( $save_button ) : ?>
 									<?php wp_nonce_field( 'wpbr_settings_save', 'wpbr_settings_nonce' ); ?>
 									<div class="wpbr-field wpbr-field--setting">
@@ -118,3 +126,4 @@
 		</div>
 	<?php endforeach; ?>
 </div>
+
