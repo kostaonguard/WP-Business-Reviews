@@ -14,7 +14,7 @@
 	}
 
 	.js & {
-		display: none;
+		// display: none;
 	}
 
 	.js &.is-active {
@@ -61,7 +61,7 @@
 
 		.js & {
 			@media ( min-width: 768px ) {
-				display: none;
+				// display: none;
 			}
 		}
 
