@@ -47,11 +47,6 @@ class Reviews_Builder {
 	public function __construct( $config ) {
 		$config_object = is_string( $config ) ? new Config( $config ) : $config;
 		$this->config  = $config_object;
-
-		// TODO: Use an actual Review_SET
-		$this->review_set = array(
-			'format' => 'reviews-list',
-		);
 	}
 
 	/**
@@ -65,7 +60,7 @@ class Reviews_Builder {
 	}
 
 	/**
-	 * Initializes processes that prepare the class for use.
+	 * Initializes the class for use.
 	 *
 	 * @since 1.0.0
 	 */
@@ -87,40 +82,23 @@ class Reviews_Builder {
 			return array();
 		}
 
-		$field_hierarchy = array();
+		$field_hierarchy = $config;
 
-		foreach ( $config as $section ) {
-			if ( ! isset( $section['id'], $section['name'] ) ) {
-				// Skip if field group ID or name is not set.
-				continue;
-			}
+		foreach ( $field_hierarchy as $section_id => $section_atts ) {
+			if ( isset( $section_atts['fields'] ) ) {
+				$field_objects = array();
 
-			$field_objects = array();
-
-			// Populate the section with individual field objects.
-			if ( isset( $section['fields'] ) ) {
-				foreach ( $section['fields'] as $field_atts ) {
-					if ( ! isset( $field_atts['id'] ) ) {
-						continue;
-					}
-
-					// TODO: Update value if set.
-					$field_value = null;
-
-					// Add field object to array.
-					$field_objects[] = Field_Factory::create_field( $field_atts, $field_value );
+				foreach ( $section_atts['fields'] as $field_id => $field_atts ) {
+					// Create new field object and add to array.
+					$field_objects[] = Field_Factory::create_field( $field_atts );
 				}
-			}
 
-			// Add section to field hierarchy.
-			$field_hierarchy[ $section['id'] ] = array(
-				'id'   => $section['id'],
-				'name' => $section['name'],
-				'fields' => $field_objects,
-			);
+				// Replace field attributes with field objects.
+				$field_hierarchy[ $section_id ]['fields'] = $field_objects;
+			}
 		}
 
-		return $field_hierarchy;
+		return $field_hierarchy->getArrayCopy();
 	}
 
 	/**
