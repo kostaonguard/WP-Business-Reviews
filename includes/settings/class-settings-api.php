@@ -9,24 +9,9 @@
 namespace WP_Business_Reviews\Includes\Settings;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Admin\Admin_Notices;
-
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Handles the custom Settings API for the plugin.
- *
- * The Settings API depdends upon the settings config which defines the
- * structure of tabs, panels, sections, and fields along with default values.
- * This config determines the default settings for the plugin as well as the
- * user interface that appears in WP Admin.
- *
- * Adding a new tab, panel, section, or field is as easy as manipulating the
- * config array. Any field present in the config array will be visible
- * in the settings UI and saved to the database.
  *
  * When settings are saved, the plugin stores its settings in a single option
  * named `wpbr_settings`. This option holds an associative array of all plugin
@@ -45,118 +30,24 @@ class Settings_API {
 	private $settings;
 
 	/**
-	 * Settings config containing tabs, panels, sections, and fields.
-	 *
-	 * @since  1.0.0
-	 * @var    Config
-	 * @access private
-	 */
-	private $config;
-
-	/**
-	 * Associative array of field attributes and default values.
-	 *
-	 * @since  1.0.0
-	 * @var    array
-	 * @access private
-	 */
-	private $field_defaults;
-
-	/**
-	 * Active tab.
-	 *
-	 * @since  1.0.0
-	 * @var    string
-	 * @access private
-	 */
-	private $active_tab;
-
-	/**
-	 * Active section.
-	 *
-	 * @since  1.0.0
-	 * @var    string
-	 * @access private
-	 */
-	private $active_section;
-
-	/**
-	 * Admin notices.
-	 *
-	 * @since  1.0.0
-	 * @var    array
-	 * @access private
-	 */
-	private $notices;
-
-	/**
-	 * Sets up the settings framework.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array $config Settings config containing tabs, panels, sections, and fields.
-	 */
-	public function __construct( $config ) {
-		$this->config         = $config;
-		$this->settings       = get_option( 'wpbr_settings', array() );
-		$this->field_defaults = $this->define_field_defaults();
-		$this->notices        = new Admin_Notices();
-		$this->active_tab     = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( $_POST['wpbr_tab'] ) : '';
-		$this->active_section = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( $_POST['wpbr_section'] ) : '';
-	}
-
-	/**
-	 * Hooks functionality responsible for handling settings.
+	 * Registers functionality with WordPress hooks.
 	 *
 	 * @since 1.0.0
 	 */
-	public function init() {
+	public function register() {
 		if ( is_admin() ) {
 			// Save active section's fields.
 			add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_section' ) );
-			// Display notices under the active section.
-			add_action( 'wpbr_settings_notices_' . $this->active_section, array( $this->notices, 'render_notices' ) );
 		}
 	}
 
 	/**
-	 * Gets the settings config.
+	 * Initializes the class for use.
 	 *
 	 * @since 1.0.0
 	 */
-	public function get_config() {
-		return $this->config;
-	}
-
-	/**
-	 * Sets the settings config.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param Config Settings config.
-	 */
-	public function set_config( Config $config ) {
-		$this->config = $config;
-	}
-
-	/**
-	 * Define default values of settings field.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array Associative array of field attributes and values.
-	 */
-	private function define_field_defaults() {
-		$field_defaults = array(
-			'id' => '',
-			'name' => '',
-			'desc' => '',
-			'type' => 'text',
-			'default' => '',
-			'options' => array(),
-		);
-
-		return $field_defaults;
+	public function init() {
+		$this->settings = get_option( 'wpbr_settings', array() );
 	}
 
 	/**
