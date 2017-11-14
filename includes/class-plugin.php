@@ -163,9 +163,10 @@ final class Plugin {
 	 * @since 1.0.0
 	 */
 	private function register_settings_api() {
-		$config = new Config( WPBR_PLUGIN_DIR . 'config/settings.php' );
-		$this->settings_api = new Settings\Settings_API( $config );
-		$this->settings_api->init();
+		$this->settings_api = new Settings\Settings_API( WPBR_PLUGIN_DIR . 'config/settings.php' );
+		$this->settings_api->register();
+		$settings_ui = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'config/settings.php' );
+		$settings_ui->register();
 	}
 
 	/**
