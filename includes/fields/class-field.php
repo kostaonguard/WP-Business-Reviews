@@ -16,24 +16,7 @@ use WP_Business_Reviews\Includes\View;
  * @since 1.0.0
  */
 class Field {
-
-	/**
-	 * Default view used to render the field.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @var string
-	 */
-	const DEFAULT_VIEW = 'views/fields/field.php';
-
-	/**
-	 * Default view used to render the field.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @var string
-	 */
-	const DEFAULT_CONTROL_VIEW = 'views/fields/field.php';
+	// TODO: Update $atts DocBlock.
 
 	/**
 	 * Instantiates the Field object.
@@ -52,38 +35,10 @@ class Field {
 	 *     @type string $description  Description to clarify field use.
 	 *     @type array  $control_atts Additional attributes for the control element.
 	 *     @type array  $options      Field options for select/radios/checkboxes.
-	 *     @type string $view         View used to render the field.
 	 * }
 	 */
-	public function __construct( array $atts, $value = null ) {
-		if ( ! isset( $atts['id'], $atts['name'], $atts['control'] ) ) {
-			return false;
-		}
-
+	public function __construct( array $atts ) {
 		$this->atts  = $atts;
-		$this->value = $value;
-	}
-
-	/**
-	 * Gets the field value.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string Value of the field.
-	 */
-	public function get_value() {
-		return $this->value;
-	}
-
-	/**
-	 * Sets the field value.
-	 *
-	 * If a value is not provided, the default field attribute is used instead.
-	 *
-	 * @since 1.0.0
-	 */
-	public function set_value( $value = '' ) {
-		$this->value = ! empty( $value ) ? $value : $this->atts['default'];
 	}
 
 	/**
@@ -145,10 +100,8 @@ class Field {
 	public function render_view( $view ) {
 		$view_object = is_string( $view ) ? new View( $view ) : $view;
 		$view_object->render(
-			array(
-				'atts'  => $this->get_atts(),
-				'value' => $this->get_value(),
-			)
+			$this->get_atts(),
+			true
 		);
 	}
 }
