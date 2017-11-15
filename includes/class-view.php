@@ -65,14 +65,13 @@ class View {
 		}
 
 		// Set the context for the view.
-		$this->context = $context;
+		$this->assimilate_context( $context );
 
 		// Store the view's contents in output buffer.
 		ob_start();
 		include $this->uri;
 		$output = ob_get_clean();
 
-		// Echo or return output.
 		if ( $echo ) {
 			echo $output;
 		} else {
@@ -92,14 +91,11 @@ class View {
 			return false;
 		}
 
-		if ( empty( $context ) ) {
+		if ( null === $context ) {
 			$context = $this->context;
 		}
 
-		// Create new View object and pass the current context.
 		$view = new static( $uri );
-
-		// Render partial.
 		$view->render( $context, $echo );
 	}
 
@@ -115,5 +111,19 @@ class View {
 		}
 
 		return $uri;
+	}
+
+	/**
+	 * Assimilate the context to make it available as properties.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $context Context to assimilate.
+	 */
+	protected function assimilate_context( array $context = array() ) {
+		$this->context = $context;
+		foreach ( $context as $key => $value ) {
+			$this->$key = $value;
+		}
 	}
 }
