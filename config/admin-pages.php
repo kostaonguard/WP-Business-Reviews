@@ -3,7 +3,7 @@
  * Defines the admin pages config.
  *
  * @package WP_Business_Reviews\Config
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Config;
@@ -11,7 +11,7 @@ namespace WP_Business_Reviews\Config;
 /**
  * Filters the admin pages config.
  *
- * @since 1.0.0
+ * @since 0.1.0
  *
  * @param array $config Admin pages config containing menu and submenu pages.
  */

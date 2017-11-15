@@ -4,7 +4,7 @@
  * Defines the Post_Types class
  *
  * @package WP_Business_Reviews\Includes
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -17,13 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Registers custom post types and taxonomies.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Post_Types {
 	/**
 	 * Hooks functionality responsible for registering post types and taxonomies.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function init() {
 		add_action( 'init', array( $this, 'register_post_types' ) );
@@ -33,7 +33,7 @@ class Post_Types {
 	/**
 	 * Registers all custom post types.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_post_types() {
 		$this->register_business_post_type();
@@ -44,7 +44,7 @@ class Post_Types {
 	/**
 	 * Registers all custom taxonomies.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_taxonomies() {
 		$this->register_platform_taxonomy();
@@ -53,7 +53,7 @@ class Post_Types {
 	/**
 	 * Insert default terms.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function insert_terms() {
 		$platforms = array(
@@ -78,7 +78,7 @@ class Post_Types {
 	/**
 	 * Registers the wpbr_business post type.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_business_post_type() {
 		$labels = array(
@@ -141,7 +141,7 @@ class Post_Types {
 	/**
 	 * Registers the wpbr_review post type.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_review_post_type() {
 
@@ -212,7 +212,7 @@ class Post_Types {
 	/**
 	 * Registers the wpbr_review post type.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_review_set_post_type() {
 
@@ -283,7 +283,7 @@ class Post_Types {
 	/**
 	 * Registers the wpbr_platform taxonomy.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_platform_taxonomy() {
 		$labels = array(

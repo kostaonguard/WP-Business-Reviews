@@ -3,7 +3,7 @@
  * Defines the Settings_UI class
  *
  * @package WP_Business_Reviews\Includes\Settings
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Settings;
@@ -19,13 +19,13 @@ use WP_Business_Reviews\Includes\Admin\Admin_Notices;
  * The Settings UI depends upon a Config object which defines the structure of
  * tabs, panels, sections, and fields along with default values.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Settings_UI {
 	/**
 	 * Config object containing tabs, panels, sections, and fields.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    Config
 	 * @access private
 	 */
@@ -34,7 +34,7 @@ class Settings_UI {
 	/**
 	 * Active tab.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    string
 	 * @access private
 	 */
@@ -43,7 +43,7 @@ class Settings_UI {
 	/**
 	 * Active section.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    string
 	 * @access private
 	 */
@@ -52,7 +52,7 @@ class Settings_UI {
 	/**
 	 * Admin notices.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    array
 	 * @access private
 	 */
@@ -61,7 +61,7 @@ class Settings_UI {
 	/**
 	 * Multidimensional array of field objects.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    array
 	 * @access private
 	 */
@@ -70,7 +70,7 @@ class Settings_UI {
 	/**
 	 * Instantiates the Settings_UI object.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string|Config $config Path to config or Config object.
 	 */
@@ -83,7 +83,7 @@ class Settings_UI {
 	/**
 	 * Registers functionality with WordPress hooks.
 	 *
-	 * @since 1.0.0j
+	 * @since 0.1.0j
 	 */
 	public function register() {
 		add_action( 'wpbr_review_page_settings', array( $this, 'init' ) );
@@ -94,7 +94,7 @@ class Settings_UI {
 	/**
 	 * Initializes the class for use.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function init() {
 		$this->active_tab     = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( $_POST['wpbr_tab'] ) : '';
@@ -107,7 +107,7 @@ class Settings_UI {
 	/**
 	 * Converts config to array of field objects.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 *
 	 * @param Config $config Config object.
 	 * @return array Array of field objects.
@@ -141,7 +141,7 @@ class Settings_UI {
 	/**
 	 * Renders the settings UI.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 */
 	public function render() {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/settings/settings-main.php' );

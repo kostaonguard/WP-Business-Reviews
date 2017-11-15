@@ -3,7 +3,7 @@
  * Defines the Settings_API class
  *
  * @package WP_Business_Reviews\Includes\Settings
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Settings;
@@ -17,13 +17,13 @@ use WP_Business_Reviews\Includes\Config;
  * named `wpbr_settings`. This option holds an associative array of all plugin
  * settings from which single settings can be retrieved.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Settings_API {
 	/**
 	 * Associative array of field IDs and saved values from the database.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    array
 	 * @access private
 	 */
@@ -32,7 +32,7 @@ class Settings_API {
 	/**
 	 * Registers functionality with WordPress hooks.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register() {
 		if ( is_admin() ) {
@@ -44,7 +44,7 @@ class Settings_API {
 	/**
 	 * Initializes the class for use.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function init() {
 		$this->settings = get_option( 'wpbr_settings', array() );
@@ -53,7 +53,7 @@ class Settings_API {
 	/**
 	 * Gets all settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array Associative array of field IDs and saved values.
 	 */
@@ -64,7 +64,7 @@ class Settings_API {
 	/**
 	 * Gets the value of a single setting.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param  string $setting The array key associated with the setting.
 	 * @return mixed The value of the setting or null if unavailable.
@@ -80,7 +80,7 @@ class Settings_API {
 	/**
 	 * Gets default settings from framework.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array Associative array of field IDs and default values.
 	 */
@@ -109,7 +109,7 @@ class Settings_API {
 	 * This method is useful during plugin activation when settings do not yet
 	 * exist in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	private function merge_default_settings() {
 		$default_settings = $this->get_default_settings();
@@ -124,7 +124,7 @@ class Settings_API {
 	 * section are submitted. This validates the incoming nonce value, verifies
 	 * user permissions, sanitizes the settings, and updates the option.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function save_section() {
 		// If action is not set appropriately, return false.
@@ -177,7 +177,7 @@ class Settings_API {
 	 * Arrays are cleaned recursively. Other non-scalar values return empty
 	 * string.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string|array $var String or array.
 	 * @return string|array Sanitized string or array.
@@ -193,7 +193,7 @@ class Settings_API {
 	/**
 	 * Updates the settings option in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	private function update_settings_option() {
 		$updated_option = update_option( 'wpbr_settings', $this->settings );
@@ -206,7 +206,7 @@ class Settings_API {
 	/**
 	 * Determines if the nonce is valid.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return boolean False if the field isn't set or the nonce value is
 	 *                 invalid; otherwise true.
@@ -226,7 +226,7 @@ class Settings_API {
 	/**
 	 * Determines if user has permissions to save settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	private function has_permission() {
 		return current_user_can( 'manage_options' );

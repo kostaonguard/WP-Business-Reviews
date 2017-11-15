@@ -3,7 +3,7 @@
  * Defines the Assets class
  *
  * @package WP_Business_Reviews\Includes
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -22,13 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * All script and style handles should be registered in this class even if they
  * are enqueued dynamically by other classes.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Assets {
 	/**
 	 * URL of the assets directory.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    string
 	 * @access private
 	 */
@@ -37,7 +37,7 @@ class Assets {
 	/**
 	 * Plugin version.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    string
 	 * @access private
 	 */
@@ -46,7 +46,7 @@ class Assets {
 	/**
 	 * Suffix used when loading minified assets.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    string
 	 * @access private
 	 */
@@ -80,7 +80,7 @@ class Assets {
 	/**
 	 * Registers all plugin styles.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_styles() {
 		wp_register_style( 'wpbr-admin-main-styles', $this->url . 'css/admin-main' . $this->suffix . '.css', array(), $this->version );
@@ -90,7 +90,7 @@ class Assets {
 	/**
 	 * Registers all plugin scripts.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_scripts() {
 		wp_register_script( 'wpbr-admin-main-script', $this->url . 'js/admin-main' . $this->suffix . '.js', array( 'wpbr-google-places-library' ), $this->version, true );
@@ -100,7 +100,7 @@ class Assets {
 	/**
 	 * Enqueues admin styles.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function enqueue_admin_styles() {
 		wp_enqueue_style( 'wpbr-admin-main-styles' );
@@ -109,7 +109,7 @@ class Assets {
 	/**
 	 * Enqueues public styles.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function enqueue_public_styles() {
 		wp_enqueue_style( 'wpbr-public-main-styles' );
@@ -118,7 +118,7 @@ class Assets {
 	/**
 	 * Enqueues admin scripts.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function enqueue_admin_scripts() {
 		wp_enqueue_script( 'wpbr-admin-main-script' );
@@ -128,7 +128,7 @@ class Assets {
 	/**
 	 * Enqueues public scripts.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function enqueue_public_scripts() {
 	}

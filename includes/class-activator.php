@@ -4,7 +4,7 @@
  * Fired during plugin activation
  *
  * @package WP_Business_Reviews\Includes
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Activator {
 
@@ -28,7 +28,7 @@ class Activator {
 	 *
 	 * Long Description.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public static function activate() {
 

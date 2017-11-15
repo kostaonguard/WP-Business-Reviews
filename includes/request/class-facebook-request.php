@@ -3,7 +3,7 @@
  * Defines the Facebook_Request subclass
  *
  * @package WP_Business_Reviews\Includes\Request
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /***
  * Requests data from the Facebook Open Graph API.
  *
- * @since 1.0.0
+ * @since 0.1.0
  * @see   Request
  */
 class Facebook_Request extends Request {
@@ -25,7 +25,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Reviews platform used in the request.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Facebook_Request extends Request {
 	/**
 	 * API host used in the request URL.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -43,7 +43,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Path used in the business request URL.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -52,7 +52,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Path used in the reviews request URL.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -61,7 +61,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Page Access Token required for Open Graph Page requests.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -70,7 +70,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Constructor.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $business_id ID of the business passed in the API request.
 	 */
@@ -85,7 +85,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Requests business data from remote API.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array|WP_Error Business data or WP_Error on failure.
 	 */
@@ -121,7 +121,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Requests reviews data from remote API.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array|WP_Error Reviews data or WP_Error on failure.
 	 */
@@ -152,7 +152,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Standardize business response.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @see Business
 	 *
 	 * @param array $response Business data from remote API.
@@ -277,7 +277,7 @@ class Facebook_Request extends Request {
 	/**
 	 * Standardizes reviews response for a set of reviews.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $response Reviews data from remote API.
 	 *

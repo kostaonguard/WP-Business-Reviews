@@ -4,7 +4,7 @@
  * Defines the Review abstract class
  *
  * @package WP_Business_Reviews\Includes\Review
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Review;
@@ -19,14 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Implements the Review object which contains normalized review data
  * that has been parsed from a remote API response.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Review {
 
 	/**
 	 * ID of the parent business on the platform.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Review {
 	/**
 	 * Reviews platform associated with the business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Review {
 	/**
 	 * Post ID of the parent business in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -53,7 +53,7 @@ class Review {
 	/**
 	 * ID of the review post in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var int
 	 */
@@ -62,7 +62,7 @@ class Review {
 	/**
 	 * Slug of the review post in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -71,7 +71,7 @@ class Review {
 	/**
 	 * Title of the review.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -80,7 +80,7 @@ class Review {
 	/**
 	 * Review text submitted by the reviewer.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -89,7 +89,7 @@ class Review {
 	/**
 	 * Array of metadata associated with the review.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var array
 	 */
@@ -101,7 +101,7 @@ class Review {
 	 * @param string $business_id ID of the parent business on the platform.
 	 * @param string $platform    Reviews platform associated with the business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function __construct( $business_id, $platform ) {
 		$this->business_id = $business_id;
@@ -121,7 +121,7 @@ class Review {
 	/**
 	 * Builds unique post slug by concatenating reviewer name and time created.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return string|null Review post slug.
 	 */
@@ -139,7 +139,7 @@ class Review {
 	/**
 	 * Sets properties from array of key-value pairs.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
@@ -156,7 +156,7 @@ class Review {
 	/**
 	 * Sets properties from existing post in database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param int|WP_Post $post Post ID or post object.
 	 */
@@ -189,7 +189,7 @@ class Review {
 	/**
 	 * Inserts wpbr_review post into the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function insert_post() {
 		// Build slug if it has not been set.

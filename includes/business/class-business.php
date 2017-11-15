@@ -4,7 +4,7 @@
  * Defines the Business class
  *
  * @package WP_Business_Reviews\Includes\Business
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Business;
@@ -22,13 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class checks for an existing business in the database, and if it does
  * not exist, an API call is generated to request the business data remotely.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Business {
 	/**
 	 * ID of the business on the platform.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ class Business {
 	/**
 	 * Reviews platform associated with the business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -46,7 +46,7 @@ class Business {
 	/**
 	 * ID of the business post in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var int
 	 */
@@ -55,7 +55,7 @@ class Business {
 	/**
 	 * Slug of the business post in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -64,7 +64,7 @@ class Business {
 	/**
 	 * Name of the business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -73,7 +73,7 @@ class Business {
 	/**
 	 * Array of metadata associated with the business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var array
 	 */
@@ -88,7 +88,7 @@ class Business {
 	 * @param string $business_id ID of the business.
 	 * @param string $platform Reviews platform associated with the business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function __construct( $business_id, $platform ) {
 		$this->business_id = $business_id;
@@ -111,7 +111,7 @@ class Business {
 	/**
 	 * Builds unique post slug by concatenating platform and business ID.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return string Slug of the business post in the database.
 	 */
@@ -125,7 +125,7 @@ class Business {
 	/**
 	 * Sets properties from array of key-value pairs.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
@@ -142,7 +142,7 @@ class Business {
 	/**
 	 * Sets properties from existing post in database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param WP_Post $post Business post object.
 	 */
@@ -168,7 +168,7 @@ class Business {
 	/**
 	 * Sets properties from remote API.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	protected function set_properties_from_api() {
 		echo 'DATA FROM API';
@@ -203,7 +203,7 @@ class Business {
 	/**
 	 * Inserts wpbr_business post into the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function insert_post() {
 		// Define post meta fields.

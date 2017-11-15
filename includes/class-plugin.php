@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @package WP_Business_Reviews\Includes
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -26,13 +26,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 final class Plugin {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   protected
 	 * @var      string
 	 */
@@ -41,7 +41,7 @@ final class Plugin {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   protected
 	 * @var      string
 	 */
@@ -50,7 +50,7 @@ final class Plugin {
 	/**
 	 * The Settings API for the plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    Settings_API
 	 */
@@ -59,18 +59,18 @@ final class Plugin {
 	/**
 	 * Sets up the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function __construct() {
 		$this->plugin_name = 'wpbr';
-		$this->version = '1.0.0';
+		$this->version = '0.1.0';
 		$this->define_locale();
 	}
 
 	/**
 	 * Begins execution of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function init() {
 		$this->load_assets();
@@ -89,7 +89,7 @@ final class Plugin {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name() {
@@ -99,7 +99,7 @@ final class Plugin {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version() {
@@ -109,7 +109,7 @@ final class Plugin {
 	/**
 	 * Adds admin body class to all admin pages created by the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 *
 	 * @param  string $classes Space-separated list of CSS classes.
 	 * @return string Filtered body classes.
@@ -126,7 +126,7 @@ final class Plugin {
 	/**
 	 * Initializes blank slate that appears in place of empty list tables.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function init_blank_slate() {
 		$screen_id   = get_current_screen()->id;
@@ -140,7 +140,7 @@ final class Plugin {
 	/**
 	 * Defines the locale for this plugin for internationalization.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	private function define_locale() {
 		$plugin_i18n = new I18n();
@@ -150,7 +150,7 @@ final class Plugin {
 	/**
 	 * Loads assets such as scripts, styles, fonts, etc.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	private function load_assets() {
 		$assets = new Assets( WPBR_ASSETS_URL, WPBR_VERSION );
@@ -160,7 +160,7 @@ final class Plugin {
 	/**
 	 * Registers the Settings API for the plugin.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	private function register_settings_api() {
 		$this->settings_api = new Settings\Settings_API( WPBR_PLUGIN_DIR . 'config/settings.php' );
@@ -172,7 +172,7 @@ final class Plugin {
 	/**
 	 * Loads assets such as scripts, styles, fonts, etc.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	private function register_post_types() {
 		$post_types = new Post_Types();
@@ -184,7 +184,7 @@ final class Plugin {
 	 *
 	 * Creates new admin menu and initializes page components.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	private function add_admin_pages() {
 		// Add admin menu pages.

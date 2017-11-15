@@ -9,13 +9,13 @@
  *
  * @link              https://wpbusinessreviews.com
  * @package           WP_Business_Reviews
- * @since             1.0.0
+ * @since             0.1.0
  *
  * @wordpress-plugin
  * Plugin Name:       WP Business Reviews
  * Plugin URI:        https://wpbusinessreviews.com
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Version:           0.1.0
  * Author:            WordImpress, LLC
  * Author URI:        https://wordimpress.com
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Define plugin version.
 if ( ! defined( 'WPBR_VERSION' ) ) {
-	define( 'WPBR_VERSION', '1.0.0' );
+	define( 'WPBR_VERSION', '0.1.0' );
 }
 
 // Define plugin folder Path.

@@ -3,7 +3,7 @@
  * Defines the Admin_Page_Settings class
  *
  * @package WP_Business_Reviews\Includes\Admin\Pages
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Admin\Pages;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Creates the Settings page for the plugin.
  *
- * @since 1.0.0
+ * @since 0.1.0
  * @see   Admin_Page
  */
 class Admin_Page_Settings extends Admin_Page {

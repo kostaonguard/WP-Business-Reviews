@@ -3,7 +3,7 @@
  * Defines the Admin_Notices class
  *
  * @package WP_Business_Reviews\Includes\Admin
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Admin;
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * property. This allows notices to be added simply by passing the notice ID
  * and type.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Admin_Notices {
 	private $messages;

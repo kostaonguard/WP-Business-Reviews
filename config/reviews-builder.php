@@ -3,7 +3,7 @@
  * Defines the reviews builder config.
  *
  * @package WP_Business_Reviews\Config
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Config;
@@ -14,7 +14,7 @@ $section_presentation = array(
 	/**
 	* Filters the fields in the Presentation section of the Reviews Builder.
 	*
-	* @since 1.0.0
+	* @since 0.1.0
 	*
 	* @param array $fields Reviews Builder fields.
 	*/
@@ -70,7 +70,7 @@ $section_business = array(
 	/**
 	* Filters the fields in the Business section of the Reviews Builder.
 	*
-	* @since 1.0.0
+	* @since 0.1.0
 	*
 	* @param array $fields Reviews Builder fields.
 	*/
@@ -108,7 +108,7 @@ $section_reviews = array(
 	/**
 	* Filters the fields in the Reviews section of the Reviews Builder.
 	*
-	* @since 1.0.0
+	* @since 0.1.0
 	*
 	* @param array $fields Reviews Builder fields.
 	*/
@@ -143,7 +143,7 @@ $section_reviews = array(
 /**
  * Filters the Reviews Builder config.
  *
- * @since 1.0.0
+ * @since 0.1.0
  *
  * @param array $config Reviews Builder config containing sections and fields.
  */

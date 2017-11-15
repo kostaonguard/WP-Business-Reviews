@@ -28,7 +28,7 @@ class View {
 	/**
 	 * URI of the PHP view to render.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ class View {
 	/**
 	 * Associative array with context variables.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var array
 	 */
@@ -116,7 +116,7 @@ class View {
 	/**
 	 * Assimilate the context to make it available as properties.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $context Context to assimilate.
 	 */

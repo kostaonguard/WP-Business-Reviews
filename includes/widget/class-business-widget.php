@@ -4,7 +4,7 @@
  * Defines the Business widget
  *
  * @package WP_Business_Reviews\Includes\Business
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Widget;
@@ -17,7 +17,7 @@ use \WP_Widget;
  *
  * This basic widget displays business details.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Business_Widget extends WP_Widget {
 	/**

@@ -4,7 +4,7 @@
  * Fired during plugin deactivation
  *
  * @package WP_Business_Reviews\Includes
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This class defines all code necessary to run during the plugin's deactivation.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Deactivator {
 
@@ -28,7 +28,7 @@ class Deactivator {
 	 *
 	 * Long Description.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public static function deactivate() {
 

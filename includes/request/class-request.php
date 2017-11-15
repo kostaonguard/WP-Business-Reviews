@@ -4,7 +4,7 @@
  * Defines the Request abstract class
  *
  * @package WP_Business_Reviews\Includes\Request
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
@@ -22,14 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * requests are unique, functionality to request business and reviews data from
  * the API must be provided.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 abstract class Request {
 
 	/**
 	 * Reviews platform used in the request.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ abstract class Request {
 	 * 
 	 * This is the ID of business on the reviews platform (not the post ID).
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -49,7 +49,7 @@ abstract class Request {
 	/**
 	 * API host used in the request URL.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -60,7 +60,7 @@ abstract class Request {
 	 *
 	 * Sets business_id property and API keys used in the request.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $business_id ID of the business passed in the API request.
 	 */
@@ -73,7 +73,7 @@ abstract class Request {
 	 * generates requests based on the path, URL parameters, and arguments
 	 * provided to it.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $path       Optional. Path used in the request URL.
 	 * @param array  $url_params Optional. URL parameters.

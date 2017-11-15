@@ -3,7 +3,7 @@
  * Automatically loads the specified file
  *
  * @package WP_Business_Reviews
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Examines the fully qualified class name, separates it into components, then creates
  * a string that represents where the file is loaded on disk.
  *
- * @since   1.0.0
+ * @since   0.1.0
  */
 spl_autoload_register( function ( $filename ) {
 	// First, separate the components of the incoming file.

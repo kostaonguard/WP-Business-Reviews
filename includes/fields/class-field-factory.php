@@ -4,7 +4,7 @@
  * Defines the Field_Factory class
  *
  * @package WP_Business_Reviews\Includes\Request
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Fields;
@@ -12,14 +12,14 @@ namespace WP_Business_Reviews\Includes\Fields;
 /**
  * Determines the appropriate Field subclass based on type.
  *
- * @since 1.0.0
+ * @since 0.1.0
  * @see   Request
  */
 class Field_Factory {
 	/**
 	 * Field attributes.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access private
 	 * @var array
 	 */
@@ -28,7 +28,7 @@ class Field_Factory {
 	/**
 	 * Creates a new instance of the Field subclass.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @see Field
 	 *
 	 * @param array $atts Field attributes.

@@ -3,7 +3,7 @@
  * Defines the Field class
  *
  * @package WP_Business_Reviews\Includes
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Fields;
@@ -13,7 +13,7 @@ use WP_Business_Reviews\Includes\View;
 /**
  * Implements a field based on provided attributes.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Field {
 	// TODO: Update $atts DocBlock.
@@ -21,7 +21,7 @@ class Field {
 	/**
 	 * Instantiates the Field object.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $atts {
 	 *     Optional. Field attributes.
@@ -44,7 +44,7 @@ class Field {
 	/**
 	 * Gets field attributes.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array Field attributes.
 	 */
@@ -55,7 +55,7 @@ class Field {
 	/**
 	 * Set field attributes.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $atts Associative array of field attributes.
 	 */
@@ -66,7 +66,7 @@ class Field {
 	/**
 	 * Gets a single field attribute.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $att_key Key associated with the field attribute.
 	 *
@@ -79,7 +79,7 @@ class Field {
 	/**
 	 * Gets a single field attribute.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $key   Key associated with the field attribute.
 	 * @param string $value Value of the field attribute.
@@ -91,7 +91,7 @@ class Field {
 	/**
 	 * Render a given view.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string|View $view    View to render. Can be a path to a view file
 	 *                             or an instance of a View object.

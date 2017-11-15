@@ -3,7 +3,7 @@
  * Defines the Admin_Page class
  *
  * @package WP_Business_Reviews\Includes\Admin
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Admin;
@@ -11,7 +11,7 @@ namespace WP_Business_Reviews\Includes\Admin;
 /**
  * Creates an admin page for the plugin.
  *
- * @since 1.0.0
+ * @since 0.1.0
  * @see Admin_Menu
  */
 class Admin_Page {
@@ -51,7 +51,7 @@ class Admin_Page {
 	/**
 	 * Renders a given view.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string|View $view View to render. Can be a path to a view file
 	 *                          or an instance of a View object.
@@ -64,7 +64,7 @@ class Admin_Page {
 	/**
 	 * Renders the admin page.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string|View $view View to render. Can be a path to a view file
 	 *                          or an instance of a View object.

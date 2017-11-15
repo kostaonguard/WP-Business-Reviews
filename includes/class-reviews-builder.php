@@ -3,7 +3,7 @@
  * Defines the Reviews_Builder class
  *
  * @package WP_Business_Reviews\Includes\
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -14,13 +14,13 @@ use WP_Business_Reviews\Includes\Fields\Field_Factory;
 /**
  * Provides the interface for building review sets.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Reviews_Builder {
 	/**
 	 * Config object containing sections and fields.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    Config
 	 * @access private
 	 */
@@ -29,7 +29,7 @@ class Reviews_Builder {
 	/**
 	 * Multidimensional array of field objects.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var    array
 	 * @access private
 	 */
@@ -38,7 +38,7 @@ class Reviews_Builder {
 	/**
 	 * Instantiates a Reviews_Builder object.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string|Config $config Path to config or Config object.
 	 */
@@ -50,7 +50,7 @@ class Reviews_Builder {
 	/**
 	 * Registers functionality with WordPress hooks.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register() {
 		add_action( 'wpbr_review_page_reviews_builder', array( $this, 'init' ) );
@@ -60,7 +60,7 @@ class Reviews_Builder {
 	/**
 	 * Initializes the class for use.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function init() {
 		// Process the config to create field objects.
@@ -70,7 +70,7 @@ class Reviews_Builder {
 	/**
 	 * Converts config to array of field objects.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 *
 	 * @param Config $config Config object.
 	 * @return array Array of field objects.
@@ -102,7 +102,7 @@ class Reviews_Builder {
 	/**
 	 * Renders the reviews builder.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 */
 	public function render() {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/reviews-builder/reviews-builder-main.php' );

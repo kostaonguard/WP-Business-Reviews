@@ -3,7 +3,7 @@
  * Defines the Admin_Footer class
  *
  * @package WP_Business_Reviews\Includes\Admin
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Admin;
@@ -16,13 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Creates the admin footer for the plugin.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Admin_Footer {
 	/**
 	 * Registers functionality with WordPress hooks.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register() {
 		add_filter( 'admin_footer_text', array( $this, 'render' ) );
@@ -31,7 +31,7 @@ class Admin_Footer {
 	/**
 	 * Renders the admin header.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function render() {
 		$current_screen = get_current_screen();

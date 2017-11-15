@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @package WP_Business_Reviews\Includes
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -20,14 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Admin {
 
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
@@ -36,7 +36,7 @@ class Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -45,7 +45,7 @@ class Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -59,7 +59,7 @@ class Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function enqueue_styles() {
 
@@ -82,7 +82,7 @@ class Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function enqueue_scripts() {
 
@@ -105,7 +105,7 @@ class Admin {
 	/**
 	 * Render a business object from a post.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 */
 	public function display_business( $post ) {
 		if ( 'wpbr_business' !== $post->post_type ) {
@@ -125,7 +125,7 @@ class Admin {
 	/**
 	 * Render a business object from a post.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 */
 	public function display_review( $post ) {
 		if ( 'wpbr_review' !== $post->post_type ) {

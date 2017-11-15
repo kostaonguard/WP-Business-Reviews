@@ -3,7 +3,7 @@
  * Defines the Admin_Menu class
  *
  * @package WP_Business_Reviews\Includes\Admin
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Admin;
@@ -13,13 +13,13 @@ use WP_Business_Reviews\Includes\Config;
 /**
  * Creates the menu of admin pages for the plugin.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Admin_Menu {
 	/**
 	 * Array of admin page objects.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access private
 	 * @var array
 	 */
@@ -28,7 +28,7 @@ class Admin_Menu {
 	/**
 	 * Instantiates an Admin_Menu object.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param Config $config Admin menu config.
 	 */
@@ -40,7 +40,7 @@ class Admin_Menu {
 	/**
 	 * Registers functionality with WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register() {
 		add_action( 'admin_menu', array( $this, 'register_pages' ) );
@@ -49,7 +49,7 @@ class Admin_Menu {
 	/**
 	 * Converts config to array of page objects.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 *
 	 * @param Config $config Reviews Builder config.
 	 * @return array Array of admin page objects.
@@ -80,7 +80,7 @@ class Admin_Menu {
 	/**
 	 * Registers one or more admin pages.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function register_pages() {
 		foreach ( $this->pages as $page ) {

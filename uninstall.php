@@ -20,7 +20,7 @@
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
  * @package WP_Business_Reviews
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 // If uninstall not called from WordPress, then exit.

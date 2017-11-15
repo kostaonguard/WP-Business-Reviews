@@ -4,7 +4,7 @@
  * Defines the Google_Places_Request subclass
  *
  * @package WP_Business_Reviews\Includes\Request
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /***
  * Requests data from the Google Places API.
  *
- * @since 1.0.0
+ * @since 0.1.0
  * @see   Request
  */
 class Google_Places_Request extends Request {
@@ -26,7 +26,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * Reviews platform used in the request.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * API host used in the request URL.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * URL path used for Google Place requests.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -53,7 +53,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * API key used in the request URL.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -62,7 +62,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * Constructor.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $business_id ID of the business passed in the API request.
 	 */
@@ -75,7 +75,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * Requests business data from remote API.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array|WP_Error Business data or WP_Error on failure.
 	 */
@@ -98,7 +98,7 @@ class Google_Places_Request extends Request {
 	 * Since Google Places API returns business and reviews data together, the
 	 * business request logic can be reused to access reviews.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array|WP_Error Reviews data or WP_Error on failure.
 	 */
@@ -109,7 +109,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * Standardize business response.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @see Business
 	 *
 	 * @param array $response Business data from remote API.
@@ -222,7 +222,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * Standardizes reviews response for a set of reviews.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $response Reviews data from remote API.
 	 *
@@ -300,7 +300,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * Build image URL from photo reference in Google Places API response.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $photo_reference Reference to first photo in API response.
 	 *
@@ -330,7 +330,7 @@ class Google_Places_Request extends Request {
 	 * of address components in the same order, so they need parsed by type
 	 * before constructing the full address.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $address_components Address parts that form a full address.
 	 *
@@ -371,7 +371,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * Build street address from Google Places API address components.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $address_components Address parts organized by type.
 	 *
@@ -389,7 +389,7 @@ class Google_Places_Request extends Request {
 	/**
 	 * Build Google Places review URL from author URL.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $author_url Author URL returned by the API.
 	 *

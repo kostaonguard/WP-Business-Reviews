@@ -3,7 +3,7 @@
  * Defines the Blank_Slate class
  *
  * @package WP_Business_Reviews\Includes\Admin
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Admin;
@@ -19,7 +19,7 @@ class Blank_Slate {
 	/**
 	 * The current screen ID.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var string
 	 * @access public
 	 */
@@ -28,7 +28,7 @@ class Blank_Slate {
 	/**
 	 * Whether at least one review exists.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var bool
 	 * @access private
 	 */
@@ -37,7 +37,7 @@ class Blank_Slate {
 	/**
 	 * Whether at least one reviews platform is connected.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var bool
 	 * @access private
 	 */
@@ -46,7 +46,7 @@ class Blank_Slate {
 	/**
 	 * The content of the blank slate panel.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @var array
 	 * @access private
 	 */
@@ -55,7 +55,7 @@ class Blank_Slate {
 	/**
 	 * Constructs the Blank_Slate class.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $screen_id The current screen ID.
 	 */
@@ -68,7 +68,7 @@ class Blank_Slate {
 	 *
 	 * Determines if at least one post exists and sets the content accordingly.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function init() {
 		$this->has_review = $this->has_post( 'wpbr_review' );
@@ -88,7 +88,7 @@ class Blank_Slate {
 	/**
 	 * Renders the blank slate message.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $which The location of the list table hook: 'top' or 'bottom'.
 	 */
@@ -105,7 +105,7 @@ class Blank_Slate {
 	/**
 	 * Hides non-essential UI elements when blank slate content is on screen.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function hide_ui() {
 		error_log('hiding');
@@ -115,7 +115,7 @@ class Blank_Slate {
 	/**
 	 * Determines if at least one post of a given post type exists.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $post_type Post type used in the query.
 	 * @return bool True if post exists, otherwise false.
@@ -138,7 +138,7 @@ class Blank_Slate {
 	/**
 	 * Gets the content of a blank slate message based on provided context.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @return array Blank slate content.
 	 */
@@ -171,7 +171,7 @@ class Blank_Slate {
 		/**
 		 * Filters the content of the blank slate.
 		 *
-		 * @since 1.0.0
+		 * @since 0.1.0
 		 *
 		 * @param array $content {
 		 *    Array of blank slate content.

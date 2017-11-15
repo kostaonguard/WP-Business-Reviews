@@ -4,7 +4,7 @@
  * Defines the Review_Series class
  *
  * @package WP_Business_Reviews\Includes\Review
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Review;
@@ -19,14 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Implements the Review_Series object which contains a series of
  * standardized reviews for a single business.
  *
- * @since 1.0.0
+ * @since 0.1.0
  */
 class Review_Series {
 
 	/**
 	 * Reviews platform associated with the business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Review_Series {
 	/**
 	 * ID of the parent business on the platform.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Review_Series {
 	/**
 	 * Post ID of the parent business in the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var string
 	 */
@@ -53,7 +53,7 @@ class Review_Series {
 	/**
 	 * Series of review objects for the parent business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @access protected
 	 * @var array
 	 */
@@ -65,7 +65,7 @@ class Review_Series {
 	 * @param string $business_id ID of the business.
 	 * @param string $platform Reviews platform associated with the business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function __construct( $business_id, $platform ) {
 		$this->business_id = $business_id;
@@ -76,7 +76,7 @@ class Review_Series {
 	/**
 	 * Sets properties from array of key-value pairs.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param array $properties Key-value pairs corresponding to class properties.
 	 */
@@ -92,7 +92,7 @@ class Review_Series {
 	 * Wrapper for WP_Query that queries review posts based on the post ID of the
 	 * parent business.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 * @see WP_Query
 	 *
 	 * @param array $args Args passed to WP_Query.
@@ -106,7 +106,7 @@ class Review_Series {
 	/**
 	 * Sets reviews from remote API.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function set_reviews_from_api() {
 		// Request reviews from remote API.
@@ -138,7 +138,7 @@ class Review_Series {
 	/**
 	 * Inserts review posts into the database.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function insert_posts() {
 		if ( is_array( $this->reviews ) && ! empty( $this->reviews ) ) {
@@ -153,7 +153,7 @@ class Review_Series {
 	/**
 	 * Inserts or updates existing review posts based on remote API response.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function update_reviews_from_api() {
 		$this->set_reviews_from_api();

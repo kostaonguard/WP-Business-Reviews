@@ -4,7 +4,7 @@
  * Defines the Request_Factory class
  *
  * @package WP_Business_Reviews\Includes\Request
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Determines the appropriate Request subclass based on platform.
  *
- * @since 1.0.0
+ * @since 0.1.0
  * @see   Request
  */
 class Request_Factory {
@@ -25,7 +25,7 @@ class Request_Factory {
 	/**
 	 * Creates a new instance of the Request subclass.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 *
 	 * @param string $business_id ID of the business on the platform.
 	 * @param string $platform    Reviews platform used in the request.

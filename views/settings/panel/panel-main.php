@@ -22,7 +22,7 @@
 				 * Useful for adding admin notices to a section such as
 				 * when saving setting succeed or fail.
 				 *
-				 * @since 1.0.0
+				 * @since 0.1.0
 				 */
 				do_action( 'wpbr_settings_notices_' . $section['id'] );
 				?>

@@ -3,7 +3,7 @@
  * Defines the settings config.
  *
  * @package WP_Business_Reviews\Config
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace WP_Business_Reviews\Config;
@@ -11,7 +11,7 @@ namespace WP_Business_Reviews\Config;
 /**
  * Filters the entire plugin settings config.
  *
- * @since 1.0.0
+ * @since 0.1.0
  *
  * @param array $config Settings config containing tabs, panels,
  *                      sections, and fields.
@@ -25,7 +25,7 @@ $config = apply_filters(
 			/**
 			* Filters the sections in the General panel.
 			*
-			* @since 1.0.0
+			* @since 0.1.0
 			*
 			* @param array $sections Settings sections.
 			*/
@@ -46,7 +46,7 @@ $config = apply_filters(
 						/**
 						* Filters the fields in the Platform section.
 						*
-						* @since 1.0.0
+						* @since 0.1.0
 						*
 						* @param array $fields Settings fields.
 						*/
@@ -87,7 +87,7 @@ $config = apply_filters(
 						/**
 						* Filters the fields in the Google section.
 						*
-						* @since 1.0.0
+						* @since 0.1.0
 						*
 						* @param array $fields Settings fields.
 						*/
@@ -133,7 +133,7 @@ $config = apply_filters(
 						/**
 						* Filters the fields in the Facebook section.
 						*
-						* @since 1.0.0
+						* @since 0.1.0
 						*
 						* @param array $fields Settings fields.
 						*/
@@ -170,7 +170,7 @@ $config = apply_filters(
 						/**
 						* Filters the fields in the Yelp section.
 						*
-						* @since 1.0.0
+						* @since 0.1.0
 						*
 						* @param array $fields Settings fields.
 						*/
@@ -217,7 +217,7 @@ $config = apply_filters(
 						/**
 						* Filters the fields in the YP section.
 						*
-						* @since 1.0.0
+						* @since 0.1.0
 						*
 						* @param array $fields Settings fields.
 						*/
@@ -251,7 +251,7 @@ $config = apply_filters(
 			/**
 			* Filters the sections in the Advanced panel.
 			*
-			* @since 1.0.0
+			* @since 0.1.0
 			*
 			* @param array $sections Settings sections.
 			*/
@@ -271,7 +271,7 @@ $config = apply_filters(
 						/**
 						* Filters the fields in the Advanced section.
 						*
-						* @since 1.0.0
+						* @since 0.1.0
 						*
 						* @param array $fields Settings fields.
 						*/
@@ -341,7 +341,7 @@ $config = apply_filters(
 			/**
 			* Filters the sections in the Pro Features panel.
 			*
-			* @since 1.0.0
+			* @since 0.1.0
 			*
 			* @param array $sections Settings sections.
 			*/
@@ -362,7 +362,7 @@ $config = apply_filters(
 						/**
 						* Filters the fields in the Pro Features section.
 						*
-						* @since 1.0.0
+						* @since 0.1.0
 						*
 						* @param array $fields Settings fields.
 						*/
