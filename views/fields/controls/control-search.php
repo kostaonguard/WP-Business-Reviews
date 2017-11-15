@@ -1,18 +1,13 @@
-<?php
-$atts  = $context['atts'];
-$value = $context['value'];
-?>
-
 <input
 	type="text"
-	id="wpbr-control-<?php echo esc_attr( $atts['id'] ); ?>"
+	id="wpbr-control-<?php echo esc_attr( $this->id ); ?>"
 	class="wpbr-field__control js-wpbr-search-input"
-	name="<?php echo esc_attr( $atts['id'] ); ?>"
-	value="<?php echo esc_attr( $value ); ?>"
+	name="<?php echo esc_attr( $this->id ); ?>"
+	value="<?php echo esc_attr( $this->value ); ?>"
 	<?php
 	// Output any additional control attributes.
-	if ( ! empty( $atts['control_atts'] ) ) {
-		foreach ( $atts['control_atts'] as $name => $value ) {
+	if ( ! empty( $this->control_atts ) ) {
+		foreach ( $this->control_atts as $name => $value ) {
 			echo ' ' . esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
 		}
 	}
