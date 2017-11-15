@@ -145,6 +145,10 @@ class Settings_UI {
 	 */
 	public function render() {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/settings/settings-main.php' );
-		$view_object->render( $this->field_hierarchy );
+		$view_object->render(
+			array(
+				'field_hierarchy' => $this->field_hierarchy,
+			)
+		);
 	}
 }
