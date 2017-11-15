@@ -10,8 +10,6 @@ namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Fields\Field_Factory;
-use WP_Business_Reviews\Includes\Fields\Field_Group;
-use WP_Business_Reviews\Includes\Fields\Field_Config_Processor;
 
 /**
  * Provides the interface for building review sets.
@@ -108,6 +106,10 @@ class Reviews_Builder {
 	 */
 	public function render() {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/reviews-builder/reviews-builder-main.php' );
-		$view_object->render( $this->field_hierarchy );
+		$view_object->render(
+			array(
+				'field_hierarchy' => $this->field_hierarchy,
+			)
+		);
 	}
 }

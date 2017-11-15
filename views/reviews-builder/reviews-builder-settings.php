@@ -1,8 +1,5 @@
-<?php
-$sections = $this->context;
-?>
 <div id="wpbr-reviews-builder-settings" class="wpbr-reviews-builder__settings">
-	<?php foreach ( $sections as $section ) : ?>
+	<?php foreach ( $this->field_hierarchy as $section ) : ?>
 		<div id="wpbr-section<?php echo esc_attr( $section['id'] ); ?>" class="wpbr-reviews-builder__section">
 			<div class="wpbr-reviews-builder__section-header js-wpbr-section-header">
 				<button class="wpbr-reviews-builder__toggle"  aria-expanded="true">
@@ -17,7 +14,7 @@ $sections = $this->context;
 				foreach ( $section['fields'] as $field ) {
 					$field->render_view( WPBR_PLUGIN_DIR . 'views/fields/field-main.php', true );
 				}
-				?>
+			?>
 			</div>
 		</div>
 	<?php endforeach; ?>
