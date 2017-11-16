@@ -39,6 +39,7 @@ class Field {
 	 */
 	public function __construct( array $atts ) {
 		$this->atts  = $atts;
+		$this->set_value();
 	}
 
 	/**
@@ -61,6 +62,23 @@ class Field {
 	 */
 	public function set_atts( $atts ) {
 		$this->atts = $atts;
+	}
+
+	/**
+	 * Set field value.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param mixed $value Field value.
+	 */
+	public function set_value( $value = null ) {
+		if ( null === $value ) {
+			// No value exists, so set value to default.
+			$this->set_att( 'value', $this->atts['default'] );
+		} else {
+			// Value exists, so set it accordingly.
+			$this->set_att( 'value', $value );
+		}
 	}
 
 	/**
