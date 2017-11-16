@@ -26,7 +26,6 @@
 
 			<?php if ( ! empty( $section['fields'] ) ) : ?>
 				<form method="post">
-					<input type="hidden" name="action" value="wpbr_settings_save">
 					<input type="hidden" name="wpbr_section" value="<?php echo esc_attr( $section['id'] ); ?>">
 					<?php
 					// Render settings fields.
@@ -34,12 +33,6 @@
 						$field->render( WPBR_PLUGIN_DIR . 'views/fields/field-main.php' );
 					}
 					?>
-					<?php if ( $save_button ) : ?>
-						<?php wp_nonce_field( 'wpbr_settings_save', 'wpbr_settings_nonce' ); ?>
-						<div class="wpbr-field wpbr-field--setting">
-							<button class="button button-primary" type="submit" name="submit"  value="submit"><?php esc_attr_e( 'Save Changes', 'wpbr' ); ?></button>
-						</div>
-					<?php endif; ?>
 				</form>
 			<?php endif; ?>
 		</div>
