@@ -69,10 +69,12 @@ $config = apply_filters(
 										'yelp'          => __( 'Yelp', 'wpbr' ),
 										'yp'            => __( 'YP', 'wpbr' ),
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'save_platforms'   => array(
 									'id'      => 'save_platforms',
 									'control' => 'save',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 							)
 						),
@@ -104,6 +106,7 @@ $config = apply_filters(
 									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'google_places',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'api_key_google_places'         => array(
 									'id'           => 'api_key_google_places',
@@ -118,10 +121,12 @@ $config = apply_filters(
 									'control_atts' => array(
 										'type' => 'text',
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'save_google_places'            => array(
 									'id'      => 'save_google_places',
 									'control' => 'save',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 							)
 						),
@@ -154,12 +159,14 @@ $config = apply_filters(
 									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'facebook',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'facebook_pages'           => array(
 									'id'          => 'facebook_pages',
 									'control'     => 'facebook_pages',
 									'name'        => __( 'Facebook Pages', 'wpbr' ),
 									'description' => __( 'Defines the Facebook Pages from which reviews may be displayed. The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 							)
 						),
@@ -191,6 +198,7 @@ $config = apply_filters(
 									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'yelp',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'yelp_client_id'       => array(
 									'id'           => 'yelp_client_id',
@@ -199,6 +207,7 @@ $config = apply_filters(
 									'control_atts' => array(
 										'type' => 'text',
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'yelp_client_secret'   => array(
 									'id'           => 'yelp_client_secret',
@@ -207,10 +216,12 @@ $config = apply_filters(
 									'control_atts' => array(
 										'type' => 'text',
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'save_yelp'            => array(
 									'id'      => 'save_yelp',
 									'control' => 'save',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 							)
 						),
@@ -242,6 +253,7 @@ $config = apply_filters(
 									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'yp',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'api_key_yp'         => array(
 									'id'           => 'api_key_yp',
@@ -250,10 +262,12 @@ $config = apply_filters(
 									'control_atts' => array(
 										'type' => 'text',
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'save_yp'            => array(
 									'id'      => 'save_yp',
 									'control' => 'save',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 							)
 						),
@@ -304,6 +318,7 @@ $config = apply_filters(
 										'enabled'  => __( 'Enabled', 'wpbr' ),
 										'disabled' => __( 'Disabled', 'wpbr' ),
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'nofollow_links'     => array(
 									'id'          => 'nofollow_links',
@@ -319,6 +334,7 @@ $config = apply_filters(
 										'enabled'  => __( 'Enabled', 'wpbr' ),
 										'disabled' => __( 'Disabled', 'wpbr' ),
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'link_targeting'     => array(
 									'id'          => 'link_targeting',
@@ -334,6 +350,7 @@ $config = apply_filters(
 										'_self'  => __( 'Open links in same tab.', 'wpbr' ),
 										'_blank' => __( 'Open links in new tab.', 'wpbr' ),
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'uninstall_behavior' => array(
 									'id'      => 'uninstall_behavior',
@@ -344,10 +361,12 @@ $config = apply_filters(
 										'keep'   => __( 'Keep all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
 										'remove' => __( 'Remove all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
 									),
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'save_advanced'      => array(
 									'id'      => 'save_advanced',
 									'control' => 'save',
+									'wrapper_class' => 'wpbr-field--spacious',
 								),
 							)
 						),
