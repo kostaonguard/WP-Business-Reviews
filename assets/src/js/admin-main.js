@@ -5,7 +5,7 @@ import '../images/wpbr-logo-white-wordmark.png';
 import '../images/wpbr-menu-icon-white.png';
 import '../images/wpbr-icon-color.png';
 
-if ( document.querySelector( 'body' ).classList.contains( 'wpbr_review_page_wpbr_settings' ) ) {
+if ( document.querySelector( 'body' ).classList.contains( 'wpbr_review_page_settings' ) ) {
 	const adminTabs = new AdminTabs();
 	adminTabs.init();
 }
