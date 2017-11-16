@@ -27,9 +27,10 @@
 		}
 	}
 
-	// Remove padding from admin pages except for post edit pages.
+	// Apply these overrides to all WPBR admin pages except post edit pages.
 	&[class*="wpbr_review_page"] #wpcontent {
 		box-sizing: border-box;
+		color: $wpbr-color-text;
 		padding: 0;
 
 		* {
