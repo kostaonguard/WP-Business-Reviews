@@ -8,8 +8,8 @@
 					id="wpbr-control-<?php echo esc_attr( $option_value ); ?>"
 					class="wpbr-field__checkbox"
 					name="<?php echo esc_attr( $this->id ); ?>"
-					value="<?php echo esc_attr( $this->value ); ?>"
-					<?php checked( $option_value, $this->value ); ?>
+					value="<?php echo esc_attr( $option_value ); ?>"
+					<?php checked( in_array( $option_value, $this->value ) ); ?>
 					>
 				<label for="wpbr-control-<?php echo esc_attr( $option_value ); ?>">
 					<?php echo esc_html( $option_text ); ?>
