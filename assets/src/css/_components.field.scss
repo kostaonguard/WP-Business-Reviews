@@ -52,8 +52,11 @@
 	&__control-wrap {
 		display: flex;
 		font-size: 14px;
-		margin-top: $wpbr-space-half;
 		width: 100%;
+
+		.wpbr-field__name + & {
+			margin-top: $wpbr-space-half;
+		}
 	}
 
 	&__control {
