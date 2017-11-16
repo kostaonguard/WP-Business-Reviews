@@ -99,19 +99,15 @@
 
 	&__option {
 		display: flex;
-		margin-bottom: $wpbr-space-half;
-		padding: 0;
+		margin-bottom: $wpbr-space-quarter;
 
 		&:last-child {
 			margin-bottom: 0;
 		}
 
-		@media ( min-width: 783px ) {
-			margin-bottom: $wpbr-space-quarter;
-		}
-
 		input {
 			flex: 0 0 25px;
+			margin: 0 $wpbr-space-quarter 0 0;
 
 			@media ( min-width: 783px ) {
 				flex: 0 0 16px;
