@@ -97,7 +97,7 @@ class Field {
 	 *                             or an instance of a View object.
 	 * @param array|null  $context Optional. Context variables for use in view.
 	 */
-	public function render_view( $view ) {
+	public function render( $view ) {
 		$view_object = is_string( $view ) ? new View( $view ) : $view;
 		$view_object->render(
 			$this->get_atts(),
