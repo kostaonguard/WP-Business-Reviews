@@ -70,6 +70,10 @@ $config = apply_filters(
 										'yp'       => __( 'YP', 'wpbr' ),
 									),
 								),
+								'save_platforms' => array(
+									'id'      => 'save_platforms',
+									'control' => 'save',
+								),
 							)
 						),
 					),
@@ -114,6 +118,10 @@ $config = apply_filters(
 									'control_atts' => array(
 										'type' => 'text',
 									)
+								),
+								'save_google' => array(
+									'id'      => 'save_google',
+									'control' => 'save',
 								),
 							)
 						),
@@ -200,6 +208,10 @@ $config = apply_filters(
 										'type' => 'text',
 									),
 								),
+								'save_yelp' => array(
+									'id'      => 'save_yelp',
+									'control' => 'save',
+								),
 							)
 						),
 					),
@@ -238,6 +250,10 @@ $config = apply_filters(
 									'control_atts' => array(
 										'type' => 'text',
 									),
+								),
+								'save_yp' => array(
+									'id'      => 'save_yp',
+									'control' => 'save',
 								),
 							)
 						),
@@ -328,6 +344,10 @@ $config = apply_filters(
 										'keep'   => __( 'Keep all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
 										'remove' => __( 'Remove all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
 									),
+								),
+								'save_advanced' => array(
+									'id'      => 'save_advanced',
+									'control' => 'save',
 								),
 							)
 						),
