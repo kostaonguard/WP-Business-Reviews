@@ -163,9 +163,9 @@ final class Plugin {
 	 * @since 0.1.0
 	 */
 	private function register_settings_api() {
-		$this->settings_api = new Settings\Settings_API( WPBR_PLUGIN_DIR . 'config/settings.php' );
+		$this->settings_api = new Settings\Settings_API( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
 		$this->settings_api->register();
-		$settings_ui = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'config/settings.php' );
+		$settings_ui = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
 		$settings_ui->register();
 	}
 
@@ -188,7 +188,7 @@ final class Plugin {
 	 */
 	private function add_admin_pages() {
 		// Add admin menu pages.
-		$config     = new Config( WPBR_PLUGIN_DIR . 'config/admin-pages.php' );
+		$config     = new Config( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
 		$admin_menu = new Admin\Admin_Menu( $config );
 		$admin_menu->register();
 
@@ -202,7 +202,7 @@ final class Plugin {
 	}
 
 	public function register_services() {
-		$reviews_builder = new Reviews_Builder( WPBR_PLUGIN_DIR . 'config/reviews-builder.php' );
+		$reviews_builder = new Reviews_Builder( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php' );
 		$reviews_builder->register();
 	}
 }
