@@ -297,7 +297,7 @@ $config = apply_filters(
 								'plugin_styles'      => array(
 									'id'      => 'plugin_styles',
 									'name'    => __( 'Plugin Styles', 'wpbr' ),
-									'control' => 'radios',
+									'control' => 'radio',
 									'desc'    => __( 'Outputs CSS that styles the presentation of reviews.', 'wpbr' ),
 									'default' => 'enabled',
 									'options' => array(
@@ -308,7 +308,7 @@ $config = apply_filters(
 								'nofollow_links'     => array(
 									'id'      => 'nofollow_links',
 									'name'    => __( 'Nofollow Links', 'wpbr' ),
-									'control' => 'radios',
+									'control' => 'radio',
 									'desc'    => sprintf(
 										/* translators: anchor attribute to discourage search engines */
 										__( 'Adds %s to review links in order to discourage search engines from following them.', 'wbpr' ),
@@ -323,7 +323,7 @@ $config = apply_filters(
 								'link_targeting'     => array(
 									'id'      => 'link_targeting',
 									'name'    => __( 'Link Targeting', 'wpbr' ),
-									'control' => 'radios',
+									'control' => 'radio',
 									'desc'    => sprintf(
 										/* translators: anchor attribute to open links in new tab */
 										__( 'Adds %s to review links when set to open in new tab.', 'wbpr' ),
@@ -338,7 +338,7 @@ $config = apply_filters(
 								'uninstall_behavior' => array(
 									'id'      => 'uninstall_behavior',
 									'name'    => __( 'Uninstall Behavior', 'wpbr' ),
-									'control'    => 'radios',
+									'control'    => 'radio',
 									'default' => 'keep',
 									'options' => array(
 										'keep'   => __( 'Keep all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
