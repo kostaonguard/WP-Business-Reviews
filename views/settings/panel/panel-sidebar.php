@@ -1,4 +1,3 @@
-<!-- Sidebar -->
 <div class="wpbr-panel__sidebar">
 	<ul class="wpbr-subtabs js-wpbr-subtabs">
 		<?php foreach ( $this->sections as $section ) : ?>
