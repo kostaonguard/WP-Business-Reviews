@@ -46,23 +46,24 @@ class Field_Factory {
 			'tooltip'       => '',
 			'description'   => '',
 			'wrapper_class' => '',
-			'name_element'  => 'label',
 		);
 
 		// Set additional defaults for certain field types.
 		switch ( $atts['control'] ) {
 			case 'input':
 			case 'search':
-				$defaults['input_atts'] = array();
-				$defaults['datalist'] = array();
+				$defaults['control_atts'] = array();
+				$defaults['datalist']     = array();
+				$defaults['name_element'] = 'label';
 				break;
 			case 'select':
+				$defaults['control_atts'] = array();
 				$defaults['options'] = array();
+				$defaults['name_element'] = 'label';
 				break;
 			case 'checkboxes':
 			case 'radios':
-				$defaults['name_element'] = 'span';
-				$defaults['options'] = array();
+				$defaults['options']      = array();
 				break;
 		}
 
