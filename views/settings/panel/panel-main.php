@@ -5,9 +5,9 @@
 			<div class="wpbr-admin-header">
 				<h2 class="wpbr-admin-header__heading"><?php echo esc_html( $section['heading'] ); ?></h2>
 
-				<?php if ( ! empty( $section['desc'] ) ) : ?>
-					<p class="wpbr-admin-header__subheading wpbr-icon wpbr-icon--question">
-						<?php echo wp_kses_post( $section['desc'] ); ?>
+				<?php if ( ! empty( $section['description'] ) ) : ?>
+					<p class="wpbr-admin-header__subheading">
+						<?php echo wp_kses_post( $section['description'] ); ?>
 					</p>
 				<?php endif;?>
 
