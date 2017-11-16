@@ -19,6 +19,7 @@
 		}
 
 		@media ( min-width: 768px ) {
+			align-items: flex-start;
 			border-bottom: $wpbr-border-width solid $wpbr-color-dim;
 			padding: $wpbr-space-double 0;
 			display: flex;
