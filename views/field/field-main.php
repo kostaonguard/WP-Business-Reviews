@@ -1,4 +1,7 @@
-<div id="wpbr-field-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field js-wpbr-field">
+<div
+	id="wpbr-field-<?php echo esc_attr( $this->id ); ?>"
+	class="wpbr-field js-wpbr-field<?php echo ( $this->wrapper_class ? ' ' . esc_attr( $this->wrapper_class ) : '' ); ?>"
+	>
 	<?php
 	if ( ! empty( $this->name ) ) {
 		if ( ! empty( $this->name_element ) && 'label' === $this->name_element ) {
