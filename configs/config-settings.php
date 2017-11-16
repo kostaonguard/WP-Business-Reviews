@@ -59,12 +59,12 @@ $config = apply_filters(
 									'control' => 'checkboxes',
 									'tooltip' => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wpbr' ),
 									'default' => array(
-										'google',
+										'google_places',
 										'facebook',
 										'yelp',
 									),
 									'options' => array(
-										'google'   => __( 'Google', 'wpbr' ),
+										'google_places'   => __( 'Google', 'wpbr' ),
 										'facebook' => __( 'Facebook', 'wpbr' ),
 										'yelp'     => __( 'Yelp', 'wpbr' ),
 										'yp'       => __( 'YP', 'wpbr' ),
@@ -77,8 +77,8 @@ $config = apply_filters(
 							)
 						),
 					),
-					'google'    => array(
-						'id'      => 'google',
+					'google_places'    => array(
+						'id'      => 'google_places',
 						'name'    => __( 'Google', 'wpbr' ),
 						'heading' => __( 'Google Reviews Settings', 'wpbr' ),
 						'desc'    => sprintf(
@@ -89,21 +89,21 @@ $config = apply_filters(
 						),
 						'icon'    => 'status',
 						/**
-						* Filters the fields in the Google section.
+						* Filters the fields in the Google Places section.
 						*
 						* @since 0.1.0
 						*
 						* @param array $fields Settings fields.
 						*/
 						'fields'  => apply_filters(
-							'wpbr_settings_fields_google',
+							'wpbr_settings_fields_google_places',
 							array(
-								'platform_status_google' => array(
-									'id'       => 'platform_status_google',
+								'platform_status_google_places' => array(
+									'id'       => 'platform_status_google_places',
 									'name'     => __( 'Platform Status', 'wpbr' ),
 									'control'  => 'platform_status',
 									'default'  => 'disconnected',
-									'platform' => 'google',
+									'platform' => 'google_places',
 								),
 								'api_key_google_places'  => array(
 									'id'      => 'api_key_google_places',
@@ -119,8 +119,8 @@ $config = apply_filters(
 										'type' => 'text',
 									)
 								),
-								'save_google' => array(
-									'id'      => 'save_google',
+								'save_google_places' => array(
+									'id'      => 'save_google_places',
 									'control' => 'save',
 								),
 							)
