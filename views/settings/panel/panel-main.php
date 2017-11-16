@@ -30,7 +30,7 @@
 					<?php
 					// Render settings fields.
 					foreach ( $section['fields'] as $field ) {
-						$field->render( WPBR_PLUGIN_DIR . 'views/fields/field-main.php' );
+						$field->render( WPBR_PLUGIN_DIR . 'views/field/field-main.php' );
 					}
 					?>
 				</form>
