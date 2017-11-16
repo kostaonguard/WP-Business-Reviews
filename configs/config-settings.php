@@ -335,51 +335,6 @@ $config = apply_filters(
 				)
 			),
 		),
-		'pro_features' => array(
-			'id'       => 'pro_features',
-			'name'     => __( 'Pro Features', 'wpbr' ),
-			/**
-			* Filters the sections in the Pro Features panel.
-			*
-			* @since 0.1.0
-			*
-			* @param array $sections Settings sections.
-			*/
-			'sections' => apply_filters(
-				'wpbr_settings_section_pro_features',
-				array(
-					'pro_features' => array(
-						'id'          => 'pro_features',
-						'name'        => __( 'Pro Features', 'wpbr' ),
-						'heading'     => __( 'Pro Features', 'wpbr' ),
-						'desc'        => sprintf(
-							/* translators: link to product site */
-							__( 'Interested in going Pro? See a full %1$sFeatures Comparison%2$s.', 'wbpr' ),
-							'<a href="https://wpbusinessreviews.com/">',
-							'</a>'
-						),
-						'save_button' => false,
-						/**
-						* Filters the fields in the Pro Features section.
-						*
-						* @since 0.1.0
-						*
-						* @param array $fields Settings fields.
-						*/
-						'fields'  => apply_filters(
-							'wpbr_settings_fields_pro_features',
-							array(
-								'pro_features_gallery' => array(
-									'id'      => 'pro_features_gallery',
-									'name'    => __( 'Pro Features Gallery', 'wpbr' ),
-									'control' => 'pro_features_gallery',
-								),
-							)
-						),
-					),
-				)
-			),
-		),
 	)
 );
 
