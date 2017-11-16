@@ -12,11 +12,6 @@
 			$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/field-name.php' );
 		}
 	}
-
-	if ( ! empty( $this->tooltip ) ) {
-		// Render tooltip.
-		$this->render_partial( WPBR_PLUGIN_DIR . 'views/tooltip.php' );
-	}
 	?>
 
 	<div id="wpbr-field-control-wrap-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__control-wrap">
