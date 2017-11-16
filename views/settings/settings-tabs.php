@@ -1,4 +1,3 @@
-<!-- Tabs -->
 <nav>
 	<ul class="wpbr-tabs js-wpbr-tabs">
 		<?php foreach ( $this->field_hierarchy as $tab ) : ?>

@@ -1,14 +1,3 @@
-<?php
-/**
- * Displays a field with a dynamically-typed control
- *
- * @package WP_Business_Reviews\Views\Fields
- * @since 0.1.0
- */
-
-namespace WP_Business_Reviews;
-?>
-
 <div id="wpbr-field-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field js-wpbr-field">
 	<?php
 	if ( 'label' === $this->name_element ) {

@@ -1,10 +1,6 @@
-<!-- Main -->
 <div class="wpbr-panel__main">
 	<?php foreach ( $this->sections as $section ) : ?>
-		<?php
-		$save_button = isset( $section['save_button'] ) ? $section['save_button'] : true;
-		?>
-		<!-- Section -->
+		<?php $save_button = isset( $section['save_button'] ) ? $section['save_button'] : true; ?>
 		<div id="wpbr-section-<?php echo esc_attr( $section['id'] ); ?>" class="wpbr-panel__section js-wpbr-section" data-subtab-id="<?php echo esc_attr( $section['id'] ); ?>">
 			<div class="wpbr-admin-header">
 				<h2 class="wpbr-admin-header__heading"><?php echo esc_html( $section['heading'] ); ?></h2>
