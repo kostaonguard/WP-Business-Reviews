@@ -3,33 +3,30 @@ import queryString from 'query-string';
 class AdminTabs {
 	constructor() {
 
-		// Set plugin prefix used in CSS IDs and classes.
-		this.pluginPrefix = 'wpbr';
-
 		// Set CSS class that denotes active element.
 		this.activeClass = 'is-active';
 
 		// Set CSS classes used to select groups of elements.
-		this.tabSelector = `.js-${this.pluginPrefix}-tab`;
-		this.panelSelector = `.js-${this.pluginPrefix}-panel`;
-		this.subtabSelector = `.js-${this.pluginPrefix}-subtab`;
-		this.sectionSelector = `.js-${this.pluginPrefix}-section`;
+		this.tabSelector = '.js-wpbr-tab';
+		this.panelSelector = '.js-wpbr-panel';
+		this.subtabSelector = '.js-wpbr-subtab';
+		this.sectionSelector = '.js-wpbr-section';
 
 		// Set ID prefixes used to select individual elements.
-		this.tabIdPrefix = `${this.pluginPrefix}-tab-`;
-		this.subtabIdPrefix = `${this.pluginPrefix}-subtab-`;
-		this.panelPrefix = `${this.pluginPrefix}-panel-`;
-		this.sectionPrefix = `${this.pluginPrefix}-section-`;
+		this.tabIdPrefix = 'wpbr-tab-';
+		this.subtabIdPrefix = 'wpbr-subtab-';
+		this.panelPrefix = 'wpbr-panel-';
+		this.sectionPrefix = 'wpbr-section-';
 
 		// Set URL query parameters.
-		this.tabQueryParam = `${this.pluginPrefix}_tab`;
-		this.subtabQueryParam = `${this.pluginPrefix}_subtab`;
+		this.tabQueryParam = 'wpbr_tab';
+		this.subtabQueryParam = 'wpbr_subtab';
 
 		// Group collections of elements that make up tabbed UI.
-		this.tabs = document.querySelectorAll( `.js-${this.pluginPrefix}-tab` );
-		this.panels = document.querySelectorAll( `.js-${this.pluginPrefix}-panel` );
-		this.subtabs = document.querySelectorAll( `.js-${this.pluginPrefix}-subtab` );
-		this.sections = document.querySelectorAll( `.js-${this.pluginPrefix}-section` );
+		this.tabs = document.querySelectorAll( '.js-wpbr-tab' );
+		this.panels = document.querySelectorAll( '.js-wpbr-panel' );
+		this.subtabs = document.querySelectorAll( '.js-wpbr-subtab' );
+		this.sections = document.querySelectorAll( '.js-wpbr-section' );
 
 		// Set default active elements.
 		this.activeTab = this.tabs[0];
