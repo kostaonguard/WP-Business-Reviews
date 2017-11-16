@@ -60,7 +60,7 @@ class Field_Factory {
 				$defaults['options'] = array();
 				break;
 			case 'checkboxes':
-			case 'radio':
+			case 'radios':
 				$defaults['name_element'] = 'span';
 				$defaults['options'] = array();
 				break;
