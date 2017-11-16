@@ -13,6 +13,7 @@
 		transition: border-color 0.2s ease-out;
 	}
 
+	// Apply dark theme to admin for use with Reviews Builder preview.
 	&.wpbr-theme--dark {
 		background: #23282d;
 
@@ -24,5 +25,21 @@
 		#wpfooter {
 			color: $wpbr-color-white;
 		}
+	}
+
+	// Remove padding from admin pages except for post edit pages.
+	&[class*="wpbr_review_page"] #wpcontent {
+		box-sizing: border-box;
+		padding: 0;
+
+		* {
+			box-sizing: border-box;
+		}
+	}
+
+	// Set dimensions of custom menu icon to match other icons.
+	.menu-icon-wpbr_review .wp-menu-image img {
+		height: 18px;
+		width: 18px;
 	}
 }
