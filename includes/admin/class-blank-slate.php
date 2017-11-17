@@ -178,7 +178,9 @@ class Blank_Slate {
 	 * @param string $which The location of the list table hook: 'top' or 'bottom'.
 	 */
 	public function render( $which = 'bottom' ) {
-		$view_object = new View( WPBR_PLUGIN_DIR . 'views/admin/blank-slate.php' );
-		$view_object->render( $this->get_content() );
+		if ( 'bottom' === $which ) {
+			$view_object = new View( WPBR_PLUGIN_DIR . 'views/admin/blank-slate.php' );
+			$view_object->render( $this->get_content() );
+		}
 	}
 }
