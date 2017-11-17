@@ -48,22 +48,13 @@ class Plugin {
 	protected $version;
 
 	/**
-	 * The Settings API for the plugin.
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @var    Settings_API
-	 */
-	protected $settings_api;
-
-	/**
-	 * Sets up the plugin.
+	 * Instantiates the Plugin object.
 	 *
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->plugin_name = 'wpbr';
-		$this->version = '0.1.0';
+		$this->plugin_name = 'wp-business-reviews';
+		$this->version     = '0.1.0';
 	}
 
 	/**
