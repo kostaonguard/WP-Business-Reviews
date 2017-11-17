@@ -5,6 +5,10 @@
 .wpbr-settings {
 
 	&__panels {
-		padding: $wpbr-space;
+		padding: $wpbr-space-half;
+
+		@media ( min-width: 783px ) {
+			padding: $wpbr-space;
+		}
 	}
 }
