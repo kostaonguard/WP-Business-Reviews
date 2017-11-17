@@ -8,10 +8,7 @@
 
 namespace WP_Business_Reviews\Includes\Admin;
 
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+use WP_Business_Reviews\Includes\View;
 
 /**
  * Creates the admin banner for the plugin.
@@ -29,15 +26,15 @@ class Admin_Banner {
 	}
 
 	/**
-	 * Renders the admin banner.
+	 * Renders the blank slate.
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
 	 */
 	public function render() {
 		$current_screen = get_current_screen();
-
 		if ( ! empty( $current_screen->id ) && false !== strpos( $current_screen->id, 'wpbr_review_page' ) ) {
-			include WPBR_PLUGIN_DIR . 'includes/admin/views/wpbr-admin-banner.php';
+			$view_object = new View( WPBR_PLUGIN_DIR . 'views/admin/admin-banner.php' );
+			$view_object->render();
 		}
 	}
 }

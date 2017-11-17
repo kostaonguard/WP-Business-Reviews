@@ -65,7 +65,9 @@ class View {
 		}
 
 		// Set the context for the view.
-		$this->assimilate_context( $context );
+		if ( ! empty( $context ) && is_array( $context ) ) {
+			$this->assimilate_context( $context );
+		}
 
 		// Store the view's contents in output buffer.
 		ob_start();
