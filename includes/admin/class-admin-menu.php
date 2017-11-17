@@ -62,16 +62,28 @@ class Admin_Menu {
 		$pages = array();
 
 		foreach ( $config as $page ) {
-			if ( ! isset( $page['page_parent'], $page['page_title'], $page['menu_title'], $page['capability'], $page['menu_slug'] ) ) {
+			if ( ! isset(
+				$page['page_parent'],
+				$page['page_title'],
+				$page['menu_title'],
+				$page['capability'],
+				$page['menu_slug']
+			) ) {
 				// Skip if required keys are not set.
 				continue;
 			}
 
 			// Create new admin page based on the config item.
-			$page_obj = new Admin_Page( $page['page_parent'], $page['page_title'], $page['menu_title'], $page['capability'], $page['menu_slug'] );
+			$page_object = new Admin_Page(
+				$page['page_parent'],
+				$page['page_title'],
+				$page['menu_title'],
+				$page['capability'],
+				$page['menu_slug']
+			);
 
 			// Add admin page object to pages array.
-			$pages[ $page['menu_slug'] ] = $page_obj;
+			$pages[ $page['menu_slug'] ] = $page_object;
 		}
 
 		return $pages;
