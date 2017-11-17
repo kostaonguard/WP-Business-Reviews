@@ -132,7 +132,7 @@ class Blank_Slate {
 			'heading'   => __( 'Welcome to WP Business Reviews!', 'wpbr' ),
 			'message'   => __( 'Let\'s begin by connecting to at least one reviews platform.', 'wpbr' ),
 			'cta_text'  => __( 'Get Connected', 'wpbr' ),
-			'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=wpbr_settings' ),
+			'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=settings' ),
 		);
 
 		if ( $this->is_connected ) {
@@ -141,7 +141,7 @@ class Blank_Slate {
 				'heading'   => __( 'No reviews found.', 'wpbr' ),
 				'message'   => __( 'Now that you\'re connected to a reviews platform, let\'s build your first set of reviews.', 'wpbr' ),
 				'cta_text'  => __( 'Build Reviews', 'wpbr' ),
-				'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=wpbr_reviews_builder' ),
+				'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=reviews_builder' ),
 			);
 		}
 
