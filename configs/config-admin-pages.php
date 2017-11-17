@@ -34,6 +34,13 @@ $config = apply_filters(
 			'menu_slug'  => 'settings',
 			'view'       => '',
 		),
+		'pro_features' => array(
+			'page_parent' => 'edit.php?post_type=wpbr_review',
+			'page_title' => __( 'WP Business Reviews Pro Features', 'wpbr' ),
+			'menu_title' => __( 'Pro Features', 'wpbr' ),
+			'capability' => 'manage_options',
+			'menu_slug'  => 'pro_features',
+		),
 	)
 );
 
