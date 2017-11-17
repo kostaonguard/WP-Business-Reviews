@@ -19,13 +19,11 @@
 		// Render field control.
 		$control_type = str_replace( '_', '-', $this->control);
 		$this->render_partial( WPBR_PLUGIN_DIR . "views/field/controls/control-{$control_type}.php" );
+
+		if ( ! empty( $this->description ) ) {
+			// Render field description.
+			$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/field-description.php' );
+		}
 		?>
 	</div>
-
-	<?php
-	if ( ! empty( $this->description ) ) {
-		// Render field description.
-		$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/field-description.php' );
-	}
-	?>
 </div>
