@@ -64,7 +64,6 @@ class Plugin {
 	public function __construct() {
 		$this->plugin_name = 'wpbr';
 		$this->version = '0.1.0';
-		$this->define_locale();
 	}
 
 	/**
@@ -135,16 +134,6 @@ class Plugin {
 			$blank_slate = new Admin\Blank_Slate( $screen_id );
 			$blank_slate->init();
 		}
-	}
-
-	/**
-	 * Defines the locale for this plugin for internationalization.
-	 *
-	 * @since 0.1.0
-	 */
-	private function define_locale() {
-		$plugin_i18n = new I18n();
-		$plugin_i18n->init();
 	}
 
 	/**
