@@ -58,6 +58,15 @@ class Plugin {
 	}
 
 	/**
+	 * Registers functionality with WordPress hooks.
+	 *
+	 * @since 0.1.0
+	 */
+	public function register() {
+
+	}
+
+	/**
 	 * Begins execution of the plugin.
 	 *
 	 * @since 0.1.0
@@ -98,7 +107,7 @@ class Plugin {
 		return $this->version;
 	}
 
-	/**
+	/**ADMIN CLASS
 	 * Adds admin body class to all admin pages created by the plugin.
 	 *
 	 * @since 0.1.0
@@ -115,7 +124,7 @@ class Plugin {
 		return $classes;
 	}
 
-	/**
+	/**ADMIN CLASS
 	 * Initializes blank slate that appears in place of empty list tables.
 	 *
 	 * @since 0.1.0
@@ -129,7 +138,7 @@ class Plugin {
 		}
 	}
 
-	/**
+	/**SHARED
 	 * Loads assets such as scripts, styles, fonts, etc.
 	 *
 	 * @since 0.1.0
@@ -139,7 +148,7 @@ class Plugin {
 		$assets->init();
 	}
 
-	/**
+	/**SPLIT INTO SHARED AND ADMIN
 	 * Registers the Settings API for the plugin.
 	 *
 	 * @since 0.1.0
