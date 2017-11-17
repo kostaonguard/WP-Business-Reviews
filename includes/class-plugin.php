@@ -32,7 +32,7 @@ final class Plugin {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 * @access   protected
 	 * @var      string
 	 */
@@ -41,7 +41,7 @@ final class Plugin {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 * @access   protected
 	 * @var      string
 	 */
@@ -59,7 +59,7 @@ final class Plugin {
 	/**
 	 * Sets up the plugin.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 */
 	public function __construct() {
 		$this->plugin_name = 'wpbr';
@@ -70,7 +70,7 @@ final class Plugin {
 	/**
 	 * Begins execution of the plugin.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 */
 	public function init() {
 		$this->load_assets();
@@ -109,7 +109,7 @@ final class Plugin {
 	/**
 	 * Adds admin body class to all admin pages created by the plugin.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 *
 	 * @param  string $classes Space-separated list of CSS classes.
 	 * @return string Filtered body classes.
@@ -126,7 +126,7 @@ final class Plugin {
 	/**
 	 * Initializes blank slate that appears in place of empty list tables.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 */
 	public function init_blank_slate() {
 		$screen_id   = get_current_screen()->id;
@@ -140,7 +140,7 @@ final class Plugin {
 	/**
 	 * Defines the locale for this plugin for internationalization.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 */
 	private function define_locale() {
 		$plugin_i18n = new I18n();
@@ -150,7 +150,7 @@ final class Plugin {
 	/**
 	 * Loads assets such as scripts, styles, fonts, etc.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 */
 	private function load_assets() {
 		$assets = new Assets( WPBR_ASSETS_URL, WPBR_VERSION );
@@ -172,7 +172,7 @@ final class Plugin {
 	/**
 	 * Loads assets such as scripts, styles, fonts, etc.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 */
 	private function register_post_types() {
 		$post_types = new Post_Types();
@@ -184,7 +184,7 @@ final class Plugin {
 	 *
 	 * Creates new admin menu and initializes page components.
 	 *
-	 * @since    0.1.0
+	 * @since 0.1.0
 	 */
 	private function add_admin_pages() {
 		// Add admin menu pages.
