@@ -5,7 +5,7 @@ class ReviewsBuilder {
 	constructor( selector ) {
 
 		// Define the root element of the Reviews Builder.
-		this.builder = document.querySelector( selector );
+		this.root = document.querySelector( selector );
 
 		// Define field wrappers.
 		this.formatField     = document.getElementById( 'wpbr-field-format' );
@@ -33,13 +33,13 @@ class ReviewsBuilder {
 		this.reviewTimestampHandle = 'js-wpbr-review-timestamp';
 
 		// Define review elements.
-		this.wrap             = this.builder.querySelector( `.${this.wrapHandle}` );
-		this.list             = this.builder.querySelector( `.${this.listHandle}` );
-		this.items            = this.builder.querySelectorAll( `.${this.itemHandle}` );
-		this.reviews          = this.builder.querySelectorAll( `.${this.reviewHandle}` );
-		this.reviewImages     = this.builder.querySelectorAll( `.${this.reviewImageHandle}` );
-		this.reviewRatings    = this.builder.querySelectorAll( `.${this.reviewRatingHandle}` );
-		this.reviewTimestamps = this.builder.querySelectorAll( `.${this.reviewTimestampHandle}` );
+		this.wrap             = this.root.querySelector( `.${this.wrapHandle}` );
+		this.list             = this.root.querySelector( `.${this.listHandle}` );
+		this.items            = this.root.querySelectorAll( `.${this.itemHandle}` );
+		this.reviews          = this.root.querySelectorAll( `.${this.reviewHandle}` );
+		this.reviewImages     = this.root.querySelectorAll( `.${this.reviewImageHandle}` );
+		this.reviewRatings    = this.root.querySelectorAll( `.${this.reviewRatingHandle}` );
+		this.reviewTimestamps = this.root.querySelectorAll( `.${this.reviewTimestampHandle}` );
 
 
 		// Define background element, which changes color in theme previews.
