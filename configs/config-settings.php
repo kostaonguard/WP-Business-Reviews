@@ -113,7 +113,7 @@ $config = apply_filters(
 									'name'         => __( 'Google Places API Key', 'wpbr' ),
 									'control'      => 'input',
 									'description'  => sprintf(
-									/* translators: link to documentation */
+										/* translators: link to documentation */
 										__( 'Defines the Google Places API Key required to retrieve Google reviews. For step-by-step instructions, see docs on %1$sHow to Generate a Google Places API Key%2$s.', 'wbpr' ),
 										'<a href="https://wpbusinessreviews.com/">',
 										'</a>'
@@ -163,9 +163,9 @@ $config = apply_filters(
 								),
 								'facebook_pages'           => array(
 									'id'          => 'facebook_pages',
-									'control'     => 'facebook_pages',
 									'name'        => __( 'Facebook Pages', 'wpbr' ),
-									'description' => __( 'Defines the Facebook Pages from which reviews may be displayed. The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
+									'control'     => 'facebook_pages',
+									'description' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),
 							)
@@ -196,6 +196,7 @@ $config = apply_filters(
 									'id'       => 'platform_status_yelp',
 									'name'     => __( 'Platform Status', 'wpbr' ),
 									'control'  => 'platform_status',
+
 									'default'  => 'disconnected',
 									'platform' => 'yelp',
 									'wrapper_class' => 'wpbr-field--spacious',
@@ -204,6 +205,12 @@ $config = apply_filters(
 									'id'           => 'yelp_client_id',
 									'name'         => __( 'Yelp Client ID', 'wpbr' ),
 									'control'      => 'input',
+									'description'  => sprintf(
+										/* translators: link to documentation */
+										__( 'Defines the Yelp Client ID required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Client ID%2$s.', 'wbpr' ),
+										'<a href="https://wpbusinessreviews.com/">',
+										'</a>'
+									),
 									'control_atts' => array(
 										'type' => 'text',
 									),
@@ -215,6 +222,12 @@ $config = apply_filters(
 									'control'      => 'input',
 									'control_atts' => array(
 										'type' => 'text',
+									),
+									'description'  => sprintf(
+										/* translators: link to documentation */
+										__( 'Defines the Yelp Client Secret required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Secret Key%2$s.', 'wbpr' ),
+										'<a href="https://wpbusinessreviews.com/">',
+										'</a>'
 									),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),
@@ -261,6 +274,12 @@ $config = apply_filters(
 									'control'      => 'input',
 									'control_atts' => array(
 										'type' => 'text',
+									),
+									'description'  => sprintf(
+										/* translators: link to documentation */
+										__( 'Defines the YP API Key required to retrieve YP reviews. For step-by-step instructions, see docs on %1$sHow to Generate a YP API Key%2$s.', 'wbpr' ),
+										'<a href="https://wpbusinessreviews.com/">',
+										'</a>'
 									),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),
@@ -358,8 +377,8 @@ $config = apply_filters(
 									'control' => 'radio',
 									'default' => 'keep',
 									'options' => array(
-										'keep'   => __( 'Keep all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
-										'remove' => __( 'Remove all plugin settings and reviews data if this plugin is uninstalled.', 'wpbr' ),
+										'keep'   => __( 'Keep all plugin settings and reviews data.', 'wpbr' ),
+										'remove' => __( 'Remove all plugin settings and reviews data.', 'wpbr' ),
 									),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),
