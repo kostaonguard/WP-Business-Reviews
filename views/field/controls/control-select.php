@@ -1,6 +1,6 @@
 <select
 	id="wpbr-control-<?php echo esc_attr( $this->id ); ?>"
-	class="wpbr-field__control js-wpbr-control"
+	class="wpbr-field__select js-wpbr-control"
 	name="<?php echo esc_attr( $this->id ); ?>"
 	<?php
 	// Output any additional control attributes.
