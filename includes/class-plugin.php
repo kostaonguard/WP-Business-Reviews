@@ -72,15 +72,15 @@ class Plugin {
 	 * @since 0.1.0
 	 */
 	public function init() {
-		$this->load_assets();
-		$this->register_settings_api();
-		$this->register_post_types();
+		$this->load_assets();// Shared.
+		$this->register_settings_api();// Admin only.
+		$this->register_post_types();// Shared.
 
 		if ( is_admin() ) {
-			$this->add_admin_pages();
-			$this->register_services();
-			add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
-			add_action( 'current_screen', array( $this, 'init_blank_slate' ) );
+			$this->add_admin_pages();// Move to Admin->init();
+			$this->register_services();// Refactor.
+			add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );// Move to Admin_Page->register().
+			add_action( 'current_screen', array( $this, 'init_blank_slate' ) );// Admin only.
 		}
 	}
 
@@ -107,7 +107,8 @@ class Plugin {
 		return $this->version;
 	}
 
-	/**ADMIN CLASS
+	// Move to Admin_Page.
+	/**
 	 * Adds admin body class to all admin pages created by the plugin.
 	 *
 	 * @since 0.1.0
@@ -124,13 +125,14 @@ class Plugin {
 		return $classes;
 	}
 
-	/**ADMIN CLASS
+	// Admin only.
+	/**
 	 * Initializes blank slate that appears in place of empty list tables.
 	 *
 	 * @since 0.1.0
 	 */
 	public function init_blank_slate() {
-		$screen_id   = get_current_screen()->id;
+		$screen_id = get_current_screen()->id;
 
 		if ( 'edit-wpbr_review' === $screen_id ) {
 			$blank_slate = new Admin\Blank_Slate( $screen_id );
@@ -138,7 +140,8 @@ class Plugin {
 		}
 	}
 
-	/**SHARED
+	// Shared.
+	/**
 	 * Loads assets such as scripts, styles, fonts, etc.
 	 *
 	 * @since 0.1.0
@@ -148,7 +151,10 @@ class Plugin {
 		$assets->init();
 	}
 
-	/**SPLIT INTO SHARED AND ADMIN
+	// Split this method.
+	// Shared - Settings_API.
+	// Admin only - Settings_UI.
+	/**
 	 * Registers the Settings API for the plugin.
 	 *
 	 * @since 0.1.0
@@ -160,8 +166,9 @@ class Plugin {
 		$settings_ui->register();
 	}
 
+	// Shared.
 	/**
-	 * Loads assets such as scripts, styles, fonts, etc.
+	 * Registers the plugin's post types and taxonomies.
 	 *
 	 * @since 0.1.0
 	 */
@@ -170,6 +177,7 @@ class Plugin {
 		$post_types->init();
 	}
 
+	// Admin only.
 	/**
 	 * Adds admin pages.
 	 *
@@ -192,6 +200,7 @@ class Plugin {
 		$admin_footer->register();
 	}
 
+	// Refactor this.
 	public function register_services() {
 		$reviews_builder = new Reviews_Builder( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php' );
 		$reviews_builder->register();
