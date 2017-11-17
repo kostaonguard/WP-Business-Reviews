@@ -23,7 +23,7 @@ class Settings {
 
 		// Define URL query parameters.
 		this.tabQueryParam = 'wpbr_tab';
-		this.sectionParam = 'wpbr_section';
+		this.subtabParam = 'wpbr_subtab';
 
 		// Group collections of elements that make up tabbed UI.
 		this.tabs = this.root.querySelectorAll( '.js-wpbr-tab' );
@@ -60,8 +60,8 @@ class Settings {
 			this.activePanel = document.getElementById( this.panelPrefix + tabId );
 
 			// Check query string for subtab parameter.
-			if ( this.sectionParam in this.queryStringObject ) {
-				const subtabId = this.queryStringObject[ this.sectionParam ];
+			if ( this.subtabParam in this.queryStringObject ) {
+				const subtabId = this.queryStringObject[ this.subtabParam ];
 				const subtab = document.getElementById( this.subtabIdPrefix + subtabId );
 
 				this.activeSubtab = subtab;
@@ -93,7 +93,7 @@ class Settings {
 
 		// Set tab in query string.
 		this.queryStringObject[ this.tabQueryParam ] = tabId;
-		delete this.queryStringObject[ this.sectionParam ];
+		delete this.queryStringObject[ this.subtabParam ];
 	}
 
 	activateSubtab( subtab = this.subtabs[0]) {
@@ -107,7 +107,7 @@ class Settings {
 		this.addClass( this.activeClass, ...[ this.activeSubtab, this.activeSection ]);
 
 		// Set subtab in query string.
-		this.queryStringObject[ this.sectionParam ] = subtabId;
+		this.queryStringObject[ this.subtabParam ] = subtabId;
 	}
 
 	deactivateTab() {
