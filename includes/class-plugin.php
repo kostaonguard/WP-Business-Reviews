@@ -88,8 +88,9 @@ class Plugin {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     0.1.0
-	 * @return    string    The name of the plugin.
+	 * @since  0.1.0
+	 *
+	 * @return string The name of the plugin.
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
@@ -98,8 +99,9 @@ class Plugin {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     0.1.0
-	 * @return    string    The version number of the plugin.
+	 * @since  0.1.0
+	 *
+	 * @return string The version number of the plugin.
 	 */
 	public function get_version() {
 		return $this->version;
