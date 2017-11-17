@@ -9,6 +9,7 @@
 namespace WP_Business_Reviews\Includes\Admin;
 
 use \WP_Query;
+use WP_Business_Reviews\Includes\View;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,15 +25,6 @@ class Blank_Slate {
 	 * @access public
 	 */
 	public $screen_id = '';
-
-	/**
-	 * Whether at least one review exists.
-	 *
-	 * @since  0.1.0
-	 * @var bool
-	 * @access private
-	 */
-	private $has_review = false;
 
 	/**
 	 * Whether at least one reviews platform is connected.
@@ -64,6 +56,14 @@ class Blank_Slate {
 	}
 
 	/**
+	 * Registers functionality with WordPress hooks.
+	 *
+	 * @since 0.1.0
+	 */
+	public function register() {
+	}
+
+	/**
 	 * Initializes the class.
 	 *
 	 * Determines if at least one post exists and sets the content accordingly.
@@ -71,9 +71,7 @@ class Blank_Slate {
 	 * @since 0.1.0
 	 */
 	public function init() {
-		$this->has_review = $this->has_post( 'wpbr_review' );
-
-		if ( ! $this->has_review ) {
+		if ( ! $this->has_post( 'wpbr_review' ) ) {
 			// Get content to display in the blank slate.
 			$this->content = $this->get_content();
 
@@ -86,29 +84,11 @@ class Blank_Slate {
 	}
 
 	/**
-	 * Renders the blank slate message.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $which The location of the list table hook: 'top' or 'bottom'.
-	 */
-	public function render( $which = 'bottom') {
-		// Check $which to prevent blank slate from rendering twice.
-		if ( 'top' !== $which ) {
-			// Extract variables for use in view.
-			extract( $this->content, EXTR_PREFIX_SAME, 'wpbr' );
-
-			include WPBR_PLUGIN_DIR . 'includes/admin/views/blank-slate.php';
-		}
-	}
-
-	/**
 	 * Hides non-essential UI elements when blank slate content is on screen.
 	 *
 	 * @since 0.1.0
 	 */
 	public function hide_ui() {
-		error_log('hiding');
 		echo '<style type="text/css">.wpbr-admin .page-title-action, .wpbr-admin .subsubsub, .wpbr-admin .wp-list-table, .wpbr-admin .tablenav.top {display: none; }</style>';
 	}
 
@@ -188,5 +168,17 @@ class Blank_Slate {
 		 * @param string $screen The current screen ID.
 		 */
 		return apply_filters( 'wpbr_blank_slate_content', $content, $this->screen_id );
+	}
+
+	/**
+	 * Renders the blank slate.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param string $which The location of the list table hook: 'top' or 'bottom'.
+	 */
+	public function render( $which = 'bottom' ) {
+		$view_object = new View( WPBR_PLUGIN_DIR . 'views/admin/blank-slate.php' );
+		$view_object->render( $this->get_content() );
 	}
 }
