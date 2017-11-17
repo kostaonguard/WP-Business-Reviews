@@ -58,7 +58,7 @@ class Reviews_Builder {
 	}
 
 	/**
-	 * Initializes the class for use.
+	 * Initializes the object for use.
 	 *
 	 * @since 0.1.0
 	 */

@@ -64,9 +64,7 @@ class Blank_Slate {
 	}
 
 	/**
-	 * Initializes the class.
-	 *
-	 * Determines if at least one post exists and sets the content accordingly.
+	 * Initializes the object for use.
 	 *
 	 * @since 0.1.0
 	 */
