@@ -80,7 +80,7 @@
 
 	&__description {
 		font-style: italic;
-		margin: $wpbr-space-half 0 0;
+		margin: $wpbr-space 0 0;
 
 		.wpbr-field--spacious & {
 			@media ( min-width: 768px ) {
