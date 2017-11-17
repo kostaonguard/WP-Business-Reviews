@@ -79,7 +79,6 @@ class Plugin {
 		if ( is_admin() ) {
 			$this->add_admin_pages();// Move to Admin->init();
 			$this->register_services();// Refactor.
-			add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );// Move to Admin_Page->register().
 			add_action( 'current_screen', array( $this, 'init_blank_slate' ) );// Admin only.
 		}
 	}
@@ -105,24 +104,6 @@ class Plugin {
 	 */
 	public function get_version() {
 		return $this->version;
-	}
-
-	// Move to Admin_Page.
-	/**
-	 * Adds admin body class to all admin pages created by the plugin.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param  string $classes Space-separated list of CSS classes.
-	 * @return string Filtered body classes.
-	 */
-	public function add_admin_body_class( $classes ) {
-		if ( isset( $_GET['post_type'] ) && 'wpbr_review' === $_GET['post_type'] ) {
-			// Leave space on both sides so other plugins do not conflict.
-			$classes .= ' wpbr-admin ';
-		}
-
-		return $classes;
 	}
 
 	// Admin only.

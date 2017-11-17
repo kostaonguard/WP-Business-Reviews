@@ -38,6 +38,11 @@ class Admin_Page {
 		$this->menu_slug   = $menu_slug;
 	}
 
+	/**
+	 * Registers functionality with WordPress hooks.
+	 *
+	 * @since 0.1.0
+	 */
 	public function register() {
 		add_submenu_page(
 			$this->parent_slug,
@@ -47,5 +52,24 @@ class Admin_Page {
 			$this->menu_slug
 			// TODO: Add default callable to ensure the page renders.
 		);
+
+		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );// Move to Admin_Page->register().
+	}
+
+	/**
+	 * Adds admin body class to all admin pages created by the plugin.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param  string $classes Space-separated list of CSS classes.
+	 * @return string Filtered body classes.
+	 */
+	public function add_admin_body_class( $classes ) {
+		if ( isset( $_GET['post_type'] ) && 'wpbr_review' === $_GET['post_type'] ) {
+			// Leave space on both sides so other plugins do not conflict.
+			$classes .= ' wpbr-admin ';
+		}
+
+		return $classes;
 	}
 }
