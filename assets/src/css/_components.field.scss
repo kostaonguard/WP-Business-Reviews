@@ -61,8 +61,11 @@
 
 		.wpbr-field--spacious & {
 			flex: 1;
-			margin-top: 0;
 			width: auto;
+
+			@media ( min-width: 768px ) {
+				margin-top: 0;
+			}
 		}
 	}
 
