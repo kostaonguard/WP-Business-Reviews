@@ -44,6 +44,15 @@ class Admin_Page {
 	 * @since 0.1.0
 	 */
 	public function register() {
+		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
+	}
+
+	/**
+	 * Add admin page.
+	 *
+	 * @since 0.1.0
+	 */
+	public function add_page() {
 		add_submenu_page(
 			$this->parent_slug,
 			$this->page_title,
@@ -52,8 +61,6 @@ class Admin_Page {
 			$this->menu_slug
 			// TODO: Add default callable to ensure the page renders.
 		);
-
-		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );// Move to Admin_Page->register().
 	}
 
 	/**
@@ -65,9 +72,13 @@ class Admin_Page {
 	 * @return string Filtered body classes.
 	 */
 	public function add_admin_body_class( $classes ) {
-		if ( isset( $_GET['post_type'] ) && 'wpbr_review' === $_GET['post_type'] ) {
-			// Leave space on both sides so other plugins do not conflict.
-			$classes .= ' wpbr-admin ';
+		if ( ! empty( $_GET['post_type'] ) ) {
+			$post_type = sanitize_text_field( $_GET['post_type'] );
+
+			if ( 'wpbr_review' === $post_type ) {
+				// Leave space on both sides so other plugins do not conflict.
+				$classes .= ' wpbr-admin ';
+			}
 		}
 
 		return $classes;

@@ -43,7 +43,7 @@ class Admin_Menu {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_menu', array( $this, 'register_pages' ) );
+		add_action( 'admin_menu', array( $this, 'add_pages' ) );
 	}
 
 	/**
@@ -90,13 +90,14 @@ class Admin_Menu {
 	}
 
 	/**
-	 * Registers one or more admin pages.
+	 * Add one or more admin pages.
 	 *
 	 * @since 0.1.0
 	 */
-	public function register_pages() {
+	public function add_pages() {
 		foreach ( $this->pages as $page ) {
 			$page->register();
+			$page->add_page();
 		}
 	}
 }
