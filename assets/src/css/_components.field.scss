@@ -53,10 +53,6 @@
 	&__control-wrap {
 		width: 100%;
 
-		@media ( min-width: 961px ) {
-			max-width: 25em;
-		}
-
 		.wpbr-field__name + & {
 			margin-top: $wpbr-space-half;
 		}
@@ -67,6 +63,7 @@
 
 			@media ( min-width: 961px ) {
 				margin-top: 0;
+				max-width: 25em;
 			}
 		}
 	}
@@ -74,7 +71,12 @@
 	&__input,
 	&__select,
 	&__fieldset {
+		min-width: 0; // For flexbox compatability.
 		width: 100%;
+	}
+
+	&__flex {
+		display: flex;
 	}
 
 	&__inline-button.button {
