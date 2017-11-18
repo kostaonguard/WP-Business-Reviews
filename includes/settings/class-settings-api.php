@@ -42,7 +42,7 @@ class Settings_API {
 	}
 
 	/**
-	 * Initializes the class for use.
+	 * Initializes the object for use.
 	 *
 	 * @since 0.1.0
 	 */

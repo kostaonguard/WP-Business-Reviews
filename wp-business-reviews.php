@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -26,26 +25,17 @@
 
 namespace WP_Business_Reviews;
 
-use WP_Business_Reviews\Includes\Activator;
-use WP_Business_Reviews\Includes\Deactivator;
-use WP_Business_Reviews\Includes\Plugin;
-
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Define plugin version.
-if ( ! defined( 'WPBR_VERSION' ) ) {
-	define( 'WPBR_VERSION', '0.1.0' );
-}
-
-// Define plugin folder Path.
+// Define plugin directory Path.
 if ( ! defined( 'WPBR_PLUGIN_DIR' ) ) {
 	define( 'WPBR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
 
-// Define plugin folder URL.
+// Define plugin directory URL.
 if ( ! defined( 'WPBR_PLUGIN_URL' ) ) {
 	define( 'WPBR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
@@ -55,33 +45,16 @@ if ( ! defined( 'WPBR_PLUGIN_FILE' ) ) {
 	define( 'WPBR_PLUGIN_FILE', __FILE__ );
 }
 
-// Define assets folder URL.
+// Define assets directory URL.
 if ( ! defined( 'WPBR_ASSETS_URL' ) ) {
 	define( 'WPBR_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/dist/' );
 }
 
-// Require WP Business Reviews autoloader.
+/**
+ * Automatically loads files used throughout the plugin.
+ */
 require_once __DIR__ . '/autoloader.php';
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-activator.php
- */
-function activate_wp_business_reviews() {
-	Activator::activate();
-}
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-deactivator.php
- */
-function deactivate_wp_business_reviews() {
-	Deactivator::deactivate();
-}
-
-register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wp_business_reviews' );
-register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wp_business_reviews' );
-
-// Initialize plugin.
-$plugin = new Plugin();
+// Initialize the plugin.
+$plugin = new Includes\Plugin();
 $plugin->init();

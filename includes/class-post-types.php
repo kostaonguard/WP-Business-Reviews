@@ -21,11 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Post_Types {
 	/**
-	 * Hooks functionality responsible for registering post types and taxonomies.
+	 * Registers functionality with WordPress hooks.
 	 *
 	 * @since 0.1.0
 	 */
-	public function init() {
+	public function register() {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 	}
@@ -190,7 +190,7 @@ class Post_Types {
 			'rest_base'          => 'reviews',
 			'show_ui'             => true,
 			'show_in_menu'        => true,
-			'menu_icon'           => WPBR_PLUGIN_URL . 'assets/dist/images/wpbr-menu-icon-white.png',
+			'menu_icon'           => WPBR_ASSETS_URL . 'images/wpbr-menu-icon-white.png',
 			'show_in_admin_bar'   => false,
 			'show_in_nav_menus'   => false,
 			'can_export'          => true,

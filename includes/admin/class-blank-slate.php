@@ -45,41 +45,28 @@ class Blank_Slate {
 	private $content = array();
 
 	/**
-	 * Constructs the Blank_Slate class.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $screen_id The current screen ID.
-	 */
-	public function __construct( $screen_id ) {
-		$this->screen_id = $screen_id;
-	}
-
-	/**
 	 * Registers functionality with WordPress hooks.
 	 *
 	 * @since 0.1.0
 	 */
 	public function register() {
+		add_action( 'current_screen', array( $this, 'init' ) );
 	}
 
 	/**
-	 * Initializes the class.
+	 * Initializes the object for use.
 	 *
-	 * Determines if at least one post exists and sets the content accordingly.
+	 * The blank slate is only initialized on the appropriate screen when no
+	 * posts exist.
 	 *
 	 * @since 0.1.0
 	 */
 	public function init() {
-		if ( ! $this->has_post( 'wpbr_review' ) ) {
+		$screen_id = get_current_screen()->id;
+		if ( 'edit-wpbr_review' === $screen_id && ! $this->post_exists( 'wpbr_review' ) ) {
 			// Get content to display in the blank slate.
-			$this->content = $this->get_content();
-
-			// Add hook to render blank slate.
-			add_action( 'manage_posts_extra_tablenav', array( $this, 'render' ) );
-
-			// Hide non-essential UI elements.
 			add_action( 'admin_head', array( $this, 'hide_ui' ) );
+			add_action( 'manage_posts_extra_tablenav', array( $this, 'render' ) );
 		}
 	}
 
@@ -100,7 +87,7 @@ class Blank_Slate {
 	 * @param string $post_type Post type used in the query.
 	 * @return bool True if post exists, otherwise false.
 	 */
-	private function has_post( $post_type ) {
+	private function post_exists( $post_type ) {
 		// Attempt to get a single post of the post type.
 		$query = new WP_Query( array(
 			'post_type'              => $post_type,
@@ -127,21 +114,22 @@ class Blank_Slate {
 
 		// Define default content.
 		$defaults = array(
-			'image_url' => WPBR_PLUGIN_URL . 'assets/dist/images/wpbr-icon-color.png',
+			'image_url' => WPBR_ASSETS_URL . 'images/wpbr-icon-color.png',
 			'image_alt' => __( 'WP Business Reviews Icon', 'wpbr' ),
 			'heading'   => __( 'Welcome to WP Business Reviews!', 'wpbr' ),
 			'message'   => __( 'Let\'s begin by connecting to at least one reviews platform.', 'wpbr' ),
 			'cta_text'  => __( 'Get Connected', 'wpbr' ),
-			'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=wpbr_settings' ),
+			'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=settings' ),
 		);
 
+		// TODO: Add logic to check for connected platform.
 		if ( $this->is_connected ) {
 			// No reviews exist but at least one platform is connected.
 			$content = array(
 				'heading'   => __( 'No reviews found.', 'wpbr' ),
 				'message'   => __( 'Now that you\'re connected to a reviews platform, let\'s build your first set of reviews.', 'wpbr' ),
 				'cta_text'  => __( 'Build Reviews', 'wpbr' ),
-				'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=wpbr_reviews_builder' ),
+				'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=reviews_builder' ),
 			);
 		}
 
