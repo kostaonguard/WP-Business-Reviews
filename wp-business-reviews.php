@@ -26,8 +26,6 @@
 
 namespace WP_Business_Reviews;
 
-use WP_Business_Reviews\Includes\Activator;
-use WP_Business_Reviews\Includes\Deactivator;
 use WP_Business_Reviews\Includes\Plugin;
 
 // Exit if accessed directly.
@@ -58,24 +56,6 @@ if ( ! defined( 'WPBR_ASSETS_URL' ) ) {
 // Require WP Business Reviews autoloader.
 require_once __DIR__ . '/autoloader.php';
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-activator.php
- */
-function activate_wp_business_reviews() {
-	Activator::activate();
-}
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-deactivator.php
- */
-function deactivate_wp_business_reviews() {
-	Deactivator::deactivate();
-}
-
-register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_wp_business_reviews' );
-register_deactivation_hook( __FILE__, __NAMESPACE__ . '\deactivate_wp_business_reviews' );
 
 // Initialize plugin.
 $plugin = new Plugin();
