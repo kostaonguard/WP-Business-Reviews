@@ -43,8 +43,7 @@ class Reviews_Builder {
 	 * @param string|Config $config Path to config or Config object.
 	 */
 	public function __construct( $config ) {
-		$config_object = is_string( $config ) ? new Config( $config ) : $config;
-		$this->config  = $config_object;
+		$this->config = is_string( $config ) ? new Config( $config ) : $config;
 	}
 
 	/**
