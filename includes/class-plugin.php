@@ -20,7 +20,6 @@ final class Plugin {
 	 * The name of the plugin in slug form.
 	 *
 	 * @since 0.1.0
-	 * @access protected
 	 * @var string
 	 */
 	protected $plugin_name;
@@ -29,7 +28,6 @@ final class Plugin {
 	 * The current version of the plugin.
 	 *
 	 * @since 0.1.0
-	 * @access protected
 	 * @var string
 	 */
 	protected $version;
