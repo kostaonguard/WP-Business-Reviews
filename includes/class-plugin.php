@@ -2,8 +2,10 @@
 /**
  * Defines the core plugin class
  *
+ * @link https://wpbusinessreviews.com
+ *
  * @package WP_Business_Reviews\Includes
- * @since   0.1.0
+ * @since 0.1.0
  */
 
 namespace WP_Business_Reviews\Includes;
@@ -18,8 +20,8 @@ final class Plugin {
 	 * The name of the plugin in slug form.
 	 *
 	 * @since 0.1.0
-	 * @access   protected
-	 * @var      string
+	 * @access protected
+	 * @var string
 	 */
 	protected $plugin_name;
 
@@ -27,8 +29,8 @@ final class Plugin {
 	 * The current version of the plugin.
 	 *
 	 * @since 0.1.0
-	 * @access   protected
-	 * @var      string
+	 * @access protected
+	 * @var string
 	 */
 	protected $version;
 
@@ -40,6 +42,8 @@ final class Plugin {
 	public function __construct() {
 		$this->plugin_name = 'wp-business-reviews';
 		$this->version     = '0.1.0';
+		// TODO: Get plugin settings here.
+		$this->settings    = array();
 	}
 
 	/**
