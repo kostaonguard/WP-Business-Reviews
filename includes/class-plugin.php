@@ -129,7 +129,7 @@ class Plugin {
 	 */
 	private function load_assets() {
 		$assets = new Assets( WPBR_ASSETS_URL, WPBR_VERSION );
-		$assets->init();
+		$assets->register();
 	}
 
 	// Split this method.

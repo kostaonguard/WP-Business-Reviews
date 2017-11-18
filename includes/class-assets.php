@@ -8,11 +8,6 @@
 
 namespace WP_Business_Reviews\Includes;
 
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Loads the plugin's assets.
  *
@@ -35,7 +30,7 @@ class Assets {
 	private $url;
 
 	/**
-	 * Plugin version.
+	 * Assets version.
 	 *
 	 * @since  0.1.0
 	 * @var    string
@@ -52,26 +47,33 @@ class Assets {
 	 */
 	private $suffix;
 
+	/**
+	 * Instantiates the Assets class.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param $string $url     Path to the assets directory.
+	 * @param $string $version Assets version, usually same as plugin version.
+	 */
 	public function __construct( $url, $version ) {
-		// Set URL of assets directory.
-		$this->url = $url;
-
-		// Set version of assets (usually same as the plugin version).
+		$this->url     = $url;
 		$this->version = $version;
-
-		// Set minified suffix unless script debugging is enabled.
-		$this->suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		$this->suffix  = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '': '.min';
 	}
 
-	public function init() {
+	/**
+	 * Registers assets via WordPress hooks.
+	 *
+	 * @since 0.1.0
+	 */
+	public function register() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
+
 		if ( is_admin() ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		} else {
-			add_action( 'wp_enqueue_scripts', array( $this, 'register_styles' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_scripts' ) );
 		}
