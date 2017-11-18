@@ -53,7 +53,9 @@ if ( ! defined( 'WPBR_ASSETS_URL' ) ) {
 	define( 'WPBR_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/dist/' );
 }
 
-// Require the autoloader.
+/**
+ * Automatically loads classes used throughout the plugin.
+ */
 require_once __DIR__ . '/autoloader.php';
 
 // Initialize the plugin.
