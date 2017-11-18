@@ -33,12 +33,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Define plugin folder Path.
+// Define plugin directory Path.
 if ( ! defined( 'WPBR_PLUGIN_DIR' ) ) {
 	define( 'WPBR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
 
-// Define plugin folder URL.
+// Define plugin directory URL.
 if ( ! defined( 'WPBR_PLUGIN_URL' ) ) {
 	define( 'WPBR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
@@ -48,15 +48,14 @@ if ( ! defined( 'WPBR_PLUGIN_FILE' ) ) {
 	define( 'WPBR_PLUGIN_FILE', __FILE__ );
 }
 
-// Define assets folder URL.
+// Define assets directory URL.
 if ( ! defined( 'WPBR_ASSETS_URL' ) ) {
 	define( 'WPBR_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/dist/' );
 }
 
-// Require WP Business Reviews autoloader.
+// Require the autoloader.
 require_once __DIR__ . '/autoloader.php';
 
-
-// Initialize plugin.
+// Initialize the plugin.
 $plugin = new Plugin();
 $plugin->init();
