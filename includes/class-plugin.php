@@ -49,36 +49,45 @@ class Plugin {
 	}
 
 	/**
-	 * Registers functionality with WordPress hooks.
-	 *
-	 * @since 0.1.0
-	 */
-	public function register() {
-
-	}
-
-	/**
-	 * Begins execution of the plugin.
+	 * Initializes the object for use.
 	 *
 	 * @since 0.1.0
 	 */
 	public function init() {
-		$this->load_assets();// Shared.
-		$this->register_settings_api();// Admin only.
-		$this->register_post_types();// Shared.
+		$this->register_services();
+		// TODO: Add init action for extensibility.
+	}
+
+	/**
+	 * Registers the individual services of the plugin.
+	 *
+	 * @since 0.1.0
+	 */
+	public function register_services() {
+		$services = array();
+
+		$services['assets']      = new Assets( WPBR_ASSETS_URL, $this->version );
+		$services['post_types']  = new Post_Types();
+		$services['settings_ui'] = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
 
 		if ( is_admin() ) {
-			$this->add_admin_pages();// Move to Admin->init();
-			$this->register_services();// Refactor.
-			add_action( 'current_screen', array( $this, 'init_blank_slate' ) );// Admin only.
+			$services['reviews_builder'] = new Reviews_Builder( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php' );
+			$services['admin_menu']      = new Admin\Admin_Menu( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
+			$services['admin_header']    = new Admin\Admin_Banner();
+			$services['admin_footer']    = new Admin\Admin_Footer();
+			$services['blank_slate']     = new Admin\Blank_Slate();
+		}
+
+		foreach ( $services as $service ) {
+			// TODO: Create interface for these classes to ensure register method is defined.
+			$service->register();
 		}
 	}
 
 	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
+	 * Get the name of the plugin
 	 *
-	 * @since  0.1.0
+	 * @since 0.1.0
 	 *
 	 * @return string The name of the plugin.
 	 */
@@ -87,94 +96,13 @@ class Plugin {
 	}
 
 	/**
-	 * Retrieve the version number of the plugin.
+	 * Get the version number of the plugin.
 	 *
-	 * @since  0.1.0
+	 * @since 0.1.0
 	 *
 	 * @return string The version number of the plugin.
 	 */
 	public function get_version() {
 		return $this->version;
-	}
-
-	// Admin only.
-	/**
-	 * Initializes blank slate that appears in place of empty list tables.
-	 *
-	 * @since 0.1.0
-	 */
-	public function init_blank_slate() {
-		$screen_id = get_current_screen()->id;
-
-		if ( 'edit-wpbr_review' === $screen_id ) {
-			$blank_slate = new Admin\Blank_Slate( $screen_id );
-			$blank_slate->init();
-		}
-	}
-
-	// Shared.
-	/**
-	 * Loads assets such as scripts, styles, fonts, etc.
-	 *
-	 * @since 0.1.0
-	 */
-	private function load_assets() {
-		$assets = new Assets( WPBR_ASSETS_URL, WPBR_VERSION );
-		$assets->register();
-	}
-
-	// Split this method.
-	// Shared - Settings_API.
-	// Admin only - Settings_UI.
-	/**
-	 * Registers the Settings API for the plugin.
-	 *
-	 * @since 0.1.0
-	 */
-	private function register_settings_api() {
-		$this->settings_api = new Settings\Settings_API( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
-		$this->settings_api->register();
-		$settings_ui = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
-		$settings_ui->register();
-	}
-
-	// Shared.
-	/**
-	 * Registers the plugin's post types and taxonomies.
-	 *
-	 * @since 0.1.0
-	 */
-	private function register_post_types() {
-		$post_types = new Post_Types();
-		$post_types->init();
-	}
-
-	// Admin only.
-	/**
-	 * Adds admin pages.
-	 *
-	 * Creates new admin menu and initializes page components.
-	 *
-	 * @since 0.1.0
-	 */
-	private function add_admin_pages() {
-		// Add admin menu pages.
-		$config     = new Config( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
-		$admin_menu = new Admin\Admin_Menu( $config );
-		$admin_menu->register();
-
-		// Add admin banner.
-		$admin_header = new Admin\Admin_Banner();
-		$admin_header->register();
-
-		// Add admin footer.
-		$admin_footer = new Admin\Admin_Footer();
-		$admin_footer->register();
-	}
-
-	// Refactor this.
-	public function register_services() {
-		$reviews_builder = new Reviews_Builder( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php' );
-		$reviews_builder->register();
 	}
 }
