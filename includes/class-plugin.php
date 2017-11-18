@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 0.1.0
  */
-class Plugin {
+final class Plugin {
 	/**
 	 * The name of the plugin in slug form.
 	 *
