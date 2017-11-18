@@ -3,9 +3,6 @@
 /**
  * Defines the core plugin class
  *
- * This class includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
  * @package WP_Business_Reviews\Includes
  * @since   0.1.0
  */
@@ -18,19 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
+ * Loads and registers plugin functionality through WordPress hooks.
  *
  * @since 0.1.0
  */
 class Plugin {
 	/**
-	 * The unique identifier of this plugin.
+	 * The name of the plugin in slug form.
 	 *
 	 * @since 0.1.0
 	 * @access   protected
