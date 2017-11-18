@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -25,8 +24,6 @@
  */
 
 namespace WP_Business_Reviews;
-
-use WP_Business_Reviews\Includes\Plugin;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -54,10 +51,10 @@ if ( ! defined( 'WPBR_ASSETS_URL' ) ) {
 }
 
 /**
- * Automatically loads classes used throughout the plugin.
+ * Automatically loads files used throughout the plugin.
  */
 require_once __DIR__ . '/autoloader.php';
 
 // Initialize the plugin.
-$plugin = new Plugin();
+$plugin = new Includes\Plugin();
 $plugin->init();
