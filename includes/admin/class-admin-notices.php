@@ -36,9 +36,9 @@ class Admin_Notices {
 
 	private function define_messages() {
 		$index = array(
-			'settings_update_success'   => __( 'Settings saved successfully.', 'wpbr' ),
-			'settings_nonce_error'      => __( 'Nonce could not be validated.', 'wpbr' ),
-			'settings_permission_error' => __( 'User does not have permission to save settings.', 'wpbr' ),
+			'settings_update_success'   => __( 'Settings saved successfully.', 'wp-business-reviews' ),
+			'settings_nonce_error'      => __( 'Nonce could not be validated.', 'wp-business-reviews' ),
+			'settings_permission_error' => __( 'User does not have permission to save settings.', 'wp-business-reviews' ),
 		);
 
 		return $index;

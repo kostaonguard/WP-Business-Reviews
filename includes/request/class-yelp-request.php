@@ -140,7 +140,7 @@ class Yelp_Request extends Request {
 	 */
 	public function standardize_business( array $response ) {
 		if ( empty( $response ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wp-business-reviews' ) );
 		} else {
 			$r = $response;
 		}
@@ -259,7 +259,7 @@ class Yelp_Request extends Request {
 	 */
 	public function standardize_reviews( array $response ) {
 		if ( ! isset( $response['reviews'] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wp-business-reviews' ) );
 		}
 
 		// Initialize array to store standardized properties.

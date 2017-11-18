@@ -18,12 +18,12 @@
 	</ul>
 	<ul class="wpbr-inline-list">
 		<li class="wpbr-inline-list__item">
-			<button class="button button-primary"><?php _e( 'Refresh Pages', 'wpbr' ); ?></button>
+			<button class="button button-primary"><?php _e( 'Refresh Pages', 'wp-business-reviews' ); ?></button>
 		</li>
 		<li class="wpbr-inline-list__item">
-			<button class="button"><?php esc_html_e( 'Disconnect Facebook', 'wpbr' ) ?></button>
+			<button class="button"><?php esc_html_e( 'Disconnect Facebook', 'wp-business-reviews' ) ?></button>
 		</li>
 	</ul>
 <?php else : ?>
-	<a class="button button-primary" href="https://wordimpress.com/wi-api/get_token"><?php _e( 'Connect to Facebook', 'wpbr' ); ?></a>
+	<a class="button button-primary" href="https://wordimpress.com/wi-api/get_token"><?php _e( 'Connect to Facebook', 'wp-business-reviews' ); ?></a>
 <?php endif; ?>

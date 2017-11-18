@@ -110,7 +110,7 @@ abstract class Request {
 		if ( 200 != $response_code && ! empty( $response_message ) ) {
 			return new WP_Error( $response_code, $response_message );
 		} elseif ( 200 != $response_code ) {
-			return new WP_Error( $response_code, __( 'An unknown error occurred.', 'wpbr' ) );
+			return new WP_Error( $response_code, __( 'An unknown error occurred.', 'wp-business-reviews' ) );
 		}
 
 		// Get just the response body.

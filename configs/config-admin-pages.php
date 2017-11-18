@@ -20,22 +20,22 @@ $config = apply_filters(
 	array(
 		'reviews_builder' => array(
 			'page_parent' => 'edit.php?post_type=wpbr_review',
-			'page_title' => __( 'Reviews Builder', 'wpbr' ),
-			'menu_title' => __( 'Reviews Builder', 'wpbr' ),
+			'page_title' => __( 'Reviews Builder', 'wp-business-reviews' ),
+			'menu_title' => __( 'Reviews Builder', 'wp-business-reviews' ),
 			'capability' => 'manage_options',
 			'menu_slug'  => 'reviews_builder',
 		),
 		'settings' => array(
 			'page_parent' => 'edit.php?post_type=wpbr_review',
-			'page_title' => __( 'Settings', 'wpbr' ),
-			'menu_title' => __( 'Settings', 'wpbr' ),
+			'page_title' => __( 'Settings', 'wp-business-reviews' ),
+			'menu_title' => __( 'Settings', 'wp-business-reviews' ),
 			'capability' => 'manage_options',
 			'menu_slug'  => 'settings',
 		),
 		'pro_features' => array(
 			'page_parent' => 'edit.php?post_type=wpbr_review',
-			'page_title' => __( 'WP Business Reviews Pro Features', 'wpbr' ),
-			'menu_title' => __( 'Pro Features', 'wpbr' ),
+			'page_title' => __( 'WP Business Reviews Pro Features', 'wp-business-reviews' ),
+			'menu_title' => __( 'Pro Features', 'wp-business-reviews' ),
 			'capability' => 'manage_options',
 			'menu_slug'  => 'pro_features',
 		),

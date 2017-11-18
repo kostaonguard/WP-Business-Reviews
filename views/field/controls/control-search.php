@@ -14,5 +14,5 @@
 		}
 		?>
 		>
-	<button class="button wpbr-field__inline-button js-wpbr-search-button"><?php esc_html_e( 'Search', 'wpbr' ); ?></button>
+	<button class="button wpbr-field__inline-button js-wpbr-search-button"><?php esc_html_e( 'Search', 'wp-business-reviews' ); ?></button>
 </div>
