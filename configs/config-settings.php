@@ -21,7 +21,7 @@ $config = apply_filters(
 	array(
 		'general'  => array(
 			'id'       => 'general',
-			'name'     => __( 'General', 'wpbr' ),
+			'name'     => __( 'General', 'wp-business-reviews' ),
 			/**
 			 * Filters the sections in the General panel.
 			 *
@@ -34,8 +34,8 @@ $config = apply_filters(
 				array(
 					'platforms'     => array(
 						'id'          => 'platforms',
-						'name'        => __( 'Platforms', 'wpbr' ),
-						'heading'     => __( 'Platform Settings', 'wpbr' ),
+						'name'        => __( 'Platforms', 'wp-business-reviews' ),
+						'heading'     => __( 'Platform Settings', 'wp-business-reviews' ),
 						'description' => sprintf(
 							/* translators: link to documentation */
 							__( 'Need help? See docs on %1$sWP Business Reviews 101%2$s.', 'wbpr' ),
@@ -55,19 +55,19 @@ $config = apply_filters(
 							array(
 								'active_platforms' => array(
 									'id'          => 'active_platforms',
-									'name'        => __( 'Active Review Platforms', 'wpbr' ),
+									'name'        => __( 'Active Review Platforms', 'wp-business-reviews' ),
 									'control'     => 'checkboxes',
-									'description' => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wpbr' ),
+									'description' => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wp-business-reviews' ),
 									'default'     => array(
 										'google_places',
 										'facebook',
 										'yelp',
 									),
 									'options'     => array(
-										'google_places' => __( 'Google', 'wpbr' ),
-										'facebook'      => __( 'Facebook', 'wpbr' ),
-										'yelp'          => __( 'Yelp', 'wpbr' ),
-										'yp'            => __( 'YP', 'wpbr' ),
+										'google_places' => __( 'Google', 'wp-business-reviews' ),
+										'facebook'      => __( 'Facebook', 'wp-business-reviews' ),
+										'yelp'          => __( 'Yelp', 'wp-business-reviews' ),
+										'yp'            => __( 'YP', 'wp-business-reviews' ),
 									),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),
@@ -81,8 +81,8 @@ $config = apply_filters(
 					),
 					'google_places' => array(
 						'id'          => 'google_places',
-						'name'        => __( 'Google', 'wpbr' ),
-						'heading'     => __( 'Google Reviews Settings', 'wpbr' ),
+						'name'        => __( 'Google', 'wp-business-reviews' ),
+						'heading'     => __( 'Google Reviews Settings', 'wp-business-reviews' ),
 						'description' => sprintf(
 							/* translators: link to documentation */
 							__( 'Need help? See docs on %1$sGoogle Reviews 101%2$s.', 'wbpr' ),
@@ -102,7 +102,7 @@ $config = apply_filters(
 							array(
 								'platform_status_google_places' => array(
 									'id'       => 'platform_status_google_places',
-									'name'     => __( 'Platform Status', 'wpbr' ),
+									'name'     => __( 'Platform Status', 'wp-business-reviews' ),
 									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'google_places',
@@ -110,7 +110,7 @@ $config = apply_filters(
 								),
 								'api_key_google_places'         => array(
 									'id'           => 'api_key_google_places',
-									'name'         => __( 'Google Places API Key', 'wpbr' ),
+									'name'         => __( 'Google Places API Key', 'wp-business-reviews' ),
 									'control'      => 'input',
 									'description'  => sprintf(
 										/* translators: link to documentation */
@@ -133,8 +133,8 @@ $config = apply_filters(
 					),
 					'facebook'      => array(
 						'id'          => 'facebook',
-						'name'        => __( 'Facebook', 'wpbr' ),
-						'heading'     => __( 'Facebook Reviews Settings', 'wpbr' ),
+						'name'        => __( 'Facebook', 'wp-business-reviews' ),
+						'heading'     => __( 'Facebook Reviews Settings', 'wp-business-reviews' ),
 						'description' => sprintf(
 							/* translators: link to documentation */
 							__( 'Need help? See docs on %1$sFacebook Reviews 101%2$s.', 'wbpr' ),
@@ -155,7 +155,7 @@ $config = apply_filters(
 							array(
 								'platform_status_facebook' => array(
 									'id'       => 'platform_status_facebook',
-									'name'     => __( 'Platform Status', 'wpbr' ),
+									'name'     => __( 'Platform Status', 'wp-business-reviews' ),
 									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'facebook',
@@ -163,7 +163,7 @@ $config = apply_filters(
 								),
 								'facebook_pages'           => array(
 									'id'          => 'facebook_pages',
-									'name'        => __( 'Facebook Pages', 'wpbr' ),
+									'name'        => __( 'Facebook Pages', 'wp-business-reviews' ),
 									'control'     => 'facebook_pages',
 									'description' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
 									'wrapper_class' => 'wpbr-field--spacious',
@@ -173,8 +173,8 @@ $config = apply_filters(
 					),
 					'yelp'          => array(
 						'id'          => 'yelp',
-						'name'        => __( 'Yelp', 'wpbr' ),
-						'heading'     => __( 'Yelp Reviews Settings', 'wpbr' ),
+						'name'        => __( 'Yelp', 'wp-business-reviews' ),
+						'heading'     => __( 'Yelp Reviews Settings', 'wp-business-reviews' ),
 						'description' => sprintf(
 							/* translators: link to documentation */
 							__( 'Need help? See docs on %1$sYelp Reviews 101%2$s.', 'wbpr' ),
@@ -194,7 +194,7 @@ $config = apply_filters(
 							array(
 								'platform_status_yelp' => array(
 									'id'       => 'platform_status_yelp',
-									'name'     => __( 'Platform Status', 'wpbr' ),
+									'name'     => __( 'Platform Status', 'wp-business-reviews' ),
 									'control'  => 'platform_status',
 
 									'default'  => 'disconnected',
@@ -203,7 +203,7 @@ $config = apply_filters(
 								),
 								'yelp_client_id'       => array(
 									'id'           => 'yelp_client_id',
-									'name'         => __( 'Yelp Client ID', 'wpbr' ),
+									'name'         => __( 'Yelp Client ID', 'wp-business-reviews' ),
 									'control'      => 'input',
 									'description'  => sprintf(
 										/* translators: link to documentation */
@@ -218,7 +218,7 @@ $config = apply_filters(
 								),
 								'yelp_client_secret'   => array(
 									'id'           => 'yelp_client_secret',
-									'name'         => __( 'Yelp Client Secret', 'wpbr' ),
+									'name'         => __( 'Yelp Client Secret', 'wp-business-reviews' ),
 									'control'      => 'input',
 									'control_atts' => array(
 										'type' => 'text',
@@ -241,8 +241,8 @@ $config = apply_filters(
 					),
 					'yp'            => array(
 						'id'          => 'yp',
-						'name'        => __( 'YP', 'wpbr' ),
-						'heading'     => __( 'YP Reviews Settings', 'wpbr' ),
+						'name'        => __( 'YP', 'wp-business-reviews' ),
+						'heading'     => __( 'YP Reviews Settings', 'wp-business-reviews' ),
 						'description' => sprintf(
 							/* translators: link to documentation */
 							__( 'Need help? See docs on %1$sYP Reviews 101%2$s.', 'wbpr' ),
@@ -262,7 +262,7 @@ $config = apply_filters(
 							array(
 								'platform_status_yp' => array(
 									'id'       => 'platform_status_yp',
-									'name'     => __( 'Platform Status', 'wpbr' ),
+									'name'     => __( 'Platform Status', 'wp-business-reviews' ),
 									'control'  => 'platform_status',
 									'default'  => 'disconnected',
 									'platform' => 'yp',
@@ -270,7 +270,7 @@ $config = apply_filters(
 								),
 								'api_key_yp'         => array(
 									'id'           => 'api_key_yp',
-									'name'         => __( 'YP API Key', 'wpbr' ),
+									'name'         => __( 'YP API Key', 'wp-business-reviews' ),
 									'control'      => 'input',
 									'control_atts' => array(
 										'type' => 'text',
@@ -296,7 +296,7 @@ $config = apply_filters(
 		),
 		'advanced' => array(
 			'id'       => 'advanced',
-			'name'     => __( 'Advanced', 'wpbr' ),
+			'name'     => __( 'Advanced', 'wp-business-reviews' ),
 			/**
 			 * Filters the sections in the Advanced panel.
 			 *
@@ -309,8 +309,8 @@ $config = apply_filters(
 				array(
 					'advanced' => array(
 						'id'          => 'advanced',
-						'name'        => __( 'Advanced', 'wpbr' ),
-						'heading'     => __( 'Advanced Settings', 'wpbr' ),
+						'name'        => __( 'Advanced', 'wp-business-reviews' ),
+						'heading'     => __( 'Advanced Settings', 'wp-business-reviews' ),
 						'description' => sprintf(
 							/* translators: link to documentation */
 							__( 'Need help? See docs on %1$sAdvanced Settings%2$s.', 'wbpr' ),
@@ -329,19 +329,19 @@ $config = apply_filters(
 							array(
 								'plugin_styles'      => array(
 									'id'          => 'plugin_styles',
-									'name'        => __( 'Plugin Styles', 'wpbr' ),
+									'name'        => __( 'Plugin Styles', 'wp-business-reviews' ),
 									'control'     => 'radio',
-									'description' => __( 'Outputs CSS that styles the presentation of reviews.', 'wpbr' ),
+									'description' => __( 'Outputs CSS that styles the presentation of reviews.', 'wp-business-reviews' ),
 									'default'     => 'enabled',
 									'options'     => array(
-										'enabled'  => __( 'Enabled', 'wpbr' ),
-										'disabled' => __( 'Disabled', 'wpbr' ),
+										'enabled'  => __( 'Enabled', 'wp-business-reviews' ),
+										'disabled' => __( 'Disabled', 'wp-business-reviews' ),
 									),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'nofollow_links'     => array(
 									'id'          => 'nofollow_links',
-									'name'        => __( 'Nofollow Links', 'wpbr' ),
+									'name'        => __( 'Nofollow Links', 'wp-business-reviews' ),
 									'control'     => 'radio',
 									'description' => sprintf(
 										/* translators: anchor attribute to discourage search engines */
@@ -350,14 +350,14 @@ $config = apply_filters(
 									),
 									'default'     => 'disabled',
 									'options'     => array(
-										'enabled'  => __( 'Enabled', 'wpbr' ),
-										'disabled' => __( 'Disabled', 'wpbr' ),
+										'enabled'  => __( 'Enabled', 'wp-business-reviews' ),
+										'disabled' => __( 'Disabled', 'wp-business-reviews' ),
 									),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'link_targeting'     => array(
 									'id'          => 'link_targeting',
-									'name'        => __( 'Link Targeting', 'wpbr' ),
+									'name'        => __( 'Link Targeting', 'wp-business-reviews' ),
 									'control'     => 'radio',
 									'description' => sprintf(
 										/* translators: anchor attribute to open links in new tab */
@@ -366,19 +366,19 @@ $config = apply_filters(
 									),
 									'default'     => '_self',
 									'options'     => array(
-										'_self'  => __( 'Open links in same tab.', 'wpbr' ),
-										'_blank' => __( 'Open links in new tab.', 'wpbr' ),
+										'_self'  => __( 'Open links in same tab.', 'wp-business-reviews' ),
+										'_blank' => __( 'Open links in new tab.', 'wp-business-reviews' ),
 									),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),
 								'uninstall_behavior' => array(
 									'id'      => 'uninstall_behavior',
-									'name'    => __( 'Uninstall Behavior', 'wpbr' ),
+									'name'    => __( 'Uninstall Behavior', 'wp-business-reviews' ),
 									'control' => 'radio',
 									'default' => 'keep',
 									'options' => array(
-										'keep'   => __( 'Keep all plugin settings and reviews data.', 'wpbr' ),
-										'remove' => __( 'Remove all plugin settings and reviews data.', 'wpbr' ),
+										'keep'   => __( 'Keep all plugin settings and reviews data.', 'wp-business-reviews' ),
+										'remove' => __( 'Remove all plugin settings and reviews data.', 'wp-business-reviews' ),
 									),
 									'wrapper_class' => 'wpbr-field--spacious',
 								),

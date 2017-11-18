@@ -136,7 +136,7 @@ class YP_Request extends Request {
 	 */
 	public function standardize_business( array $response ) {
 		if ( ! isset( $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wp-business-reviews' ) );
 		} else {
 			$r = $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
 		}
@@ -242,7 +242,7 @@ class YP_Request extends Request {
 	 */
 	public function standardize_reviews( array $response ) {
 		if ( ! isset( $response['ratingsAndReviewsResult']['reviews']['review'] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wpbr' ) );
+			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wp-business-reviews' ) );
 		}
 
 		// Initialize array to store standardized properties.

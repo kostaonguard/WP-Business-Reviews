@@ -63,21 +63,21 @@ class Business_Widget extends WP_Widget {
 ?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'platform' ) ); ?>">
-				<?php _e( 'Platform:', 'wpbr' ); ?>
+				<?php _e( 'Platform:', 'wp-business-reviews' ); ?>
 			</label>
 			<select
 				name="<?php echo esc_attr( $this->get_field_name( 'platform' ) ); ?>"
 				id="<?php echo esc_attr( $this->get_field_id( 'platform' ) ); ?>"
 				class="widefat">
-				<option value="google_places"<?php selected( $instance['platform'], 'google_places' ); ?>><?php _e( 'Google', 'wpbr' ); ?></option>
-				<option value="facebook"<?php selected( $instance['platform'], 'facebook' ); ?>><?php _e( 'Facebook', 'wpbr' ); ?></option>
-				<option value="yelp"<?php selected( $instance['platform'], 'yelp' ); ?>><?php _e( 'Yelp', 'wpbr' ); ?></option>
-				<option value="yp"<?php selected( $instance['platform'], 'yp' ); ?>><?php _e( 'YP', 'wpbr' ); ?></option>
+				<option value="google_places"<?php selected( $instance['platform'], 'google_places' ); ?>><?php _e( 'Google', 'wp-business-reviews' ); ?></option>
+				<option value="facebook"<?php selected( $instance['platform'], 'facebook' ); ?>><?php _e( 'Facebook', 'wp-business-reviews' ); ?></option>
+				<option value="yelp"<?php selected( $instance['platform'], 'yelp' ); ?>><?php _e( 'Yelp', 'wp-business-reviews' ); ?></option>
+				<option value="yp"<?php selected( $instance['platform'], 'yp' ); ?>><?php _e( 'YP', 'wp-business-reviews' ); ?></option>
 			</select>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'business_id' ); ?>">
-				<?php _e( 'Business ID:', 'wpbr' ); ?>
+				<?php _e( 'Business ID:', 'wp-business-reviews' ); ?>
 			</label>
 			<input type="text" id="<?php echo $this->get_field_id( 'business_id' ); ?>" class="widefat" name="<?php echo $this->get_field_name( 'business_id' ); ?>" value="<?php echo esc_attr( $business_id ); ?>">
 		</p>

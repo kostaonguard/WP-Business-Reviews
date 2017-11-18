@@ -115,10 +115,10 @@ class Blank_Slate {
 		// Define default content.
 		$defaults = array(
 			'image_url' => WPBR_ASSETS_URL . 'images/wpbr-icon-color.png',
-			'image_alt' => __( 'WP Business Reviews Icon', 'wpbr' ),
-			'heading'   => __( 'Welcome to WP Business Reviews!', 'wpbr' ),
-			'message'   => __( 'Let\'s begin by connecting to at least one reviews platform.', 'wpbr' ),
-			'cta_text'  => __( 'Get Connected', 'wpbr' ),
+			'image_alt' => __( 'WP Business Reviews Icon', 'wp-business-reviews' ),
+			'heading'   => __( 'Welcome to WP Business Reviews!', 'wp-business-reviews' ),
+			'message'   => __( 'Let\'s begin by connecting to at least one reviews platform.', 'wp-business-reviews' ),
+			'cta_text'  => __( 'Get Connected', 'wp-business-reviews' ),
 			'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=settings' ),
 		);
 
@@ -126,9 +126,9 @@ class Blank_Slate {
 		if ( $this->is_connected ) {
 			// No reviews exist but at least one platform is connected.
 			$content = array(
-				'heading'   => __( 'No reviews found.', 'wpbr' ),
-				'message'   => __( 'Now that you\'re connected to a reviews platform, let\'s build your first set of reviews.', 'wpbr' ),
-				'cta_text'  => __( 'Build Reviews', 'wpbr' ),
+				'heading'   => __( 'No reviews found.', 'wp-business-reviews' ),
+				'message'   => __( 'Now that you\'re connected to a reviews platform, let\'s build your first set of reviews.', 'wp-business-reviews' ),
+				'cta_text'  => __( 'Build Reviews', 'wp-business-reviews' ),
 				'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=reviews_builder' ),
 			);
 		}

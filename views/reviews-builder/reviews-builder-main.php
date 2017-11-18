@@ -7,8 +7,8 @@
 		</div>
 		<div class="wpbr-reviews-builder__tools">
 			<ul class="wpbr-inline-list">
-				<li class="wpbr-inline-list__item"><button id="wpbr-control-settings" class="button"><?php esc_html_e( 'Settings', 'wpbr' ); ?></button></li>
-				<li class="wpbr-inline-list__item"><button id="wpbr-control-save" class="button button-primary"><?php esc_html_e( 'Save Review Set', 'wpbr' ); ?></button></li>
+				<li class="wpbr-inline-list__item"><button id="wpbr-control-settings" class="button"><?php esc_html_e( 'Settings', 'wp-business-reviews' ); ?></button></li>
+				<li class="wpbr-inline-list__item"><button id="wpbr-control-save" class="button button-primary"><?php esc_html_e( 'Save Review Set', 'wp-business-reviews' ); ?></button></li>
 			</ul>
 		</div>
 	</div>
