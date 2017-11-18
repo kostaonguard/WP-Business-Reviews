@@ -35,11 +35,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Define plugin version.
-if ( ! defined( 'WPBR_VERSION' ) ) {
-	define( 'WPBR_VERSION', '0.1.0' );
-}
-
 // Define plugin folder Path.
 if ( ! defined( 'WPBR_PLUGIN_DIR' ) ) {
 	define( 'WPBR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
