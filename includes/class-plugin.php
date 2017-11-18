@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Defines the core plugin class
  *
@@ -8,11 +7,6 @@
  */
 
 namespace WP_Business_Reviews\Includes;
-
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
