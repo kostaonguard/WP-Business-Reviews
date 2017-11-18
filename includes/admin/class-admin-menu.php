@@ -30,11 +30,11 @@ class Admin_Menu {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Config $config Admin menu config.
+	 * @param string|Config $config Path to config or Config object.
 	 */
-	public function __construct( Config $config ) {
-		$this->config = $config;
-		$this->pages  = $this->process_config( $config );
+	public function __construct( $config ) {
+		$this->config = is_string( $config ) ? new Config( $config ) : $config;
+		$this->pages  = $this->process_config( $this->config );
 	}
 
 	/**
