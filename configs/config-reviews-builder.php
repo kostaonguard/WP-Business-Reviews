@@ -10,9 +10,9 @@ namespace WP_Business_Reviews\Config;
 
 $config = array(
 	array(
-		'section_id'   => 'presentation',
-		'section_name' => __( 'Presentation', 'wp-business-reviews' ),
-		'fields'       => array(
+		'id'     => 'presentation',
+		'name'   => __( 'Presentation', 'wp-business-reviews' ),
+		'fields' => array(
 			'format' => array(
 				'id'      => 'format',
 				'name'    => __( 'Format', 'wp-business-reviews' ),
@@ -55,9 +55,9 @@ $config = array(
 		),
 	),
 	array(
-		'section_id'   => 'business',
-		'section_name' => __( 'Business', 'wp-business-reviews' ),
-		'fields'       => array(
+		'id'     => 'business',
+		'name'   => __( 'Business', 'wp-business-reviews' ),
+		'fields' => array(
 			'platform' => array(
 				'id'      => 'platform',
 				'name'    => __( 'Platform', 'wp-business-reviews' ),
@@ -82,9 +82,9 @@ $config = array(
 		),
 	),
 	array(
-		'section_id'   => 'reviews',
-		'section_name' => __( 'Reviews', 'wp-business-reviews' ),
-		'fields'       => array(
+		'id'     => 'reviews',
+		'name'   => __( 'Reviews', 'wp-business-reviews' ),
+		'fields' => array(
 			'review_components' => array(
 				'id'      => 'review_components',
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
