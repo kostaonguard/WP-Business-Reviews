@@ -43,40 +43,30 @@ $config = apply_filters(
 							'</a>'
 						),
 						'icon'        => 'gears',
-						/**
-						 * Filters the fields in the Platform section.
-						 *
-						 * @since 0.1.0
-						 *
-						 * @param array $fields Settings fields.
-						 */
-						'fields'      => apply_filters(
-							'wpbr_settings_fields_platforms',
+						'fields'      => array(
 							array(
-								'active_platforms' => array(
-									'id'          => 'active_platforms',
-									'name'        => __( 'Active Review Platforms', 'wp-business-reviews' ),
-									'control'     => 'checkboxes',
-									'description' => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wp-business-reviews' ),
-									'default'     => array(
-										'google_places',
-										'facebook',
-										'yelp',
-									),
-									'options'     => array(
-										'google_places' => __( 'Google', 'wp-business-reviews' ),
-										'facebook'      => __( 'Facebook', 'wp-business-reviews' ),
-										'yelp'          => __( 'Yelp', 'wp-business-reviews' ),
-										'yp'            => __( 'YP', 'wp-business-reviews' ),
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'id'          => 'active_platforms',
+								'name'        => __( 'Active Review Platforms', 'wp-business-reviews' ),
+								'control'     => 'checkboxes',
+								'description' => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wp-business-reviews' ),
+								'default'     => array(
+									'google_places',
+									'facebook',
+									'yelp',
 								),
-								'save_platforms'   => array(
-									'id'      => 'save_platforms',
-									'control' => 'save',
-									'wrapper_class' => 'wpbr-field--spacious',
+								'options'     => array(
+									'google_places' => __( 'Google', 'wp-business-reviews' ),
+									'facebook'      => __( 'Facebook', 'wp-business-reviews' ),
+									'yelp'          => __( 'Yelp', 'wp-business-reviews' ),
+									'yp'            => __( 'YP', 'wp-business-reviews' ),
 								),
-							)
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'      => 'save_platforms',
+								'control' => 'save',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
 						),
 					),
 					'google_places' => array(
@@ -90,45 +80,35 @@ $config = apply_filters(
 							'</a>'
 						),
 						'icon'        => 'status',
-						/**
-						 * Filters the fields in the Google Places section.
-						 *
-						 * @since 0.1.0
-						 *
-						 * @param array $fields Settings fields.
-						 */
-						'fields'      => apply_filters(
-							'wpbr_settings_fields_google_places',
+						'fields'      => array(
 							array(
-								'platform_status_google_places' => array(
-									'id'       => 'platform_status_google_places',
-									'name'     => __( 'Platform Status', 'wp-business-reviews' ),
-									'control'  => 'platform_status',
-									'default'  => 'disconnected',
-									'platform' => 'google_places',
-									'wrapper_class' => 'wpbr-field--spacious',
+								'id'       => 'platform_status_google_places',
+								'name'     => __( 'Platform Status', 'wp-business-reviews' ),
+								'control'  => 'platform_status',
+								'default'  => 'disconnected',
+								'platform' => 'google_places',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'           => 'api_key_google_places',
+								'name'         => __( 'Google Places API Key', 'wp-business-reviews' ),
+								'control'      => 'input',
+								'description'  => sprintf(
+									/* translators: link to documentation */
+									__( 'Defines the Google Places API Key required to retrieve Google reviews. For step-by-step instructions, see docs on %1$sHow to Generate a Google Places API Key%2$s.', 'wbpr' ),
+									'<a href="https://wpbusinessreviews.com/">',
+									'</a>'
 								),
-								'api_key_google_places'         => array(
-									'id'           => 'api_key_google_places',
-									'name'         => __( 'Google Places API Key', 'wp-business-reviews' ),
-									'control'      => 'input',
-									'description'  => sprintf(
-										/* translators: link to documentation */
-										__( 'Defines the Google Places API Key required to retrieve Google reviews. For step-by-step instructions, see docs on %1$sHow to Generate a Google Places API Key%2$s.', 'wbpr' ),
-										'<a href="https://wpbusinessreviews.com/">',
-										'</a>'
-									),
-									'control_atts' => array(
-										'type' => 'text',
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'control_atts' => array(
+									'type' => 'text',
 								),
-								'save_google_places'            => array(
-									'id'      => 'save_google_places',
-									'control' => 'save',
-									'wrapper_class' => 'wpbr-field--spacious',
-								),
-							)
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'      => 'save_google_places',
+								'control' => 'save',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
 						),
 					),
 					'facebook'      => array(
@@ -143,32 +123,22 @@ $config = apply_filters(
 						),
 						'icon'        => 'status',
 						'save_button' => false,
-						/**
-						 * Filters the fields in the Facebook section.
-						 *
-						 * @since 0.1.0
-						 *
-						 * @param array $fields Settings fields.
-						 */
-						'fields'      => apply_filters(
-							'wpbr_settings_fields_facebook',
+						'fields'      => array(
 							array(
-								'platform_status_facebook' => array(
-									'id'       => 'platform_status_facebook',
-									'name'     => __( 'Platform Status', 'wp-business-reviews' ),
-									'control'  => 'platform_status',
-									'default'  => 'disconnected',
-									'platform' => 'facebook',
-									'wrapper_class' => 'wpbr-field--spacious',
-								),
-								'facebook_pages'           => array(
-									'id'          => 'facebook_pages',
-									'name'        => __( 'Facebook Pages', 'wp-business-reviews' ),
-									'control'     => 'facebook_pages',
-									'description' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
-									'wrapper_class' => 'wpbr-field--spacious',
-								),
-							)
+								'id'       => 'platform_status_facebook',
+								'name'     => __( 'Platform Status', 'wp-business-reviews' ),
+								'control'  => 'platform_status',
+								'default'  => 'disconnected',
+								'platform' => 'facebook',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'          => 'facebook_pages',
+								'name'        => __( 'Facebook Pages', 'wp-business-reviews' ),
+								'control'     => 'facebook_pages',
+								'description' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
 						),
 					),
 					'yelp'          => array(
@@ -182,62 +152,52 @@ $config = apply_filters(
 							'</a>'
 						),
 						'icon'        => 'status',
-						/**
-						 * Filters the fields in the Yelp section.
-						 *
-						 * @since 0.1.0
-						 *
-						 * @param array $fields Settings fields.
-						 */
-						'fields'      => apply_filters(
-							'wpbr_settings_fields_yelp',
+						'fields'      => array(
 							array(
-								'platform_status_yelp' => array(
-									'id'       => 'platform_status_yelp',
-									'name'     => __( 'Platform Status', 'wp-business-reviews' ),
-									'control'  => 'platform_status',
+								'id'       => 'platform_status_yelp',
+								'name'     => __( 'Platform Status', 'wp-business-reviews' ),
+								'control'  => 'platform_status',
 
-									'default'  => 'disconnected',
-									'platform' => 'yelp',
-									'wrapper_class' => 'wpbr-field--spacious',
+								'default'  => 'disconnected',
+								'platform' => 'yelp',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'           => 'yelp_client_id',
+								'name'         => __( 'Yelp Client ID', 'wp-business-reviews' ),
+								'control'      => 'input',
+								'description'  => sprintf(
+									/* translators: link to documentation */
+									__( 'Defines the Yelp Client ID required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Client ID%2$s.', 'wbpr' ),
+									'<a href="https://wpbusinessreviews.com/">',
+									'</a>'
 								),
-								'yelp_client_id'       => array(
-									'id'           => 'yelp_client_id',
-									'name'         => __( 'Yelp Client ID', 'wp-business-reviews' ),
-									'control'      => 'input',
-									'description'  => sprintf(
-										/* translators: link to documentation */
-										__( 'Defines the Yelp Client ID required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Client ID%2$s.', 'wbpr' ),
-										'<a href="https://wpbusinessreviews.com/">',
-										'</a>'
-									),
-									'control_atts' => array(
-										'type' => 'text',
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'control_atts' => array(
+									'type' => 'text',
 								),
-								'yelp_client_secret'   => array(
-									'id'           => 'yelp_client_secret',
-									'name'         => __( 'Yelp Client Secret', 'wp-business-reviews' ),
-									'control'      => 'input',
-									'control_atts' => array(
-										'type' => 'text',
-									),
-									'description'  => sprintf(
-										/* translators: link to documentation */
-										__( 'Defines the Yelp Client Secret required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Secret Key%2$s.', 'wbpr' ),
-										'<a href="https://wpbusinessreviews.com/">',
-										'</a>'
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'           => 'yelp_client_secret',
+								'name'         => __( 'Yelp Client Secret', 'wp-business-reviews' ),
+								'control'      => 'input',
+								'control_atts' => array(
+									'type' => 'text',
 								),
-								'save_yelp'            => array(
-									'id'      => 'save_yelp',
-									'control' => 'save',
-									'wrapper_class' => 'wpbr-field--spacious',
+								'description'  => sprintf(
+									/* translators: link to documentation */
+									__( 'Defines the Yelp Client Secret required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Secret Key%2$s.', 'wbpr' ),
+									'<a href="https://wpbusinessreviews.com/">',
+									'</a>'
 								),
-							)
-						),
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'      => 'save_yelp',
+								'control' => 'save',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+						)
 					),
 					'yp'            => array(
 						'id'          => 'yp',
@@ -250,45 +210,35 @@ $config = apply_filters(
 							'</a>'
 						),
 						'icon'        => 'status',
-						/**
-						 * Filters the fields in the YP section.
-						 *
-						 * @since 0.1.0
-						 *
-						 * @param array $fields Settings fields.
-						 */
-						'fields'      => apply_filters(
-							'wpbr_settings_fields_yp',
-							array(
-								'platform_status_yp' => array(
-									'id'       => 'platform_status_yp',
-									'name'     => __( 'Platform Status', 'wp-business-reviews' ),
-									'control'  => 'platform_status',
-									'default'  => 'disconnected',
-									'platform' => 'yp',
-									'wrapper_class' => 'wpbr-field--spacious',
+						'fields'      => array(
+							'platform_status_yp' => array(
+								'id'       => 'platform_status_yp',
+								'name'     => __( 'Platform Status', 'wp-business-reviews' ),
+								'control'  => 'platform_status',
+								'default'  => 'disconnected',
+								'platform' => 'yp',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							'api_key_yp'         => array(
+								'id'           => 'api_key_yp',
+								'name'         => __( 'YP API Key', 'wp-business-reviews' ),
+								'control'      => 'input',
+								'control_atts' => array(
+									'type' => 'text',
 								),
-								'api_key_yp'         => array(
-									'id'           => 'api_key_yp',
-									'name'         => __( 'YP API Key', 'wp-business-reviews' ),
-									'control'      => 'input',
-									'control_atts' => array(
-										'type' => 'text',
-									),
-									'description'  => sprintf(
-										/* translators: link to documentation */
-										__( 'Defines the YP API Key required to retrieve YP reviews. For step-by-step instructions, see docs on %1$sHow to Generate a YP API Key%2$s.', 'wbpr' ),
-										'<a href="https://wpbusinessreviews.com/">',
-										'</a>'
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'description'  => sprintf(
+									/* translators: link to documentation */
+									__( 'Defines the YP API Key required to retrieve YP reviews. For step-by-step instructions, see docs on %1$sHow to Generate a YP API Key%2$s.', 'wbpr' ),
+									'<a href="https://wpbusinessreviews.com/">',
+									'</a>'
 								),
-								'save_yp'            => array(
-									'id'      => 'save_yp',
-									'control' => 'save',
-									'wrapper_class' => 'wpbr-field--spacious',
-								),
-							)
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							'save_yp'            => array(
+								'id'      => 'save_yp',
+								'control' => 'save',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
 						),
 					),
 				)
@@ -317,77 +267,67 @@ $config = apply_filters(
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
-						/**
-						 * Filters the fields in the Advanced section.
-						 *
-						 * @since 0.1.0
-						 *
-						 * @param array $fields Settings fields.
-						 */
-						'fields'      => apply_filters(
-							'wpbr_settings_fields_advanced',
+						'fields'      => array(
 							array(
-								'plugin_styles'      => array(
-									'id'          => 'plugin_styles',
-									'name'        => __( 'Plugin Styles', 'wp-business-reviews' ),
-									'control'     => 'radio',
-									'description' => __( 'Outputs CSS that styles the presentation of reviews.', 'wp-business-reviews' ),
-									'default'     => 'enabled',
-									'options'     => array(
-										'enabled'  => __( 'Enabled', 'wp-business-reviews' ),
-										'disabled' => __( 'Disabled', 'wp-business-reviews' ),
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'id'          => 'plugin_styles',
+								'name'        => __( 'Plugin Styles', 'wp-business-reviews' ),
+								'control'     => 'radio',
+								'description' => __( 'Outputs CSS that styles the presentation of reviews.', 'wp-business-reviews' ),
+								'default'     => 'enabled',
+								'options'     => array(
+									'enabled'  => __( 'Enabled', 'wp-business-reviews' ),
+									'disabled' => __( 'Disabled', 'wp-business-reviews' ),
 								),
-								'nofollow_links'     => array(
-									'id'          => 'nofollow_links',
-									'name'        => __( 'Nofollow Links', 'wp-business-reviews' ),
-									'control'     => 'radio',
-									'description' => sprintf(
-										/* translators: anchor attribute to discourage search engines */
-										__( 'Adds %s to review links in order to discourage search engines from following them.', 'wbpr' ),
-										'<code>rel="nofollow"</code>'
-									),
-									'default'     => 'disabled',
-									'options'     => array(
-										'enabled'  => __( 'Enabled', 'wp-business-reviews' ),
-										'disabled' => __( 'Disabled', 'wp-business-reviews' ),
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'          => 'nofollow_links',
+								'name'        => __( 'Nofollow Links', 'wp-business-reviews' ),
+								'control'     => 'radio',
+								'description' => sprintf(
+									/* translators: anchor attribute to discourage search engines */
+									__( 'Adds %s to review links in order to discourage search engines from following them.', 'wbpr' ),
+									'<code>rel="nofollow"</code>'
 								),
-								'link_targeting'     => array(
-									'id'          => 'link_targeting',
-									'name'        => __( 'Link Targeting', 'wp-business-reviews' ),
-									'control'     => 'radio',
-									'description' => sprintf(
-										/* translators: anchor attribute to open links in new tab */
-										__( 'Adds %s to review links when set to open in new tab.', 'wbpr' ),
-										'<code>target="_blank"</code>'
-									),
-									'default'     => '_self',
-									'options'     => array(
-										'_self'  => __( 'Open links in same tab.', 'wp-business-reviews' ),
-										'_blank' => __( 'Open links in new tab.', 'wp-business-reviews' ),
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'default'     => 'disabled',
+								'options'     => array(
+									'enabled'  => __( 'Enabled', 'wp-business-reviews' ),
+									'disabled' => __( 'Disabled', 'wp-business-reviews' ),
 								),
-								'uninstall_behavior' => array(
-									'id'      => 'uninstall_behavior',
-									'name'    => __( 'Uninstall Behavior', 'wp-business-reviews' ),
-									'control' => 'radio',
-									'default' => 'keep',
-									'options' => array(
-										'keep'   => __( 'Keep all plugin settings and reviews data.', 'wp-business-reviews' ),
-										'remove' => __( 'Remove all plugin settings and reviews data.', 'wp-business-reviews' ),
-									),
-									'wrapper_class' => 'wpbr-field--spacious',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'          => 'link_targeting',
+								'name'        => __( 'Link Targeting', 'wp-business-reviews' ),
+								'control'     => 'radio',
+								'description' => sprintf(
+									/* translators: anchor attribute to open links in new tab */
+									__( 'Adds %s to review links when set to open in new tab.', 'wbpr' ),
+									'<code>target="_blank"</code>'
 								),
-								'save_advanced'      => array(
-									'id'      => 'save_advanced',
-									'control' => 'save',
-									'wrapper_class' => 'wpbr-field--spacious',
+								'default'     => '_self',
+								'options'     => array(
+									'_self'  => __( 'Open links in same tab.', 'wp-business-reviews' ),
+									'_blank' => __( 'Open links in new tab.', 'wp-business-reviews' ),
 								),
-							)
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'      => 'uninstall_behavior',
+								'name'    => __( 'Uninstall Behavior', 'wp-business-reviews' ),
+								'control' => 'radio',
+								'default' => 'keep',
+								'options' => array(
+									'keep'   => __( 'Keep all plugin settings and reviews data.', 'wp-business-reviews' ),
+									'remove' => __( 'Remove all plugin settings and reviews data.', 'wp-business-reviews' ),
+								),
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
+							array(
+								'id'      => 'save_advanced',
+								'control' => 'save',
+								'wrapper_class' => 'wpbr-field--spacious',
+							),
 						),
 					),
 				)
