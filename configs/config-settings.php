@@ -315,4 +315,11 @@ $config = array(
 	),
 );
 
-return $config;
+/**
+ * Filters the entire plugin settings config.
+ *
+ * @since 0.1.0
+ *
+ * @param array $config Array of tabs, sections, and fields.
+ */
+return apply_filters( 'wpbr_config_settings', $config );
