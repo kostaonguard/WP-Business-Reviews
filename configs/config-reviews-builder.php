@@ -115,16 +115,6 @@ $section_reviews = array(
 	'fields'  => apply_filters(
 		'wpbr_reviews_builder_fields_reviews',
 		array(
-			// 'review_order' => array(
-			// 	'id'      => 'review_order',
-			// 	'name'    => __( 'Review Order', 'wp-business-reviews' ),
-			// 	'control' => 'select',
-			// 	'tooltip' => __( 'Defines the order in which reviews are displayed.', 'wp-business-reviews' ),
-			// 	'options' => array(
-			// 		'DESC' => __( 'Newest to Oldest', 'wp-business-reviews' ),
-			// 		'ASC'  => __( 'Oldest to Newest', 'wp-business-reviews' ),
-			// 	),
-			// ),
 			'review_components' => array(
 				'id'      => 'review_components',
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
