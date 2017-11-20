@@ -9,6 +9,26 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
+	'tabs' => array(
+		array(
+			'tab_id' => 'general',
+			'tab_name' => __( 'Platforms', 'wp-business-reviews' ),
+			'sections' => array(
+				'platforms',
+				'google_places',
+				'facebook',
+				'yelp',
+				'yp',
+			),
+		),
+		array(
+			'tab_id' => 'advanced',
+			'tab_name' => __( 'Advanced', 'wp-business-reviews' ),
+			'sections' => array(
+				'advanced',
+			),
+		),
+	),
 	array(
 		'id'       => 'general',
 		'name'     => __( 'General', 'wp-business-reviews' ),
