@@ -82,7 +82,9 @@ abstract class Repository {
 	 * @param string $key Key of the element to remove.
 	 */
 	public function remove( $key ) {
-
+		if ( $this->has( $key ) ) {
+			unset( $this->elements[ $key ] );
+		}
 	}
 
 	/**
