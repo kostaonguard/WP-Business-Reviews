@@ -11,7 +11,11 @@
 namespace WP_Business_Reviews\Includes;
 
 /**
- * Holds a collection of objects.
+ * Holds a collection of elements.
+ *
+ * Repositories provide persistent storage for elements that need accessed
+ * throughout the plugin. By storing elements in a single location, the fields
+ * can be referenced for many purposes without requiring multiple instances.
  *
  * @since 0.1.0
  */
