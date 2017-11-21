@@ -68,10 +68,13 @@ abstract class Repository {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param mixed $element Element to add to the repository.
+	 * @param string $key     Key of the element to add.
+	 * @param mixed  $element Element to add to the repository.
 	 */
-	public function add( $element ) {
-
+	public function add( $key, $element ) {
+		if ( $this->is_allowed( $key ) ) {
+			$this->elements[ $key ] = $element;
+		}
 	}
 
 	/**
