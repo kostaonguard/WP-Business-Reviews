@@ -9,7 +9,7 @@
 namespace WP_Business_Reviews\Includes\Settings;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Fields\Field_Factory;
+use WP_Business_Reviews\Includes\Fields_API\Field_Factory;
 use WP_Business_Reviews\Includes\View;
 use WP_Business_Reviews\Includes\Admin\Admin_Notices;
 

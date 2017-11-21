@@ -1,44 +1,44 @@
 <?php
 /**
- * Defines the Field class
+ * Defines the Base_Field class
  *
- * @package WP_Business_Reviews\Includes
+ * @package WP_Business_Reviews\Includes\Field
  * @since   0.1.0
  */
 
-namespace WP_Business_Reviews\Includes\Fields;
+namespace WP_Business_Reviews\Includes\Field;
 
 use WP_Business_Reviews\Includes\View;
 
 /**
- * Implements a field based on provided attributes.
+ * Implements a basic field based on provided attributes.
  *
  * @since 0.1.0
  */
-class Field {
-	// TODO: Update $atts DocBlock.
-
+class Base_Field {
 	/**
-	 * Instantiates the Field object.
+	 * Instantiates a Base_Field object.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @param array $atts {
-	 *     Optional. Field attributes.
+	 *     Field attributes.
 	 *
-	 *     @type string $id           Field ID.
-	 *     @type string $name         Field name also used as label.
-	 *     @type string $type         Field type to determine Field subclass.
-	 *     @type string $default      Default field value.
-	 *     @type string $value        Field value.
-	 *     @type string $tooltip      Tooltip to clarify field purpose.
-	 *     @type string $description  Description to clarify field use.
-	 *     @type array  $control_atts Additional attributes for the control element.
-	 *     @type array  $options      Field options for select/radios/checkboxes.
+	 *     @type string $id             Field ID. Must be unique.
+	 *     @type string $name           Optional. Field name also used as label.
+	 *     @type string $type           Optional. Field type that determines which control is used.
+	 *     @type string $default        Optional. Default value used if field value is not set.
+	 *     @type string $value          Optional. Field value.
+	 *     @type string $tooltip        Optional. Tooltip that clarifies field purpose.
+	 *     @type string $description    Optional. Description that clarifies field usage.
+	 *     @type string $wrapper_class  Optional. CSS class assigned to the field wrapper.
+	 *     @type string $name_element   Optional. Field name element. Accepts 'span' or 'label'.
+	 *     @type string $placeholder    Optional. Placeholder text for input controls.
+	 *     @type array  $options        Optional. Field options for select/radios/checkboxes.
 	 * }
 	 */
 	public function __construct( array $atts ) {
-		$this->atts  = $atts;
+		$this->atts = $atts;
 		$this->set_value();
 	}
 
@@ -54,7 +54,7 @@ class Field {
 	}
 
 	/**
-	 * Set field attributes.
+	 * Sets field attributes.
 	 *
 	 * @since 0.1.0
 	 *
@@ -65,7 +65,7 @@ class Field {
 	}
 
 	/**
-	 * Set field value.
+	 * Sets field value.
 	 *
 	 * @since 0.1.0
 	 *
@@ -107,7 +107,7 @@ class Field {
 	}
 
 	/**
-	 * Render a given view.
+	 * Renders a given view.
 	 *
 	 * @since 0.1.0
 	 *

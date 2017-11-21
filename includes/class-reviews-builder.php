@@ -9,7 +9,7 @@
 namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Fields\Field_Factory;
+use WP_Business_Reviews\Includes\Field\Field_Factory;
 
 /**
  * Provides the interface for building review sets.

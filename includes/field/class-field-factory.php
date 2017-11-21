@@ -3,11 +3,11 @@
 /**
  * Defines the Field_Factory class
  *
- * @package WP_Business_Reviews\Includes\Request
+ * @package WP_Business_Reviews\Includes\Fields_API
  * @since   0.1.0
  */
 
-namespace WP_Business_Reviews\Includes\Fields;
+namespace WP_Business_Reviews\Includes\Field;
 
 /**
  * Creates a Field object based on provided attributes.
@@ -67,6 +67,6 @@ class Field_Factory {
 		// Merge provided field attributes with default attributes.
 		$atts = wp_parse_args( $atts, $defaults );
 
-		return new Field( $atts );
+		return new Base_Field( $atts );
 	}
 }
