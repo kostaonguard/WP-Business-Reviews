@@ -38,10 +38,12 @@ final class Plugin {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->plugin_name = 'wp-business-reviews';
-		$this->version     = '0.1.0';
-		// TODO: Get plugin settings here.
-		$this->settings    = array();
+		$this->plugin_name  = 'wp-business-reviews';
+		$this->version      = '0.1.0';
+		$this->settings_api = new Settings\Settings_API(
+			WPBR_PLUGIN_DIR . 'configs/config-settings.php',
+			'wp_business_reviews_settings'
+		);
 	}
 
 	/**
