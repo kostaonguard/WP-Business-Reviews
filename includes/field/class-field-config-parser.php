@@ -33,15 +33,31 @@ class Field_Config_Parser {
 	/**
 	 * Recursively parses Field objects from a Config.
 	 *
+	 * When the parser finds a 'fields' key, then each item within that array
+	 * is considered to be a complete field definition. The arguments within
+	 * the definition are used to create a new Field object.
+	 *
 	 * @since 0.1.0
+	 *
+	 * @param array $array Associative array.
 	 *
 	 * @return Fields[] Array of Field objects.
 	 */
-	public function parse() {
-		$fields = array();
+	public function parse( array $array ) {
+		$field_objects = array();
 
-		// Loop through Config and add Field objects to array.
+		foreach ( $config as $key => $value ) {
+			if ( isset( $key['fields'] ) ) {
+				foreach( $key['fields'] as 'field_id' => 'field_args' ) {
+					$field_objects[] = Field_Factory::create( $field_id, $field_args );
+				}
+			} else {
+				if ( is_array( $value ) ) {
+					$this->parse( $value );
+				}
+			}
+		}
 
-		return $fields;
+		return $field_objects;
 	}
 }
