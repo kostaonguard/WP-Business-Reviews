@@ -45,13 +45,14 @@ class Field_Factory {
 			'id'            => '',
 			'name'          => '',
 			'type'          => 'text',
-			'placeholder'   => '',
 			'default'       => '',
 			'value'         => '',
 			'tooltip'       => '',
 			'description'   => '',
 			'wrapper_class' => '',
 			'name_element'  => 'span',
+			'placeholder'   => '',
+			'options'       => array(),
 		);
 
 		// Use label element for certain field types.
