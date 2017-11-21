@@ -35,7 +35,7 @@ class Field_Factory {
 	 *
 	 * @return Field|boolean Instance of Field class or false.
 	 */
-	public static function create_field( array $atts = array() ) {
+	public static function create( array $atts = array() ) {
 		// Set default attributes applicable to all field types.
 		$defaults = array(
 			'id'            => '',

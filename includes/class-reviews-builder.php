@@ -87,7 +87,7 @@ class Reviews_Builder {
 
 				foreach ( $section_atts['fields'] as $field_id => $field_atts ) {
 					// Create new field object and add to array.
-					$field_objects[] = Field_Factory::create_field( $field_atts );
+					$field_objects[] = Field_Factory::create( $field_atts );
 				}
 
 				// Replace field attributes with field objects.
