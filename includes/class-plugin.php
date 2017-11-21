@@ -64,7 +64,7 @@ final class Plugin {
 
 		$services['assets']      = new Assets( WPBR_ASSETS_URL, $this->version );
 		$services['post_types']  = new Post_Types();
-		$services['settings_ui'] = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
+		// $services['settings_ui'] = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
 
 		if ( is_admin() ) {
 			$services['reviews_builder'] = new Reviews_Builder( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php' );
