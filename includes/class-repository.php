@@ -49,9 +49,12 @@ abstract class Repository {
 	 * @since 0.1.0
 	 *
 	 * @param string $key Key of the element to find.
+	 * @return mixed A single element from the repository.
 	 */
 	public function find( $key ) {
-
+		if ( $this->has( $key ) ) {
+			return $this->elements[ $key ];
+		}
 	}
 
 	/**
