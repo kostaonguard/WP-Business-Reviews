@@ -10,7 +10,7 @@
 namespace WP_Business_Reviews\Includes\Fields;
 
 /**
- * Determines the appropriate Field subclass based on type.
+ * Creates a Field object based on provided attributes.
  *
  * @since 0.1.0
  * @see   Request
@@ -26,7 +26,7 @@ class Field_Factory {
 	protected $atts;
 
 	/**
-	 * Creates a new instance of the Field subclass.
+	 * Creates a new instance of a Field object.
 	 *
 	 * @since 0.1.0
 	 * @see Field
