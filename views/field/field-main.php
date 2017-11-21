@@ -17,8 +17,8 @@
 	<div id="wpbr-field-control-wrap-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__control-wrap">
 		<?php
 		// Render field control.
-		$control_type = str_replace( '_', '-', $this->control);
-		$this->render_partial( WPBR_PLUGIN_DIR . "views/field/controls/control-{$control_type}.php" );
+		$type = str_replace( '_', '-', $this->type );
+		$this->render_partial( WPBR_PLUGIN_DIR . "views/field/controls/control-{$type}.php" );
 
 		if ( ! empty( $this->description ) ) {
 			// Render field description.
