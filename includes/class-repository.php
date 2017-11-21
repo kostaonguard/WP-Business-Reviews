@@ -86,7 +86,7 @@ abstract class Repository {
 	 * @return boolean True if element is set, false otherwise.
 	 */
 	public function has( $key ) {
-
+		return isset( $this->elements[ $key ] );
 	}
 
 	/**
