@@ -29,16 +29,17 @@ $config = array(
 			'max-columns' => array(
 				'id'       => 'max_columns',
 				'name'     => __( 'Maximum Columns', 'wp-business-reviews' ),
-				'control'  => 'input',
+				'control'  => 'select',
 				'tooltip'  => __( 'Sets the maximum number of columns in the responsive gallery. Fewer columns may be shown based on available width.', 'wp-business-reviews' ),
 				'default'  => '3',
-				'control_atts' => array(
-					'type' => 'range',
-					'min'  => 1,
-					'max'  => 6,
-					'step' => 1,
+				'options'  => array(
+					'1' => __( '1 Column', 'wp-business-reviews' ),
+					'2' => __( '2 Columns', 'wp-business-reviews' ),
+					'3' => __( '3 Columns', 'wp-business-reviews' ),
+					'4' => __( '4 Columns', 'wp-business-reviews' ),
+					'5' => __( '5 Columns', 'wp-business-reviews' ),
+					'6' => __( '6 Columns', 'wp-business-reviews' ),
 				),
-				'datalist' => array( 1, 2, 3, 4, 5, 6 ),
 			),
 			'theme' => array(
 				'id'      => 'theme',
