@@ -17,6 +17,14 @@ namespace WP_Business_Reviews\Includes;
  */
 abstract class Repository {
 	/**
+	 * Allowed properties.
+	 *
+	 * @since 0.1.0
+	 * @var array $properties
+	 */
+	protected $properties;
+
+	/**
 	 * Elements stored in the repository.
 	 *
 	 * @since 0.1.0
@@ -90,14 +98,14 @@ abstract class Repository {
 	}
 
 	/**
-	 * Checks if an element is allowed to exist.
+	 * Checks if an element is allowed to be set.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @param string $key Key of the element to check.
-	 * @return boolean True if element is set, false otherwise.
+	 * @return boolean True if element is allowed to be set, false otherwise.
 	 */
 	public function is_allowed( $key ) {
-
+		return isset( $this->properties[ $key ] );
 	}
 }
