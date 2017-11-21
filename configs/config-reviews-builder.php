@@ -14,7 +14,6 @@ $config = array(
 		'name'   => __( 'Presentation', 'wp-business-reviews' ),
 		'fields' => array(
 			'format' => array(
-				'id'      => 'format',
 				'name'    => __( 'Format', 'wp-business-reviews' ),
 				'type'    => 'select',
 				'tooltip' => __( 'Defines the format in which reviews are displayed.', 'wp-business-reviews' ),
@@ -24,10 +23,9 @@ $config = array(
 					'reviews-list'     => __( 'Reviews List', 'wp-business-reviews' ),
 					'reviews-carousel' => __( 'Reviews Carousel', 'wp-business-reviews' ),
 					'business-badge'   => __( 'Business Badge', 'wp-business-reviews' ),
-			),
+				),
 			),
 			'max-columns' => array(
-				'id'       => 'max_columns',
 				'name'     => __( 'Maximum Columns', 'wp-business-reviews' ),
 				'type'     => 'select',
 				'tooltip'  => __( 'Sets the maximum number of columns in the responsive gallery. Fewer columns may be shown based on available width.', 'wp-business-reviews' ),
@@ -42,7 +40,6 @@ $config = array(
 				),
 			),
 			'theme' => array(
-				'id'      => 'theme',
 				'name'    => __( 'Theme', 'wp-business-reviews' ),
 				'type'    => 'select',
 				'tooltip' => __( 'Styles the appearance of reviews.', 'wp-business-reviews' ),
@@ -60,7 +57,6 @@ $config = array(
 		'name'   => __( 'Business', 'wp-business-reviews' ),
 		'fields' => array(
 			'platform' => array(
-				'id'      => 'platform',
 				'name'    => __( 'Platform', 'wp-business-reviews' ),
 				'type'    => 'select',
 				'tooltip' => __( 'Defines the platform used when searching for a business.', 'wp-business-reviews' ),
@@ -72,7 +68,6 @@ $config = array(
 				),
 			),
 			'business-search' => array(
-				'id'         => 'business_search',
 				'name'       => __( 'Business', 'wp-business-reviews' ),
 				'type'       => 'search',
 				'tooltip'    => __( 'Defines the query used when searching for a business.', 'wp-business-reviews' ),
@@ -85,7 +80,6 @@ $config = array(
 		'name'   => __( 'Reviews', 'wp-business-reviews' ),
 		'fields' => array(
 			'review_components' => array(
-				'id'      => 'review_components',
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
 				'type'    => 'checkboxes',
 				'tooltip' => __( 'Defines the visible components of a review.', 'wp-business-reviews' ),
