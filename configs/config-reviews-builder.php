@@ -76,9 +76,7 @@ $config = array(
 				'name'       => __( 'Business', 'wp-business-reviews' ),
 				'control'    => 'search',
 				'tooltip'    => __( 'Defines the query used when searching for a business.', 'wp-business-reviews' ),
-				'control_atts' => array(
-					'placeholder' => __( 'Business Name, Location', 'wp-business-reviews' ),
-				),
+				'placeholder' => __( 'Business Name, Location', 'wp-business-reviews' ),
 			),
 		),
 	),
