@@ -58,9 +58,11 @@ abstract class Repository {
 	 * Finds all elements in the repository.
 	 *
 	 * @since 0.1.0
+	 *
+	 * @return array All elements stored in the repository.
 	 */
 	public function find_all() {
-
+		return $this->elements;
 	}
 
 	/**
