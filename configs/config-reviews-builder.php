@@ -9,8 +9,7 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
-	array(
-		'id'     => 'presentation',
+	'presentation' => array(
 		'name'   => __( 'Presentation', 'wp-business-reviews' ),
 		'fields' => array(
 			'format' => array(
@@ -52,8 +51,7 @@ $config = array(
 			),
 		),
 	),
-	array(
-		'id'     => 'business',
+	'business' => array(
 		'name'   => __( 'Business', 'wp-business-reviews' ),
 		'fields' => array(
 			'platform' => array(
@@ -75,8 +73,7 @@ $config = array(
 			),
 		),
 	),
-	array(
-		'id'     => 'reviews',
+	'reviews' => array(
 		'name'   => __( 'Reviews', 'wp-business-reviews' ),
 		'fields' => array(
 			'review_components' => array(
