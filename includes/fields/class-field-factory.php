@@ -40,40 +40,28 @@ class Field_Factory {
 		$defaults = array(
 			'id'            => '',
 			'name'          => '',
-			'control'       => '',
+			'type'          => 'text',
+			'placeholder'   => '',
 			'default'       => '',
 			'value'         => '',
 			'tooltip'       => '',
 			'description'   => '',
 			'wrapper_class' => '',
+			'name_element'  => 'span',
 		);
 
-		// Set additional defaults for certain field types.
-		switch ( $atts['control'] ) {
+		// Use label element for certain field types.
+		switch ( $atts['type'] ) {
 			case 'input':
 			case 'search':
-				$defaults['control_atts'] = array();
-				$defaults['datalist']     = array();
-				$defaults['name_element'] = 'label';
-				break;
 			case 'select':
-				$defaults['control_atts'] = array();
-				$defaults['options'] = array();
 				$defaults['name_element'] = 'label';
-				break;
-			case 'checkboxes':
-			case 'radios':
-				$defaults['options']      = array();
 				break;
 		}
 
 		// Merge provided field attributes with default attributes.
 		$atts = wp_parse_args( $atts, $defaults );
 
-		// Create new field object based on control type.
-		switch ( $atts['control'] ) {
-			default:
-				return new Field( $atts );
-		}
+		return new Field( $atts );
 	}
 }
