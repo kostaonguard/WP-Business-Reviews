@@ -61,6 +61,7 @@ class Base_Field {
 	 * }
 	 */
 	public function __construct( $id, array $args ) {
+		$this->id   = $id;
 		$this->args = wp_parse_args( $args, $this->default_args() );
 		$this->set_value();
 	}
