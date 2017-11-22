@@ -158,15 +158,15 @@ class Base_Field {
 	 * Renders a given view.
 	 *
 	 * @since 0.1.0
-	 *
-	 * @param string|View $view    View to render. Can be a path to a view file
-	 *                             or an instance of a View object.
-	 * @param array|null  $context Optional. Context variables for use in view.
 	 */
-	public function render( $view, $context ) {
-		$view_object = is_string( $view ) ? new View( $view ) : $view;
+	public function render() {
+		$view_object = new View( WPBR_PLUGIN_DIR . 'views/field/field-main.php' );
 		$view_object->render(
-			$context
+			array(
+				'id'    => $this->get_id(),
+				'args'  => $this->get_args(),
+				'value' => $this->get_value(),
+			)
 		);
 	}
 }
