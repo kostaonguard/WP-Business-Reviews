@@ -76,7 +76,8 @@ class Reviews_Builder {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/reviews-builder/reviews-builder-main.php' );
 		$view_object->render(
 			array(
-				'field_hierarchy' => $this->field_hierarchy,
+				'config'           => $this->config,
+				'field_repository' => $this->field_repository
 			)
 		);
 	}
