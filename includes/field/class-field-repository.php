@@ -10,6 +10,8 @@
 
 namespace WP_Business_Reviews\Includes\Field;
 
+use WP_Business_Reviews\Includes\Repository;
+
 /**
  * Holds Field objects.
  *
