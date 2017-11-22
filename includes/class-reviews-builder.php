@@ -10,6 +10,8 @@ namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Field\Field_Factory;
+use WP_Business_Reviews\Includes\Field\Field_Repository;
+use WP_Business_Reviews\Includes\Field\Field_Config_Parser;
 
 /**
  * Provides the interface for building review sets.
@@ -20,20 +22,18 @@ class Reviews_Builder {
 	/**
 	 * Config object containing sections and fields.
 	 *
-	 * @since  0.1.0
-	 * @var    Config
-	 * @access private
+	 * @since 0.1.0
+	 * @var   Config
 	 */
 	private $config;
 
 	/**
-	 * Multidimensional array of field objects.
+	 * Field repository.
 	 *
-	 * @since  0.1.0
-	 * @var    array
-	 * @access private
+	 * @since 0.1.0
+	 * @var   Field_Repository
 	 */
-	private $field_hierarchy;
+	private $field_repository;
 
 	/**
 	 * Instantiates a Reviews_Builder object.
@@ -42,8 +42,10 @@ class Reviews_Builder {
 	 *
 	 * @param string|Config $config Path to config or Config object.
 	 */
-	public function __construct( $config ) {
-		$this->config = is_string( $config ) ? new Config( $config ) : $config;
+	public function __construct( $config, $field_config_parser ) {
+		$this->config              = is_string( $config ) ? new Config( $config ): $config;
+		$this->field_config_parser = $field_config_parser;
+		echo '<pre>' . var_dump($this->field_repository) . '</pre>';
 	}
 
 	/**
@@ -62,8 +64,8 @@ class Reviews_Builder {
 	 * @since 0.1.0
 	 */
 	public function init() {
-		// Process the config to create field objects.
-		$this->field_hierarchy = $this->process_config( $this->config );
+		// Parse the config to create field objects.
+		$this->field_repository = new Field_Repository( $this->field_config_parser->parse_config( $this->config ) );
 	}
 
 	/**
