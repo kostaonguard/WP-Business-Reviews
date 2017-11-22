@@ -103,6 +103,17 @@ class Base_Field {
 	}
 
 	/**
+	 * Gets field ID.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string Field ID.
+	 */
+	public function get_id() {
+		return $this->id;
+	}
+
+	/**
 	 * Gets field arguments.
 	 *
 	 * @since 0.1.0
