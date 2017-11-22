@@ -8,11 +8,11 @@
 				</button>
 				<h3 class="wpbr-reviews-builder__section-heading"><?php esc_html_e( $section['name'] ); ?></h3>
 			</div>
-
 			<div class="wpbr-reviews-builder__section-body js-wpbr-section-body">
 				<?php
-				foreach ( $section['fields'] as $field ) {
-					$field->render( WPBR_PLUGIN_DIR . 'views/field/field-main.php', $field->get_args() );
+				foreach ( $section['fields'] as $field_id => $field_args ) {
+					// Render the field object that matches the field ID present in the config.
+					$field_object = $this->field_repository->find( $field_id )->render();
 				}
 			?>
 			</div>
