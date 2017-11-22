@@ -17,9 +17,9 @@ class ReviewsBuilder {
 		this.settingsControl        = document.getElementById( 'wpbr-control-settings' );
 		this.saveControl            = document.getElementById( 'wpbr-control-save' );
 		this.formatControl          = document.getElementById( 'wpbr-control-format' );
-		this.maxColumnsControl      = document.getElementById( 'wpbr-control-max-columns' );
+		this.maxColumnsControl      = document.getElementById( 'wpbr-control-max_columns' );
 		this.themeControl           = document.getElementById( 'wpbr-control-theme' );
-		this.reviewImageControl     = document.getElementById( 'wpbr-control-review-image' );
+		this.reviewImageControl     = document.getElementById( 'wpbr-control-review_image' );
 		this.reviewRatingControl    = document.getElementById( 'wpbr-control-rating' );
 		this.reviewTimestampControl = document.getElementById( 'wpbr-control-timestamp' );
 

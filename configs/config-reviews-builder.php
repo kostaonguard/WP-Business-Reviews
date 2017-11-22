@@ -24,7 +24,7 @@ $config = array(
 					'business-badge'   => __( 'Business Badge', 'wp-business-reviews' ),
 				),
 			),
-			'max-columns' => array(
+			'max_columns' => array(
 				'name'     => __( 'Maximum Columns', 'wp-business-reviews' ),
 				'type'     => 'select',
 				'tooltip'  => __( 'Sets the maximum number of columns in the responsive gallery. Fewer columns may be shown based on available width.', 'wp-business-reviews' ),
@@ -65,10 +65,10 @@ $config = array(
 					'yp'       => __( 'YP', 'wp-business-reviews' ),
 				),
 			),
-			'business-search' => array(
-				'name'       => __( 'Business', 'wp-business-reviews' ),
-				'type'       => 'search',
-				'tooltip'    => __( 'Defines the query used when searching for a business.', 'wp-business-reviews' ),
+			'business_search' => array(
+				'name'        => __( 'Business', 'wp-business-reviews' ),
+				'type'        => 'search',
+				'tooltip'     => __( 'Defines the query used when searching for a business.', 'wp-business-reviews' ),
 				'placeholder' => __( 'Business Name, Location', 'wp-business-reviews' ),
 			),
 		),
