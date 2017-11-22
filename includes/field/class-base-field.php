@@ -32,6 +32,8 @@ class Base_Field {
 	 */
 	protected $args;
 
+
+
 	/**
 	 * Field value.
 	 *
@@ -62,20 +64,7 @@ class Base_Field {
 	 */
 	public function __construct( $id, array $args ) {
 		$this->id   = $id;
-		$this->args = wp_parse_args( $args, $this->default_args() );
-		$this->set_value();
-	}
-
-	/**
-	 * Retrieves the default field arguments.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return array Default field arguments.
-	 */
-	protected function default_args() {
-		// Set default attributes applicable to all field types.
-		$defaults = array(
+		$this->default_args = array(
 			'name'          => '',
 			'type'          => 'text',
 			'default'       => '',
@@ -87,19 +76,8 @@ class Base_Field {
 			'placeholder'   => '',
 			'options'       => array(),
 		);
-
-		// Use type to determine if label is appropriate for accessibility.
-		if ( isset( $this->args['type'] ) ) {
-			switch ( $this->args['type'] ) {
-				case 'input':
-				case 'search':
-				case 'select':
-					$defaults['name_element'] = 'label';
-					break;
-			}
-		}
-
-		return $defaults;
+		$this->args = wp_parse_args( $args, $this->default_args );
+		$this->set_value();
 	}
 
 	/**
@@ -138,8 +116,8 @@ class Base_Field {
 	/**
 	 * Sets field value.
 	 *
-	 * Field value is set to the passed argument. If an argument is not set,
-	 * then the field will attempt to set a default value.
+	 * Field value is set to the passed value. If a value is not passed, then
+	 * the field will attempt to set a default value.
 	 *
 	 * @since 0.1.0
 	 *
