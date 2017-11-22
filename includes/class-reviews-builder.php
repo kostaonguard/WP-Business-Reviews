@@ -9,7 +9,6 @@
 namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Field\Field_Factory;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\Field\Field_Config_Parser;
 
@@ -66,38 +65,6 @@ class Reviews_Builder {
 	public function init() {
 		// Parse the config to create field objects.
 		$this->field_repository = new Field_Repository( $this->field_config_parser->parse_config( $this->config ) );
-	}
-
-	/**
-	 * Converts config to array of field objects.
-	 *
-	 * @since  0.1.0
-	 *
-	 * @param Config $config Config object.
-	 * @return array Array of field objects.
-	 */
-	private function process_config( Config $config ) {
-		if ( empty( $config ) ) {
-			return array();
-		}
-
-		$field_hierarchy = $config;
-
-		foreach ( $field_hierarchy as $section_id => $section_atts ) {
-			if ( isset( $section_atts['fields'] ) ) {
-				$field_objects = array();
-
-				foreach ( $section_atts['fields'] as $field_id => $field_atts ) {
-					// Create new field object and add to array.
-					$field_objects[] = Field_Factory::create( $field_atts );
-				}
-
-				// Replace field attributes with field objects.
-				$field_hierarchy[ $section_id ]['fields'] = $field_objects;
-			}
-		}
-
-		return $field_hierarchy->getArrayCopy();
 	}
 
 	/**
