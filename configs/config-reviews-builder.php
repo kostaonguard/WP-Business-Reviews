@@ -80,6 +80,11 @@ $config = array(
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
 				'type'    => 'checkboxes',
 				'tooltip' => __( 'Defines the visible components of a review.', 'wp-business-reviews' ),
+				'default' => array(
+					'review_image',
+					'rating',
+					'timestamp',
+				),
 				'options' => array(
 					'review_image' => __( 'Review Image', 'wp-business-reviews' ),
 					'rating'       => __( 'Star Rating', 'wp-business-reviews' ),
