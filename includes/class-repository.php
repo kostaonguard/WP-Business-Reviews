@@ -11,10 +11,10 @@
 namespace WP_Business_Reviews\Includes;
 
 /**
- * Holds a collection of elements.
+ * Holds a collection of values.
  *
- * Repositories provide persistent storage for elements that need accessed
- * throughout the plugin. By storing elements in a single location, the fields
+ * Repositories provide persistent storage for values that need accessed
+ * throughout the plugin. By storing values in a single location, the values
  * can be referenced for many purposes without requiring multiple instances.
  *
  * @since 0.1.0
@@ -29,22 +29,22 @@ abstract class Repository {
 	protected $properties;
 
 	/**
-	 * Elements stored in the repository.
+	 * Values stored in the repository.
 	 *
 	 * @since 0.1.0
-	 * @var array $elements
+	 * @var array $values
 	 */
-	protected $elements;
+	protected $values;
 
 	/**
 	 * Instantiates the Repository object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param array $elements Array of elements.
+	 * @param array $values Array of values.
 	 */
-	public function __construct( array $elements = array() ) {
-		$this->items = $items;
+	public function __construct( array $values = array() ) {
+		$this->values = $values;
 	}
 
 	/**
@@ -57,19 +57,19 @@ abstract class Repository {
 	 */
 	public function find( $key ) {
 		if ( $this->has( $key ) ) {
-			return $this->elements[ $key ];
+			return $this->values[ $key ];
 		}
 	}
 
 	/**
-	 * Finds all elements in the repository.
+	 * Finds all values in the repository.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return array All elements stored in the repository.
+	 * @return array All values stored in the repository.
 	 */
 	public function find_all() {
-		return $this->elements;
+		return $this->values;
 	}
 
 	/**
@@ -82,7 +82,7 @@ abstract class Repository {
 	 */
 	public function add( $key, $element ) {
 		if ( $this->is_allowed( $key ) ) {
-			$this->elements[ $key ] = $element;
+			$this->values[ $key ] = $element;
 		}
 	}
 
@@ -95,7 +95,7 @@ abstract class Repository {
 	 */
 	public function remove( $key ) {
 		if ( $this->has( $key ) ) {
-			unset( $this->elements[ $key ] );
+			unset( $this->values[ $key ] );
 		}
 	}
 
@@ -108,7 +108,7 @@ abstract class Repository {
 	 * @return boolean True if element is set, false otherwise.
 	 */
 	public function has( $key ) {
-		return isset( $this->elements[ $key ] );
+		return isset( $this->values[ $key ] );
 	}
 
 	/**
