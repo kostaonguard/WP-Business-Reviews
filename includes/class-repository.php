@@ -77,7 +77,7 @@ abstract class Repository {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key     Key of the value to add.
+	 * @param string $key   Key of the value to add.
 	 * @param mixed  $value Element to add to the repository.
 	 */
 	public function add( $key, $value ) {
