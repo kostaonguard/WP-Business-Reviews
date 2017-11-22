@@ -112,7 +112,9 @@ abstract class Repository {
 	}
 
 	/**
-	 * Checks if a value is allowed to be set.
+	 * Checks if a value is allowed to be set based on repository properties.
+	 *
+	 * If no properties are defined, then any key is allowed.
 	 *
 	 * @since 0.1.0
 	 *
@@ -120,6 +122,10 @@ abstract class Repository {
 	 * @return boolean True if value is allowed to be set, false otherwise.
 	 */
 	public function is_allowed( $key ) {
-		return isset( $this->properties[ $key ] );
+		if ( ! empty( $this->properties ) ) {
+			return isset( $this->properties[ $key ] );
+		} else {
+			return true;
+		}
 	}
 }
