@@ -54,7 +54,7 @@ class Field_Config_Parser {
 		foreach ( $array as $key => $value ) {
 			if ( isset( $value['fields'] ) ) {
 				foreach ( $value['fields'] as $field_id => $field_args ) {
-					$field_objects[] = Field_Factory::create( $field_id, $field_args );
+					$field_objects[ $field_id ] = Field_Factory::create( $field_id, $field_args );
 				}
 			} else {
 				echo 'no';
