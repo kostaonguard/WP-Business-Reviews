@@ -1,6 +1,6 @@
 <div id="wpbr-reviews-builder-settings" class="wpbr-reviews-builder__settings">
-	<?php foreach ( $this->field_hierarchy as $section ) : ?>
-		<div id="wpbr-section<?php echo esc_attr( $section['id'] ); ?>" class="wpbr-reviews-builder__section">
+	<?php foreach ( $this->config as $section_id => $section ) : ?>
+		<div id="wpbr-section<?php echo esc_attr( $section_id ); ?>" class="wpbr-reviews-builder__section">
 			<div class="wpbr-reviews-builder__section-header js-wpbr-section-header">
 				<button class="wpbr-reviews-builder__toggle"  aria-expanded="true">
 					<span class="screen-reader-text">Toggle section: <?php esc_html_e( $section['name'] ); ?></span>
