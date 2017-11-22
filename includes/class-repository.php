@@ -48,12 +48,12 @@ abstract class Repository {
 	}
 
 	/**
-	 * Find an element by its primary key or identifier.
+	 * Find a value by its primary key or identifier.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key Key of the element to find.
-	 * @return mixed A single element from the repository.
+	 * @param string $key Key of the value to return.
+	 * @return mixed A single value from the repository.
 	 */
 	public function find( $key ) {
 		if ( $this->has( $key ) ) {
@@ -73,25 +73,25 @@ abstract class Repository {
 	}
 
 	/**
-	 * Adds element to repository.
+	 * Adds value to repository.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key     Key of the element to add.
-	 * @param mixed  $element Element to add to the repository.
+	 * @param string $key     Key of the value to add.
+	 * @param mixed  $value Element to add to the repository.
 	 */
-	public function add( $key, $element ) {
+	public function add( $key, $value ) {
 		if ( $this->is_allowed( $key ) ) {
-			$this->values[ $key ] = $element;
+			$this->values[ $key ] = $value;
 		}
 	}
 
 	/**
-	 * Removes element from repository.
+	 * Removes value from repository.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key Key of the element to remove.
+	 * @param string $key Key of the value to remove.
 	 */
 	public function remove( $key ) {
 		if ( $this->has( $key ) ) {
@@ -100,24 +100,24 @@ abstract class Repository {
 	}
 
 	/**
-	 * Checks if an element is in the repository.
+	 * Checks if a value is in the repository.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key Key of the element to check.
-	 * @return boolean True if element is set, false otherwise.
+	 * @param string $key Key of the value to check.
+	 * @return boolean True if value is set, false otherwise.
 	 */
 	public function has( $key ) {
 		return isset( $this->values[ $key ] );
 	}
 
 	/**
-	 * Checks if an element is allowed to be set.
+	 * Checks if a value is allowed to be set.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key Key of the element to check.
-	 * @return boolean True if element is allowed to be set, false otherwise.
+	 * @param string $key Key of the value to check.
+	 * @return boolean True if value is allowed to be set, false otherwise.
 	 */
 	public function is_allowed( $key ) {
 		return isset( $this->properties[ $key ] );
