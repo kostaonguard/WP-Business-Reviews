@@ -79,7 +79,7 @@ class Base_Field {
 			'name'          => '',
 			'type'          => 'text',
 			'default'       => '',
-			'value'         => '',
+			'value'         => null,
 			'tooltip'       => '',
 			'description'   => '',
 			'wrapper_class' => '',
