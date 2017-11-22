@@ -132,7 +132,7 @@ class Base_Field {
 	 * @return mixed $value Field value.
 	 */
 	public function get_value() {
-		return $this->value();
+		return $this->value;
 	}
 
 	/**
