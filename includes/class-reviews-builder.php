@@ -44,7 +44,6 @@ class Reviews_Builder {
 	public function __construct( $config, $field_config_parser ) {
 		$this->config              = is_string( $config ) ? new Config( $config ): $config;
 		$this->field_config_parser = $field_config_parser;
-		echo '<pre>' . var_dump($this->field_repository) . '</pre>';
 	}
 
 	/**
