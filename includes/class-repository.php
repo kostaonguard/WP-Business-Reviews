@@ -48,6 +48,31 @@ abstract class Repository {
 	}
 
 	/**
+	 * Adds value to repository.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $key   Key of the value to add.
+	 * @param mixed  $value Element to add to the repository.
+	 */
+	public function add( $key, $value ) {
+		$this->values[ $key ] = $value;
+	}
+
+	/**
+	 * Removes value from repository.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $key Key of the value to remove.
+	 */
+	public function remove( $key ) {
+		if ( $this->has( $key ) ) {
+			unset( $this->values[ $key ] );
+		}
+	}
+
+	/**
 	 * Get a value by its primary key or identifier.
 	 *
 	 * @since 0.1.0
@@ -73,33 +98,6 @@ abstract class Repository {
 	}
 
 	/**
-	 * Adds value to repository.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $key   Key of the value to add.
-	 * @param mixed  $value Element to add to the repository.
-	 */
-	public function add( $key, $value ) {
-		if ( $this->is_allowed( $key ) ) {
-			$this->values[ $key ] = $value;
-		}
-	}
-
-	/**
-	 * Removes value from repository.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $key Key of the value to remove.
-	 */
-	public function remove( $key ) {
-		if ( $this->has( $key ) ) {
-			unset( $this->values[ $key ] );
-		}
-	}
-
-	/**
 	 * Checks if a value is in the repository.
 	 *
 	 * @since 0.1.0
@@ -109,23 +107,5 @@ abstract class Repository {
 	 */
 	public function has( $key ) {
 		return isset( $this->values[ $key ] );
-	}
-
-	/**
-	 * Checks if a value is allowed to be set based on repository properties.
-	 *
-	 * If no properties are defined, then any key is allowed.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $key Key of the value to check.
-	 * @return boolean True if value is allowed to be set, false otherwise.
-	 */
-	public function is_allowed( $key ) {
-		if ( ! empty( $this->properties ) ) {
-			return isset( $this->properties[ $key ] );
-		} else {
-			return true;
-		}
 	}
 }
