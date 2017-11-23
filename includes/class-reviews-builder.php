@@ -19,7 +19,7 @@ use WP_Business_Reviews\Includes\Field\Field_Parser;
  */
 class Reviews_Builder {
 	/**
-	 * Config object containing sections and fields.
+	 * Config object containing section and field definitions.
 	 *
 	 * @since 0.1.0
 	 * @var   Config
@@ -27,7 +27,7 @@ class Reviews_Builder {
 	private $config;
 
 	/**
-	 * Field repository.
+	 * Repository that holds field objects.
 	 *
 	 * @since 0.1.0
 	 * @var   Field_Repository
