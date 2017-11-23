@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Settings_Repository class
+ * Defines the Option_Repository class
  *
  * @link https://wpbusinessreviews.com
  *
@@ -10,11 +10,13 @@
 
 namespace WP_Business_Reviews\Includes\Settings;
 
+use WP_Business_Reviews\Includes\Repository;
+
 /**
- * Holds settings.
+ * Holds option values retrieved from the WordPress database.
  *
  * @since 0.1.0
  */
-class Settings_Repository extends Repository {
+class Option_Repository extends Repository {
 
 }
