@@ -10,7 +10,7 @@ namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
-use WP_Business_Reviews\Includes\Field\Field_Config_Parser;
+use WP_Business_Reviews\Includes\Field\Field_Parser;
 
 /**
  * Provides the interface for building review sets.
@@ -39,11 +39,12 @@ class Reviews_Builder {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string|Config $config Path to config or Config object.
+	 * @param string|Config $config       Path to config or Config object.
+	 * @param Field_Parser  $field_parser Parser to extract field definitions from config.
 	 */
-	public function __construct( $config, $field_config_parser ) {
-		$this->config              = is_string( $config ) ? new Config( $config ): $config;
-		$this->field_config_parser = $field_config_parser;
+	public function __construct( $config, Field_Parser $field_parser ) {
+		$this->config       = is_string( $config ) ? new Config( $config ): $config;
+		$this->field_parser = $field_parser;
 	}
 
 	/**
@@ -63,7 +64,7 @@ class Reviews_Builder {
 	 */
 	public function init() {
 		// Parse the config to create field objects.
-		$this->field_repository = new Field_Repository( $this->field_config_parser->parse_config( $this->config ) );
+		$this->field_repository = new Field_Repository( $this->field_parser->parse_config( $this->config ) );
 	}
 
 	/**

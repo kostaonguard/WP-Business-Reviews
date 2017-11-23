@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Field_Config_Parser class
+ * Defines the Field_Parser class
  *
  * @link https://wpbusinessreviews.com
  *
@@ -21,7 +21,7 @@ use WP_Business_Reviews\Includes\Config;
  *
  * @since 0.1.0
  */
-class Field_Config_Parser {
+class Field_Parser {
 	/**
 	 * Parses the Config as an array.
 	 *
