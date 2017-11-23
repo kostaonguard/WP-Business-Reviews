@@ -99,43 +99,6 @@ class Settings_UI {
 	public function init() {
 		$this->active_tab     = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( $_POST['wpbr_tab'] ) : '';
 		$this->active_section = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( $_POST['wpbr_section'] ) : '';
-
-		// Process the config to create field objects.
-		$this->field_hierarchy = $this->process_config( $this->config );
-	}
-
-	/**
-	 * Converts config to array of field objects.
-	 *
-	 * @since  0.1.0
-	 *
-	 * @param Config $config Config object.
-	 * @return array Array of field objects.
-	 */
-	private function process_config( Config $config ) {
-		if ( empty( $config ) ) {
-			return array();
-		}
-
-		$field_hierarchy = $config;
-
-		foreach ( $field_hierarchy as $tab_id => $tab_atts ) {
-			if ( isset( $tab_atts['sections'] ) ) {
-				foreach ( $tab_atts['sections'] as $section_id => $section_atts ) {
-					if ( isset( $section_atts['fields'] ) ) {
-						$field_objects = array();
-						foreach ( $section_atts['fields'] as $field_id => $field_atts ) {
-							// Create new field object and add to array.
-							$field_objects[] = Field_Factory::create( $field_atts );
-						}
-						// Replace field attributes with field objects.
-						$field_hierarchy[ $tab_id ]['sections'][ $section_id ]['fields'] = $field_objects;
-					}
-				}
-			}
-		}
-
-		return $field_hierarchy->getArrayCopy();
 	}
 
 	/**
