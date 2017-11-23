@@ -21,14 +21,6 @@ namespace WP_Business_Reviews\Includes;
  */
 abstract class Repository {
 	/**
-	 * Allowed properties.
-	 *
-	 * @since 0.1.0
-	 * @var array $properties
-	 */
-	protected $properties;
-
-	/**
 	 * Values stored in the repository.
 	 *
 	 * @since 0.1.0
