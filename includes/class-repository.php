@@ -48,27 +48,27 @@ abstract class Repository {
 	}
 
 	/**
-	 * Find a value by its primary key or identifier.
+	 * Get a value by its primary key or identifier.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @param string $key Key of the value to return.
 	 * @return mixed A single value from the repository.
 	 */
-	public function find( $key ) {
+	public function get( $key ) {
 		if ( $this->has( $key ) ) {
 			return $this->values[ $key ];
 		}
 	}
 
 	/**
-	 * Finds all values in the repository.
+	 * Gets all values in the repository.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @return array All values stored in the repository.
 	 */
-	public function find_all() {
+	public function get_all() {
 		return $this->values;
 	}
 
