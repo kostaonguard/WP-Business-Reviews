@@ -4,7 +4,6 @@
 	>
 	<?php
 	if ( ! empty( $this->args['name'] ) ) {
-		echo $this->args['name_element'];
 		if ( ! empty( $this->args['name_element'] ) && 'label' === $this->args['name_element'] ) {
 			// Render field name in label tag.
 			$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/field-label.php' );
