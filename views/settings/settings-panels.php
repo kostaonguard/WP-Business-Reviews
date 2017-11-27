@@ -9,11 +9,13 @@
 				)
 			);
 		}
+
 		// Render the panel's sections.
 		$this->render_partial(
 			WPBR_PLUGIN_DIR . 'views/settings/panel/panel-main.php',
 			array(
 				'sections' => $panel['sections'],
+				'field_repository' => $this->field_repository,
 			)
 		);
 		?>
