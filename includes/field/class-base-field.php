@@ -32,8 +32,6 @@ class Base_Field {
 	 */
 	protected $args;
 
-
-
 	/**
 	 * Field value.
 	 *

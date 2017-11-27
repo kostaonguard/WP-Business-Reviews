@@ -22,7 +22,7 @@ class Reviews_Builder {
 	 * Config object containing section and field definitions.
 	 *
 	 * @since 0.1.0
-	 * @var   Config
+	 * @var Config
 	 */
 	private $config;
 
@@ -30,7 +30,7 @@ class Reviews_Builder {
 	 * Repository that holds field objects.
 	 *
 	 * @since 0.1.0
-	 * @var   Field_Repository
+	 * @var Field_Repository
 	 */
 	private $field_repository;
 
