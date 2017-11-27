@@ -10,11 +10,11 @@
 			</div>
 			<div class="wpbr-reviews-builder__section-body js-wpbr-section-body">
 				<?php
-				foreach ( $section['fields'] as $field_id => $field_args ) {
+				foreach ( $section['fields'] as $field_id ) {
 					// Render the field object that matches the field ID present in the config.
 					$field_object = $this->field_repository->get( $field_id )->render();
 				}
-			?>
+				?>
 			</div>
 		</div>
 	<?php endforeach; ?>
