@@ -32,6 +32,7 @@ class Field_Parser {
 	 */
 	public function parse_config( $config ) {
 		$config = is_string( $config ) ? new Config( $config ) : $config;
+
 		return $this->parse_array( $config->getArrayCopy() );
 	}
 
@@ -52,13 +53,17 @@ class Field_Parser {
 		$field_objects = array();
 
 		foreach ( $array as $key => $value ) {
-			if ( isset( $value['fields'] ) ) {
+			if ( isset( $value['sections'] ) ) {
+				// Assume sections are found within a tab defintion.
+				foreach ( $value['sections'] as $section ) {
+					foreach ( $section['fields'] as $field_id => $field_args ) {
+						$field_objects[ $field_id ] = Field_Factory::create( $field_id, $field_args );
+					}
+				}
+			} elseif ( isset( $value['fields'] ) ) {
+				// Assume fields are found within a section defintiion.
 				foreach ( $value['fields'] as $field_id => $field_args ) {
 					$field_objects[ $field_id ] = Field_Factory::create( $field_id, $field_args );
-				}
-			} else {
-				if ( is_array( $value ) ) {
-					$this->parse_array( $value );
 				}
 			}
 		}
