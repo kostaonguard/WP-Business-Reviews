@@ -1,7 +1,7 @@
 <fieldset class="wpbr-field__fieldset">
 	<legend class="screen-reader-text"><?php echo esc_html( $this->name ); ?></legend>
 	<ul class="wpbr-field__options">
-		<?php foreach ( $this->options as $option_value => $option_text ) : ?>
+		<?php foreach ( $this->args['options'] as $option_value => $option_text ) : ?>
 			<li class="wpbr-field__option">
 				<input
 					type="radio"
