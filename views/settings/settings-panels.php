@@ -1,6 +1,5 @@
-<?php foreach ( $this->field_hierarchy as $panel ) : ?>
-	<?php $panel['id'] = ! empty( $panel['id'] ) ? $panel['id'] : ''; ?>
-	<div id="wpbr-panel-<?php echo esc_attr( $panel['id'] ); ?>" class="wpbr-panel js-wpbr-panel" data-panel-id="<?php echo esc_attr( $panel['id'] ); ?>">
+<?php foreach ( $this->config as $panel_id => $panel ) : ?>
+	<div id="wpbr-panel-<?php echo esc_attr( $panel_id ); ?>" class="wpbr-panel js-wpbr-panel" data-panel-id="<?php echo esc_attr( $panel_id ); ?>">
 		<?php
 		// Render the panel navigation if more than one section exists.
 		if ( ! empty( $panel['sections'] ) && count( $panel['sections'] ) > 1 ) {
