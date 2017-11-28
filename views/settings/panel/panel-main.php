@@ -30,8 +30,13 @@
 					<input type="hidden" name="wp_business_reviews_subtab" value="<?php echo esc_attr( $section_id ); ?>">
 					<?php
 					foreach ( $section['fields'] as $field_id => $field_args ) {
-						// Render the field object that matches the field ID present in the config.
-						$field_object = $this->field_repository->get( $field_id )->render();
+						if ( $this->field_repository->has( $field_id ) ) {
+							// TODO: Move this logic into one of the settings classes.
+							$field_object = $this->field_repository->get( $field_id );
+							$field_object->set_value( get_option( 'wp_business_reviews_' . $field_id, $field_object->get_arg( 'default' ) ) );
+							$field_object->render();
+						}
+						// $field_obj
 					}
 					?>
 				</form>
