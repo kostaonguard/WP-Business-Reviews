@@ -22,17 +22,25 @@ class Serializer {
 	* @since 0.1.0
 	*/
 	public function register() {
-		add_action( 'admin_post', array( $this, 'save' ) );
+		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save' ) );
 	}
 
 	/**
 	 * Saves settings to database.
 	 *
-	 * @return void
+	 * @since 0.1.0
 	 */
 	public function save() {
-		// First, validate the nonce.
-        // Secondly, verify the user has permission to save.
-        // If the above are valid, save the option.
+		echo '<pre>' . var_dump($_POST) . '</pre>';
+		// TODO: First, validate the nonce.
+        // TODO: Secondly, verify the user has permission to save.
+		// If the above are valid, save the option.
+		if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
+			foreach ( $_POST['wp_business_reviews_settings'] as $option => $new_value ) {
+				// TODO: Sanitize value before saving.
+				update_option( 'wpbr_' . $option, $new_value );
+			}
+		}
+	}
 	}
 }
