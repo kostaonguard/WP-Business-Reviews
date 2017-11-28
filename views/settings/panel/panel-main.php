@@ -29,6 +29,10 @@
 					<input type="hidden" name="wp_business_reviews_tab" value="<?php echo esc_attr( $this->tab_id ); ?>">
 					<input type="hidden" name="wp_business_reviews_subtab" value="<?php echo esc_attr( $section_id ); ?>">
 					<?php
+					wp_nonce_field(
+						'wp_business_reviews_save_settings',
+						'wp_business_reviews_settings_nonce'
+					);
 					foreach ( $section['fields'] as $field_id => $field_args ) {
 						if ( $this->field_repository->has( $field_id ) ) {
 							// TODO: Move this logic into one of the settings classes.
