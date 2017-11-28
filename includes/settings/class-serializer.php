@@ -31,15 +31,20 @@ class Serializer {
 	 * @since 0.1.0
 	 */
 	public function save() {
-		// error_log( print_r( $_POST, true ) );
-		// TODO: First, validate the nonce.
-        // TODO: Secondly, verify the user has permission to save.
-		// If the above are valid, save the option.
-		if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
-			foreach ( $_POST['wp_business_reviews_settings'] as $option => $new_value ) {
-				// TODO: Sanitize value before saving.
-				update_option( 'wp_business_reviews_' . $option, $new_value );
+		error_log( print_r( $_POST, true ) );
+
+		// Validate nonce and verify user has permission to save.
+		if ( $this->has_valid_nonce() && $this->has_permission() ) {
+
+			if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
+				foreach ( $_POST['wp_business_reviews_settings'] as $option => $new_value ) {
+					// TODO: Sanitize value before saving.
+					update_option( 'wp_business_reviews_' . $option, $new_value );
+				}
 			}
+
+		} else {
+			// TODO: Display an error message.
 		}
 
 		$this->redirect();
@@ -53,22 +58,35 @@ class Serializer {
 	 * @return boolean True if valid, false if invalid.
 	 */
 	private function has_valid_nonce() {
-		// TODO: Determine if nonce is valid.
+		if ( ! empty( $_POST['wp_business_reviews_settings_nonce'] ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_POST['wp_business_reviews_settings_nonce'] ) );
+		} else {
+			// Nonce field is not present or not populated, and therefore invalid.
+			error_log('invalid nonce');
+			return false;
+		}
+
+        return wp_verify_nonce( $nonce, 'wp_business_reviews_save_settings' );
 	}
 
 	/**
-	 * Verify user has permission to save settings.
+	 * Verifies user has permission to save settings.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @return boolean True if user has permission, false if not.
 	 */
 	private function has_permission() {
-		// TODO: Verify user has permission.
+		if ( current_user_can( 'manage_options' ) ) {
+			return true;
+		} else {
+			error_log( 'user does not have permission' );
+			return false;
+		}
 	}
 
 	/**
-	 * Redirect to the page from which settings were saved.
+	 * Redirects to the page from which settings were saved.
 	 *
 	 * If an active tab or subtab is provided, it will be included in the redirect URL.
 	 *
@@ -91,7 +109,7 @@ class Serializer {
 			$referer = wp_login_url();
 		}
 
-		// Parse referer into path and query.
+		// Parse referer into path and query string.
 		$parsed_url = parse_url( $referer );
 
 		// Parse query string into array of query parts.
@@ -101,7 +119,7 @@ class Serializer {
 		$query_parts['wpbr_tab'] = $active_tab;
 		$query_parts['wpbr_subtab'] = $active_subtab;
 
-		// Stringify the query string parts.
+		// Stringify the query parts.
 		$query_string = http_build_query( $query_parts );
 
 		// Assemble the redirect location.
