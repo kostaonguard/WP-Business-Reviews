@@ -3,7 +3,7 @@
 		type="text"
 		id="wpbr-control-<?php echo esc_attr( $this->id ); ?>"
 		class="wpbr-field__input js-wpbr-search-input"
-		name="<?php echo esc_attr( $this->id ); ?>"
+		name="wp_business_reviews_settings[<?php echo esc_attr( $this->id ); ?>]"
 		value="<?php echo esc_attr( $this->value ); ?>"
 		placeholder="<?php echo esc_attr( $this->args['placeholder'] ); ?>"
 		>

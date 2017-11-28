@@ -7,7 +7,7 @@
 					type="radio"
 					id="wpbr-control-<?php echo esc_attr( $this->id . '-' . $option_value ); ?>"
 					class="wpbr-field__radio"
-					name="<?php echo esc_attr( $this->id ); ?>"
+					name="wp_business_reviews_settings[<?php echo esc_attr( $this->id ); ?>]"
 					value="<?php echo esc_attr( $option_value ); ?>"
 					<?php checked( $option_value, $this->value ); ?>
 					>
