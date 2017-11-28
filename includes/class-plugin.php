@@ -77,6 +77,7 @@ final class Plugin {
 			$field_parser = new Field_Parser();
 			// $services['settings_api']    = new Settings_API( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
 			$services['settings_ui']     = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'configs/config-settings.php', $field_parser );
+			$services['serializer']      = new Settings\Serializer();
 			$services['reviews_builder'] = new Reviews_Builder( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php', $field_parser );
 			$services['admin_menu']      = new Admin_Menu( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
 			$services['admin_header']    = new Admin_Banner();
