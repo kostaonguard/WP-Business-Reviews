@@ -31,7 +31,7 @@ class Serializer {
 	 * @since 0.1.0
 	 */
 	public function save() {
-		echo '<pre>' . var_dump($_POST) . '</pre>';
+		error_log( '<pre>' . print_r( $_POST, true ) . '</pre>' );
 		// TODO: First, validate the nonce.
         // TODO: Secondly, verify the user has permission to save.
 		// If the above are valid, save the option.
@@ -41,6 +41,8 @@ class Serializer {
 				update_option( 'wp_business_reviews_' . $option, $new_value );
 			}
 		}
+
+		$this->redirect();
 	}
 
 	/**
@@ -63,5 +65,20 @@ class Serializer {
 	 */
 	private function has_permission() {
 		// TODO: Verify user has permission.
+	}
+
+	/**
+	 * Redirect to the page from which settings were saved.
+	 *
+	 * @since 0.1.0
+	 */
+	private function redirect() {
+		// TODO: Redirect back to active tab
+		if ( ! isset( $_POST['_wp_http_referer'] ) ) {
+			$_POST['_wp_http_referer'] = wp_login_url();
+		}
+		$url = sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) );
+		wp_safe_redirect( urldecode( $url ) );
+		exit;
 	}
 }
