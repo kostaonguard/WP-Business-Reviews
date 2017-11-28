@@ -42,5 +42,26 @@ class Serializer {
 			}
 		}
 	}
+
+	/**
+	 * Determines if a valid nonce has been provided.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return boolean True if valid, false if invalid.
+	 */
+	private function has_valid_nonce() {
+		// TODO: Determine if nonce is valid.
+	}
+
+	/**
+	 * Verify user has permission to save settings.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return boolean True if user has permission, false if not.
+	 */
+	private function has_permission() {
+		// TODO: Verify user has permission.
 	}
 }
