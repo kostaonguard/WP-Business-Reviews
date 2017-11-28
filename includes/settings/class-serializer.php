@@ -38,7 +38,7 @@ class Serializer {
 		if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
 			foreach ( $_POST['wp_business_reviews_settings'] as $option => $new_value ) {
 				// TODO: Sanitize value before saving.
-				update_option( 'wpbr_' . $option, $new_value );
+				update_option( 'wp_business_reviews_' . $option, $new_value );
 			}
 		}
 	}
