@@ -73,9 +73,6 @@ $config = array(
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
-						'control_atts' => array(
-							'type' => 'text',
-						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
 					'save_google_places' => array(
@@ -138,17 +135,11 @@ $config = array(
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
-						'control_atts' => array(
-							'type' => 'text',
-						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
 					'yelp_client_secret' => array(
 						'name'         => __( 'Yelp Client Secret', 'wp-business-reviews' ),
 						'type'         => 'input',
-						'control_atts' => array(
-							'type' => 'text',
-						),
 						'description'  => sprintf(
 							/* translators: link to documentation */
 							__( 'Defines the Yelp Client Secret required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Secret Key%2$s.', 'wbpr' ),
@@ -186,9 +177,6 @@ $config = array(
 						'id'           => 'api_key_yp',
 						'name'         => __( 'YP API Key', 'wp-business-reviews' ),
 						'type'         => 'input',
-						'control_atts' => array(
-							'type' => 'text',
-						),
 						'description'  => sprintf(
 							/* translators: link to documentation */
 							__( 'Defines the YP API Key required to retrieve YP reviews. For step-by-step instructions, see docs on %1$sHow to Generate a YP API Key%2$s.', 'wbpr' ),
