@@ -34,8 +34,8 @@ $config = apply_filters(
 		),
 		'pro_features' => array(
 			'page_parent' => 'edit.php?post_type=wpbr_review',
-			'page_title' => __( 'WP Business Reviews Pro Features', 'wp-business-reviews' ),
-			'menu_title' => __( 'Pro Features', 'wp-business-reviews' ),
+			'page_title' => __( 'WP Business Reviews Pro', 'wp-business-reviews' ),
+			'menu_title' => __( 'Go Pro!', 'wp-business-reviews' ),
 			'capability' => 'manage_options',
 			'menu_slug'  => 'pro_features',
 		),
