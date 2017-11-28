@@ -100,6 +100,19 @@ class Base_Field {
 	}
 
 	/**
+	 * Gets field arguments.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Field arguments.
+	 */
+	public function get_arg( $arg ) {
+		if ( isset( $this->args[ $arg ] ) ) {
+			return $this->args[ $arg ];
+		}
+	}
+
+	/**
 	 * Gets field value.
 	 *
 	 * @since 0.1.0
