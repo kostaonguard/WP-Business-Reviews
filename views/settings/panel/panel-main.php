@@ -19,13 +19,14 @@
 				 *
 				 * @since 0.1.0
 				 */
-				do_action( 'wpbr_settings_notices_' . $section_id );
+				do_action( 'wp_business_reviews_settings_notices_' . $section_id );
 				?>
 			</div>
 
 			<?php if ( ! empty( $section['fields'] ) ) : ?>
-				<form method="post">
-					<input type="hidden" name="wpbr_section" value="<?php echo esc_attr( $section_id ); ?>">
+				<form method="post" action="<?php echo esc_html( admin_url( 'admin-post.php' ) ); ?>">
+					<input type="hidden" name="action" value="wp_business_reviews_save_settings">
+					<input type="hidden" name="wp_business_reviews_section" value="<?php echo esc_attr( $section_id ); ?>">
 					<?php
 					foreach ( $section['fields'] as $field_id => $field_args ) {
 						// Render the field object that matches the field ID present in the config.
