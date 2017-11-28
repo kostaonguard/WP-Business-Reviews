@@ -75,7 +75,6 @@ class Base_Field {
 			'options'       => array(),
 		);
 		$this->args = wp_parse_args( $args, $this->default_args );
-		$this->set_value();
 	}
 
 	/**
@@ -122,12 +121,7 @@ class Base_Field {
 	 * @param mixed $value Field value.
 	 */
 	public function set_value( $value = null ) {
-		if ( null === $value ) {
-			// No value passed, so set value to default.
-			$this->value = isset( $this->args['default'] ) ? $this->args['default'] : '';
-		} else {
-			$this->value = $value;
-		}
+		$this->value = $value;
 	}
 
 	/**
