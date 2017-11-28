@@ -8,23 +8,13 @@
 
 namespace WP_Business_Reviews\Config;
 
-$section_presentation = array(
-	'id'   => 'presentation',
-	'name' => __( 'Presentation', 'wp-business-reviews' ),
-	/**
-	* Filters the fields in the Presentation section of the Reviews Builder.
-	*
-	* @since 0.1.0
-	*
-	* @param array $fields Reviews Builder fields.
-	*/
-	'fields'  => apply_filters(
-		'wpbr_reviews_builder_fields_presentation',
-		array(
+$config = array(
+	'presentation' => array(
+		'name'   => __( 'Presentation', 'wp-business-reviews' ),
+		'fields' => array(
 			'format' => array(
-				'id'      => 'format',
 				'name'    => __( 'Format', 'wp-business-reviews' ),
-				'control' => 'select',
+				'type'    => 'select',
 				'tooltip' => __( 'Defines the format in which reviews are displayed.', 'wp-business-reviews' ),
 				'default' => 'gallery',
 				'options' => array(
@@ -34,24 +24,23 @@ $section_presentation = array(
 					'business-badge'   => __( 'Business Badge', 'wp-business-reviews' ),
 				),
 			),
-			'max-columns' => array(
-				'id'       => 'max_columns',
+			'max_columns' => array(
 				'name'     => __( 'Maximum Columns', 'wp-business-reviews' ),
-				'control'  => 'input',
+				'type'     => 'select',
 				'tooltip'  => __( 'Sets the maximum number of columns in the responsive gallery. Fewer columns may be shown based on available width.', 'wp-business-reviews' ),
-				'default'  => '3',
-				'control_atts' => array(
-					'type' => 'range',
-					'min'  => 1,
-					'max'  => 6,
-					'step' => 1,
+				'default'  => 3,
+				'options'  => array(
+					'1' => __( '1 Column', 'wp-business-reviews' ),
+					'2' => __( '2 Columns', 'wp-business-reviews' ),
+					'3' => __( '3 Columns', 'wp-business-reviews' ),
+					'4' => __( '4 Columns', 'wp-business-reviews' ),
+					'5' => __( '5 Columns', 'wp-business-reviews' ),
+					'6' => __( '6 Columns', 'wp-business-reviews' ),
 				),
-				'datalist' => array( 1, 2, 3, 4, 5, 6 ),
 			),
 			'theme' => array(
-				'id'      => 'theme',
 				'name'    => __( 'Theme', 'wp-business-reviews' ),
-				'control' => 'select',
+				'type'    => 'select',
 				'tooltip' => __( 'Styles the appearance of reviews.', 'wp-business-reviews' ),
 				'default' => 'card',
 				'options' => array(
@@ -60,27 +49,14 @@ $section_presentation = array(
 					'seamless-dark'  => __( 'Seamless Dark', 'wp-business-reviews' ),
 				),
 			),
-		)
+		),
 	),
-);
-
-$section_business = array(
-	'id'   => 'business',
-	'name' => __( 'Business', 'wp-business-reviews' ),
-	/**
-	* Filters the fields in the Business section of the Reviews Builder.
-	*
-	* @since 0.1.0
-	*
-	* @param array $fields Reviews Builder fields.
-	*/
-	'fields'  => apply_filters(
-		'wpbr_reviews_builder_fields_business',
-		array(
+	'business' => array(
+		'name'   => __( 'Business', 'wp-business-reviews' ),
+		'fields' => array(
 			'platform' => array(
-				'id'      => 'platform',
 				'name'    => __( 'Platform', 'wp-business-reviews' ),
-				'control' => 'select',
+				'type'    => 'select',
 				'tooltip' => __( 'Defines the platform used when searching for a business.', 'wp-business-reviews' ),
 				'options' => array(
 					'google'   => __( 'Google', 'wp-business-reviews' ),
@@ -89,54 +65,33 @@ $section_business = array(
 					'yp'       => __( 'YP', 'wp-business-reviews' ),
 				),
 			),
-			'business-search' => array(
-				'id'         => 'business_search',
-				'name'       => __( 'Business', 'wp-business-reviews' ),
-				'control'    => 'search',
-				'tooltip'    => __( 'Defines the query used when searching for a business.', 'wp-business-reviews' ),
-				'control_atts' => array(
-					'placeholder' => __( 'Business Name, Location', 'wp-business-reviews' ),
-				),
+			'business_search' => array(
+				'name'        => __( 'Business', 'wp-business-reviews' ),
+				'type'        => 'search',
+				'tooltip'     => __( 'Defines the query used when searching for a business.', 'wp-business-reviews' ),
+				'placeholder' => __( 'Business Name, Location', 'wp-business-reviews' ),
 			),
-		)
+		),
 	),
-);
-
-$section_reviews = array(
-	'id'   => 'reviews',
-	'name' => __( 'Reviews', 'wp-business-reviews' ),
-	/**
-	* Filters the fields in the Reviews section of the Reviews Builder.
-	*
-	* @since 0.1.0
-	*
-	* @param array $fields Reviews Builder fields.
-	*/
-	'fields'  => apply_filters(
-		'wpbr_reviews_builder_fields_reviews',
-		array(
-			// 'review_order' => array(
-			// 	'id'      => 'review_order',
-			// 	'name'    => __( 'Review Order', 'wp-business-reviews' ),
-			// 	'control' => 'select',
-			// 	'tooltip' => __( 'Defines the order in which reviews are displayed.', 'wp-business-reviews' ),
-			// 	'options' => array(
-			// 		'DESC' => __( 'Newest to Oldest', 'wp-business-reviews' ),
-			// 		'ASC'  => __( 'Oldest to Newest', 'wp-business-reviews' ),
-			// 	),
-			// ),
+	'reviews' => array(
+		'name'   => __( 'Reviews', 'wp-business-reviews' ),
+		'fields' => array(
 			'review_components' => array(
-				'id'      => 'review_components',
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
-				'control' => 'checkboxes',
+				'type'    => 'checkboxes',
 				'tooltip' => __( 'Defines the visible components of a review.', 'wp-business-reviews' ),
+				'default' => array(
+					'review_image',
+					'rating',
+					'timestamp',
+				),
 				'options' => array(
 					'review_image' => __( 'Review Image', 'wp-business-reviews' ),
 					'rating'       => __( 'Star Rating', 'wp-business-reviews' ),
 					'timestamp'    => __( 'Timestamp', 'wp-business-reviews' ),
 				),
 			),
-		)
+		),
 	),
 );
 
@@ -147,13 +102,4 @@ $section_reviews = array(
  *
  * @param array $config Reviews Builder config containing sections and fields.
  */
-$config = apply_filters(
-	'wpbr_config_reviews_builder',
-	array(
-		'presentation' => $section_presentation,
-		'business'     => $section_business,
-		'reviews'      => $section_reviews,
-	)
-);
-
-return $config;
+return apply_filters( 'wpbr_config_reviews_builder', $config );

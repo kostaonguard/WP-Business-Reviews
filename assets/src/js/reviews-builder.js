@@ -67,7 +67,7 @@ class ReviewsBuilder {
 			this.format( event.currentTarget.value );
 		});
 
-		this.maxColumnsControl.addEventListener( 'input', event => {
+		this.maxColumnsControl.addEventListener( 'change', event => {
 			event.preventDefault();
 			this.formatGallery( event.currentTarget.value );
 		});

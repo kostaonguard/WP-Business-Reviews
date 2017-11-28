@@ -170,7 +170,7 @@ class Settings {
 
 	registerWindowEventHandlers() {
 		window.addEventListener( 'popstate', ( event ) => {
-			this.queryStringObject = queryString.parse( event.target.location.search );
+			this.queryStringObject = queryString.parse( location.search );
 			this.deactivateTab();
 			this.init();
 		}, this );

@@ -9,9 +9,9 @@
 namespace WP_Business_Reviews\Includes\Settings;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Fields\Field_Factory;
+use WP_Business_Reviews\Includes\Field\Field_Repository;
+use WP_Business_Reviews\Includes\Field\Field_Parser;
 use WP_Business_Reviews\Includes\View;
-use WP_Business_Reviews\Includes\Admin\Admin_Notices;
 
 /**
  * Provides the interface for the plugin's settings.
@@ -50,45 +50,34 @@ class Settings_UI {
 	private $active_section;
 
 	/**
-	 * Admin notices.
+	 * Repository that holds field objects.
 	 *
-	 * @since  0.1.0
-	 * @var    array
-	 * @access private
+	 * @since 0.1.0
+	 * @var Field_Repository
 	 */
-	private $notices;
-
-	/**
-	 * Multidimensional array of field objects.
-	 *
-	 * @since  0.1.0
-	 * @var    array
-	 * @access private
-	 */
-	private $field_hierarchy;
+	private $field_repository;
 
 	/**
 	 * Instantiates the Settings_UI object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string|Config $config Path to config or Config object.
+	 * @param string|Config $config       Path to config or Config object.
+	 * @param Field_Parser  $field_parser Parser to extract field definitions from config.
 	 */
-	public function __construct( $config ) {
-		$config_object = is_string( $config ) ? new Config( $config ) : $config;
-		$this->config  = $config_object;
-		$this->notices = new Admin_Notices();
+	public function __construct( $config, Field_Parser $field_parser ) {
+		$this->config       = is_string( $config ) ? new Config( $config ): $config;
+		$this->field_parser = $field_parser;
 	}
 
 	/**
 	 * Registers functionality with WordPress hooks.
 	 *
-	 * @since 0.1.0j
+	 * @since 0.1.0
 	 */
 	public function register() {
 		add_action( 'wpbr_review_page_settings', array( $this, 'init' ) );
 		add_action( 'wpbr_review_page_settings', array( $this, 'render' ) );
-		add_action( 'wpbr_settings_notices_' . $this->active_section, array( $this->notices, 'render_notices' ) );
 	}
 
 	/**
@@ -97,45 +86,9 @@ class Settings_UI {
 	 * @since 0.1.0
 	 */
 	public function init() {
-		$this->active_tab     = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( $_POST['wpbr_tab'] ) : '';
-		$this->active_section = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( $_POST['wpbr_section'] ) : '';
-
-		// Process the config to create field objects.
-		$this->field_hierarchy = $this->process_config( $this->config );
-	}
-
-	/**
-	 * Converts config to array of field objects.
-	 *
-	 * @since  0.1.0
-	 *
-	 * @param Config $config Config object.
-	 * @return array Array of field objects.
-	 */
-	private function process_config( Config $config ) {
-		if ( empty( $config ) ) {
-			return array();
-		}
-
-		$field_hierarchy = $config;
-
-		foreach ( $field_hierarchy as $tab_id => $tab_atts ) {
-			if ( isset( $tab_atts['sections'] ) ) {
-				foreach ( $tab_atts['sections'] as $section_id => $section_atts ) {
-					if ( isset( $section_atts['fields'] ) ) {
-						$field_objects = array();
-						foreach ( $section_atts['fields'] as $field_id => $field_atts ) {
-							// Create new field object and add to array.
-							$field_objects[] = Field_Factory::create_field( $field_atts );
-						}
-						// Replace field attributes with field objects.
-						$field_hierarchy[ $tab_id ]['sections'][ $section_id ]['fields'] = $field_objects;
-					}
-				}
-			}
-		}
-
-		return $field_hierarchy->getArrayCopy();
+		$this->active_tab       = ! empty( $_POST['wpbr_tab'] ) ? sanitize_text_field( $_POST['wpbr_tab'] )        : '';
+		$this->active_section   = ! empty( $_POST['wpbr_section'] ) ? sanitize_text_field( $_POST['wpbr_section'] ): '';
+		$this->field_repository = new Field_Repository( $this->field_parser->parse_config( $this->config ) );
 	}
 
 	/**
@@ -147,7 +100,8 @@ class Settings_UI {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/settings/settings-main.php' );
 		$view_object->render(
 			array(
-				'field_hierarchy' => $this->field_hierarchy,
+				'config'           => $this->config,
+				'field_repository' => $this->field_repository
 			)
 		);
 	}

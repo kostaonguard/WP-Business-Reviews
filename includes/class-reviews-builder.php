@@ -9,7 +9,8 @@
 namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Fields\Field_Factory;
+use WP_Business_Reviews\Includes\Field\Field_Repository;
+use WP_Business_Reviews\Includes\Field\Field_Parser;
 
 /**
  * Provides the interface for building review sets.
@@ -18,32 +19,32 @@ use WP_Business_Reviews\Includes\Fields\Field_Factory;
  */
 class Reviews_Builder {
 	/**
-	 * Config object containing sections and fields.
+	 * Config object containing section and field definitions.
 	 *
-	 * @since  0.1.0
-	 * @var    Config
-	 * @access private
+	 * @since 0.1.0
+	 * @var Config
 	 */
 	private $config;
 
 	/**
-	 * Multidimensional array of field objects.
+	 * Repository that holds field objects.
 	 *
-	 * @since  0.1.0
-	 * @var    array
-	 * @access private
+	 * @since 0.1.0
+	 * @var Field_Repository
 	 */
-	private $field_hierarchy;
+	private $field_repository;
 
 	/**
 	 * Instantiates a Reviews_Builder object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string|Config $config Path to config or Config object.
+	 * @param string|Config $config       Path to config or Config object.
+	 * @param Field_Parser  $field_parser Parser to extract field definitions from config.
 	 */
-	public function __construct( $config ) {
-		$this->config = is_string( $config ) ? new Config( $config ) : $config;
+	public function __construct( $config, Field_Parser $field_parser ) {
+		$this->config       = is_string( $config ) ? new Config( $config ): $config;
+		$this->field_parser = $field_parser;
 	}
 
 	/**
@@ -62,40 +63,8 @@ class Reviews_Builder {
 	 * @since 0.1.0
 	 */
 	public function init() {
-		// Process the config to create field objects.
-		$this->field_hierarchy = $this->process_config( $this->config );
-	}
-
-	/**
-	 * Converts config to array of field objects.
-	 *
-	 * @since  0.1.0
-	 *
-	 * @param Config $config Config object.
-	 * @return array Array of field objects.
-	 */
-	private function process_config( Config $config ) {
-		if ( empty( $config ) ) {
-			return array();
-		}
-
-		$field_hierarchy = $config;
-
-		foreach ( $field_hierarchy as $section_id => $section_atts ) {
-			if ( isset( $section_atts['fields'] ) ) {
-				$field_objects = array();
-
-				foreach ( $section_atts['fields'] as $field_id => $field_atts ) {
-					// Create new field object and add to array.
-					$field_objects[] = Field_Factory::create_field( $field_atts );
-				}
-
-				// Replace field attributes with field objects.
-				$field_hierarchy[ $section_id ]['fields'] = $field_objects;
-			}
-		}
-
-		return $field_hierarchy->getArrayCopy();
+		// Parse the config to create field objects.
+		$this->field_repository = new Field_Repository( $this->field_parser->parse_config( $this->config ) );
 	}
 
 	/**
@@ -107,7 +76,8 @@ class Reviews_Builder {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/reviews-builder/reviews-builder-main.php' );
 		$view_object->render(
 			array(
-				'field_hierarchy' => $this->field_hierarchy,
+				'config'           => $this->config,
+				'field_repository' => $this->field_repository
 			)
 		);
 	}
