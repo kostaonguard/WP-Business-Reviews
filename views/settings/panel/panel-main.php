@@ -24,7 +24,7 @@
 			</div>
 
 			<?php if ( ! empty( $section['fields'] ) ) : ?>
-				<form method="post" action="<?php echo esc_html( admin_url( 'admin-post.php' ) ); ?>">
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<input type="hidden" name="action" value="wp_business_reviews_save_settings">
 					<input type="hidden" name="wp_business_reviews_section" value="<?php echo esc_attr( $section_id ); ?>">
 					<?php
