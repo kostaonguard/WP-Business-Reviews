@@ -12,13 +12,22 @@ use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\View;
 use WP_Business_Reviews\Includes\Settings\Serializer;
 use WP_Business_Reviews\Includes\Settings\Deserializer;
+use WP_Business_Reviews\Includes\Config;
 
 /**
- * Defines the plugin's settings.
+ * Retrieves and displays the plugin's settings.
  *
  * @since 0.1.0
  */
 class Settings {
+	/**
+	 * The settings config.
+	 *
+	 * @since 0.1.0
+	 * @var Config
+	 */
+	private $config;
+
 	/**
 	 * Repository that holds field objects.
 	 *
@@ -26,14 +35,6 @@ class Settings {
 	 * @var Field_Repository
 	 */
 	private $field_repository;
-
-	/**
-	 * Saver of information to the database.
-	 *
-	 * @since 0.1.0
-	 * @var Serializer $serializer
-	 */
-	private $serializer;
 
 	/**
 	 * Retriever of information from the database.
@@ -48,18 +49,18 @@ class Settings {
 	 *
 	 * @since 0.1.0
 	 *
+	 * @param Config           $config           The Settings config.
 	 * @param Field_Repository $field_repository A repository of `Field` objects.
-	 * @param Serializer       $serializer       Saver of information to the database.
 	 * @param Deserializer     $deserializer     Retriever of information from the database.
 	 */
 	public function __construct(
+		Config $config,
 		Field_Repository $field_repository,
-		Serializer $serializer,
 		Deserializer $deserializer
 	) {
-		$this->fields       = $field_repository;
-		$this->serializer   = $serializer;
-		$this->deserializer = $deserializer;
+		$this->config           = $config;
+		$this->field_repository = $field_repository;
+		$this->deserializer     = $deserializer;
 		$this->load_field_values();
 	}
 
@@ -73,7 +74,7 @@ class Settings {
 	 */
 	private function load_field_values() {
 		// Get all field objects from the repository.
-		$field_objects = $this->fields->get_all();
+		$field_objects = $this->field_repository->get_all();
 
 		foreach ( $field_objects as $field_id => $field_object ) {
 			$field_default = $field_object->get_arg( 'default' );
@@ -82,7 +83,7 @@ class Settings {
 			$field_value = $this->deserializer->get_value( $field_id, $field_default );
 
 			// Update the value of the field in the field repository.
-			$this->fields->get( $field_id )->set_value( $field_value );
+			$this->field_repository->get( $field_id )->set_value( $field_value );
 		}
 	}
 
@@ -92,7 +93,7 @@ class Settings {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		// add_action( 'wpbr_review_page_settings', array( $this, 'render' ) );
+		add_action( 'wpbr_review_page_settings', array( $this, 'render' ) );
 	}
 
 	/**
