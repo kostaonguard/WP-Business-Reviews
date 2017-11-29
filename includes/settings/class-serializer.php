@@ -39,15 +39,15 @@ class Serializer {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save' ) );
+		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_value' ) );
 	}
 
 	/**
-	 * Saves settings to database.
+	 * Saves value to database.
 	 *
 	 * @since 0.1.0
 	 */
-	public function save() {
+	public function save_value() {
 		error_log( print_r( $_POST, true ) );
 
 		// Validate nonce and verify user has permission to save.
