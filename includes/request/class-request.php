@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Defines the Request abstract class
  *
@@ -9,11 +8,6 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 use WP_Error;
-
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Requests data from remote API.
@@ -25,23 +19,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 0.1.0
  */
 abstract class Request {
-
 	/**
 	 * Reviews platform used in the request.
 	 *
 	 * @since 0.1.0
-	 * @access protected
 	 * @var string
 	 */
 	protected $platform;
 
 	/**
 	 * ID of the business used in the request URL.
-	 * 
-	 * This is the ID of business on the reviews platform (not the post ID).
 	 *
 	 * @since 0.1.0
-	 * @access protected
 	 * @var string
 	 */
 	protected $business_id;
@@ -50,15 +39,12 @@ abstract class Request {
 	 * API host used in the request URL.
 	 *
 	 * @since 0.1.0
-	 * @access protected
 	 * @var string
 	 */
 	protected $api_host;
 
 	/**
-	 * Constructor.
-	 *
-	 * Sets business_id property and API keys used in the request.
+	 * Instantiates the Request object.
 	 *
 	 * @since 0.1.0
 	 *
@@ -79,12 +65,12 @@ abstract class Request {
 	 * @param array  $url_params Optional. URL parameters.
 	 * @param array  $args       Optional. Arguments for wp_safe_remote_get().
 	 *
-	 * @return array|WP_Error|false API response or WP_Error on failure.
+	 * @return array|WP_Error API response or WP_Error on failure.
 	 */
 	protected function request( $path = '', $url_params = array(), $args = array() ) {
 		// Ensure host is set to make a request.
 		if ( empty( $this->api_host ) ) {
-			return false;
+			return;
 		}
 
 		// Build the request URL (host + path).
