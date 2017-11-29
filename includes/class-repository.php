@@ -90,6 +90,17 @@ abstract class Repository {
 	}
 
 	/**
+	 * Gets the keys.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array All values stored in the repository.
+	 */
+	public function get_keys() {
+		return array_keys( $this->values );
+	}
+
+	/**
 	 * Checks if a value is in the repository.
 	 *
 	 * @since 0.1.0
