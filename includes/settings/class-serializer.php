@@ -50,14 +50,12 @@ class Serializer {
 	 * @since 0.1.0
 	 */
 	public function save_value() {
-		error_log( print_r( $_POST, true ) );
-
 		// Validate nonce and verify user has permission to save.
 		if ( $this->has_valid_nonce() && $this->has_permission() ) {
 
 			if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
 				foreach ( $_POST['wp_business_reviews_settings'] as $key => $value ) {
-					if ( $this->is_allowed_field( $key ) ) {
+					if ( $this->is_allowed_key( $key ) ) {
 						// TODO: Sanitize value before saving.
 						update_option( 'wp_business_reviews_' . $key, $value );
 					}
