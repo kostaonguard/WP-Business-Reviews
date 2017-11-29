@@ -41,31 +41,49 @@ class Serializer {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_value' ) );
+		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_all' ) );
 	}
 
 	/**
-	 * Saves value to database.
+	 * Saves all valid settings to database.
 	 *
 	 * @since 0.1.0
 	 */
-	public function save_value() {
+	public function save_all() {
+		// Make sure settings exist
+		if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
+			$settings = $_POST['wp_business_reviews_settings'];
+		} else {
+			return;
+		}
+
 		// Validate nonce and verify user has permission to save.
 		if ( $this->has_valid_nonce() && $this->has_permission() ) {
-
-			if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
-				foreach ( $_POST['wp_business_reviews_settings'] as $key => $value ) {
-					if ( $this->is_allowed_key( $key ) ) {
-						// TODO: Sanitize value before saving.
-						update_option( 'wp_business_reviews_' . $key, $value );
-					}
-				}
+			foreach ( $settings as $key => $value ) {
+				$this->save( $key, $value);
 			}
 		} else {
-			// TODO: Display an error message.
+			// TODO: Display an error message regarding permission.
 		}
 
 		$this->redirect();
+	}
+
+	/**
+	 * Saves a single sanitized setting to the database.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return boolean True if option changed, false if update failed or
+	 *                 key is not allowed.
+	 */
+	public function save( $key, $value ) {
+		if ( $this->is_allowed_key( $key ) ) {
+			// TODO: Sanitize value before saving.
+			return update_option( 'wp_business_reviews_' . $key, $value );
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -75,7 +93,7 @@ class Serializer {
 	 *
 	 * @return boolean True if valid, false if invalid.
 	 */
-	private function has_valid_nonce() {
+	protected function has_valid_nonce() {
 		if ( ! empty( $_POST['wp_business_reviews_settings_nonce'] ) ) {
 			$nonce = sanitize_text_field( wp_unslash( $_POST['wp_business_reviews_settings_nonce'] ) );
 		} else {
@@ -94,7 +112,7 @@ class Serializer {
 	 *
 	 * @return boolean True if user has permission, false if not.
 	 */
-	private function has_permission() {
+	protected function has_permission() {
 		if ( current_user_can( 'manage_options' ) ) {
 			return true;
 		} else {
@@ -112,7 +130,7 @@ class Serializer {
 	 *
 	 * @param string $key Unique identifier of the value to be saved.
 	 */
-	private function is_allowed_key( $key ) {
+	protected function is_allowed_key( $key ) {
 		if ( ! empty( $this->allowed_keys ) ) {
 			return in_array( $key, $this->allowed_keys );
 		} else {
@@ -127,7 +145,7 @@ class Serializer {
 	 *
 	 * @since 0.1.0
 	 */
-	private function redirect() {
+	protected function redirect() {
 		$active_tab = $active_subtab = $referer = '';
 
 		if ( ! empty( $_POST['wp_business_reviews_tab'] ) ) {
