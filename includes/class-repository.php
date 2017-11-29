@@ -36,7 +36,9 @@ abstract class Repository {
 	 * @param array $values Array of values.
 	 */
 	public function __construct( array $values = array() ) {
-		$this->values = $values;
+		foreach ( $values as $key => $value ) {
+			$this->add( $key, $value );
+		}
 	}
 
 	/**
