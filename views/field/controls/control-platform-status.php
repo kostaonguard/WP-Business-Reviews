@@ -14,4 +14,5 @@
 	type="text"
 	name="wp_business_reviews_settings[<?php echo esc_attr( $this->id ); ?>]"
 	value="<?php echo esc_attr( $this->value ); ?>"
+	readonly
 	>
