@@ -87,6 +87,16 @@ class Serializer {
 	}
 
 	/**
+	 * Recursively sanitizes a given value.
+	 *
+	 * @param string|array $value Value to be sanitized.
+	 * @return string|array Array of clean values or single clean value.
+	 */
+	protected function clean( $value ) {
+		// TODO: Add cleaning functionality.
+	}
+
+	/**
 	 * Determines if a valid nonce has been provided.
 	 *
 	 * @since 0.1.0
