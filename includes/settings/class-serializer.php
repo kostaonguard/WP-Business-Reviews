@@ -17,10 +17,27 @@ namespace WP_Business_Reviews\Includes\Settings;
  */
 class Serializer {
 	/**
-	* Registers functionality with WordPress hooks.
-	*
-	* @since 0.1.0
-	*/
+	 * Fields that are allowed to be saved.
+	 *
+	 * @since 0.1.0
+	 * @var array $allowed_fields
+	 */
+	protected $allowed_fields;
+
+	/**
+	 * Instantiates the Serializer object.
+	 *
+	 * @since 0.1.0
+	 */
+	public function __construct( $allowed_fields ) {
+		$this->allowed_fields = $allowed_fields;
+	}
+
+	/**
+	 * Registers functionality with WordPress hooks.
+	 *
+	 * @since 0.1.0
+	 */
 	public function register() {
 		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save' ) );
 	}
