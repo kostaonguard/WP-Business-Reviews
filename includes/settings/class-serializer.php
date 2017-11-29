@@ -17,7 +17,7 @@ namespace WP_Business_Reviews\Includes\Settings;
  */
 class Serializer {
 	/**
-	 * Fields that are allowed to be saved.
+	 * Array of field IDs that are allowed to be saved.
 	 *
 	 * @since 0.1.0
 	 * @var array $allowed_fields
@@ -59,7 +59,6 @@ class Serializer {
 					update_option( 'wp_business_reviews_' . $option, $new_value );
 				}
 			}
-
 		} else {
 			// TODO: Display an error message.
 		}
@@ -79,11 +78,11 @@ class Serializer {
 			$nonce = sanitize_text_field( wp_unslash( $_POST['wp_business_reviews_settings_nonce'] ) );
 		} else {
 			// Nonce field is not present or not populated, and therefore invalid.
-			error_log('invalid nonce');
+			error_log( 'invalid nonce' );
 			return false;
 		}
 
-        return wp_verify_nonce( $nonce, 'wp_business_reviews_save_settings' );
+		return wp_verify_nonce( $nonce, 'wp_business_reviews_save_settings' );
 	}
 
 	/**
