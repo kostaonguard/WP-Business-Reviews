@@ -21,7 +21,7 @@ class Deserializer {
 	 *
 	 * @since 0.1.0
 	 */
-	public function get_value( $key, $default ) {
+	public function get( $key, $default ) {
 		return get_option( 'wp_business_reviews_' . $key, $default );
 	}
 }

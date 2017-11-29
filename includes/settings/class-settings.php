@@ -80,7 +80,7 @@ class Settings {
 			$field_default = $field_object->get_arg( 'default' );
 
 			// Attempt to retrieve database value for each field, or fall back to default.
-			$field_value = $this->deserializer->get_value( $field_id, $field_default );
+			$field_value = $this->deserializer->get( $field_id, $field_default );
 
 			// Update the value of the field in the field repository.
 			$this->field_repository->get( $field_id )->set_value( $field_value );
