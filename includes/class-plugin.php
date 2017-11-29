@@ -10,15 +10,18 @@
 
 namespace WP_Business_Reviews\Includes;
 
-use WP_Business_Reviews\Includes\Settings\Settings_API;
+use WP_Business_Reviews\Includes\Field\Field_Parser;
+use WP_Business_Reviews\Includes\Field\Field_Repository;
+use WP_Business_Reviews\Includes\Settings\Serializer;
+use WP_Business_Reviews\Includes\Settings\Deserializer;
+use WP_Business_Reviews\Includes\Settings\Settings;
 use WP_Business_Reviews\Includes\Admin\Admin_Menu;
 use WP_Business_Reviews\Includes\Admin\Admin_Banner;
 use WP_Business_Reviews\Includes\Admin\Admin_Footer;
 use WP_Business_Reviews\Includes\Admin\Blank_Slate;
-use WP_Business_Reviews\Includes\Field\Field_Parser;
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\Reviews_Builder;
+use WP_Business_Reviews\Includes\Settings\Option_Repository;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -68,26 +71,56 @@ final class Plugin {
 	 * @since 0.1.0
 	 */
 	public function register_services() {
-		$services = array();
+		// Register field parser used to create field objects from configs.
+		$field_parser = new Field_Parser();
 
-		$services['assets']      = new Assets( WPBR_ASSETS_URL, $this->version );
-		$services['post_types']  = new Post_Types();
+
+		// Register settings to retrieve and display settings from database.
+		$settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
+		$settings_field_repository = new Field_Repository( $field_parser->parse_config( $settings_config ) );
+		$settings_deserializer     = new Deserializer();
+		$settings                  = new Settings(
+			$settings_config,
+			$settings_field_repository,
+			$settings_deserializer
+		);
+		$settings->register();
+
+		// Register assets.
+		$assets = new Assets( WPBR_ASSETS_URL, $this->version );
+		$assets->register();
+
+		// Register post types.
+		$post_types = new Post_Types();
+		$post_types->register();
 
 		if ( is_admin() ) {
-			$field_parser = new Field_Parser();
-			// $services['settings_api']    = new Settings_API( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
-			$services['settings_ui']     = new Settings\Settings_UI( WPBR_PLUGIN_DIR . 'configs/config-settings.php', $field_parser );
-			$services['serializer']      = new Settings\Serializer();
-			$services['reviews_builder'] = new Reviews_Builder( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php', $field_parser );
-			$services['admin_menu']      = new Admin_Menu( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
-			$services['admin_header']    = new Admin_Banner();
-			$services['admin_footer']    = new Admin_Footer();
-			$services['blank_slate']     = new Blank_Slate();
-		}
+			// Register settings serializer which saves settings to the database.
+			$settings_serializer       = new Serializer( $settings_field_repository->get_keys() );
+			$settings_serializer->register();
 
-		foreach ( $services as $service ) {
-			// TODO: Create interface for these classes to ensure register method is defined.
-			$service->register();
+			// Register reviews builder.
+			$reviews_builder_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php' );
+			$reviews_builder        = new Reviews_Builder( $reviews_builder_config, $field_parser );
+			$reviews_builder->register();
+
+			// Register admin pages.
+			$admin_pages_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
+			$admin_menu         = new Admin_Menu( $admin_pages_config );
+			$admin_menu->register();
+
+			// Register the branded admin header.
+			$admin_header = new Admin_Banner();
+			$admin_header->register();
+
+			// Register admin footer customizations.
+			$admin_footer = new Admin_Footer();
+			$admin_footer->register();
+
+			// Register blank slate that appears when no posts exist.
+			$blank_slate = new Blank_Slate();
+			$blank_slate->register();
+
 		}
 	}
 
