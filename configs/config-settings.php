@@ -10,7 +10,7 @@ namespace WP_Business_Reviews\Config;
 
 $config = array(
 	'general' => array(
-		'name'     => __( 'Platforms', 'wp-business-reviews' ),
+		'name'     => __( 'General', 'wp-business-reviews' ),
 		'sections' => array(
 			'platforms' => array(
 				'name'        => __( 'Platforms', 'wp-business-reviews' ),
