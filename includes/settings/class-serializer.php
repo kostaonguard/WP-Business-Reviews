@@ -11,26 +11,28 @@
 namespace WP_Business_Reviews\Includes\Settings;
 
 /**
- * Saves settings to the database.
+ * Saves information to the database.
  *
  * @since 0.1.0
  */
 class Serializer {
 	/**
-	 * Array of field IDs that are allowed to be saved.
+	 * Array of keys that are allowed to be saved.
 	 *
 	 * @since 0.1.0
-	 * @var array $allowed_fields
+	 * @var array $allowed_keys
 	 */
-	protected $allowed_fields;
+	protected $allowed_keys;
 
 	/**
 	 * Instantiates the Serializer object.
 	 *
 	 * @since 0.1.0
+	 *
+	 * @param array $allowed_keys Keys that are allowed to be saved.
 	 */
-	public function __construct( $allowed_fields ) {
-		$this->allowed_fields = $allowed_fields;
+	public function __construct( array $allowed_keys = array() ) {
+		$this->allowed_keys = $allowed_keys;
 	}
 
 	/**
@@ -54,9 +56,11 @@ class Serializer {
 		if ( $this->has_valid_nonce() && $this->has_permission() ) {
 
 			if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
-				foreach ( $_POST['wp_business_reviews_settings'] as $option => $new_value ) {
-					// TODO: Sanitize value before saving.
-					update_option( 'wp_business_reviews_' . $option, $new_value );
+				foreach ( $_POST['wp_business_reviews_settings'] as $key => $value ) {
+					if ( $this->is_allowed_field( $key ) ) {
+						// TODO: Sanitize value before saving.
+						update_option( 'wp_business_reviews_' . $key, $value );
+					}
 				}
 			}
 		} else {
@@ -98,6 +102,23 @@ class Serializer {
 		} else {
 			error_log( 'user does not have permission' );
 			return false;
+		}
+	}
+
+	/**
+	 * Determines if key is allowed to be saved.
+	 *
+	 * If `allowed_keys` property is empty, then any key is allowed.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $key Unique identifier of the value to be saved.
+	 */
+	private function is_allowed_key( $key ) {
+		if ( ! empty( $this->allowed_keys ) ) {
+			return in_array( $key, $this->allowed_keys );
+		} else {
+			return true;
 		}
 	}
 
