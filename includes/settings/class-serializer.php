@@ -79,8 +79,7 @@ class Serializer {
 	 */
 	public function save( $key, $value ) {
 		if ( $this->is_allowed_key( $key ) ) {
-			// TODO: Sanitize value before saving.
-			return update_option( 'wp_business_reviews_' . $key, $value );
+			return update_option( 'wp_business_reviews_' . $key, $this->clean( $value ) );
 		} else {
 			return false;
 		}
@@ -93,7 +92,11 @@ class Serializer {
 	 * @return string|array Array of clean values or single clean value.
 	 */
 	protected function clean( $value ) {
-		// TODO: Add cleaning functionality.
+		if ( is_array( $value ) ) {
+			return array_map( array( $this, 'clean' ), $value );
+		} else {
+			return is_scalar( $value ) ? sanitize_text_field( $value ) : '';
+		}
 	}
 
 	/**
