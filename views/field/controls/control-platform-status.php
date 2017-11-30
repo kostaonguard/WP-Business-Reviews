@@ -8,11 +8,12 @@
 	</strong>
 <?php endif; ?>
 
-<input
-	id="wpbr-control-<?php echo esc_attr( $this->id ); ?>"
-	class="wpbr-field__input"
-	type="text"
-	name="wp_business_reviews_settings[<?php echo esc_attr( $this->id ); ?>]"
-	value="<?php echo esc_attr( $this->value ); ?>"
-	readonly
-	>
+<p id="wpbr-field-description-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__description">
+	<?php
+		$now          = time();
+		// TODO: Get last checked time from field value.
+		$last_checked = 1511568000;
+		$difference   = human_time_diff( $last_checked, $now );
+		printf( esc_html__( 'Last checked %s ago.', 'wp-business-reviews' ), $difference );
+	?>
+</p>
