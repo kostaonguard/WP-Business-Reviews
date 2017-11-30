@@ -74,6 +74,8 @@ class Serializer {
 	 *
 	 * @since 0.1.0
 	 *
+	 * @param string $key   Key of the setting being saved.
+	 * @param mixed  $value Value of the setting being saved.
 	 * @return boolean True if option saved, false if update failed or
 	 *                 key is not allowed.
 	 */
@@ -86,6 +88,10 @@ class Serializer {
 				 * Triggers dynamic action using the key that was just saved.
 				 *
 				 * @since 0.1.0
+				 *
+				 * @param string $key        Key of the setting being saved.
+				 * @param mixed $clean_value Sanitized value of the setting
+				 *                           being saved.
 				 */
 				do_action( 'wp_business_reviews_save_' . $key, $clean_value );
 
