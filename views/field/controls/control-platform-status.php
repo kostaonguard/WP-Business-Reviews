@@ -1,12 +1,16 @@
-<?php if ( 'connected' === $this->value ) : ?>
-	<strong class="wpbr-platform-status wpbr-platform-status--success">
-		<?php echo esc_html__( 'Connected', 'wp-business-reviews' ); ?>
-	</strong>
-<?php else : ?>
-	<strong class="wpbr-platform-status wpbr-platform-status--error">
-		<?php echo esc_html__( 'Not Connected', 'wp-business-reviews' ); ?>
-	</strong>
-<?php endif; ?>
+<div class="wpbr-field__flex">
+	<?php if ( 'connected' === $this->value ) : ?>
+		<strong class="wpbr-platform-status wpbr-platform-status--success">
+			<?php echo esc_html__( 'Connected', 'wp-business-reviews' ); ?>
+		</strong>
+	<?php else : ?>
+		<strong class="wpbr-platform-status wpbr-platform-status--error">
+			<?php echo esc_html__( 'Not Connected', 'wp-business-reviews' ); ?>
+		</strong>
+	<?php endif; ?>
+
+	<button class="button wpbr-field__inline-button js-wpbr-refresh-button"><?php esc_html_e( 'Refresh', 'wp-business-reviews' ); ?></button>
+</div>
 
 <p id="wpbr-field-description-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__description">
 	<?php
