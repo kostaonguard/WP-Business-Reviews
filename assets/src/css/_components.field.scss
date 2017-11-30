@@ -39,13 +39,8 @@
 		.wpbr-field--spacious & {
 			@media ( min-width: 961px ) {
 				flex: 0 0 $wpbr-space * 10;
-				margin-bottom: 0;
+				margin: $wpbr-space-quarter 0 0;
 				padding-right: $wpbr-space;
-
-				.wpbr-settings-field--text &,
-				.wpbr-settings-field--facebook-pages & {
-					margin-top: $wpbr-space-quarter;
-				}
 			}
 		}
 	}
@@ -76,6 +71,7 @@
 	}
 
 	&__flex {
+		align-items: center;
 		display: flex;
 	}
 
@@ -98,7 +94,7 @@
 
 	&__options {
 		list-style: none;
-		margin: 0;
+		margin: $wpbr-space-quarter 0 0;
 	}
 
 	&__option {
@@ -120,7 +116,6 @@
 
 		label {
 			margin-top: 3px;
-			flex: 1;
 
 			@media ( min-width: 961px ) {
 				margin-top: -1px;
