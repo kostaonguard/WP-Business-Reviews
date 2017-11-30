@@ -74,15 +74,27 @@ class Serializer {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return boolean True if option changed, false if update failed or
+	 * @return boolean True if option saved, false if update failed or
 	 *                 key is not allowed.
 	 */
 	public function save( $key, $value ) {
 		if ( $this->is_allowed_key( $key ) ) {
-			return update_option( 'wp_business_reviews_' . $key, $this->clean( $value ) );
-		} else {
-			return false;
+			$clean_value = $this->clean( $value );
+
+			if ( update_option( 'wp_business_reviews_' . $key, $clean_value  ) ) {
+				/**
+				 * Triggers dynamic action using the key that was just saved.
+				 *
+				 * @since 0.1.0
+				 */
+				do_action( 'wp_business_reviews_save_' . $key, $clean_value );
+
+				return true;
+			}
 		}
+
+		// Key either is not allowed or failed to save.
+		return false;
 	}
 
 	/**
