@@ -1,6 +1,6 @@
 <div
 	id="wpbr-field-<?php echo esc_attr( $this->id ); ?>"
-	class="wpbr-field js-wpbr-field<?php echo ( $this->args['wrapper_class'] ? ' ' . esc_attr( $this->args['wrapper_class'] ) : '' ); ?>"
+	class="wpbr-field wpbr-field--<?php echo esc_attr( $this->args['type'] ); ?> js-wpbr-field<?php echo ( $this->args['wrapper_class'] ? ' ' . esc_attr( $this->args['wrapper_class'] ) : '' ); ?>"
 	>
 	<?php
 	if ( ! empty( $this->args['name'] ) ) {
