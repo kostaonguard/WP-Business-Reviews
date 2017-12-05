@@ -56,13 +56,12 @@ final class Plugin {
 	}
 
 	/**
-	 * Initializes the object for use.
+	 * Registers functionality with WordPress hooks.
 	 *
 	 * @since 0.1.0
 	 */
-	public function init() {
-		$this->register_services();
-		// TODO: Add init action for extensibility.
+	public function register() {
+		add_action( 'plugins_loaded', array( $this, 'register_services') );
 	}
 
 	/**
@@ -73,7 +72,6 @@ final class Plugin {
 	public function register_services() {
 		// Register field parser used to create field objects from configs.
 		$field_parser = new Field_Parser();
-
 
 		// Register settings to retrieve and display settings from database.
 		$settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );

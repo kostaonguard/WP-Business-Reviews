@@ -57,4 +57,4 @@ require_once __DIR__ . '/autoloader.php';
 
 // Initialize the plugin.
 $plugin = new Includes\Plugin();
-$plugin->init();
+$plugin->register();
