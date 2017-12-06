@@ -15,18 +15,6 @@ namespace WP_Business_Reviews\Includes\Request;
  */
 class Request_Base {
 	/**
-	 * Instantiates a Request_Base object.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @see WP_HTTP::request()
-	 */
-	public function __construct( $url, $args = array() ) {
-		$this->url = $url;
-		$this->args = $args;
-	}
-
-	/**
 	 * Retrieves a response from a safe HTTP request using the GET method.
 	 *
 	 * This method is a wrapper for `wp_safe_remote_get()` which means the URL
@@ -38,8 +26,8 @@ class Request_Base {
 	 *
 	 * @return array Associative array containing the response body.
 	 */
-	public function get() {
-		$response = wp_safe_remote_get( $this->url, $this->args );
+	public function get( $url, $args = array() ) {
+		$response = wp_safe_remote_get( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
 			// TODO: Return WP_Error here for failed responses.
