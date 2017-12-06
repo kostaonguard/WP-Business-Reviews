@@ -33,11 +33,18 @@ class Google_Places_Request extends Request_Base {
 	 * Tests the connection to the API with a sample search request.
 	 *
 	 * @since 0.1.0
+	 *
+	 * @return bool True if connection was successful, otherwise false.
 	 */
-	public function test_connection() {
+	public function is_connected() {
 		$response = $this->search( 'PNC Park', 'Pittsburgh' );
 
-		return $response;
+		// Check status key to confirm if request was successful.
+		if ( ! empty( $response['status'] ) && 'REQUEST_DENIED' === $response['status'] ) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**
@@ -78,7 +85,7 @@ class Google_Places_Request extends Request_Base {
 			'https://maps.googleapis.com/maps/api/place/details/json'
 		);
 
-		$reponse = $this->get( $url );
+		$response = $this->get( $url );
 
 		return $response;
 	}
