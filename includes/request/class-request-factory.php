@@ -12,7 +12,6 @@ namespace WP_Business_Reviews\Includes\Request;
 
 use WP_Business_Reviews\Includes\Request\Request_Base;
 
-
 /**
  * Creates new requests based on platform, business, and type.
  *
@@ -20,11 +19,11 @@ use WP_Business_Reviews\Includes\Request\Request_Base;
  */
 class Request_Factory {
 	/**
-	 * Instantiates a Request_Base object.
+	 * Instantiates a new request.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $platform     Name of the review platform.
+	 * @param string $platform Name of the review platform.
 	 * @return Request_Base Request object.
 	 */
 	public function create( $platform ) {
