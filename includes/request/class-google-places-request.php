@@ -10,12 +10,14 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
+use WP_Business_Reviews\Includes\Request\Request_Base;
+
 /**
  * Retrieves data from Google Places API.
  *
  * @since 0.1.0
  */
-class Google_Places_Request extends Base_Request {
+class Google_Places_Request extends Request_Base {
 	/**
 	 * Instantiates the Google_Places_Request object.
 	 *
@@ -33,7 +35,7 @@ class Google_Places_Request extends Base_Request {
 	 * @since 0.1.0
 	 */
 	public function test_connection() {
-		$response = $this->search_business( 'PNC Park', 'Pittsburgh' );
+		$response = $this->search( 'PNC Park', 'Pittsburgh' );
 
 		return $response;
 	}
@@ -55,7 +57,7 @@ class Google_Places_Request extends Base_Request {
 			'https://maps.googleapis.com/maps/api/place/textsearch/json'
 		);
 
-		$reponse = $this->get( $url );
+		$response = $this->get( $url );
 
 		return $response;
 	}
