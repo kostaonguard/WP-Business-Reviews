@@ -1,51 +1,55 @@
 <?php
-
 /**
  * Defines the Request_Factory class
  *
+ * @link https://wpbusinessreviews.com
+ *
  * @package WP_Business_Reviews\Includes\Request
- * @since   0.1.0
+ * @since 0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
 
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+use WP_Business_Reviews\Includes\Request\Request_Base;
+
 
 /**
- * Determines the appropriate Request subclass based on platform.
+ * Creates new requests based on platform, business, and type.
  *
  * @since 0.1.0
- * @see   Request
  */
 class Request_Factory {
-
 	/**
-	 * Creates a new instance of the Request subclass.
+	 * Instantiates a Request_Base object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $business_id ID of the business on the platform.
-	 * @param string $platform    Reviews platform used in the request.
-	 *
-	 * @return Request Instance of Request for the provided platform.
+	 * @param string $platform     Name of the review platform.
+	 * @return Request_Base Request object.
 	 */
-	public static function create( $business_id, $platform ) {
+	public function create( $platform ) {
 		switch ( $platform ) {
 			case 'google_places' :
-				return new Google_Places_Request( $business_id, $platform );
+				// TODO: Get key from settings.
+				$url = add_query_arg(
+					array(
+						'query' => '',
+						'key'   => '',
+					),
+					'https://maps.googleapis.com/maps/api/place/textsearch/json'
+				);
+				$request = new Request_Base( $url );
+				break;
 			case 'facebook' :
-				return new Facebook_Request( $business_id, $platform );
+				break;
 			case 'yelp' :
-				return new Yelp_Request( $business_id, $platform );
+				break;
 			case 'yp' :
-				return new YP_Request( $business_id, $platform );
+				break;
 			case 'wp_org' :
-				return new WP_Org_Request( $business_id, $platform );
+				break;
 		}
 
+		return $request;
 	}
-
 }
