@@ -42,6 +42,22 @@ class Request_Factory {
 			case 'facebook' :
 				break;
 			case 'yelp' :
+				// TODO: Get key from settings.
+				$yelp_access_token = '';
+				$url = add_query_arg(
+					array(
+						'term'     => '',
+						'location' => '',
+					),
+					'https://api.yelp.com/v3/businesses/search'
+				);
+				$args = array(
+					'user-agent' => '',
+					'headers' => array(
+						'authorization' => 'Bearer ' . $yelp_access_token,
+					),
+				);
+				$request = new Request_Base( $url, $args );
 				break;
 			case 'yp' :
 				$url = add_query_arg(
