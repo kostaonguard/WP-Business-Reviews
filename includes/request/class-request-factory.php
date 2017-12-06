@@ -44,6 +44,14 @@ class Request_Factory {
 			case 'yelp' :
 				break;
 			case 'yp' :
+				$url = add_query_arg(
+					array(
+						'term' => '',
+						'key'  => '',
+					),
+					'http://api2.yp.com/listings/v1/search'
+				);
+				$request = new Request_Base( $url );
 				break;
 			case 'wp_org' :
 				break;
