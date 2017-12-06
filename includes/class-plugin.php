@@ -22,6 +22,7 @@ use WP_Business_Reviews\Includes\Admin\Blank_Slate;
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Reviews_Builder;
 use WP_Business_Reviews\Includes\Settings\Option_Repository;
+use WP_Business_Reviews\Includes\Request\Request_Factory;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -101,6 +102,9 @@ final class Plugin {
 			$reviews_builder_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php' );
 			$reviews_builder        = new Reviews_Builder( $reviews_builder_config, $field_parser );
 			$reviews_builder->register();
+
+			// Register remote API requests.
+			$request_factory = new Request_Factory();
 
 			// Register admin pages.
 			$admin_pages_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
