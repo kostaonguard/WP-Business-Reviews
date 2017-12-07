@@ -40,7 +40,7 @@ class Google_Places_Request extends Request_Base {
 		$response = $this->search( 'PNC Park', 'Pittsburgh' );
 
 		// Check status key to confirm if request was successful.
-		if ( ! empty( $response['status'] ) && 'REQUEST_DENIED' === $response['status'] ) {
+		if ( isset( $response['status'] ) && 'REQUEST_DENIED' === $response['status'] ) {
 			return false;
 		} else {
 			return true;
