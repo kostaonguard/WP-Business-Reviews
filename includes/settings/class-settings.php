@@ -65,6 +65,15 @@ class Settings {
 	}
 
 	/**
+	 * Registers functionality with WordPress hooks.
+	 *
+	 * @since 0.1.0
+	 */
+	public function register() {
+		add_action( 'wpbr_review_page_settings', array( $this, 'render' ) );
+	}
+
+	/**
 	 * Loads field values from the database.
 	 *
 	 * If a field value does not exist in the database, the default value as
@@ -86,15 +95,6 @@ class Settings {
 			// Update the value of the field in the field repository.
 			$this->field_repository->get( $field_id )->set_value( $field_value );
 		}
-	}
-
-	/**
-	 * Registers functionality with WordPress hooks.
-	 *
-	 * @since 0.1.0
-	 */
-	public function register() {
-		add_action( 'wpbr_review_page_settings', array( $this, 'render' ) );
 	}
 
 	/**
