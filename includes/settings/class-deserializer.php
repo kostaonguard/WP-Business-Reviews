@@ -17,11 +17,25 @@ namespace WP_Business_Reviews\Includes\Settings;
  */
 class Deserializer {
 	/**
-	 * Retrieves value that matches the specified key.
+	 * Retrieves a value from the database.
 	 *
 	 * @since 0.1.0
+	 *
+	 * @param string $option Name of the option to retrieve.
+	 * @param string $key    Optional. Specific array key for when the option
+	 *                       is an array.
 	 */
-	public function get( $key, $default ) {
-		return get_option( 'wp_business_reviews_' . $key, $default );
+	public function get( $option, $key = false ) {
+		$value = get_option( 'wp_business_reviews_' . $option );
+
+		if ( $key ) {
+			if ( isset( $value[ $key ] ) ) {
+				return $value[ $key ];
+			} else {
+				return null;
+			}
+		}
+
+		return $value;
 	}
 }
