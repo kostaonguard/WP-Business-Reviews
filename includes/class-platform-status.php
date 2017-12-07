@@ -11,7 +11,6 @@
 namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Settings\Serializer;
-use WP_Business_Reviews\Includes\Settings\Deserializer;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
 
 /**
@@ -28,17 +27,17 @@ class Platform_Status {
 	 */
 
 	/**
-	 * Settings reader.
-	 *
-	 * @since 0.1.0
-	 * @var Deserializer $deserializer
-	 */
-
-	/**
 	 * Request factory.
 	 *
 	 * @since 0.1.0
 	 * @var Request_Factory $request_factory
+	 */
+
+	/**
+	 * Active platforms.
+	 *
+	 * @since 0.1.0
+	 * @var array $active_platforms
 	 */
 
 	private $serializer;
@@ -46,18 +45,18 @@ class Platform_Status {
 	/**
 	 * Instantiates the Platform_Status object.
 	 *
-	 * @param Serializer      $serializer      Settings saver.
-	 * @param Deserializer    $deserializer    Settings reader.
-	 * @param Request_Factory $request_factory Request factory.
+	 * @param Serializer      $serializer       Settings saver.
+	 * @param Request_Factory $request_factory  Request factory.
+	 * @param array           $active_platforms Active platforms.
 	 */
 	public function __construct(
 		Serializer $serializer,
-		Deserializer $deserializer,
-		Request_Factory $request_factory
+		Request_Factory $request_factory,
+		array $active_platforms
 	) {
-		$this->serializer      = $serializer;
-		$this->deserializer    = $deserializer;
-		$this->request_factory = $request_factory;
+		$this->serializer       = $serializer;
+		$this->request_factory  = $request_factory;
+		$this->active_platforms = $active_platforms;
 	}
 
 	/**
@@ -66,20 +65,25 @@ class Platform_Status {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wp_business_reviews_saved_settings', array( $this, 'test_connection' ) );
+		add_action( 'wp_business_reviews_saved_settings', array( $this, 'save_platform_status' ) );
 	}
 
-	public function save_platform_status() {
-		// Check if platform is active.
-		// Check if platform is connected.
-		// Save result to database.
+	public function save_platform_status( $platform ) {
+		error_log( print_r( 'save_platform_status', true ) );
+
+		if ( $this->is_active_platform( $platform ) && $this->is_connected( $platform ) ) {
+			error_log( print_r( $platform . ' is active!', true ) );
+		} else {
+			error_log( print_r( $platform . ' is NOT active!', true ) );
+		}
 	}
 
-	private function is_platform_active( $platform ) {
-		// Compare $platform to active platforms in database.
+	private function is_active_platform( $platform ) {
+		return in_array( $platform, $this->active_platforms );
 	}
 
 	private function is_connected( $platform ) {
-		// Send a test request to the provided platform.
+		$request = $this->request_factory->create( $platform );
+		return $request->is_connected();
 	}
 }
