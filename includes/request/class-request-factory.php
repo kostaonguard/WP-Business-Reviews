@@ -47,18 +47,22 @@ class Request_Factory {
 	 *
 	 * @return Request_Base Instance of Request for the provided platform.
 	 */
-	public function create( $platform, $business_id ) {
+	public function create( $platform ) {
 		switch ( $platform ) {
-			case 'google_places' :
-				return new Google_Places_Request( $platform, $business_id );
-			case 'facebook' :
-				return new Facebook_Request( $platform, $business_id );
-			case 'yelp' :
-				return new Yelp_Request( $platform, $business_id );
-			case 'yp' :
-				return new YP_Request( $platform, $business_id );
-			case 'wp_org' :
-				return new WP_Org_Request( $platform, $business_id );
+			case 'google_places':
+				// TODO: Get key via deserializer.
+				return new Google_Places_Request( $key );
+				case 'facebook':
+				// TODO: Get token via deserializer.
+				return new Facebook_Request( $token );
+				case 'yelp':
+				// TODO: Get client ID and client secret via deserializer.
+				return new Yelp_Request( $client_id, $client_secret );
+			case 'yp':
+				// TODO: Get key via deserializer.
+				return new YP_Request( $key );
+			case 'wp_org':
+				return new WP_Org_Request();
 		}
 	}
 }
