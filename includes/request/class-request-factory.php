@@ -50,19 +50,19 @@ class Request_Factory {
 	public function create( $platform ) {
 		switch ( $platform ) {
 			case 'google_places':
-				// TODO: Get key via deserializer.
+				$key     = $this->deserializer->get( 'api_key_google_places' );
 				$request = new Google_Places_Request( $key );
 			case 'facebook':
 				// TODO: Get token via deserializer.
-				$request = new Facebook_Request( $token );
+				// $request = new Facebook_Request( $token );
 			case 'yelp':
 				// TODO: Get client ID and client secret via deserializer.
-				$request = new Yelp_Request( $client_id, $client_secret );
+				// $request = new Yelp_Request( $client_id, $client_secret, $token );
 			case 'yp':
-				// TODO: Get key via deserializer.
+				$key     = $this->deserializer->get( 'api_key_yp' );
 				$request = new YP_Request( $key );
 			case 'wp_org':
-				$request = new WP_Org_Request();
+				// $request = new WP_Org_Request();
 		}
 
 		return $request;
