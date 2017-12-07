@@ -77,10 +77,11 @@ class Settings {
 		$field_objects = $this->field_repository->get_all();
 
 		foreach ( $field_objects as $field_id => $field_object ) {
-			$field_default = $field_object->get_arg( 'default' );
+			$field_value = $this->deserializer->get( $field_id );
 
-			// Attempt to retrieve database value for each field, or fall back to default.
-			$field_value = $this->deserializer->get( $field_id, $field_default );
+			if ( null === $field_value ) {
+				$field_value = $field_object->get_arg( 'default' );
+			}
 
 			// Update the value of the field in the field repository.
 			$this->field_repository->get( $field_id )->set_value( $field_value );
