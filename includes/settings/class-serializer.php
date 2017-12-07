@@ -59,9 +59,20 @@ class Serializer {
 
 		// Validate nonce and verify user has permission to save.
 		if ( $this->has_valid_nonce() && $this->has_permission() ) {
-			foreach ( $settings as $key => $value ) {
-				$this->save( $key, $value);
+			foreach ( $settings as $setting => $value ) {
+				$this->save( $setting, $value);
 			}
+
+			$section = sanitize_text_field( $_POST['wp_business_reviews_subtab'] );
+
+			/**
+			 * Fires after all posted settings have been saved.
+			 *
+			 * @since 0.1.0
+			 *
+			 * @param string $section Name of the updated setting.
+			 */
+			do_action( 'wp_business_reviews_saved_settings', $section );
 		} else {
 			// TODO: Display an error message regarding permission.
 		}
@@ -74,33 +85,17 @@ class Serializer {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key   Key of the setting being saved.
-	 * @param mixed  $value Value of the setting being saved.
+	 * @param string $setting Key of the setting being saved.
+	 * @param mixed  $value   Value of the setting being saved.
 	 * @return boolean True if option saved, false if update failed or
 	 *                 key is not allowed.
 	 */
-	public function save( $key, $value ) {
-		if ( $this->is_allowed_key( $key ) ) {
-			$clean_value = $this->clean( $value );
-
-			if ( update_option( 'wp_business_reviews_' . $key, $clean_value  ) ) {
-				/**
-				 * Triggers dynamic action using the key that was just saved.
-				 *
-				 * @since 0.1.0
-				 *
-				 * @param string $key        Key of the setting being saved.
-				 * @param mixed $clean_value Sanitized value of the setting
-				 *                           being saved.
-				 */
-				do_action( 'wp_business_reviews_save_' . $key, $clean_value );
-
-				return true;
-			}
+	public function save( $setting, $value ) {
+		if ( ! $this->is_allowed_key( $setting ) ) {
+			return false;
 		}
 
-		// Key either is not allowed or failed to save.
-		return false;
+		return update_option( 'wp_business_reviews_' . $setting, $this->clean( $value ) );
 	}
 
 	/**
