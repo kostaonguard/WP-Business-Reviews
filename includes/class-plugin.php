@@ -107,7 +107,7 @@ final class Plugin {
 			$request_factory = new Request_Factory( $settings_deserializer );
 
 			// Register platform status checker.
-			$active_platforms = $settings_deserializer->get( 'active_platforms');
+			$active_platforms = $settings_deserializer->get( 'active_platforms') ?: array();
 			$platform_status = new Platform_Status(
 				$settings_serializer,
 				$request_factory,
