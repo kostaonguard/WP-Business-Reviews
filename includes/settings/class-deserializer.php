@@ -21,12 +21,12 @@ class Deserializer {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $option Name of the option to retrieve.
-	 * @param string $key    Optional. Specific array key for when the option
-	 *                       is an array.
+	 * @param string $setting Name of the setting to retrieve.
+	 * @param string $key     Optional. Specific array key for when the
+	 *                        setting's value is an array.
 	 */
-	public function get( $option, $key = false ) {
-		$value = get_option( 'wp_business_reviews_' . $option );
+	public function get( $setting, $key = false ) {
+		$value = get_option( 'wp_business_reviews_' . $setting );
 
 		if ( false !== $key ) {
 			if ( isset( $value[ $key ] ) ) {
