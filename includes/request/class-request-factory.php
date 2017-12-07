@@ -52,17 +52,24 @@ class Request_Factory {
 			case 'google_places':
 				$key     = $this->deserializer->get( 'api_key_google_places' );
 				$request = new Google_Places_Request( $key );
+				break;
 			case 'facebook':
 				// TODO: Get token via deserializer.
 				// $request = new Facebook_Request( $token );
+				break;
 			case 'yelp':
-				// TODO: Get client ID and client secret via deserializer.
-				// $request = new Yelp_Request( $client_id, $client_secret, $token );
+				$client_id     = $this->deserializer->get( 'yelp_client_id' );
+				$client_secret = $this->deserializer->get( 'yelp_client_secret' );
+				$token         = $this->deserializer->get( 'yelp_token' );
+				$request       = new Yelp_Request( $client_id, $client_secret, $token );
+				break;
 			case 'yp':
 				$key     = $this->deserializer->get( 'api_key_yp' );
 				$request = new YP_Request( $key );
+				break;
 			case 'wp_org':
 				// $request = new WP_Org_Request();
+				break;
 		}
 
 		return $request;
