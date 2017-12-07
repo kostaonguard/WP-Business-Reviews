@@ -28,7 +28,7 @@ class Deserializer {
 	public function get( $option, $key = false ) {
 		$value = get_option( 'wp_business_reviews_' . $option );
 
-		if ( $key ) {
+		if ( false !== $key ) {
 			if ( isset( $value[ $key ] ) ) {
 				return $value[ $key ];
 			} else {
