@@ -39,7 +39,6 @@ class YP_Request extends Request_Base {
 	public function is_connected() {
 		$response = $this->search( 'PNC Park', 'Pittsburgh' );
 
-		// Check status key to confirm if request was successful.
 		if (
 			isset( $response['result'] )
 			&& isset( $response['result']['metaProperties'] )
