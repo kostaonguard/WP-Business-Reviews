@@ -58,7 +58,7 @@ class Google_Places_Request extends Request_Base {
 		$url = add_query_arg(
 			array(
 				'query' => $term . ', ' . $location,
-				'key'   => $this->get_key(),
+				'key'   => $this->key,
 			),
 			'https://maps.googleapis.com/maps/api/place/textsearch/json'
 		);
@@ -79,7 +79,7 @@ class Google_Places_Request extends Request_Base {
 		$url = add_query_arg(
 			array(
 				'place_id' => $id,
-				'key'      => $this->get_key(),
+				'key'      => $this->key,
 			),
 			'https://maps.googleapis.com/maps/api/place/details/json'
 		);
