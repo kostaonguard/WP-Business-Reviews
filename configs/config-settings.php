@@ -126,7 +126,7 @@ $config = array(
 						'platform' => 'yelp',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'yelp_api_key' => array(
+					'api_key_yelp' => array(
 						'name'         => __( 'Yelp API Key', 'wp-business-reviews' ),
 						'type'         => 'input',
 						'description'  => sprintf(
