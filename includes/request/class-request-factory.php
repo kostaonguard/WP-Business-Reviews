@@ -58,10 +58,8 @@ class Request_Factory {
 				// $request = new Facebook_Request( $token );
 				break;
 			case 'yelp':
-				$client_id     = $this->deserializer->get( 'yelp_client_id' );
-				$client_secret = $this->deserializer->get( 'yelp_client_secret' );
-				$token         = $this->deserializer->get( 'yelp_token' );
-				$request       = new Yelp_Request( $client_id, $client_secret, $token );
+				$key     = $this->deserializer->get( 'api_key_yelp' );
+				$request = new Yelp_Request( $key );
 				break;
 			case 'yp':
 				$key     = $this->deserializer->get( 'api_key_yp' );
