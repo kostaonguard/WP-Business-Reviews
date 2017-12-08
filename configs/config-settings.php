@@ -126,31 +126,15 @@ $config = array(
 						'platform' => 'yelp',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'yelp_client_id' => array(
-						'name'         => __( 'Yelp Client ID', 'wp-business-reviews' ),
+					'yelp_api_key' => array(
+						'name'         => __( 'Yelp API Key', 'wp-business-reviews' ),
 						'type'         => 'input',
 						'description'  => sprintf(
 							/* translators: link to documentation */
-							__( 'Defines the Yelp Client ID required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Client ID%2$s.', 'wbpr' ),
+							__( 'Defines the Yelp API Key required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp API Key%2$s.', 'wbpr' ),
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
-						'wrapper_class' => 'wpbr-field--spacious',
-					),
-					'yelp_client_secret' => array(
-						'name'         => __( 'Yelp Client Secret', 'wp-business-reviews' ),
-						'type'         => 'input',
-						'description'  => sprintf(
-							/* translators: link to documentation */
-							__( 'Defines the Yelp Client Secret required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp Secret Key%2$s.', 'wbpr' ),
-							'<a href="https://wpbusinessreviews.com/">',
-							'</a>'
-						),
-						'wrapper_class' => 'wpbr-field--spacious',
-					),
-					'yelp_token' => array(
-						'name'         => __( 'Yelp Access Token', 'wp-business-reviews' ),
-						'type'         => 'input',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
 					'save_yelp' => array(
