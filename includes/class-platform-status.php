@@ -69,13 +69,25 @@ class Platform_Status {
 	}
 
 	public function save_platform_status( $platform ) {
-		error_log( print_r( 'save_platform_status', true ) );
-
-		if ( $this->is_active_platform( $platform ) && $this->is_connected( $platform ) ) {
-			error_log( print_r( $platform . ' is active!', true ) );
-		} else {
-			error_log( print_r( $platform . ' is NOT active!', true ) );
+		if ( ! $this->is_active_platform( $platform ) ) {
+			return false;
 		}
+
+		if ( $this->is_connected( $platform ) ) {
+			$status = 'connected';
+		} else {
+			$status = 'disconnected';
+		}
+
+		$this->serializer->save(
+			'platform_status_' . $platform,
+			array(
+				'status'       => $status,
+				'last_checked' => time(),
+			)
+		);
+
+		return true;
 	}
 
 	private function is_active_platform( $platform ) {
