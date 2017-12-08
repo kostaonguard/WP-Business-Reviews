@@ -23,14 +23,10 @@ class Yelp_Request extends Request_Base {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $client_id     The client ID of the Yelp app.
-	 * @param string $client_secret The client secret of the Yelp app.
-	 * @param string $token  Optional. Access token for Yelp Fusion API.
+	 * @param string $key Yelp Fusion API key.
 	 */
-	public function __construct( $client_id, $client_secret, $token = '' ) {
-		$this->client_id     = $client_id;
-		$this->client_secret = $client_secret;
-		$this->token         = $token;
+	public function __construct( $key ) {
+		$this->key = $key;
 	}
 
 	/**
@@ -70,7 +66,7 @@ class Yelp_Request extends Request_Base {
 		$args = array(
 			'user-agent'     => '',
 			'headers' => array(
-				'authorization' => 'Bearer ' . $this->get_token(),
+				'authorization' => 'Bearer ' . $this->key,
 			),
 		);
 
@@ -92,7 +88,7 @@ class Yelp_Request extends Request_Base {
 		$args = array(
 			'user-agent'     => '',
 			'headers' => array(
-				'authorization' => 'Bearer ' . $this->get_token(),
+				'authorization' => 'Bearer ' . $this->key,
 			),
 		);
 
@@ -114,38 +110,12 @@ class Yelp_Request extends Request_Base {
 		$args = array(
 			'user-agent'     => '',
 			'headers' => array(
-				'authorization' => 'Bearer ' . $this->get_token(),
+				'authorization' => 'Bearer ' . $this->key,
 			),
 		);
 
 		$response = $this->get( $url, $args );
 
 		return $response;
-	}
-
-	/**
-	 * Retrieves a Yelp Fusion API access token.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return string The Yelp Fusion API access token.
-	 */
-	private function get_token() {
-		if ( ! empty( $this->token ) ) {
-			return $this->token;
-		} else {
-			$args = array(
-				'user-agent'     => '',
-				'body'           => array(
-					'grant_type'    => 'client_credentials',
-					'client_id'     => $this->client_id,
-					'client_secret' => $this->client_secret,
-				)
-			);
-
-			$response = $this->post( 'https://api.yelp.com/oauth2/token', $args );
-
-			return isset( $response['access_token'] ) ? sanitize_text_field( $response['access_token'] ) : '';
-		}
 	}
 }
