@@ -70,7 +70,7 @@ class Yelp_Request extends Request_Base {
 		$args = array(
 			'user-agent'     => '',
 			'headers' => array(
-				'authorization' => 'Bearer ' . $this->token,
+				'authorization' => 'Bearer ' . $this->get_token(),
 			),
 		);
 
@@ -92,7 +92,7 @@ class Yelp_Request extends Request_Base {
 		$args = array(
 			'user-agent'     => '',
 			'headers' => array(
-				'authorization' => 'Bearer ' . $this->token,
+				'authorization' => 'Bearer ' . $this->get_token(),
 			),
 		);
 
@@ -114,7 +114,7 @@ class Yelp_Request extends Request_Base {
 		$args = array(
 			'user-agent'     => '',
 			'headers' => array(
-				'authorization' => 'Bearer ' . $this->token,
+				'authorization' => 'Bearer ' . $this->get_token(),
 			),
 		);
 
@@ -145,7 +145,7 @@ class Yelp_Request extends Request_Base {
 
 			$response = $this->post( 'https://api.yelp.com/oauth2/token', $args );
 
-			return $response;
+			return isset( $response['access_token'] ) ? sanitize_text_field( $response['access_token'] ) : '';
 		}
 	}
 }
