@@ -148,6 +148,11 @@ $config = array(
 						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
+					'yelp_token' => array(
+						'name'         => __( 'Yelp Access Token', 'wp-business-reviews' ),
+						'type'         => 'input',
+						'wrapper_class' => 'wpbr-field--spacious',
+					),
 					'save_yelp' => array(
 						'type'    => 'save',
 						'wrapper_class' => 'wpbr-field--spacious',
