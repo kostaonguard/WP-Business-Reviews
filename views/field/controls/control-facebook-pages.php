@@ -25,5 +25,10 @@
 		</li>
 	</ul>
 <?php else : ?>
-	<a class="button button-primary" href="https://wordimpress.com/wi-api/get_token"><?php _e( 'Connect to Facebook', 'wp-business-reviews' ); ?></a>
+	<?php
+	// URL parameters must match menu_slug, post_type, tab, and subtab.
+	$redirect = admin_url() . 'edit.php?page=wpbr_settings&post_type=wpbr_review&wpbr_subtab=facebook&wpbr_tab=general';
+	$url      = 'http://wpbr-facebook-server.dev/facebook-token/request/?wpbr_redirect=' .  urlencode( $redirect ) ;
+	?>
+	<a class="button button-primary" href="<?php echo esc_url( $url ); ?>"><?php _e( 'Connect to Facebook', 'wp-business-reviews' ); ?></a>
 <?php endif; ?>
