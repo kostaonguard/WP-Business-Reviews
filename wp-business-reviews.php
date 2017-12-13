@@ -30,6 +30,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Define plugin environment ('local' or 'production').
+if ( ! defined( 'WPBR_ENV' ) ) {
+	define( 'WPBR_ENV', 'production' );
+}
+
 // Define plugin directory Path.
 if ( ! defined( 'WPBR_PLUGIN_DIR' ) ) {
 	define( 'WPBR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
