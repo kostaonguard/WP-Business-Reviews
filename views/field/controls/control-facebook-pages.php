@@ -26,9 +26,16 @@
 	</ul>
 <?php else : ?>
 	<?php
-	// URL parameters must match menu_slug, post_type, tab, and subtab.
-	$redirect = admin_url() . 'edit.php?page=wpbr_settings&post_type=wpbr_review&wpbr_subtab=facebook&wpbr_tab=general';
-	$url      = 'http://wpbr-facebook-server.dev/facebook-token/request/?wpbr_redirect=' .  urlencode( $redirect ) ;
+	if ( 'development' === WPBR_ENV ) {
+		$scheme = 'http';
+		$host   = 'wp-business-reviews-server.localhost';
+	} else {
+		$scheme = 'https';
+		$host   = 'wpbusinessreviews.com';
+	}
+
+	$settings_url = admin_url() . 'edit.php?page=wpbr_settings&post_type=wpbr_review&wpbr_subtab=facebook&wpbr_tab=general';
+	$url          = $scheme . '://' . $host . '/facebook-token/request/?wpbr_redirect=' . urlencode( $settings_url );
 	?>
 	<a class="button button-primary" href="<?php echo esc_url( $url ); ?>"><?php _e( 'Connect to Facebook', 'wp-business-reviews' ); ?></a>
 <?php endif; ?>
