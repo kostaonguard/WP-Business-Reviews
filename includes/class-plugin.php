@@ -23,6 +23,7 @@ use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Reviews_Builder;
 use WP_Business_Reviews\Includes\Settings\Option_Repository;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
+use WP_Business_Reviews\Includes\Facebook_Oauth_Client;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -105,6 +106,13 @@ final class Plugin {
 
 			// Register remote API requests.
 			$request_factory = new Request_Factory( $settings_deserializer );
+
+			// Register Facebook OAuth Client.
+			$facebook_oauth_client = new Facebook_Oauth_Client(
+				$settings_serializer,
+				$request_factory->create( 'facebook' )
+			);
+			$facebook_oauth_client->register();
 
 			// Register platform status checker.
 			$active_platforms = $settings_deserializer->get( 'active_platforms') ?: array();
