@@ -57,11 +57,11 @@ class Facebook_Oauth_Client {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		// Hook into settings and check for $_POST['wpbr_facebook_token'].
+		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_user_access_token' ) );
 	}
 
 	public function save_user_access_token() {
-		// Save token from $_POST.
+		error_log( print_r( 'saving user access token', true ) );
 	}
 
 	public function save_page_access_tokens() {
