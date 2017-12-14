@@ -54,7 +54,7 @@ if ( ! empty( $this->args['name'] ) ) {
  *
  * @param string $field_id    Unique identifier of the field.
  * @param array  $field_args  Array of field args.
- * @param string $field_value Value of the field.
+ * @param mixed  $field_value Value of the field.
  */
 do_action( "wp_business_reviews_after_field_{$this->id}", $this->id, $this->args, $this->value );
 ?>
