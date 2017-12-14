@@ -61,38 +61,39 @@ class Facebook_Page_Manager {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_filter( 'wp_business_reviews_field_get_value_facebook_user_token', array( $this, 'save_user_token' ) );
+		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_token' ), 1 );
+		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_pages' ), 1 );
 	}
 
-	public function save_user_token( $token ) {
+	public function save_token() {
 		if ( ! isset( $_POST['wpbr_facebook_user_token'] ) ) {
-			return $token;
+			return false;
 		}
 
-		$new_token = sanitize_text_field( $_POST['wpbr_facebook_user_token'] );
+		$token = sanitize_text_field( $_POST['wpbr_facebook_user_token'] );
 
-		// If new token successfully saves, update $token value prior to return.
-		if ( $this->serializer->save( 'facebook_user_token', $new_token) ) {
-			error_log( print_r( 'just saved a user token', true ) );
-			$token = $new_token;
-
-			do_action( 'wp_business_reviews_facebook_user_token_saved', 'facebook' );
-
-			// Since user token was updated, Facebook pages will need refreshed.
-			add_filter( 'wp_business_reviews_field_get_value_facebook_pages', array( $this, 'save_pages' ) );
-		}
-
+		// Update the request token so it can be used in other methods.
 		$this->request->set_token( $token );
 
-		return $token;
+		if ( $this->serializer->save( 'facebook_user_token', $token ) ) {
+			/**
+			 * Fires after Facebook user token successfully saves.
+			 *
+			 * @since 0.1.0
+			 */
+			do_action( 'wp_business_reviews_facebook_user_token_saved', 'facebook' );
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	public function save_pages( $pages ) {
+	public function save_pages() {
 		if ( ! $this->request->has_token() ) {
-			return $pages;
+			return false;
 		}
 
-		$new_pages = array();
+		$pages = array();
 		$response  = $this->request->get_pages();
 
 		// Process the array of pages and pull out only the keys we need.
@@ -102,19 +103,13 @@ class Facebook_Page_Manager {
 					continue;
 				}
 
-				$new_pages[ $page['id'] ] = array(
+				$pages[ $page['id'] ] = array(
 					'name'  => $page['name'],
 					'token' => $page['access_token'],
 				);
 			}
 		}
 
-		// If new pages successfully save, update $pages value prior to return.
-		if ( $this->serializer->save( 'facebook_pages', $new_pages) ) {
-			error_log( print_r( 'saved pages!', true ) );
-			$pages = $new_pages;
-		}
-
-		return $pages;
+		return $this->serializer->save( 'facebook_pages', $pages );
 	}
 }
