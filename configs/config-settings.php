@@ -75,7 +75,7 @@ $config = array(
 						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'google_places_save' => array(
+					'save_google_places' => array(
 						'type'    => 'save',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
@@ -143,7 +143,7 @@ $config = array(
 						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'yelp_save' => array(
+					'save_yelp' => array(
 						'type'    => 'save',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
@@ -178,7 +178,7 @@ $config = array(
 						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'yp_save'            => array(
+					'save_yp'            => array(
 						'id'      => 'save_yp',
 						'type'    => 'save',
 						'wrapper_class' => 'wpbr-field--spacious',
