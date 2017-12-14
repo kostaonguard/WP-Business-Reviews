@@ -1,18 +1,3 @@
-<?php
-/**
- * Fires before a field is rendered.
- *
- * @since 0.1.0
- *
- * @see WP_Business_Reviews/Includes/Field/Base_Field
- *
- * @param string $field_id    Unique identifier of the field.
- * @param array  $field_args  Array of field args.
- * @param string $field_value Value of the field.
- */
-do_action( "wp_business_reviews_before_field_{$this->id}", $this->id, $this->args, $this->value );
-?>
-
 <div
 id="wpbr-field-<?php echo esc_attr( $this->id ); ?>"
 class="wpbr-field wpbr-field--<?php echo esc_attr( $this->args['type'] ); ?> js-wpbr-field<?php echo ( $this->args['wrapper_class'] ? ' ' . esc_attr( $this->args['wrapper_class'] ) : '' ); ?>"
@@ -43,18 +28,3 @@ if ( ! empty( $this->args['name'] ) ) {
 		?>
 	</div>
 </div>
-
-<?php
-/**
- * Fires after a field is rendered.
- *
- * @since 0.1.0
- *
- * @see WP_Business_Reviews/Includes/Field/Base_Field
- *
- * @param string $field_id    Unique identifier of the field.
- * @param array  $field_args  Array of field args.
- * @param mixed  $field_value Value of the field.
- */
-do_action( "wp_business_reviews_after_field_{$this->id}", $this->id, $this->args, $this->value );
-?>
