@@ -96,7 +96,7 @@ final class Plugin {
 
 		if ( is_admin() ) {
 			// Register settings serializer which saves settings to the database.
-			$settings_serializer       = new Serializer( $settings_field_repository->get_keys() );
+			$settings_serializer = new Serializer( $settings_field_repository->get_keys() );
 			$settings_serializer->register();
 
 			// Register reviews builder.
