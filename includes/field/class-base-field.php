@@ -119,18 +119,7 @@ class Base_Field {
 	 * @return mixed $value Field value.
 	 */
 	public function get_value() {
-		/**
-		 *  * Fires after a field is rendered.
-		 *
-		 * @since 0.1.0
-		 *
-		 * @see WP_Business_Reviews/Includes/Field/Base_Field
-		 *
-		 * @param mixed  $field_value Value of the field.
-		 * @param string $field_id    Unique identifier of the field.
-		 * @param array  $field_args  Array of field args.
-		 */
-		return apply_filters( "wp_business_reviews_field_value_{$this->id}", $this->value, $this->id, $this->args );
+		return $this->value;
 	}
 
 	/**
