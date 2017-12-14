@@ -5,7 +5,9 @@
 		if ( ! empty( $tab['sections'] ) && count( $tab['sections'] ) > 1 ) {
 			$this->render_partial( WPBR_PLUGIN_DIR . 'views/settings/panel/panel-sidebar.php',
 				array(
-					'sections' => $tab['sections'],
+					'sections'            => $tab['sections'],
+					'active_platforms'    => $this->active_platforms,
+					'connected_platforms' => $this->connected_platforms,
 				)
 			);
 		}
