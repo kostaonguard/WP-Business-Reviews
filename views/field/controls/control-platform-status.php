@@ -8,8 +8,6 @@
 			<?php echo esc_html__( 'Not Connected', 'wp-business-reviews' ); ?>
 		</strong>
 	<?php endif; ?>
-
-	<button class="button wpbr-field__inline-button js-wpbr-refresh-button"><?php esc_html_e( 'Refresh', 'wp-business-reviews' ); ?></button>
 </div>
 
 <?php if ( isset( $this->value['last_checked'] ) ) : ?>
