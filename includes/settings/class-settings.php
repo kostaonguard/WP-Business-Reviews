@@ -88,7 +88,7 @@ class Settings {
 		foreach ( $field_objects as $field_id => $field_object ) {
 			$field_value = $this->deserializer->get( $field_id );
 
-			if ( null === $field_value ) {
+			if ( empty( $field_value ) ) {
 				$field_value = $field_object->get_arg( 'default' );
 			}
 
