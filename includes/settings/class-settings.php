@@ -107,9 +107,6 @@ class Settings {
 	public function get_active_platforms() {
 		$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
 
-		error_log( print_r( 'active:', true ) );
-		error_log( print_r( $active_platforms, true ) );
-
 		return $active_platforms;
 	}
 
@@ -130,9 +127,6 @@ class Settings {
 				$connected_platforms[] = $platform;
 			}
 		}
-
-		error_log( print_r( 'connected:', true ) );
-		error_log( print_r( $connected_platforms, true ) );
 
 		return $connected_platforms;
 	}
