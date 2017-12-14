@@ -5,6 +5,10 @@
 .wpbr-platform-status {
 	text-transform: uppercase;
 
+	.wpbr-field & {
+		margin: $wpbr-space-quarter 0 0;
+	}
+
 	&--success {
 		color: $wpbr-color-success;
 	}
