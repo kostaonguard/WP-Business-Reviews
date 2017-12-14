@@ -38,7 +38,6 @@
 							$field_object = $this->field_repository->get( $field_id );
 							$field_object->render();
 						}
-						// $field_obj
 					}
 					?>
 				</form>
