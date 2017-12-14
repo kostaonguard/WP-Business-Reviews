@@ -99,6 +99,12 @@ $config = array(
 						'platform' => 'facebook',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
+					'facebook_user_token' => array(
+						'name'        => __( 'Facebook User Token', 'wp-business-reviews' ),
+						'type'        => 'input',
+						'description' => __( 'This field will eventually be internal so it does not render at all, but it is visible now for debugging.', 'wbpr' ),
+						'wrapper_class' => 'wpbr-field--spacious',
+					),
 					'facebook_pages' => array(
 						'name'        => __( 'Facebook Pages', 'wp-business-reviews' ),
 						'type'        => 'facebook_pages',
