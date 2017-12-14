@@ -57,14 +57,14 @@ $config = array(
 				),
 				'icon'        => 'status',
 				'fields'      => array(
-					'platform_status_google_places' => array(
+					'google_places_platform_status' => array(
 						'name'     => __( 'Platform Status', 'wp-business-reviews' ),
 						'type'     => 'platform_status',
 						'default'  => 'disconnected',
 						'platform' => 'google_places',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'api_key_google_places' => array(
+					'google_places_api_key' => array(
 						'name'         => __( 'Google Places API Key', 'wp-business-reviews' ),
 						'type'         => 'input',
 						'description'  => sprintf(
@@ -75,7 +75,7 @@ $config = array(
 						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'save_google_places' => array(
+					'google_places_save' => array(
 						'type'    => 'save',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
@@ -92,7 +92,7 @@ $config = array(
 				),
 				'icon'        => 'status',
 				'fields'      => array(
-					'platform_status_facebook' => array(
+					'facebook_platform_status' => array(
 						'name'     => __( 'Platform Status', 'wp-business-reviews' ),
 						'type'     => 'platform_status',
 						'default'  => 'disconnected',
@@ -124,7 +124,7 @@ $config = array(
 				),
 				'icon'        => 'status',
 				'fields'      => array(
-					'platform_status_yelp' => array(
+					'yelp_platform_status' => array(
 						'name'     => __( 'Platform Status', 'wp-business-reviews' ),
 						'type'     => 'platform_status',
 
@@ -132,7 +132,7 @@ $config = array(
 						'platform' => 'yelp',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'api_key_yelp' => array(
+					'yelp_api_key' => array(
 						'name'         => __( 'Yelp API Key', 'wp-business-reviews' ),
 						'type'         => 'input',
 						'description'  => sprintf(
@@ -143,7 +143,7 @@ $config = array(
 						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'save_yelp' => array(
+					'yelp_save' => array(
 						'type'    => 'save',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
@@ -160,16 +160,14 @@ $config = array(
 				),
 				'icon'        => 'status',
 				'fields'      => array(
-					'platform_status_yp' => array(
-						'id'       => 'platform_status_yp',
+					'yp_platform_status' => array(
 						'name'     => __( 'Platform Status', 'wp-business-reviews' ),
 						'type'     => 'platform_status',
 						'default'  => 'disconnected',
 						'platform' => 'yp',
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'api_key_yp'         => array(
-						'id'           => 'api_key_yp',
+					'yp_api_key'         => array(
 						'name'         => __( 'YP API Key', 'wp-business-reviews' ),
 						'type'         => 'input',
 						'description'  => sprintf(
@@ -180,7 +178,7 @@ $config = array(
 						),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'save_yp'            => array(
+					'yp_save'            => array(
 						'id'      => 'save_yp',
 						'type'    => 'save',
 						'wrapper_class' => 'wpbr-field--spacious',
