@@ -111,10 +111,6 @@ $config = array(
 						'description' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wp-business-reviews' ),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
-					'facebook_save' => array(
-						'type'    => 'save',
-						'wrapper_class' => 'wpbr-field--spacious',
-					),
 				),
 			),
 			'yelp' => array(
