@@ -1,5 +1,5 @@
 <div class="wpbr-field__flex">
-	<?php if ( 'connected' === $this->value['status'] ) : ?>
+	<?php if ( isset( $this->value['status'] ) && 'connected' === $this->value['status'] ) : ?>
 		<strong class="wpbr-platform-status wpbr-platform-status--success">
 			<?php echo esc_html__( 'Connected', 'wp-business-reviews' ); ?>
 		</strong>
