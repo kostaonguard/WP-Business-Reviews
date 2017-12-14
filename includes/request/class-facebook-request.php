@@ -23,8 +23,8 @@ class Facebook_Request extends Request_Base {
 	 *
 	 * @since 0.1.0
 	 */
-	public function __construct() {
-		// Pass dependencies to Facebook_Request.
+	public function __construct( $token ) {
+		$this->token = $token;
 	}
 
 	/**
@@ -32,31 +32,64 @@ class Facebook_Request extends Request_Base {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return bool True if connection was successful, otherwise false.
+	 * @return bool True if connection was successful, false otherwise.
 	 */
 	public function is_connected() {
-		// Test connection.
+		$url = add_query_arg(
+			array(
+				'access_token' => $this->token,
+			),
+			'https://graph.facebook.com/v2.11/me/'
+		);
+
+		$response = $this->get( $url );
+
+		if ( isset( $response['error'] ) ) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**
-	 * Retrieves business details based on Yelp business ID.
+	 * Retrieves Facebook pages from the Facebook Graph API.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $id The Yelp business ID.
+	 * @return array Associative array containing the response body.
 	 */
-	public function get_business( $id ) {
-		// Get business details.
+	public function get_pages() {
+		$url = add_query_arg(
+			array(
+				'access_token' => $this->token,
+			),
+			'https://graph.facebook.com/v2.11/me/accounts/'
+		);
+
+		$response = $this->get( $url );
+
+		return $response;
 	}
 
 	/**
-	 * Retrieves reviews based on Yelp business ID.
+	 * Sets the Facebook user access token.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $id The Yelp business ID.
+	 * @param string $token User access token.
 	 */
-	public function get_reviews( $id ) {
-		// Get reviews.
+	public function set_token( $token ) {
+		$this->token = $token;
+	}
+
+	/**
+	 * Determines if a token has been set.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return boolean True if token is set, false otherwise.
+	 */
+	public function has_token() {
+		return ! empty( $this->token );
 	}
 }
