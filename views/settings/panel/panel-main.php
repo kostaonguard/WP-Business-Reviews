@@ -1,5 +1,14 @@
 <div class="wpbr-panel__main">
 	<?php foreach ( $this->sections as $section_id => $section ) : ?>
+		<?php
+		// Skip platform panel if not active.
+		if (
+			'general' === $this->tab_id
+			&& 'platforms' !== $section_id
+			&& ! in_array( $section_id, $this->active_platforms ) ) {
+			continue;
+		}
+		?>
 		<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section js-wpbr-section" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
 			<div class="wpbr-admin-header">
 				<h2 class="wpbr-admin-header__heading"><?php echo esc_html( $section['heading'] ); ?></h2>
