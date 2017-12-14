@@ -65,9 +65,21 @@ class Platform_Status {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wp_business_reviews_saved_settings', array( $this, 'save_platform_status' ) );
+		// Most platforms have their status saved after settings are saved.
+		add_action( 'wp_business_reviews_saved_settings',array( $this, 'save_platform_status' ) );
+
+		// Facebook is a special case because it needs to save status when the token is saved, after redirect.
+		add_action( 'wp_business_reviews_facebook_user_token_saved', array( $this, 'save_facebook_platform_status' ) );
 	}
 
+	/**
+	 * Saves the connection status of a platform.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $platform The platform slug.
+	 * @return boolean True if status saved, false otherwise.
+	 */
 	public function save_platform_status( $platform ) {
 		if ( ! $this->is_active_platform( $platform ) ) {
 			return false;
@@ -79,23 +91,52 @@ class Platform_Status {
 			$status = 'disconnected';
 		}
 
-		$this->serializer->save(
-			'platform_status_' . $platform,
+		return $this->serializer->save(
+			$platform . '_platform_status',
 			array(
 				'status'       => $status,
 				'last_checked' => time(),
 			)
 		);
-
-		return true;
 	}
 
+	/**
+	 * Saves the connection status of the Facebook platform.
+	 *
+	 * Since Facebook saves a token following a redirect, providing the
+	 * platform with its own method allows the status to be checked immediately
+	 * after the token is saved.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $platform The platform slug.
+	 * @return boolean True if status saved, false otherwise.
+	 */
+	public function save_facebook_platform_status() {
+		$this->save_platform_status( 'facebook' );
+	}
+
+	/**
+	 * Determines if platform has been marked active by the user.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $platform The platform slug.
+	 */
 	private function is_active_platform( $platform ) {
 		return in_array( $platform, $this->active_platforms );
 	}
 
+	/**
+	 * Determines if a valid connection can be made to a platform.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $platform The platform slug.
+	 */
 	private function is_connected( $platform ) {
 		$request = $this->request_factory->create( $platform );
+
 		return $request->is_connected();
 	}
 }
