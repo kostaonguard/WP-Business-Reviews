@@ -45,7 +45,11 @@
 					foreach ( $section['fields'] as $field_id => $field_args ) {
 						if ( $this->field_repository->has( $field_id ) ) {
 							$field_object = $this->field_repository->get( $field_id );
-							$field_object->render();
+
+							// Render any field that is not of type 'internal'.
+							if ( 'internal' !== $field_object->get_arg( 'type' ) ) {
+								$field_object->render();
+							}
 						}
 					}
 					?>
