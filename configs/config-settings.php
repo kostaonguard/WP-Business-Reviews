@@ -17,7 +17,7 @@ $config = array(
 				'heading'     => __( 'Platform Settings', 'wp-business-reviews' ),
 				'description' => sprintf(
 					/* translators: link to documentation */
-					__( 'Need help? See docs on %1$sWP Business Reviews 101%2$s.', 'wbpr' ),
+					__( 'Need help? See docs on %1$sWP Business Reviews 101%2$s.', 'wp-business-reviews' ),
 					'<a href="https://wpbusinessreviews.com/">',
 					'</a>'
 				),
@@ -51,7 +51,7 @@ $config = array(
 				'heading'     => __( 'Google Review Settings', 'wp-business-reviews' ),
 				'description' => sprintf(
 					/* translators: link to documentation */
-					__( 'Need help? See docs on %1$sGoogle Reviews 101%2$s.', 'wbpr' ),
+					__( 'Need help? See docs on %1$sGoogle Reviews 101%2$s.', 'wp-business-reviews' ),
 					'<a href="https://wpbusinessreviews.com/">',
 					'</a>'
 				),
@@ -69,7 +69,7 @@ $config = array(
 						'type'         => 'input',
 						'description'  => sprintf(
 							/* translators: link to documentation */
-							__( 'Defines the Google Places API Key required to retrieve Google reviews. For step-by-step instructions, see docs on %1$sHow to Generate a Google Places API Key%2$s.', 'wbpr' ),
+							__( 'Defines the Google Places API Key required to retrieve Google reviews. For step-by-step instructions, see docs on %1$sHow to Generate a Google Places API Key%2$s.', 'wp-business-reviews' ),
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
@@ -86,7 +86,7 @@ $config = array(
 				'heading'     => __( 'Facebook Review Settings', 'wp-business-reviews' ),
 				'description' => sprintf(
 					/* translators: link to documentation */
-					__( 'Need help? See docs on %1$sFacebook Reviews 101%2$s.', 'wbpr' ),
+					__( 'Need help? See docs on %1$sFacebook Reviews 101%2$s.', 'wp-business-reviews' ),
 					'<a href="https://wpbusinessreviews.com/">',
 					'</a>'
 				),
@@ -102,13 +102,13 @@ $config = array(
 					'facebook_user_token' => array(
 						'name'        => __( 'Facebook User Token', 'wp-business-reviews' ),
 						'type'        => 'input',
-						'description' => __( 'This field will eventually be internal so it does not render at all, but it is visible now for debugging.', 'wbpr' ),
+						'description' => __( 'This field will eventually be internal so it does not render at all, but it is visible now for debugging.', 'wp-business-reviews' ),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
 					'facebook_pages' => array(
 						'name'        => __( 'Facebook Pages', 'wp-business-reviews' ),
 						'type'        => 'facebook_pages',
-						'description' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wbpr' ),
+						'description' => __( 'The connected Facebook account must have a role of Admin, Editor, Moderator, Advertiser, or Analyst in order to display reviews from the Page.', 'wp-business-reviews' ),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
 				),
@@ -118,7 +118,7 @@ $config = array(
 				'heading'     => __( 'Yelp Review Settings', 'wp-business-reviews' ),
 				'description' => sprintf(
 					/* translators: link to documentation */
-					__( 'Need help? See docs on %1$sYelp Reviews 101%2$s.', 'wbpr' ),
+					__( 'Need help? See docs on %1$sYelp Reviews 101%2$s.', 'wp-business-reviews' ),
 					'<a href="https://wpbusinessreviews.com/">',
 					'</a>'
 				),
@@ -137,7 +137,7 @@ $config = array(
 						'type'         => 'input',
 						'description'  => sprintf(
 							/* translators: link to documentation */
-							__( 'Defines the Yelp API Key required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp API Key%2$s.', 'wbpr' ),
+							__( 'Defines the Yelp API Key required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp API Key%2$s.', 'wp-business-reviews' ),
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
@@ -154,7 +154,7 @@ $config = array(
 				'heading'     => __( 'YP Review Settings', 'wp-business-reviews' ),
 				'description' => sprintf(
 					/* translators: link to documentation */
-					__( 'Need help? See docs on %1$sYP Reviews 101%2$s.', 'wbpr' ),
+					__( 'Need help? See docs on %1$sYP Reviews 101%2$s.', 'wp-business-reviews' ),
 					'<a href="https://wpbusinessreviews.com/">',
 					'</a>'
 				),
@@ -172,7 +172,7 @@ $config = array(
 						'type'         => 'input',
 						'description'  => sprintf(
 							/* translators: link to documentation */
-							__( 'Defines the YP API Key required to retrieve YP reviews. For step-by-step instructions, see docs on %1$sHow to Generate a YP API Key%2$s.', 'wbpr' ),
+							__( 'Defines the YP API Key required to retrieve YP reviews. For step-by-step instructions, see docs on %1$sHow to Generate a YP API Key%2$s.', 'wp-business-reviews' ),
 							'<a href="https://wpbusinessreviews.com/">',
 							'</a>'
 						),
@@ -195,7 +195,7 @@ $config = array(
 				'heading'     => __( 'Advanced Settings', 'wp-business-reviews' ),
 				'description' => sprintf(
 					/* translators: link to documentation */
-					__( 'Need help? See docs on %1$sAdvanced Settings%2$s.', 'wbpr' ),
+					__( 'Need help? See docs on %1$sAdvanced Settings%2$s.', 'wp-business-reviews' ),
 					'<a href="https://wpbusinessreviews.com/">',
 					'</a>'
 				),
@@ -216,7 +216,7 @@ $config = array(
 						'type'        => 'radio',
 						'description' => sprintf(
 							/* translators: anchor attribute to discourage search engines */
-							__( 'Adds %s to review links in order to discourage search engines from following them.', 'wbpr' ),
+							__( 'Adds %s to review links in order to discourage search engines from following them.', 'wp-business-reviews' ),
 							'<code>rel="nofollow"</code>'
 						),
 						'default'     => 'disabled',
@@ -231,7 +231,7 @@ $config = array(
 						'type'        => 'radio',
 						'description' => sprintf(
 							/* translators: anchor attribute to open links in new tab */
-							__( 'Adds %s to review links when set to open in new tab.', 'wbpr' ),
+							__( 'Adds %s to review links when set to open in new tab.', 'wp-business-reviews' ),
 							'<code>target="_blank"</code>'
 						),
 						'default'     => '_self',
