@@ -34,7 +34,7 @@ class YP_Request extends Request_Base {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return bool True if connection was successful, otherwise false.
+	 * @return bool True if connection was successful, false otherwise.
 	 */
 	public function is_connected() {
 		$response = $this->search( 'PNC Park', 'Pittsburgh' );
@@ -58,6 +58,7 @@ class YP_Request extends Request_Base {
 	 *
 	 * @param string $term     The search term, usually a business name.
 	 * @param string $location The location within which to search.
+	 * @return array Associative array containing the response body.
 	 */
 	public function search( $term, $location ) {
 		$url = add_query_arg(
@@ -80,6 +81,7 @@ class YP_Request extends Request_Base {
 	 * @since 0.1.0
 	 *
 	 * @param string $id The YP listing ID.
+	 * @return array Associative array containing the response body.
 	 */
 	public function get_business( $id ) {
 		$url = add_query_arg(
@@ -102,6 +104,7 @@ class YP_Request extends Request_Base {
 	 * @since 0.1.0
 	 *
 	 * @param string $id The YP listing ID.
+	 * @return array Associative array containing the response body.
 	 */
 	public function get_reviews( $id ) {
 		$url = add_query_arg(
