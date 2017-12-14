@@ -19,6 +19,10 @@ class Field_Factory {
 	/**
 	 * Creates a new instance of a Field object.
 	 *
+	 * The field type is used to set certain arguments, such as `name_element`
+	 * that determines the HTML element used to display the field name.
+	 *
+	 *
 	 * @since 0.1.0
 	 *
 	 * @see WP_Business_Reviews\Includes\Field\Base_Field
@@ -36,11 +40,16 @@ class Field_Factory {
 				case 'search':
 				case 'select':
 					$args['name_element'] = 'label';
+					return new Base_Field( $id, $args );
 					break;
+				case 'platform_status':
+					return new Platform_Status_Field( $id, $args );
+					break;
+				default:
+					return new Base_Field( $id, $args );
 			}
 		}
 
 		// TODO: Add logic to return different field subclasses based on type.
-		return new Base_Field( $id, $args );
 	}
 }

@@ -3,10 +3,17 @@
 --------------------------------------------------------------*/
 
 .wpbr-platform-status {
-	color: $wpbr-color-error;
 	text-transform: uppercase;
+
+	.wpbr-field & {
+		margin: $wpbr-space-quarter 0 0;
+	}
 
 	&--success {
 		color: $wpbr-color-success;
+	}
+
+	&--error {
+		color: $wpbr-color-error;
 	}
 }

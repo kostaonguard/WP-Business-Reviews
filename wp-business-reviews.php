@@ -19,7 +19,7 @@
  * Author URI:        https://wordimpress.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wpbr
+ * Text Domain:       wp-business-reviews
  * Domain Path:       /languages
  */
 
@@ -28,6 +28,11 @@ namespace WP_Business_Reviews;
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+// Define plugin environment ('local' or 'production').
+if ( ! defined( 'WPBR_ENV' ) ) {
+	define( 'WPBR_ENV', 'production' );
 }
 
 // Define plugin directory Path.
@@ -57,4 +62,4 @@ require_once __DIR__ . '/autoloader.php';
 
 // Initialize the plugin.
 $plugin = new Includes\Plugin();
-$plugin->init();
+$plugin->register();

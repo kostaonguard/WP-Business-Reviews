@@ -1,5 +1,14 @@
 <div class="wpbr-panel__main">
 	<?php foreach ( $this->sections as $section_id => $section ) : ?>
+		<?php
+		// Skip platform panel if not active.
+		if (
+			'general' === $this->tab_id
+			&& 'platforms' !== $section_id
+			&& ! in_array( $section_id, $this->active_platforms ) ) {
+			continue;
+		}
+		?>
 		<div id="wpbr-section-<?php echo esc_attr( $section_id ); ?>" class="wpbr-panel__section js-wpbr-section" data-subtab-id="<?php echo esc_attr( $section_id ); ?>">
 			<div class="wpbr-admin-header">
 				<h2 class="wpbr-admin-header__heading"><?php echo esc_html( $section['heading'] ); ?></h2>
@@ -35,12 +44,13 @@
 					);
 					foreach ( $section['fields'] as $field_id => $field_args ) {
 						if ( $this->field_repository->has( $field_id ) ) {
-							// TODO: Move this logic into one of the settings classes.
 							$field_object = $this->field_repository->get( $field_id );
-							$field_object->set_value( get_option( 'wp_business_reviews_' . $field_id, $field_object->get_arg( 'default' ) ) );
-							$field_object->render();
+
+							// Render any field that is not of type 'internal'.
+							if ( 'internal' !== $field_object->get_arg( 'type' ) ) {
+								$field_object->render();
+							}
 						}
-						// $field_obj
 					}
 					?>
 				</form>

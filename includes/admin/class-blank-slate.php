@@ -119,7 +119,7 @@ class Blank_Slate {
 			'heading'   => __( 'Welcome to WP Business Reviews!', 'wp-business-reviews' ),
 			'message'   => __( 'Let\'s begin by connecting to at least one reviews platform.', 'wp-business-reviews' ),
 			'cta_text'  => __( 'Get Connected', 'wp-business-reviews' ),
-			'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=settings' ),
+			'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=wpbr_settings' ),
 		);
 
 		// TODO: Add logic to check for connected platform.
@@ -129,7 +129,7 @@ class Blank_Slate {
 				'heading'   => __( 'No reviews found.', 'wp-business-reviews' ),
 				'message'   => __( 'Now that you\'re connected to a reviews platform, let\'s build your first set of reviews.', 'wp-business-reviews' ),
 				'cta_text'  => __( 'Build Reviews', 'wp-business-reviews' ),
-				'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=reviews_builder' ),
+				'cta_link'  => admin_url( 'edit.php?post_type=wpbr_review&page=wpbr_reviews_builder' ),
 			);
 		}
 

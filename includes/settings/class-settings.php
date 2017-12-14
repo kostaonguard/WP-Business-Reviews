@@ -61,30 +61,6 @@ class Settings {
 		$this->config           = $config;
 		$this->field_repository = $field_repository;
 		$this->deserializer     = $deserializer;
-		$this->load_field_values();
-	}
-
-	/**
-	 * Loads field values from the database.
-	 *
-	 * If a field value does not exist in the database, the default value as
-	 * defined in the `Field` object will be used instead.
-	 *
-	 * @since 0.1.0
-	 */
-	private function load_field_values() {
-		// Get all field objects from the repository.
-		$field_objects = $this->field_repository->get_all();
-
-		foreach ( $field_objects as $field_id => $field_object ) {
-			$field_default = $field_object->get_arg( 'default' );
-
-			// Attempt to retrieve database value for each field, or fall back to default.
-			$field_value = $this->deserializer->get_value( $field_id, $field_default );
-
-			// Update the value of the field in the field repository.
-			$this->field_repository->get( $field_id )->set_value( $field_value );
-		}
 	}
 
 	/**
@@ -93,20 +69,87 @@ class Settings {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wpbr_review_page_settings', array( $this, 'render' ) );
+		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'set_field_values' ) );
+		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'render' ) );
+	}
+
+	/**
+	 * Sets field values from the database.
+	 *
+	 * If a field value does not exist in the database, the default value as
+	 * defined in the `Field` object will be used instead.
+	 *
+	 * @since 0.1.0
+	 */
+	public function set_field_values() {
+		// Get all field objects from the repository.
+		$field_objects = $this->field_repository->get_all();
+
+		foreach ( $field_objects as $field_id => $field_object ) {
+			$field_value = $this->deserializer->get( $field_id );
+
+			if ( empty( $field_value ) ) {
+				$field_value = $field_object->get_arg( 'default' );
+			}
+
+			// Update the value of the field in the field repository.
+			$this->field_repository->get( $field_id )->set_value( $field_value );
+		}
+	}
+
+	/**
+	 * Gets the active platforms.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Array of active platform slugs.
+	 */
+	public function get_active_platforms() {
+		$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
+
+		return $active_platforms;
+	}
+
+	/**
+	 * Gets the currently connected platforms.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $platforms Array of platforms.
+	 * @return array Array of connected platform slugs.
+	 */
+	public function get_connected_platforms( $platforms ) {
+		$connected_platforms = array();
+
+		foreach ( $platforms as $platform ) {
+			$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
+			if ( 'connected' === $status ) {
+				$connected_platforms[] = $platform;
+			}
+		}
+
+		return $connected_platforms;
 	}
 
 	/**
 	 * Renders the settings UI.
 	 *
+	 * Active and connected platforms are used to determine platform visibility
+	 * as well as connection status.
+	 *
 	 * @since  0.1.0
 	 */
 	public function render() {
-		$view_object = new View( WPBR_PLUGIN_DIR . 'views/settings/settings-main.php' );
+		$active_platforms    = $this->get_active_platforms();
+		$connected_platforms = $this->get_connected_platforms( $active_platforms );
+		$view_object         = new View( WPBR_PLUGIN_DIR . 'views/settings/settings-main.php' );
+
 		$view_object->render(
 			array(
-				'config'           => $this->config,
-				'field_repository' => $this->field_repository,
+				'config'              => $this->config,
+				'field_repository'    => $this->field_repository,
+				'active_platforms'    => $active_platforms,
+				'connected_platforms' => $connected_platforms,
 			)
 		);
 	}

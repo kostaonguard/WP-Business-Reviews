@@ -41,7 +41,12 @@ class Admin_Footer {
 			$star_link       = '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a>';
 			$text_link_open  = '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">';
 			$text_link_close = '</a>';
-			$footer          = sprintf( esc_html__( 'If you enjoy WP Business Reviews, consider leaving us a %s on %sWordPress.org%s.', 'wp-business-reviews' ), $star_link, $text_link_open, $text_link_close );
+			$footer          = sprintf(
+				esc_html__( 'If you enjoy WP Business Reviews, consider leaving us a %s on %sWordPress.org%s.', 'wp-business-reviews' ),
+				$star_link,
+				$text_link_open,
+				$text_link_close
+			);
 
 			return $footer;
 		}

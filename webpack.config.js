@@ -68,7 +68,7 @@ const config = {
 			],
 			host: 'localhost',
 			port: 3000,
-			proxy: 'wpbr-development.dev'
+			proxy: 'wp-business-reviews-client.localhost'
 		})
 	]
 };

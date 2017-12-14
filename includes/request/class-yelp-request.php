@@ -1,347 +1,124 @@
 <?php
-
 /**
- * Defines the Yelp_Request subclass
+ * Defines the Yelp_Request class
+ *
+ * @link https://wpbusinessreviews.com
  *
  * @package WP_Business_Reviews\Includes\Request
- * @since   0.1.0
+ * @since 0.1.0
  */
 
 namespace WP_Business_Reviews\Includes\Request;
-use WP_Error;
 
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+use WP_Business_Reviews\Includes\Request\Request_Base;
 
-/***
- * Requests data from the Yelp Fusion API.
+/**
+ * Retrieves data from Yelp Fusion API.
  *
  * @since 0.1.0
- * @see   Request
  */
-class Yelp_Request extends Request {
-
+class Yelp_Request extends Request_Base {
 	/**
-	 * Reviews platform used in the request.
-	 *
-	 * @since 0.1.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $platform = 'yelp';
-
-	/**
-	 * API host used in the request URL.
-	 *
-	 * @since 0.1.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $api_host = 'https://api.yelp.com';
-
-	/**
-	 * Path used in the business request URL.
-	 *
-	 * @since 0.1.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $business_path;
-
-	/**
-	 * Path used in the reviews request URL.
-	 *
-	 * @since 0.1.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $reviews_path;
-
-	/**
-	 * OAuth2 token required for Yelp Fusion API requests.
-	 *
-	 * @since 0.1.0
-	 * @access protected
-	 * @var string
-	 */
-	protected $access_token;
-
-	/**
-	 * Constructor.
+	 * Instantiates the Yelp_Request object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $business_id ID of the business passed in the API request.
+	 * @param string $key Yelp Fusion API key.
 	 */
-	public function __construct( $business_id ) {
-		$this->business_id   = $business_id;
-		$this->business_path = "/v3/businesses/$this->business_id";
-		$this->reviews_path = "/v3/businesses/{$this->business_id}/reviews";
-		// TODO: Get Yelp access token from database instead of using constant.
-		$this->access_token  = YELP_OAUTH_TOKEN;
+	public function __construct( $key ) {
+		$this->key = $key;
 	}
 
 	/**
-	 * Requests business data from remote API.
+	 * Tests the connection to the API with a sample search request.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return array|WP_Error Business data or WP_Error on failure.
+	 * @return bool True if connection was successful, false otherwise.
 	 */
-	public function request_business() {
-		// Define args to be passed with the request.
+	public function is_connected() {
+		$response = $this->search( 'PNC Park', 'Pittsburgh' );
+
+		if ( isset( $response['error'] ) ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Retrieves search results based on a search term and location.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $term     The search term, usually a business name.
+	 * @param string $location The location within which to search.
+	 * @return array Associative array containing the response body.
+	 */
+	public function search( $term, $location ) {
+		$url = add_query_arg(
+			array(
+				'term'     => $term,
+				'location' => $location,
+			),
+			'https://api.yelp.com/v3/businesses/search'
+		);
+
 		$args = array(
-			'user-agent' => '',
+			'user-agent'     => '',
 			'headers' => array(
-				'authorization' => 'Bearer ' . $this->access_token,
+				'authorization' => 'Bearer ' . $this->key,
 			),
 		);
 
-		// Request data from remote API.
-		$response = $this->request( $this->business_path, array(), $args );
+		$response = $this->get( $url, $args );
 
 		return $response;
 	}
 
 	/**
-	 * Requests reviews data from remote API.
+	 * Retrieves business details based on Yelp business ID.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return WP_Error|array Reviews data or WP_Error on failure.
+	 * @param string $id The Yelp business ID.
+	 * @return array Associative array containing the response body.
 	 */
-	public function request_reviews() {
-		// Define args to be passed with the request.
+	public function get_business( $id ) {
+		$url = 'https://api.yelp.com/v3/businesses/' . $id;
+
 		$args = array(
-			'user-agent' => '',
+			'user-agent'     => '',
 			'headers' => array(
-				'authorization' => 'Bearer ' . $this->access_token,
+				'authorization' => 'Bearer ' . $this->key,
 			),
 		);
 
-		// Request data from remote API.
-		$response = $this->request( $this->reviews_path, array(), $args );
+		$response = $this->get( $url, $args );
 
 		return $response;
 	}
 
 	/**
-	 * Standardize business response.
+	 * Retrieves reviews based on Yelp business ID.
 	 *
 	 * @since 0.1.0
-	 * @see Business
 	 *
-	 * @param array $response Business data from remote API.
-	 *
-	 * @return array|WP_Error Standardized business properties or WP_Error if
-	 *                        response structure does not meet expectations.
+	 * @param string $id The Yelp business ID.
+	 * @return array Associative array containing the response body.
 	 */
-	public function standardize_business( array $response ) {
-		if ( empty( $response ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wp-business-reviews' ) );
-		} else {
-			$r = $response;
-		}
+	public function get_reviews( $id ) {
+		$url = 'https://api.yelp.com/v3/businesses/' . $id . '/reviews';
 
-		// Set defaults.
-		$business = array(
-			'platform'      => $this->platform,
-			'business_id'   => $this->business_id,
-			'business_name' => null,
-			'meta'          => array(
-				'wpbr_page_url'       => null,
-				'wpbr_image_url'      => null,
-				'wpbr_rating'         => null,
-				'wpbr_rating_count'   => null,
-				'wpbr_phone'          => null,
-				'wpbr_street_address' => null,
-				'wpbr_city'           => null,
-				'wpbr_state_province' => null,
-				'wpbr_postal_code'    => null,
-				'wpbr_country'        => null,
-				'wpbr_latitude'       => null,
-				'wpbr_longitude'      => null,
+		$args = array(
+			'user-agent'     => '',
+			'headers' => array(
+				'authorization' => 'Bearer ' . $this->key,
 			),
 		);
 
-		// Set business name.
-		if ( isset( $r['name'] ) ) {
-			$business['business_name'] = sanitize_text_field( $r['name'] );
-		}
+		$response = $this->get( $url, $args );
 
-		// Set page URL.
-		$business['meta']['wpbr_page_url'] = "https://www.yelp.com/biz/{$this->business_id}";
-
-		// Set image URL.
-		if (
-			isset( $r['image_url'] )
-			&& filter_var( $r['image_url'], FILTER_VALIDATE_URL )
-		) {
-			$business['meta']['wpbr_image_url'] = $this->build_image_url( $r['image_url'] );
-		}
-
-		// Set rating.
-		if (
-			isset( $r['rating'] )
-			&& is_numeric( $r['rating'] )
-		) {
-			$business['meta']['wpbr_rating'] = $r['rating'];
-		}
-
-		// Set rating count.
-		if (
-			isset( $r['review_count'] )
-			&& is_numeric( $r['review_count'] )
-		) {
-			$business['meta']['wpbr_rating_count'] = $r['review_count'];
-		}
-
-		// Set phone.
-		if ( isset( $r['display_phone'] ) ) {
-			$business['meta']['wpbr_phone'] = sanitize_text_field( $r['display_phone'] );
-		}
-
-		// Set street address.
-		if ( isset( $r['location']['address1'] ) ) {
-			$business['meta']['wpbr_street_address'] = sanitize_text_field( $r['location']['address1'] );
-		}
-
-		// Set city.
-		if ( isset( $r['location']['city'] ) ) {
-			$business['meta']['wpbr_city'] = sanitize_text_field( $r['location']['city'] );
-		}
-
-		// Set state.
-		if ( isset( $r['location']['state'] ) ) {
-			$business['meta']['wpbr_state_province'] = sanitize_text_field( $r['location']['state'] );
-		}
-
-		// Set postal code.
-		if ( isset( $r['location']['zip_code'] ) ) {
-			$business['meta']['wpbr_postal_code'] = sanitize_text_field( $r['location']['zip_code'] );
-		}
-
-		// Set country.
-		if ( isset( $r['location']['country'] ) ) {
-			$business['meta']['wpbr_country'] = sanitize_text_field( $r['location']['country'] );
-		}
-
-		// Set latitude.
-		if (
-			isset( $r['coordinates']['latitude'] )
-			&& is_float( $r['coordinates']['latitude'] )
-		) {
-			$business['meta']['wpbr_latitude'] = sanitize_text_field( $r['coordinates']['latitude'] );
-		}
-
-		// Set longitude.
-		if (
-			isset( $r['coordinates']['longitude'] )
-			&& is_float( $r['coordinates']['longitude'] )
-		) {
-			$business['meta']['wpbr_longitude'] = sanitize_text_field( $r['coordinates']['longitude'] );
-		}
-
-		return $business;
-	}
-
-	/**
-	 * Standardizes reviews response for a set of reviews.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $response Reviews data from remote API.
-	 *
-	 * @return array|WP_Error Standardized review properties or WP_Error if
-	 *                        response structure does not meet expectations.
-	 */
-	public function standardize_reviews( array $response ) {
-		if ( ! isset( $response['reviews'] ) ) {
-			return new WP_Error( 'invalid_response_structure', __( 'Response could not be standardized.', 'wp-business-reviews' ) );
-		}
-
-		// Initialize array to store standardized properties.
-		$reviews = array();
-
-		// Loop through reviews and standardize properties.
-		foreach ( $response['reviews'] as $r ) {
-			// Set defaults.
-			$review = array(
-				'review_title'       => null,
-				'review_text'        => null,
-				'meta'               => array(
-					'wpbr_review_url'         => null,
-					'wpbr_reviewer_name'      => null,
-					'wpbr_reviewer_image_url' => null,
-					'wpbr_rating'             => null,
-					'wpbr_time_created'       => null,
-				),
-			);
-
-			// Set review text.
-			if ( isset( $r['text'] ) ) {
-				$review['review_text'] = sanitize_text_field( $r['text'] );
-			}
-
-			// Set review URL.
-			if (
-				isset( $r['url'] )
-				&& filter_var( $r['url'], FILTER_VALIDATE_URL )
-			) {
-				$review['meta']['wpbr_review_url'] = $r['url'];
-			}
-
-			// Set reviewer name.
-			if ( isset( $r['user']['name'] ) ) {
-				$review['meta']['wpbr_reviewer_name'] = sanitize_text_field( $r['user']['name'] );
-			}
-
-			// Set reviewer image URL.
-			if (
-				isset( $r['user']['image_url'] )
-				&& filter_var( $r['user']['image_url'], FILTER_VALIDATE_URL )
-			) {
-				$review['meta']['wpbr_reviewer_image_url'] = $this->build_image_url( $r['user']['image_url'] );
-			}
-
-			// Set rating.
-			if (
-				isset( $r['rating'] )
-				&& is_numeric( $r['rating'] )
-			) {
-				$review['meta']['wpbr_rating'] = $r['rating'];
-			}
-
-			// Set time created.
-			if ( isset( $r['time_created'] ) ) {
-				$review['meta']['wpbr_time_created'] = strtotime( $r['time_created'] );
-			}
-
-			$reviews[] = $review;
-		}
-
-		return $reviews;
-	}
-
-	/**
-	 * Build image URL from API response.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $image_url URL of the original business image.
-	 *
-	 * @return string URL of the sized business image.
-	 */
-	protected function build_image_url( $image_url ) {
-		if ( ! empty( $image_url ) ) {
-			// Replace original size with more appropriate square size.
-			$image_url_sized = str_replace( 'o.jpg', 'ls.jpg', $image_url );
-
-			return $image_url_sized;
-		} else {
-			return null;
-		}
+		return $response;
 	}
 }
