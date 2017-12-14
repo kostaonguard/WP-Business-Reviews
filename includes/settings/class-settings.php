@@ -61,7 +61,6 @@ class Settings {
 		$this->config           = $config;
 		$this->field_repository = $field_repository;
 		$this->deserializer     = $deserializer;
-		$this->load_field_values();
 	}
 
 	/**
@@ -70,18 +69,19 @@ class Settings {
 	 * @since 0.1.0
 	 */
 	public function register() {
+		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'set_field_values' ) );
 		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'render' ) );
 	}
 
 	/**
-	 * Loads field values from the database.
+	 * Sets field values from the database.
 	 *
 	 * If a field value does not exist in the database, the default value as
 	 * defined in the `Field` object will be used instead.
 	 *
 	 * @since 0.1.0
 	 */
-	private function load_field_values() {
+	public function set_field_values() {
 		// Get all field objects from the repository.
 		$field_objects = $this->field_repository->get_all();
 
