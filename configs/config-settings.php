@@ -27,17 +27,22 @@ $config = array(
 						'name'        => __( 'Active Review Platforms', 'wp-business-reviews' ),
 						'type'        => 'checkboxes',
 						'description' => __( 'Determines which review platforms are visible throughout the plugin. Only active review platforms appear in Settings and are available for use within shortcodes and widgets.', 'wp-business-reviews' ),
-						'default'     => array(
-							'google_places',
-							'facebook',
-							'yelp',
-						),
-						'options'     => array(
-							'google_places' => __( 'Google', 'wp-business-reviews' ),
-							'facebook'      => __( 'Facebook', 'wp-business-reviews' ),
-							'yelp'          => __( 'Yelp', 'wp-business-reviews' ),
-							'yp'            => __( 'YP', 'wp-business-reviews' ),
-						),
+						/**
+						 * Filters the default platforms provided by the settings config.
+						 *
+						 * @since 0.1.0
+						 *
+						 * @param array $platforms Array of default platform slugs.
+						 */
+						'default'     => apply_filters( 'wp_business_reviews_settings_default_platforms', array() ),
+						/**
+						 * Filters the active platform options provided by the settings config.
+						 *
+						 * @since 0.1.0
+						 *
+						 * @param array $platforms Array of platform slugs.
+						 */
+						'options'     => apply_filters( 'wp_business_reviews_settings_platforms', array() ),
 						'wrapper_class' => 'wpbr-field--spacious',
 					),
 					'save_platforms' => array(
