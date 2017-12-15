@@ -225,7 +225,7 @@ class Platform_Manager {
 		}
 
 		return $this->serializer->save(
-			$platform . '_Platform_Manager',
+			$platform . '_platform_status',
 			array(
 				'status'       => $status,
 				'last_checked' => time(),
@@ -257,7 +257,7 @@ class Platform_Manager {
 	 * @param string $platform The platform slug.
 	 */
 	private function is_active( $platform ) {
-		return in_array( $platform, $this->active_platforms );
+		return in_array( $platform, $this->get_active_platforms() );
 	}
 
 	/**
