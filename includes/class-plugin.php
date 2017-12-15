@@ -84,14 +84,9 @@ final class Plugin {
 		$post_types->register();
 
 		if ( is_admin() ) {
-			// Register field parser to create field objects from configs.
-			$field_parser = new Field_Parser();
-
-			// Register settings serializer to save settings to the database.
-			$settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
-			$settings_field_repository = new Field_Repository( $field_parser->parse_config( $settings_config ) );
+			// Register settings.
 			$settings_deserializer     = new Deserializer();
-			$settings_serializer       = new Serializer( $settings_field_repository->get_keys() );
+			$settings_serializer       = new Serializer();
 			$settings_serializer->register();
 
 			// Register remote API requests to connect to review platforms.
@@ -105,7 +100,12 @@ final class Plugin {
 			);
 			$platform_manager->register();
 
+			// Register field parser to create field objects from configs.
+			$field_parser = new Field_Parser( $settings_deserializer );
+
 			// Register settings UI.
+			$settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
+			$settings_field_repository = new Field_Repository( $field_parser->parse_config( $settings_config ) );
 			$settings = new Settings(
 				$settings_config,
 				$settings_field_repository,
