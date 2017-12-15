@@ -42,30 +42,81 @@ class Platform_Manager {
 	 */
 
 	/**
+	 * All platforms.
+	 *
+	 * @since 0.1.0
+	 * @var array $platforms
+	 */
+	private $platforms;
+
+	/**
+	 * Default platforms.
+	 *
+	 * @since 0.1.0
+	 * @var array $default_platforms
+	 */
+	private $default_platforms;
+
+	/**
 	 * Active platforms.
 	 *
 	 * @since 0.1.0
 	 * @var array $active_platforms
 	 */
+	private $active_platforms;
 
-	private $serializer;
+	/**
+	 * Connected platforms.
+	 *
+	 * @since 0.1.0
+	 * @var array $connected_platforms
+	 */
+	private $connected_platforms;
 
 	/**
 	 * Instantiates the Platform_Manager object.
 	 *
-	 * @param Serializer      $serializer       Settings saver.
 	 * @param Deserializer    $deserializer     Settings retriever.
+	 * @param Serializer      $serializer       Settings saver.
 	 * @param Request_Factory $request_factory  Request factory.
 	 */
 	public function __construct(
-		Serializer $serializer,
 		Deserializer $deserializer,
+		Serializer $serializer,
 		Request_Factory $request_factory
 	) {
-		$this->serializer       = $serializer;
-		$this->deserializer     = $deserializer;
-		$this->request_factory  = $request_factory;
-		// $this->active_platforms = $active_platforms;
+		$this->deserializer    = $deserializer;
+		$this->serializer      = $serializer;
+		$this->request_factory = $request_factory;
+
+		/**
+		 * Filters the array of registered platforms.
+		 *
+		 * @since 0.1.0
+		 */
+		$this->platforms = apply_filters(
+			'wp_business_reviews_platforms',
+			array(
+				'google_places' => __( 'Google', 'wp-business-reviews' ),
+				'facebook'      => __( 'Facebook', 'wp-business-reviews' ),
+				'yelp'          => __( 'Yelp', 'wp-business-reviews' ),
+				'yp'            => __( 'YP', 'wp-business-reviews' ),
+			)
+		);
+
+		/**
+		 * Filters the array of default platforms.
+		 *
+		 * @since 0.1.0
+		 */
+		$this->default_platforms = apply_filters(
+			'wp_business_reviews_default_platforms',
+			array(
+				'google_places',
+				'facebook',
+				'yelp',
+			)
+		);
 	}
 
 	/**
@@ -82,14 +133,43 @@ class Platform_Manager {
 	}
 
 	/**
+	* Gets all registered platforms.
+	*
+	* @since 0.1.0
+	*
+	* @return array Array of platform slugs.
+	*/
+	public function get_platforms() {
+		return $this->platforms;
+	}
+
+	/**
+	* Gets the default platforms.
+	*
+	* @since 0.1.0
+	*
+	* @return array Array of default platform slugs.
+	*/
+	public function get_default_platforms() {
+		return $this->default_platforms;
+	}
+
+	/**
 	* Gets the active platforms.
+	*
+	* If active platforms have not been set, they will be retrieved from the
+	* database.
 	*
 	* @since 0.1.0
 	*
 	* @return array Array of active platform slugs.
 	*/
 	public function get_active_platforms() {
-		$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
+		if ( isset( $this->active_platforms ) ) {
+			$active_platforms = $this->active_platforms;
+		} else {
+			$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
+		}
 
 		return $active_platforms;
 	}
@@ -97,18 +177,25 @@ class Platform_Manager {
 	/**
 	 * Gets the currently connected platforms.
 	 *
+	 * If connected platforms have not been set, they will be retrieved from the
+	 * database. Each platform has its own status key in the database, so this
+	 * method will retrieve the options and combine statuses into one array.
+	 *
 	 * @since 0.1.0
 	 *
-	 * @param array $platforms Array of platforms.
 	 * @return array Array of connected platform slugs.
 	 */
-	public function get_connected_platforms( $platforms ) {
-		$connected_platforms = array();
+	public function get_connected_platforms() {
+		if ( isset( $this->connected_platforms ) ) {
+			$connected_platforms = $this->connected_platforms;
+		} else {
+			$connected_platforms = array();
 
-		foreach ( $platforms as $platform ) {
-			$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
-			if ( 'connected' === $status ) {
-				$connected_platforms[] = $platform;
+			foreach ( $this->platforms as $platform ) {
+				$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
+				if ( 'connected' === $status ) {
+					$connected_platforms[] = $platform;
+				}
 			}
 		}
 
@@ -124,7 +211,7 @@ class Platform_Manager {
 	 * @return boolean True if status saved, false otherwise.
 	 */
 	public function save_platform_status( $platform ) {
-		if ( ! $this->is_active_platform( $platform ) ) {
+		if ( ! $this->is_active( $platform ) ) {
 			return false;
 		}
 
@@ -166,7 +253,7 @@ class Platform_Manager {
 	 *
 	 * @param string $platform The platform slug.
 	 */
-	private function is_active_platform( $platform ) {
+	private function is_active( $platform ) {
 		return in_array( $platform, $this->active_platforms );
 	}
 
