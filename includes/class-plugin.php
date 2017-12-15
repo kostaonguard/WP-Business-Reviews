@@ -118,8 +118,8 @@ final class Plugin {
 			$active_platforms = $settings_deserializer->get( 'active_platforms') ?: array();
 			$platform_manager = new Platform_Manager(
 				$settings_serializer,
-				$request_factory,
-				$active_platforms
+				$settings_deserializer,
+				$request_factory
 			);
 			$platform_manager->register();
 

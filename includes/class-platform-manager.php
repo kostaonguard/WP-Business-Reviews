@@ -12,6 +12,7 @@ namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Settings\Serializer;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
+use WP_Business_Reviews\Includes\Settings\Deserializer;
 
 /**
  * Manages the existing, active, and connected platforms.
@@ -46,17 +47,18 @@ class Platform_Manager {
 	 * Instantiates the Platform_Manager object.
 	 *
 	 * @param Serializer      $serializer       Settings saver.
+	 * @param Deserializer    $deserializer     Settings retriever.
 	 * @param Request_Factory $request_factory  Request factory.
-	 * @param array           $active_platforms Active platforms.
 	 */
 	public function __construct(
 		Serializer $serializer,
-		Request_Factory $request_factory,
-		array $active_platforms
+		Deserializer $deserializer,
+		Request_Factory $request_factory
 	) {
-		$this->serializer       = $serializer;
+		$this->serializer       = $serialilizer;
+		$this->deserializer     = $deserialilizer;
 		$this->request_factory  = $request_factory;
-		$this->active_platforms = $active_platforms;
+		// $this->active_platforms = $active_platforms;
 	}
 
 	/**
@@ -66,10 +68,10 @@ class Platform_Manager {
 	 */
 	public function register() {
 		// Most platforms have their status saved after settings are saved.
-		add_action( 'wp_business_reviews_saved_settings',array( $this, 'save_Platform_Manager' ) );
+		// add_action( 'wp_business_reviews_saved_settings',array( $this, 'save_Platform_Manager' ) );
 
 		// Facebook is a special case because it needs to save status when the token is saved, after redirect.
-		add_action( 'wp_business_reviews_facebook_user_token_saved', array( $this, 'save_facebook_Platform_Manager' ) );
+		// add_action( 'wp_business_reviews_facebook_user_token_saved', array( $this, 'save_facebook_Platform_Manager' ) );
 	}
 
 	/**
