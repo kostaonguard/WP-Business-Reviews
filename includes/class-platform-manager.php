@@ -68,10 +68,10 @@ class Platform_Manager {
 	 */
 	public function register() {
 		// Most platforms have their status saved after settings are saved.
-		// add_action( 'wp_business_reviews_saved_settings',array( $this, 'save_Platform_Manager' ) );
+		// add_action( 'wp_business_reviews_saved_settings',array( $this, 'save_platform_status' ) );
 
 		// Facebook is a special case because it needs to save status when the token is saved, after redirect.
-		// add_action( 'wp_business_reviews_facebook_user_token_saved', array( $this, 'save_facebook_Platform_Manager' ) );
+		// add_action( 'wp_business_reviews_facebook_user_token_saved', array( $this, 'save_facebook_platform_status' ) );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Platform_Manager {
 	 * @param string $platform The platform slug.
 	 * @return boolean True if status saved, false otherwise.
 	 */
-	public function save_Platform_Manager( $platform ) {
+	public function save_platform_status( $platform ) {
 		if ( ! $this->is_active_platform( $platform ) ) {
 			return false;
 		}
@@ -114,8 +114,8 @@ class Platform_Manager {
 	 * @param string $platform The platform slug.
 	 * @return boolean True if status saved, false otherwise.
 	 */
-	public function save_facebook_Platform_Manager() {
-		$this->save_Platform_Manager( 'facebook' );
+	public function save_facebook_platform_status() {
+		$this->save_platform_status( 'facebook' );
 	}
 
 	/**
