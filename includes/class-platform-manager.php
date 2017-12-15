@@ -28,6 +28,13 @@ class Platform_Manager {
 	 */
 
 	/**
+	 * Settings retriever.
+	 *
+	 * @since 0.1.0
+	 * @var Deserializer $deserializer
+	 */
+
+	/**
 	 * Request factory.
 	 *
 	 * @since 0.1.0
