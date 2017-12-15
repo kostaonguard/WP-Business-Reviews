@@ -116,12 +116,12 @@ final class Plugin {
 
 			// Register platform status checker.
 			$active_platforms = $settings_deserializer->get( 'active_platforms') ?: array();
-			$platform_status = new Platform_Status(
+			$platform_manager = new Platform_Manager(
 				$settings_serializer,
 				$request_factory,
 				$active_platforms
 			);
-			$platform_status->register();
+			$platform_manager->register();
 
 			// Register admin pages.
 			$admin_pages_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );

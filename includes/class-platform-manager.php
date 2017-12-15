@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Platform_Status class
+ * Defines the Platform_Manager class
  *
  * @link https://wpbusinessreviews.com
  *
@@ -14,11 +14,11 @@ use WP_Business_Reviews\Includes\Settings\Serializer;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
 
 /**
- * Determines the connection status to a remote API.
+ * Manages the existing, active, and connected platforms.
  *
  * @since 0.1.0
  */
-class Platform_Status {
+class Platform_Manager {
 	/**
 	 * Settings saver.
 	 *
@@ -43,7 +43,7 @@ class Platform_Status {
 	private $serializer;
 
 	/**
-	 * Instantiates the Platform_Status object.
+	 * Instantiates the Platform_Manager object.
 	 *
 	 * @param Serializer      $serializer       Settings saver.
 	 * @param Request_Factory $request_factory  Request factory.
@@ -66,10 +66,10 @@ class Platform_Status {
 	 */
 	public function register() {
 		// Most platforms have their status saved after settings are saved.
-		add_action( 'wp_business_reviews_saved_settings',array( $this, 'save_platform_status' ) );
+		add_action( 'wp_business_reviews_saved_settings',array( $this, 'save_Platform_Manager' ) );
 
 		// Facebook is a special case because it needs to save status when the token is saved, after redirect.
-		add_action( 'wp_business_reviews_facebook_user_token_saved', array( $this, 'save_facebook_platform_status' ) );
+		add_action( 'wp_business_reviews_facebook_user_token_saved', array( $this, 'save_facebook_Platform_Manager' ) );
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Platform_Status {
 	 * @param string $platform The platform slug.
 	 * @return boolean True if status saved, false otherwise.
 	 */
-	public function save_platform_status( $platform ) {
+	public function save_Platform_Manager( $platform ) {
 		if ( ! $this->is_active_platform( $platform ) ) {
 			return false;
 		}
@@ -92,7 +92,7 @@ class Platform_Status {
 		}
 
 		return $this->serializer->save(
-			$platform . '_platform_status',
+			$platform . '_Platform_Manager',
 			array(
 				'status'       => $status,
 				'last_checked' => time(),
@@ -112,8 +112,8 @@ class Platform_Status {
 	 * @param string $platform The platform slug.
 	 * @return boolean True if status saved, false otherwise.
 	 */
-	public function save_facebook_platform_status() {
-		$this->save_platform_status( 'facebook' );
+	public function save_facebook_Platform_Manager() {
+		$this->save_Platform_Manager( 'facebook' );
 	}
 
 	/**
