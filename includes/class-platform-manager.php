@@ -130,6 +130,9 @@ class Platform_Manager {
 
 		// Facebook is a special case because it needs to save status when the token is saved, after redirect.
 		add_action( 'wp_business_reviews_facebook_user_token_saved', array( $this, 'save_facebook_platform_status' ) );
+
+		add_action( 'wp_business_reviews_settings_platforms', array( $this, 'get_platforms' ) );
+		add_action( 'wp_business_reviews_settings_default_platforms', array( $this, 'get_default_platforms' ) );
 	}
 
 	/**
