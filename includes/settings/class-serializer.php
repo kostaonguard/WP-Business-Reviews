@@ -17,25 +17,6 @@ namespace WP_Business_Reviews\Includes\Settings;
  */
 class Serializer {
 	/**
-	 * Array of keys that are allowed to be saved.
-	 *
-	 * @since 0.1.0
-	 * @var array $allowed_keys
-	 */
-	protected $allowed_keys;
-
-	/**
-	 * Instantiates the Serializer object.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $allowed_keys Keys that are allowed to be saved.
-	 */
-	public function __construct( array $allowed_keys = array() ) {
-		$this->allowed_keys = $allowed_keys;
-	}
-
-	/**
 	 * Registers functionality with WordPress hooks.
 	 *
 	 * @since 0.1.0
@@ -87,14 +68,9 @@ class Serializer {
 	 *
 	 * @param string $setting Key of the setting being saved.
 	 * @param mixed  $value   Value of the setting being saved.
-	 * @return boolean True if option saved, false if update failed or
-	 *                 key is not allowed.
+	 * @return boolean True if option saved successfully, false otherwise.
 	 */
 	public function save( $setting, $value ) {
-		if ( ! $this->is_allowed_key( $setting ) ) {
-			return false;
-		}
-
 		return update_option( 'wp_business_reviews_' . $setting, $this->clean( $value ) );
 	}
 
@@ -144,23 +120,6 @@ class Serializer {
 		} else {
 			error_log( 'user does not have permission' );
 			return false;
-		}
-	}
-
-	/**
-	 * Determines if key is allowed to be saved.
-	 *
-	 * If `allowed_keys` property is empty, then any key is allowed.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $key Unique identifier of the value to be saved.
-	 */
-	protected function is_allowed_key( $key ) {
-		if ( ! empty( $this->allowed_keys ) ) {
-			return in_array( $key, $this->allowed_keys );
-		} else {
-			return true;
 		}
 	}
 
