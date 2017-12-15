@@ -98,40 +98,6 @@ class Settings {
 	}
 
 	/**
-	 * Gets the active platforms.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return array Array of active platform slugs.
-	 */
-	public function get_active_platforms() {
-		$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
-
-		return $active_platforms;
-	}
-
-	/**
-	 * Gets the currently connected platforms.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $platforms Array of platforms.
-	 * @return array Array of connected platform slugs.
-	 */
-	public function get_connected_platforms( $platforms ) {
-		$connected_platforms = array();
-
-		foreach ( $platforms as $platform ) {
-			$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
-			if ( 'connected' === $status ) {
-				$connected_platforms[] = $platform;
-			}
-		}
-
-		return $connected_platforms;
-	}
-
-	/**
 	 * Renders the settings UI.
 	 *
 	 * Active and connected platforms are used to determine platform visibility
