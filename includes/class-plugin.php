@@ -25,6 +25,7 @@ use WP_Business_Reviews\Includes\Settings\Option_Repository;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
 use WP_Business_Reviews\Includes\Facebook_Page_Manager;
 use WP_Business_Reviews\Includes\Platform_Manager;
+use WP_Business_Reviews\Includes\Field\Field_Factory;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -101,7 +102,8 @@ final class Plugin {
 			$platform_manager->register();
 
 			// Register field parser to create field objects from configs.
-			$field_parser = new Field_Parser( $settings_deserializer );
+			$field_factory = new Field_Factory();
+			$field_parser  = new Field_Parser( $settings_deserializer, $field_factory );
 
 			// Register settings UI.
 			$settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );

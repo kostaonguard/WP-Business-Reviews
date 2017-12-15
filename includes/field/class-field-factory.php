@@ -22,7 +22,6 @@ class Field_Factory {
 	 * The field type is used to set certain arguments, such as `name_element`
 	 * that determines the HTML element used to display the field name.
 	 *
-	 *
 	 * @since 0.1.0
 	 *
 	 * @see WP_Business_Reviews\Includes\Field\Base_Field
@@ -32,7 +31,7 @@ class Field_Factory {
 	 *
 	 * @return Field|boolean Instance of Field class or false.
 	 */
-	public static function create( $id, array $args = array() ) {
+	public function create( $id, array $args = array() ) {
 		// Use type to determine if label is appropriate for accessibility.
 		if ( isset( $args['type'] ) ) {
 			switch ( $args['type'] ) {

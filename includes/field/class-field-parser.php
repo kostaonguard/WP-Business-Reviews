@@ -12,6 +12,7 @@ namespace WP_Business_Reviews\Includes\Field;
 
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Settings\Deserializer;
+use WP_Business_Reviews\Includes\Field\Field_Factory;
 
 /**
  * Recursively parses fields from a config.
@@ -32,14 +33,27 @@ class Field_Parser {
 	private $deserializer;
 
 	/**
+	* Creator of field objects.
+	*
+	* @since 0.1.0
+	* @var string $field_factory
+	*/
+	private $field_factory;
+
+	/**
 	 * Instantiates a Field_Parser object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Deserializer $deserializer Settings retriever.
+	 * @param Deserializer  $deserializer  Settings retriever.
+	 * @param Field_Factory $field_factory Creator of field objects.
 	 */
-	public function __construct( Deserializer $deserializer ) {
-		$this->deserializer = $deserializer;
+	public function __construct(
+		Deserializer $deserializer,
+		Field_Factory $field_factory
+	) {
+		$this->deserializer  = $deserializer;
+		$this->field_factory = $field_factory;
 	}
 
 	/**
@@ -99,7 +113,7 @@ class Field_Parser {
 	 * @return Field|boolean Instance of Field class or false.
 	 */
 	protected function create_field( $field_id, $field_args ) {
-		$field_object = Field_Factory::create( $field_id, $field_args );
+		$field_object = $this->field_factory->create( $field_id, $field_args );
 
 		if ( ! $field_object ) {
 			return false;
