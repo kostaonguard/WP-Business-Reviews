@@ -13,6 +13,7 @@ use WP_Business_Reviews\Includes\View;
 use WP_Business_Reviews\Includes\Settings\Serializer;
 use WP_Business_Reviews\Includes\Settings\Deserializer;
 use WP_Business_Reviews\Includes\Config;
+use WP_Business_Reviews\Includes\Platform_Manager;
 
 /**
  * Retrieves and displays the plugin's settings.
@@ -45,22 +46,41 @@ class Settings {
 	private $deserializer;
 
 	/**
+	 * Array of active platform slugs.
+	 *
+	 * @since 0.1.0
+	 * @var array $active_platforms
+	 */
+	private $active_platforms;
+
+	/**
+	 * Array of connected platform slugs.
+	 *
+	 * @since 0.1.0
+	 * @var array $connected_platforms
+	 */
+	private $connected_platforms;
+
+	/**
 	 * Instantiates the Settings object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Config           $config           The Settings config.
-	 * @param Field_Repository $field_repository A repository of `Field` objects.
-	 * @param Deserializer     $deserializer     Retriever of information from the database.
+	 * @param Config           $config              Settings config.
+	 * @param Field_Repository $field_repository    Repository of `Field` objects.
+	 * @param array            $active_platforms    Array of active platform slugs.
+	 * @param array            $connected_platforms Array of connected platform slugs.
 	 */
 	public function __construct(
 		Config $config,
 		Field_Repository $field_repository,
-		Deserializer $deserializer
+		array $active_platforms,
+		array $connected_platforms
 	) {
-		$this->config           = $config;
-		$this->field_repository = $field_repository;
-		$this->deserializer     = $deserializer;
+		$this->config              = $config;
+		$this->field_repository    = $field_repository;
+		$this->active_platforms    = $active_platforms;
+		$this->connected_platforms = $connected_platforms;
 	}
 
 	/**
@@ -69,66 +89,7 @@ class Settings {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'set_field_values' ) );
 		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'render' ) );
-	}
-
-	/**
-	 * Sets field values from the database.
-	 *
-	 * If a field value does not exist in the database, the default value as
-	 * defined in the `Field` object will be used instead.
-	 *
-	 * @since 0.1.0
-	 */
-	public function set_field_values() {
-		// Get all field objects from the repository.
-		$field_objects = $this->field_repository->get_all();
-
-		foreach ( $field_objects as $field_id => $field_object ) {
-			$field_value = $this->deserializer->get( $field_id );
-
-			if ( empty( $field_value ) ) {
-				$field_value = $field_object->get_arg( 'default' );
-			}
-
-			// Update the value of the field in the field repository.
-			$this->field_repository->get( $field_id )->set_value( $field_value );
-		}
-	}
-
-	/**
-	 * Gets the active platforms.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return array Array of active platform slugs.
-	 */
-	public function get_active_platforms() {
-		$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
-
-		return $active_platforms;
-	}
-
-	/**
-	 * Gets the currently connected platforms.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $platforms Array of platforms.
-	 * @return array Array of connected platform slugs.
-	 */
-	public function get_connected_platforms( $platforms ) {
-		$connected_platforms = array();
-
-		foreach ( $platforms as $platform ) {
-			$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
-			if ( 'connected' === $status ) {
-				$connected_platforms[] = $platform;
-			}
-		}
-
-		return $connected_platforms;
 	}
 
 	/**
@@ -140,16 +101,14 @@ class Settings {
 	 * @since  0.1.0
 	 */
 	public function render() {
-		$active_platforms    = $this->get_active_platforms();
-		$connected_platforms = $this->get_connected_platforms( $active_platforms );
 		$view_object         = new View( WPBR_PLUGIN_DIR . 'views/settings/settings-main.php' );
 
 		$view_object->render(
 			array(
 				'config'              => $this->config,
 				'field_repository'    => $this->field_repository,
-				'active_platforms'    => $active_platforms,
-				'connected_platforms' => $connected_platforms,
+				'active_platforms'    => $this->active_platforms,
+				'connected_platforms' => $this->connected_platforms,
 			)
 		);
 	}
