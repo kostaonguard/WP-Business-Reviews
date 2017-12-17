@@ -2,15 +2,16 @@
 /**
  * Defines the Reviews_Builder class
  *
- * @package WP_Business_Reviews\Includes\
+ * @package WP_Business_Reviews\Includes\Reviews_Builder
  * @since   0.1.0
  */
 
-namespace WP_Business_Reviews\Includes;
+namespace WP_Business_Reviews\Includes\Reviews_Builder;
 
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\Field\Field_Parser;
+use WP_Business_Reviews\Includes\View;
 
 /**
  * Provides the interface for building review sets.
