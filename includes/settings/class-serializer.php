@@ -31,12 +31,12 @@ class Serializer {
 	 * @since 0.1.0
 	 */
 	public function save_all() {
-		// Make sure settings exist
-		if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
-			$settings = $_POST['wp_business_reviews_settings'];
-		} else {
-			return;
+		// Make sure settings exist.
+		if ( empty( $_POST['wp_business_reviews_settings'] ) ) {
+			$this->redirect();
 		}
+
+		$settings = $_POST['wp_business_reviews_settings'];
 
 		// Validate nonce and verify user has permission to save.
 		if ( $this->has_valid_nonce() && $this->has_permission() ) {
