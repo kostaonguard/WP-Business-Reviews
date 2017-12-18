@@ -71,7 +71,7 @@ $config = array(
 					),
 					'google_places_api_key' => array(
 						'name'         => __( 'Google Places API Key', 'wp-business-reviews' ),
-						'type'         => 'input',
+						'type'         => 'text',
 						'description'  => sprintf(
 							/* translators: link to documentation */
 							__( 'Defines the Google Places API Key required to retrieve Google reviews. For step-by-step instructions, see docs on %1$sHow to Generate a Google Places API Key%2$s.', 'wp-business-reviews' ),
@@ -137,7 +137,7 @@ $config = array(
 					),
 					'yelp_api_key' => array(
 						'name'         => __( 'Yelp API Key', 'wp-business-reviews' ),
-						'type'         => 'input',
+						'type'         => 'text',
 						'description'  => sprintf(
 							/* translators: link to documentation */
 							__( 'Defines the Yelp API Key required to retrieve Yelp reviews. For step-by-step instructions, see docs on %1$sHow to Find Your Yelp API Key%2$s.', 'wp-business-reviews' ),
@@ -172,7 +172,7 @@ $config = array(
 					),
 					'yp_api_key'         => array(
 						'name'         => __( 'YP API Key', 'wp-business-reviews' ),
-						'type'         => 'input',
+						'type'         => 'text',
 						'description'  => sprintf(
 							/* translators: link to documentation */
 							__( 'Defines the YP API Key required to retrieve YP reviews. For step-by-step instructions, see docs on %1$sHow to Generate a YP API Key%2$s.', 'wp-business-reviews' ),
