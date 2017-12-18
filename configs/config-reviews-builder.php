@@ -9,6 +9,27 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
+	'business' => array(
+		'name'   => __( 'Business Search', 'wp-business-reviews' ),
+		'fields' => array(
+			'business_search_terms' => array(
+				'name'        => __( 'Search Terms', 'wp-business-reviews' ),
+				'type'        => 'text',
+				'tooltip'     => __( 'Defines the terms used when searching for a business.', 'wp-business-reviews' ),
+				'placeholder' => __( 'Business Name or Type', 'wp-business-reviews' ),
+			),
+			'business_search_location' => array(
+				'name'        => __( 'Location', 'wp-business-reviews' ),
+				'type'        => 'text',
+				'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
+				'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
+			),
+			'business_search_button' => array(
+				'type'        => 'button',
+				'button_text' => __( 'Find Business', 'wp-business-reviews' ),
+			),
+		),
+	),
 	'presentation' => array(
 		'name'   => __( 'Presentation', 'wp-business-reviews' ),
 		'fields' => array(
@@ -48,28 +69,6 @@ $config = array(
 					'seamless-light' => __( 'Seamless Light', 'wp-business-reviews' ),
 					'seamless-dark'  => __( 'Seamless Dark', 'wp-business-reviews' ),
 				),
-			),
-		),
-	),
-	'business' => array(
-		'name'   => __( 'Business', 'wp-business-reviews' ),
-		'fields' => array(
-			'platform' => array(
-				'name'    => __( 'Platform', 'wp-business-reviews' ),
-				'type'    => 'select',
-				'tooltip' => __( 'Defines the platform used when searching for a business.', 'wp-business-reviews' ),
-				'options' => array(
-					'google'   => __( 'Google', 'wp-business-reviews' ),
-					'facebook' => __( 'Facebook', 'wp-business-reviews' ),
-					'yelp'     => __( 'Yelp', 'wp-business-reviews' ),
-					'yp'       => __( 'YP', 'wp-business-reviews' ),
-				),
-			),
-			'business_search' => array(
-				'name'        => __( 'Business', 'wp-business-reviews' ),
-				'type'        => 'search',
-				'tooltip'     => __( 'Defines the query used when searching for a business.', 'wp-business-reviews' ),
-				'placeholder' => __( 'Business Name, Location', 'wp-business-reviews' ),
 			),
 		),
 	),
