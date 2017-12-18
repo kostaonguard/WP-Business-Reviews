@@ -42,6 +42,9 @@ if ( ! empty( $this->args['name'] ) ) {
 			case 'select':
 				$type = 'select';
 				break;
+			case 'button':
+				$type = 'button';
+				break;
 			default:
 				$type = 'input';
 		}
