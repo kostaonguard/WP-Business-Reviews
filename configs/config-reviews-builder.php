@@ -10,7 +10,7 @@ namespace WP_Business_Reviews\Config;
 
 $config = array(
 	'business' => array(
-		'name'   => __( 'Business Search', 'wp-business-reviews' ),
+		'name'   => __( 'Business', 'wp-business-reviews' ),
 		'fields' => array(
 			'business_search_terms' => array(
 				'name'        => __( 'Search Terms', 'wp-business-reviews' ),
