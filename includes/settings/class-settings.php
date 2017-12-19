@@ -89,7 +89,7 @@ class Settings {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'render' ) );
+		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'render' ) );
 	}
 
 	/**
