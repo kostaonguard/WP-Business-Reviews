@@ -40,32 +40,12 @@ class Reviews_Builder {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string|Config $config       Path to config or Config object.
-	 * @param Field_Parser  $field_parser Parser to extract field definitions from config.
+	 * @param Config           $config           Reviews Builder config.
+	 * @param Field_Repository $field_repository Repository of `Field` objects.
 	 */
-	public function __construct( $config, Field_Parser $field_parser ) {
-		$this->config       = is_string( $config ) ? new Config( $config ): $config;
-		$this->field_parser = $field_parser;
-	}
-
-	/**
-	 * Registers functionality with WordPress hooks.
-	 *
-	 * @since 0.1.0
-	 */
-	public function register() {
-		add_action( 'wp_business_reviews_admin_page_wpbr_reviews_builder', array( $this, 'init' ) );
-		add_action( 'wp_business_reviews_admin_page_wpbr_reviews_builder', array( $this, 'render' ) );
-	}
-
-	/**
-	 * Initializes the object for use.
-	 *
-	 * @since 0.1.0
-	 */
-	public function init() {
-		// Parse the config to create field objects.
-		$this->field_repository = new Field_Repository( $this->field_parser->parse_config( $this->config ) );
+	public function __construct( $field_repository ) {
+		$this->config              = $config;
+		$this->field_repository    = $field_repository;
 	}
 
 	/**
