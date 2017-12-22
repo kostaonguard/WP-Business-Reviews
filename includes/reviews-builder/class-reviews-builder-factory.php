@@ -13,7 +13,7 @@ use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\Config;
 
 /**
- * Creates a Reviews_Builder object based on provided platform.
+ * Creates a Reviews_Builder object based on provided platform and review set.
  *
  * @since 0.1.0
  *
@@ -25,12 +25,13 @@ class Reviews_Builder_Factory {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $platform The platform slug.
+	 * @param string $platform   The platform slug.
+	 * @param int    $review_set Optional. The review set ID.
 	 * @return Field|boolean Instance of Field class or false.
 	 */
-	public function create( $platform ) {
+	public function create( $platform, $review_set = 0 ) {
 		$config = $this->get_config( $platform );
-		$field_repository = $this->get_field_repository( $config );
+		$field_repository = $this->get_field_repository( $config, $review_set );
 
 		return new Reviews_Builder( $platform, $config, $field_repository );
 	}
@@ -49,9 +50,10 @@ class Reviews_Builder_Factory {
 	 * Generates a field respository based on the provided config.
 	 *
 	 * @param Config $config Reviews Builder config.
+	 * @param int    $review_set Optional. The review set ID.
 	 * @return Field_Repository Array of field objects.
 	 */
-	private function get_field_repository( Config $config ) {
+	private function get_field_repository( Config $config, $review_set ) {
 		return new Field_Repository( $this->field_parser->parse_config( $config ) );
 	}
 }

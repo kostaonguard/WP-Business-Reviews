@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Settings_Serializer class
+ * Defines the Option_Serializer class
  *
  * @link https://wpbusinessreviews.com
  *
@@ -15,7 +15,7 @@ namespace WP_Business_Reviews\Includes\Serializer;
  *
  * @since 0.1.0
  */
-class Settings_Serializer {
+class Option_Serializer {
 	/**
 	 * Registers functionality with WordPress hooks.
 	 *

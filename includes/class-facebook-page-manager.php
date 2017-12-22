@@ -10,7 +10,7 @@
 
 namespace WP_Business_Reviews\Includes;
 
-use WP_Business_Reviews\Includes\Serializer\Settings_Serializer;
+use WP_Business_Reviews\Includes\Serializer\Option_Serializer;
 use WP_Business_Reviews\Includes\Request\Facebook_Request;
 
 /**
@@ -30,7 +30,7 @@ class Facebook_Page_Manager {
 	 * Settings serializer.
 	 *
 	 * @since 0.1.0
-	 * @var Settings_Serializer $serializer
+	 * @var Option_Serializer $serializer
 	 */
 	private $serializer;
 
@@ -47,10 +47,10 @@ class Facebook_Page_Manager {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Settings_Serializer $serializer Settings saver.
-	 * @param Facebook_Request    $request    Facebook request.
+	 * @param Option_Serializer $serializer Settings saver.
+	 * @param Facebook_Request  $request    Facebook request.
 	 */
-	public function __construct( Settings_Serializer $serializer, Facebook_Request $request ) {
+	public function __construct( Option_Serializer $serializer, Facebook_Request $request ) {
 		$this->serializer = $serializer;
 		$this->request    = $request;
 	}

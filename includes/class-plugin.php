@@ -12,7 +12,7 @@ namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Field\Field_Parser;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
-use WP_Business_Reviews\Includes\Serializer\Settings_Serializer;
+use WP_Business_Reviews\Includes\Serializer\Option_Serializer;
 use WP_Business_Reviews\Includes\Settings\Deserializer;
 use WP_Business_Reviews\Includes\Settings\Settings;
 use WP_Business_Reviews\Includes\Admin\Admin_Menu;
@@ -89,8 +89,8 @@ final class Plugin {
 		if ( is_admin() ) {
 			// Register settings.
 			$settings_deserializer = new Deserializer();
-			$settings_serializer   = new Settings_Serializer();
-			$settings_serializer->register();
+			$option_serializer     = new Option_Serializer();
+			$option_serializer->register();
 
 			// Register remote API requests to connect to review platforms.
 			$request_factory = new Request_Factory( $settings_deserializer );
@@ -98,7 +98,7 @@ final class Plugin {
 			// Register platform manager to manage active and connected platforms.
 			$platform_manager = new Platform_Manager(
 				$settings_deserializer,
-				$settings_serializer,
+				$option_serializer,
 				$request_factory
 			);
 			$platform_manager->register();
@@ -125,7 +125,7 @@ final class Plugin {
 
 			// Register Facebook page manager to retrieve and update authenticated pages.
 			$facebook_page_manager = new Facebook_Page_Manager(
-				$settings_serializer,
+				$option_serializer,
 				$request_factory->create( 'facebook' )
 			);
 			$facebook_page_manager->register();
