@@ -26,6 +26,7 @@ use WP_Business_Reviews\Includes\Request\Request_Factory;
 use WP_Business_Reviews\Includes\Facebook_Page_Manager;
 use WP_Business_Reviews\Includes\Platform_Manager;
 use WP_Business_Reviews\Includes\Field\Field_Factory;
+use WP_Business_Reviews\Includes\Reviews_Builder\Reviews_Builder_Factory;
 use WP_Business_Reviews\Includes\Reviews_Builder\Reviews_Builder_Launcher;
 
 /**
@@ -118,6 +119,7 @@ final class Plugin {
 			$settings->register();
 
 			// Register reviews builder to build review sets.
+			$reviews_builder_factory = new Reviews_Builder_Factory();
 			$reviews_builder_launcher = new Reviews_Builder_Launcher( $reviews_builder_factory );
 			$reviews_builder_launcher->register();
 
