@@ -100,16 +100,15 @@ final class Plugin {
 			);
 			$platform_manager->register();
 
-			// Register field parser to create field objects from configs.
+			// Register field factory to create field objects.
 			$field_factory = new Field_Factory();
-			$field_parser  = new Field_Parser( $option_deserializer, $field_factory );
 
-			// Register settings UI.
-			$plugin_settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
-			$plugin_settings_field_repository = new Field_Repository( $field_parser->parse_config( $plugin_settings_config ) );
-			$plugin_settings = new Plugin_Settings(
+			// Register settings.
+			$plugin_settings_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
+			$settings_field_parser  = new Field_Parser( $option_deserializer, $field_factory );
+			$plugin_settings        = new Plugin_Settings(
 				$plugin_settings_config,
-				$plugin_settings_field_repository,
+				$settings_field_parser,
 				$platform_manager->get_active_platforms(),
 				$platform_manager->get_connected_platforms()
 			);

@@ -8,9 +8,10 @@
 
 namespace WP_Business_Reviews\Includes\Settings;
 
+use WP_Business_Reviews\Includes\Config;
+use WP_Business_Reviews\Includes\Field\Field_Parser;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\View;
-use WP_Business_Reviews\Includes\Config;
 
 /**
  * Retrieves and displays the plugin's settings.
@@ -19,7 +20,7 @@ use WP_Business_Reviews\Includes\Config;
  */
 class Plugin_Settings {
 	/**
-	 * The settings config.
+	 * Settings config.
 	 *
 	 * @since 0.1.0
 	 * @var Config
@@ -27,20 +28,12 @@ class Plugin_Settings {
 	private $config;
 
 	/**
-	 * Repository that holds field objects.
+	 * Parser of field objects from config.
 	 *
 	 * @since 0.1.0
-	 * @var Field_Repository
+	 * @var Field_Parser
 	 */
-	private $field_repository;
-
-	/**
-	 * Retriever of information from the database.
-	 *
-	 * @since 0.1.0
-	 * @var Deserializer $deserializer
-	 */
-	private $deserializer;
+	private $field_parser;
 
 	/**
 	 * Array of active platform slugs.
@@ -59,23 +52,31 @@ class Plugin_Settings {
 	private $connected_platforms;
 
 	/**
+	 * Repository that holds field objects.
+	 *
+	 * @since 0.1.0
+	 * @var Field_Repository
+	 */
+	private $field_repository;
+
+	/**
 	 * Instantiates the Plugin_Settings object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Config           $config              Settings config.
-	 * @param Field_Repository $field_repository    Repository of `Field` objects.
-	 * @param array            $active_platforms    Array of active platform slugs.
-	 * @param array            $connected_platforms Array of connected platform slugs.
+	 * @param Config       $config              Settings config.
+	 * @param Field_Parser $field_parser        Parser of field objects from config.
+	 * @param array        $active_platforms    Array of active platform slugs.
+	 * @param array        $connected_platforms Array of connected platform slugs.
 	 */
 	public function __construct(
 		Config $config,
-		Field_Repository $field_repository,
+		Field_Parser $field_parser,
 		array $active_platforms,
 		array $connected_platforms
 	) {
 		$this->config              = $config;
-		$this->field_repository    = $field_repository;
+		$this->field_parser        = $field_parser;
 		$this->active_platforms    = $active_platforms;
 		$this->connected_platforms = $connected_platforms;
 	}
@@ -86,7 +87,18 @@ class Plugin_Settings {
 	 * @since 0.1.0
 	 */
 	public function register() {
+		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'init' ) );
 		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'render' ) );
+	}
+
+	/**
+	 * Initializes the object for use.
+	 *
+	 * @since 0.1.0
+	 */
+	public function init() {
+		$field_objects          = $this->field_parser->parse_config( $this->config );
+		$this->field_repository = new Field_Repository( $field_objects );
 	}
 
 	/**
