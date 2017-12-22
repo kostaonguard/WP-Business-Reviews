@@ -101,7 +101,7 @@ class Settings {
 	 * @since  0.1.0
 	 */
 	public function render() {
-		$view_object         = new View( WPBR_PLUGIN_DIR . 'views/settings/settings-main.php' );
+		$view_object = new View( WPBR_PLUGIN_DIR . 'views/settings/settings-main.php' );
 
 		$view_object->render(
 			array(

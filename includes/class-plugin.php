@@ -12,7 +12,7 @@ namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Field\Field_Parser;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
-use WP_Business_Reviews\Includes\Settings\Serializer;
+use WP_Business_Reviews\Includes\Serializer\Settings_Serializer;
 use WP_Business_Reviews\Includes\Settings\Deserializer;
 use WP_Business_Reviews\Includes\Settings\Settings;
 use WP_Business_Reviews\Includes\Admin\Admin_Menu;
@@ -88,8 +88,8 @@ final class Plugin {
 
 		if ( is_admin() ) {
 			// Register settings.
-			$settings_deserializer     = new Deserializer();
-			$settings_serializer       = new Serializer();
+			$settings_deserializer = new Deserializer();
+			$settings_serializer   = new Settings_Serializer();
 			$settings_serializer->register();
 
 			// Register remote API requests to connect to review platforms.
