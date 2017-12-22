@@ -12,7 +12,7 @@ namespace WP_Business_Reviews\Includes;
 
 use WP_Business_Reviews\Includes\Serializer\Option_Serializer;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
-use WP_Business_Reviews\Includes\Settings\Deserializer;
+use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
 
 /**
  * Manages the existing, active, and connected platforms.
@@ -31,7 +31,7 @@ class Platform_Manager {
 	 * Settings retriever.
 	 *
 	 * @since 0.1.0
-	 * @var Deserializer $deserializer
+	 * @var Option_Deserializer $deserializer
 	 */
 
 	/**
@@ -76,12 +76,12 @@ class Platform_Manager {
 	/**
 	 * Instantiates the Platform_Manager object.
 	 *
-	 * @param Deserializer      $deserializer     Settings retriever.
-	 * @param Option_Serializer $serializer       Settings saver.
-	 * @param Request_Factory   $request_factory  Request factory.
+	 * @param Option_Deserializer $deserializer     Settings retriever.
+	 * @param Option_Serializer   $serializer       Settings saver.
+	 * @param Request_Factory     $request_factory  Request factory.
 	 */
 	public function __construct(
-		Deserializer $deserializer,
+		Option_Deserializer $deserializer,
 		Option_Serializer $serializer,
 		Request_Factory $request_factory
 	) {

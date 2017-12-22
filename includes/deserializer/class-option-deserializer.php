@@ -1,21 +1,21 @@
 <?php
 /**
- * Defines the Deserializer class
+ * Defines the Option_Deserializer class
  *
  * @link https://wpbusinessreviews.com
  *
- * @package WP_Business_Reviews\Includes\Settings
+ * @package WP_Business_Reviews\Includes\Deserializer
  * @since 0.1.0
  */
 
-namespace WP_Business_Reviews\Includes\Settings;
+namespace WP_Business_Reviews\Includes\Deserializer;
 
 /**
  * Retrieves information from the database.
  *
  * @since 0.1.0
  */
-class Deserializer {
+class Option_Deserializer {
 	/**
 	 * Retrieves a value from the database.
 	 *

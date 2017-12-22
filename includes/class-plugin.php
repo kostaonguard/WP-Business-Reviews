@@ -13,7 +13,7 @@ namespace WP_Business_Reviews\Includes;
 use WP_Business_Reviews\Includes\Field\Field_Parser;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\Serializer\Option_Serializer;
-use WP_Business_Reviews\Includes\Settings\Deserializer;
+use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
 use WP_Business_Reviews\Includes\Settings\Settings;
 use WP_Business_Reviews\Includes\Admin\Admin_Menu;
 use WP_Business_Reviews\Includes\Admin\Admin_Banner;
@@ -88,16 +88,16 @@ final class Plugin {
 
 		if ( is_admin() ) {
 			// Register settings.
-			$settings_deserializer = new Deserializer();
-			$option_serializer     = new Option_Serializer();
+			$option_deserializer = new Option_Deserializer();
+			$option_serializer   = new Option_Serializer();
 			$option_serializer->register();
 
 			// Register remote API requests to connect to review platforms.
-			$request_factory = new Request_Factory( $settings_deserializer );
+			$request_factory = new Request_Factory( $option_deserializer );
 
 			// Register platform manager to manage active and connected platforms.
 			$platform_manager = new Platform_Manager(
-				$settings_deserializer,
+				$option_deserializer,
 				$option_serializer,
 				$request_factory
 			);
@@ -105,7 +105,7 @@ final class Plugin {
 
 			// Register field parser to create field objects from configs.
 			$field_factory = new Field_Factory();
-			$field_parser  = new Field_Parser( $settings_deserializer, $field_factory );
+			$field_parser  = new Field_Parser( $option_deserializer, $field_factory );
 
 			// Register settings UI.
 			$settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );

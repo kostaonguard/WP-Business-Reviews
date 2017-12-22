@@ -12,7 +12,7 @@ namespace WP_Business_Reviews\Includes\Request;
 
 use WP_Business_Reviews\Includes\Request\Request_Base;
 use WP_Business_Reviews\Includes\Settings\Settings;
-use WP_Business_Reviews\Includes\Settings\Deserializer;
+use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
 
 /**
  * Creates new requests based on platform, business, and type.
@@ -24,16 +24,16 @@ class Request_Factory {
 	 * Retriever of information from the database.
 	 *
 	 * @since 0.1.0
-	 * @var Deserializer $deserializer
+	 * @var Option_Deserializer $deserializer
 	 */
 	private $deserializer;
 
 	/**
 	 * Instantiates a Request_Factory object.
 	 *
-	 * @param Deserializer $deserializer Retriever of information from the database.
+	 * @param Option_Deserializer $deserializer Retriever of options from the database.
 	 */
-	public function __construct( Deserializer $deserializer ) {
+	public function __construct( Option_Deserializer $deserializer ) {
 		$this->deserializer = $deserializer;
 	}
 

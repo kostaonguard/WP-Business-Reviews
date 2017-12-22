@@ -11,7 +11,7 @@
 namespace WP_Business_Reviews\Includes\Field;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Settings\Deserializer;
+use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
 use WP_Business_Reviews\Includes\Field\Field_Factory;
 
 /**
@@ -45,11 +45,11 @@ class Field_Parser {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Deserializer  $deserializer  Settings retriever.
-	 * @param Field_Factory $field_factory Creator of field objects.
+	 * @param Option_Deserializer  $deserializer  Settings retriever.
+	 * @param Field_Factory        $field_factory Creator of field objects.
 	 */
 	public function __construct(
-		Deserializer $deserializer,
+		Option_Deserializer $deserializer,
 		Field_Factory $field_factory
 	) {
 		$this->deserializer  = $deserializer;
