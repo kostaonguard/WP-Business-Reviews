@@ -35,6 +35,12 @@
 		flex: 0 0 $wpbr-space * 16;
 	}
 
+	&__launcher {
+		flex: 1;
+		font-size: 14px;
+		padding: $wpbr-space;
+	}
+
 	&__preview {
 		flex: 1;
 		font-size: 14px;
