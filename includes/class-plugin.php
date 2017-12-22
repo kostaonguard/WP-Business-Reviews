@@ -14,7 +14,7 @@ use WP_Business_Reviews\Includes\Field\Field_Parser;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\Serializer\Option_Serializer;
 use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
-use WP_Business_Reviews\Includes\Settings\Settings;
+use WP_Business_Reviews\Includes\Settings\Plugin_Settings;
 use WP_Business_Reviews\Includes\Admin\Admin_Menu;
 use WP_Business_Reviews\Includes\Admin\Admin_Banner;
 use WP_Business_Reviews\Includes\Admin\Admin_Footer;
@@ -108,15 +108,15 @@ final class Plugin {
 			$field_parser  = new Field_Parser( $option_deserializer, $field_factory );
 
 			// Register settings UI.
-			$settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
-			$settings_field_repository = new Field_Repository( $field_parser->parse_config( $settings_config ) );
-			$settings = new Settings(
-				$settings_config,
-				$settings_field_repository,
+			$plugin_settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
+			$plugin_settings_field_repository = new Field_Repository( $field_parser->parse_config( $plugin_settings_config ) );
+			$plugin_settings = new Plugin_Settings(
+				$plugin_settings_config,
+				$plugin_settings_field_repository,
 				$platform_manager->get_active_platforms(),
 				$platform_manager->get_connected_platforms()
 			);
-			$settings->register();
+			$plugin_settings->register();
 
 			// Register reviews builder to build review sets.
 			$reviews_builder_factory = new Reviews_Builder_Factory();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Settings class
+ * Defines the Plugin_Settings class
  *
  * @package WP_Business_Reviews\Includes\Settings
  * @since   0.1.0
@@ -10,17 +10,14 @@ namespace WP_Business_Reviews\Includes\Settings;
 
 use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\View;
-use WP_Business_Reviews\Includes\Settings\Serializer;
-use WP_Business_Reviews\Includes\Settings\Deserializer;
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Platform_Manager;
 
 /**
  * Retrieves and displays the plugin's settings.
  *
  * @since 0.1.0
  */
-class Settings {
+class Plugin_Settings {
 	/**
 	 * The settings config.
 	 *
@@ -62,7 +59,7 @@ class Settings {
 	private $connected_platforms;
 
 	/**
-	 * Instantiates the Settings object.
+	 * Instantiates the Plugin_Settings object.
 	 *
 	 * @since 0.1.0
 	 *

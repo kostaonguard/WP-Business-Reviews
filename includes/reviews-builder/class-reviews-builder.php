@@ -36,16 +36,30 @@ class Reviews_Builder {
 	private $field_repository;
 
 	/**
-	 * Instantiates a Reviews_Builder object.
+	 * Array of connected platform slugs.
+	 *
+	 * @since 0.1.0
+	 * @var array $connected_platforms
+	 */
+	private $connected_platforms;
+
+	/**
+	 * Instantiates the Settings object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Config           $config           Reviews Builder config.
-	 * @param Field_Repository $field_repository Repository of `Field` objects.
+	 * @param Config           $config              Reviews Builder config.
+	 * @param Field_Repository $field_repository    Repository of `Field` objects.
+	 * @param array            $platforms           Array of connected platform slugs.
 	 */
-	public function __construct( $field_repository ) {
+	public function __construct(
+		Config $config,
+		Field_Repository $field_repository,
+		array $platforms
+	) {
 		$this->config              = $config;
 		$this->field_repository    = $field_repository;
+		$this->platforms = $platforms;
 	}
 
 	/**
