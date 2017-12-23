@@ -61,8 +61,8 @@ class Facebook_Page_Manager {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_token' ), 1 );
-		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_pages' ), 1 );
+		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_token' ), 1 );
+		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_pages' ), 1 );
 	}
 
 	public function save_token() {
