@@ -11,6 +11,6 @@ if ( document.querySelector( 'body' ).classList.contains( 'wpbr_review_page_wpbr
 }
 
 if ( document.querySelector( 'body' ).classList.contains( 'wpbr_review_page_wpbr_builder' ) ) {
-	const reviewsBuilder = new Builder( '.js-wpbr-builder' );
-	reviewsBuilder.init();
+	const builder = new Builder( '.js-wpbr-builder' );
+	builder.init();
 }
