@@ -20,11 +20,12 @@ use WP_Business_Reviews\Includes\Admin\Admin_Banner;
 use WP_Business_Reviews\Includes\Admin\Admin_Footer;
 use WP_Business_Reviews\Includes\Admin\Blank_Slate;
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Reviews_Builder\Reviews_Builder;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
 use WP_Business_Reviews\Includes\Facebook_Page_Manager;
 use WP_Business_Reviews\Includes\Platform_Manager;
 use WP_Business_Reviews\Includes\Field\Field_Factory;
+use WP_Business_Reviews\Includes\Settings\Builder_Settings;
+use WP_Business_Reviews\Includes\Field\Parser\Builder_Field_Parser;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -113,6 +114,17 @@ final class Plugin {
 				$platform_manager->get_connected_platforms()
 			);
 			$plugin_settings->register();
+
+			// Register builder settings.
+			$builder_settings_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-builder-settings.php' );
+			$builder_field_parser    = new Builder_Field_Parser( $field_factory );
+			$builder_settings        = new Builder_Settings(
+				$builder_settings_config,
+				$builder_field_parser,
+				$platform_manager->get_active_platforms(),
+				$platform_manager->get_connected_platforms()
+			);
+			$builder_settings->register();
 
 			// Register Facebook page manager to retrieve and update authenticated pages.
 			$facebook_page_manager = new Facebook_Page_Manager(
