@@ -15,11 +15,10 @@ use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
 use WP_Business_Reviews\Includes\Field\Field_Factory;
 
 /**
- * Recursively parses fields from a config.
+ * Recursively parses fields from a settings config.
  *
- * The parser is capable of creating `Field` objects from field definitions
- * at various levels of nesting within a `Config`. Any array that does not
- * contain a `fields` key is skipped.
+ * This parser specifically caters to hierarchical settings configs made up of
+ * sections and fields.
  *
  * @since 0.1.0
  */
@@ -31,14 +30,6 @@ class Plugin_Settings_Field_Parser extends Field_Parser_Abstract {
 	* @var string $deserializer
 	*/
 	private $deserializer;
-
-	/**
-	* Creator of field objects.
-	*
-	* @since 0.1.0
-	* @var string $field_factory
-	*/
-	private $field_factory;
 
 	/**
 	 * Instantiates a Plugin_Settings_Field_Parser object.
@@ -57,78 +48,41 @@ class Plugin_Settings_Field_Parser extends Field_Parser_Abstract {
 	}
 
 	/**
-	 * Parses the config as an array.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string|Config $config Path to config or `Config` object.
-	 * @return Fields[] Associative array of `Field` objects.
+	 * @inheritDoc
 	 */
-	public function parse_config( $config ) {
-		$config = is_string( $config ) ? new Config( $config ) : $config;
-
-		return $this->parse_array( $config->getArrayCopy() );
-	}
-
-	/**
-	 * Recursively parses fields from an array.
-	 *
-	 * When the parser finds a `fields` key, then each item within that array
-	 * is assumed to be a complete field definition. The arguments within the
-	 * definition are used to create a new `Field` object.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $array Associative array.
-	 *
-	 * @return Fields[] Array of `Field` objects.
-	 */
-	protected function parse_array( array $array ) {
+	public function parse_fields( $config ) {
 		$field_objects = array();
+		$config = is_string( $config ) ? new Config( $config ): $config;
 
-		foreach ( $array as $key => $value ) {
-			if ( isset( $value['sections'] ) ) {
-				// Assume sections are found within a tab defintion.
-				foreach ( $value['sections'] as $section ) {
-					foreach ( $section['fields'] as $field_id => $field_args ) {
-						$field_objects[ $field_id ] = $this->create_field( $field_id, $field_args );
+		// Convert config to array for processing.
+		$config_array = $config->getArrayCopy();
+
+		foreach ( $config_array as $key => $value ) {
+			foreach ( $value['sections'] as $section ) {
+				foreach ( $section['fields'] as $field_id => $field_args ) {
+					// Create the field object from the field definition.
+					$field_object = $this->field_factory->create( $field_id, $field_args );
+
+					if ( $field_object ) {
+						// Attempt to retrieve the field value.
+						$field_value = $this->deserializer->get( $field_id );
+
+						if ( null === $field_value ) {
+							// Get the default value.
+							$field_value = $field_object->get_arg( 'default' );
+						}
+
+						// Set the field value.
+						$field_object->set_value( $field_value );
+
+						// Add the field object to array of parsed fields.
+						$field_objects[ $field_id ] = $field_object;
 					}
-				}
-			} elseif ( isset( $value['fields'] ) ) {
-				// Assume fields are found within a section defintiion.
-				foreach ( $value['fields'] as $field_id => $field_args ) {
-					$field_objects[ $field_id ] = $this->create_field( $field_id, $field_args );
+
 				}
 			}
 		}
 
 		return $field_objects;
-	}
-
-	/**
-	 * Creates field object with value from database.
-	 *
-	 * @param string $id   Unique identifier of the field.
-	 * @param array  $args Field arguments.
-	 * @return Field|boolean Instance of Field class or false.
-	 */
-	protected function create_field( $field_id, $field_args ) {
-		$field_object = $this->field_factory->create( $field_id, $field_args );
-
-		if ( ! $field_object ) {
-			return false;
-		}
-
-		// Attempt to retrieve value from database.
-		$field_value = $this->deserializer->get( $field_id );
-
-		// If database returned no value, use the default field arg.
-		if ( empty( $field_value ) ) {
-			$field_value = $field_object->get_arg( 'default' );
-		}
-
-		$field_object->set_value( $field_value );
-
-		return $field_object;
 	}
 }

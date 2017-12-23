@@ -102,7 +102,7 @@ abstract class Settings_Abstract {
 	 * @since 0.1.0
 	 */
 	public function init() {
-		$field_objects          = $this->field_parser->parse_config( $this->config );
+		$field_objects          = $this->field_parser->parse_fields( $this->config );
 		$this->field_repository = new Field_Repository( $field_objects );
 	}
 
