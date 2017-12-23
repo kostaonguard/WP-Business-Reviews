@@ -10,7 +10,6 @@ namespace WP_Business_Reviews\Includes\Settings;
 
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Field\Parser\Field_Parser_Abstract as Field_Parser;
-use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\View;
 
 /**
@@ -97,14 +96,11 @@ abstract class Settings_Abstract {
 	abstract public function register();
 
 	/**
-	 * Initializes the object for use.
+	 * Parses the config into a repository of field objects.
 	 *
 	 * @since 0.1.0
 	 */
-	public function init() {
-		$field_objects          = $this->field_parser->parse_fields( $this->config );
-		$this->field_repository = new Field_Repository( $field_objects );
-	}
+	abstract public function parse_fields();
 
 	/**
 	 * Renders the settings UI.
