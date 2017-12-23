@@ -103,9 +103,9 @@ final class Plugin {
 			// Register field factory to create field objects.
 			$field_factory = new Field_Factory();
 
-			// Register settings.
+			// Register plugin settings.
 			$plugin_settings_config       = new Config( WPBR_PLUGIN_DIR . 'configs/config-plugin-settings.php' );
-			$plugin_settings_field_parser = new Plugin_Settings_Field_Parser( $option_deserializer, $field_factory );
+			$plugin_settings_field_parser = new Plugin_Settings_Field_Parser( $field_factory, $option_deserializer );
 			$plugin_settings              = new Plugin_Settings(
 				$plugin_settings_config,
 				$plugin_settings_field_parser,

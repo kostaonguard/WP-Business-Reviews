@@ -36,15 +36,15 @@ class Plugin_Settings_Field_Parser extends Field_Parser_Abstract {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Option_Deserializer  $deserializer  Settings retriever.
 	 * @param Field_Factory        $field_factory Creator of field objects.
+	 * @param Option_Deserializer  $deserializer  Settings retriever.
 	 */
 	public function __construct(
-		Option_Deserializer $deserializer,
-		Field_Factory $field_factory
+		Field_Factory $field_factory,
+		Option_Deserializer $deserializer
 	) {
-		$this->deserializer  = $deserializer;
 		$this->field_factory = $field_factory;
+		$this->deserializer  = $deserializer;
 	}
 
 	/**
