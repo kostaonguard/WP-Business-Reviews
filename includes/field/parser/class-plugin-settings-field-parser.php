@@ -1,14 +1,14 @@
 <?php
 /**
- * Defines the Field_Parser class
+ * Defines the Plugin_Settings_Field_Parser class
  *
  * @link https://wpbusinessreviews.com
  *
- * @package WP_Business_Reviews\Includes\Field
+ * @package WP_Business_Reviews\Includes\Field\Parser
  * @since 0.1.0
  */
 
-namespace WP_Business_Reviews\Includes\Field;
+namespace WP_Business_Reviews\Includes\Field\Parser;
 
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
@@ -23,7 +23,7 @@ use WP_Business_Reviews\Includes\Field\Field_Factory;
  *
  * @since 0.1.0
  */
-class Field_Parser {
+class Plugin_Settings_Field_Parser {
 	/**
 	* Settings retriever.
 	*
@@ -41,7 +41,7 @@ class Field_Parser {
 	private $field_factory;
 
 	/**
-	 * Instantiates a Field_Parser object.
+	 * Instantiates a Plugin_Settings_Field_Parser object.
 	 *
 	 * @since 0.1.0
 	 *

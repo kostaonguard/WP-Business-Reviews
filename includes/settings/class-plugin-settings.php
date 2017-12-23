@@ -9,7 +9,7 @@
 namespace WP_Business_Reviews\Includes\Settings;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Field\Field_Parser;
+use WP_Business_Reviews\Includes\Field\Parser\Plugin_Settings_Field_Parser as Field_Parser;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\View;
 
