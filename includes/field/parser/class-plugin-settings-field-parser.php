@@ -23,7 +23,7 @@ use WP_Business_Reviews\Includes\Field\Field_Factory;
  *
  * @since 0.1.0
  */
-class Plugin_Settings_Field_Parser {
+class Plugin_Settings_Field_Parser extends Field_Parser_Abstract {
 	/**
 	* Settings retriever.
 	*

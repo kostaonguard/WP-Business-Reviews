@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Base_Settings abstract class
+ * Defines the Settings_Abstract class
  *
  * @package WP_Business_Reviews\Includes\Settings
  * @since 0.1.0
@@ -9,16 +9,16 @@
 namespace WP_Business_Reviews\Includes\Settings;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Field\Parser\Base_Field_Parser as Field_Parser;
+use WP_Business_Reviews\Includes\Field\Parser\Field_Parser_Abstract as Field_Parser;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
 use WP_Business_Reviews\Includes\View;
 
 /**
- * Retrieves and displays the plugin's settings.
+ * Manages settings used throughout the plugin.
  *
  * @since 0.1.0
  */
-abstract class Base_Settings{
+abstract class Settings_Abstract {
 	/**
 	 * Settings config.
 	 *
@@ -68,7 +68,7 @@ abstract class Base_Settings{
 	protected $view;
 
 	/**
-	 * Instantiates the Base_Settings object.
+	 * Instantiates the Settings_Abstract object.
 	 *
 	 * @since 0.1.0
 	 *
@@ -79,7 +79,7 @@ abstract class Base_Settings{
 	 */
 	public function __construct(
 		Config $config,
-		$field_parser,
+		Field_Parser $field_parser,
 		array $active_platforms,
 		array $connected_platforms
 	) {
