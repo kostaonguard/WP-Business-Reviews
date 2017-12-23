@@ -154,7 +154,7 @@ class Platform_Manager {
 	* @return array Array of default platform slugs.
 	*/
 	public function get_default_platforms() {
-		return $this->default_platforms;
+		return array_intersect_key( $this->platforms, $this->default_platforms );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class Platform_Manager {
 			$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
 		}
 
-		return $active_platforms;
+		return array_intersect_key( $this->platforms, $active_platforms );
 	}
 
 	/**
@@ -194,15 +194,17 @@ class Platform_Manager {
 		} else {
 			$connected_platforms = array();
 
-			foreach ( array_keys( $this->platforms ) as $platform ) {
-				$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
+			foreach ( $this->platforms as $platform_id => $platform_name ) {
+				$status = $this->deserializer->get( "{$platform_id}_platform_status", 'status' );
 				if ( 'connected' === $status ) {
-					$connected_platforms[] = $platform;
+					$connected_platforms[ $platform_id ] = $platform_name;
 				}
 			}
 		}
 
-		return $connected_platforms;
+		error_log( print_r( $connected_platforms, true ) );
+
+		return array_intersect_key( $this->platforms, $connected_platforms );
 	}
 
 	/**
@@ -257,7 +259,7 @@ class Platform_Manager {
 	 * @param string $platform The platform slug.
 	 */
 	private function is_active( $platform ) {
-		return in_array( $platform, $this->get_active_platforms() );
+		return in_array( $platform, array_keys( $this->get_active_platforms() ) );
 	}
 
 	/**
