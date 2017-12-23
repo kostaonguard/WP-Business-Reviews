@@ -7,7 +7,7 @@
 		</div>
 		<div class="wpbr-builder__tools">
 			<ul class="wpbr-inline-list">
-				<li class="wpbr-inline-list__item"><button id="wpbr-control-settings" class="button"><?php esc_html_e( 'Settings', 'wp-business-reviews' ); ?></button></li>
+				<li class="wpbr-inline-list__item"><button id="wpbr-control-inspector" class="button"><?php esc_html_e( 'Settings', 'wp-business-reviews' ); ?></button></li>
 				<li class="wpbr-inline-list__item"><button id="wpbr-control-save" class="button button-primary"><?php esc_html_e( 'Save Review Set', 'wp-business-reviews' ); ?></button></li>
 			</ul>
 		</div>
@@ -15,7 +15,7 @@
 	<div class="wpbr-builder__workspace">
 		<?php
 		$this->render_partial( WPBR_PLUGIN_DIR . 'views/builder/builder-preview.php' );
-		$this->render_partial( WPBR_PLUGIN_DIR . 'views/builder/builder-settings.php' );
+		$this->render_partial( WPBR_PLUGIN_DIR . 'views/builder/builder-inspector.php' );
 		?>
 	</div>
 </div>

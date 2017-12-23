@@ -39,10 +39,10 @@ $config = array(
 				'tooltip' => __( 'Defines the format in which reviews are displayed.', 'wp-business-reviews' ),
 				'default' => 'gallery',
 				'options' => array(
-					'reviews-gallery'  => __( 'Reviews Gallery', 'wp-business-reviews' ),
-					'reviews-list'     => __( 'Reviews List', 'wp-business-reviews' ),
-					'reviews-carousel' => __( 'Reviews Carousel', 'wp-business-reviews' ),
-					'business-badge'   => __( 'Business Badge', 'wp-business-reviews' ),
+					'review-gallery'  => __( 'Review Gallery', 'wp-business-reviews' ),
+					'review-list'     => __( 'Review List', 'wp-business-reviews' ),
+					'review-carousel' => __( 'Review Carousel', 'wp-business-reviews' ),
+					'business-badge'  => __( 'Business Badge', 'wp-business-reviews' ),
 				),
 			),
 			'max_columns' => array(
