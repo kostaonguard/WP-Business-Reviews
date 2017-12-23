@@ -17,7 +17,7 @@ class Plugin_Settings extends Settings_Abstract {
 	/**
 	 * @inheritDoc
 	 */
-	protected $view = WPBR_PLUGIN_DIR . 'views/settings/settings-main.php';
+	protected $view = WPBR_PLUGIN_DIR . 'views/plugin-settings/plugin-settings.php';
 
 	/**
 	 * @inheritDoc
