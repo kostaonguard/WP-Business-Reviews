@@ -104,7 +104,7 @@ final class Plugin {
 			$field_factory = new Field_Factory();
 
 			// Register settings.
-			$plugin_settings_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
+			$plugin_settings_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-plugin-settings.php' );
 			$settings_field_parser  = new Field_Parser( $option_deserializer, $field_factory );
 			$plugin_settings        = new Plugin_Settings(
 				$plugin_settings_config,
