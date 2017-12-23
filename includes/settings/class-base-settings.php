@@ -1,0 +1,129 @@
+<?php
+/**
+ * Defines the Base_Settings abstract class
+ *
+ * @package WP_Business_Reviews\Includes\Settings
+ * @since 0.1.0
+ */
+
+namespace WP_Business_Reviews\Includes\Settings;
+
+use WP_Business_Reviews\Includes\Config;
+use WP_Business_Reviews\Includes\Field\Parser\Base_Field_Parser as Field_Parser;
+use WP_Business_Reviews\Includes\Field\Field_Repository;
+use WP_Business_Reviews\Includes\View;
+
+/**
+ * Retrieves and displays the plugin's settings.
+ *
+ * @since 0.1.0
+ */
+abstract class Base_Settings{
+	/**
+	 * Settings config.
+	 *
+	 * @since 0.1.0
+	 * @var Config
+	 */
+	protected $config;
+
+	/**
+	 * Parser of field objects from config.
+	 *
+	 * @since 0.1.0
+	 * @var Field_Parser
+	 */
+	protected $field_parser;
+
+	/**
+	 * Array of active platform slugs.
+	 *
+	 * @since 0.1.0
+	 * @var array $active_platforms
+	 */
+	protected $active_platforms;
+
+	/**
+	 * Array of connected platform slugs.
+	 *
+	 * @since 0.1.0
+	 * @var array $connected_platforms
+	 */
+	protected $connected_platforms;
+
+	/**
+	 * Repository that holds field objects.
+	 *
+	 * @since 0.1.0
+	 * @var Field_Repository
+	 */
+	protected $field_repository;
+
+	/**
+	 * URI of the rendered view.
+	 *
+	 * @since 0.1.0
+	 * @var string
+	 */
+	protected $view;
+
+	/**
+	 * Instantiates the Base_Settings object.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param Config       $config              Settings config.
+	 * @param Field_Parser $field_parser        Parser of field objects from config.
+	 * @param array        $active_platforms    Array of active platform slugs.
+	 * @param array        $connected_platforms Array of connected platform slugs.
+	 */
+	public function __construct(
+		Config $config,
+		$field_parser,
+		array $active_platforms,
+		array $connected_platforms
+	) {
+		$this->config              = $config;
+		$this->field_parser        = $field_parser;
+		$this->active_platforms    = $active_platforms;
+		$this->connected_platforms = $connected_platforms;
+	}
+
+	/**
+	 * Registers functionality with WordPress hooks.
+	 *
+	 * @since 0.1.0
+	 */
+	abstract public function register();
+
+	/**
+	 * Initializes the object for use.
+	 *
+	 * @since 0.1.0
+	 */
+	public function init() {
+		$field_objects          = $this->field_parser->parse_config( $this->config );
+		$this->field_repository = new Field_Repository( $field_objects );
+	}
+
+	/**
+	 * Renders the settings UI.
+	 *
+	 * Active and connected platforms are used to determine platform visibility
+	 * as well as connection status.
+	 *
+	 * @since  0.1.0
+	 */
+	public function render() {
+		$view_object = new View( $this->view );
+
+		$view_object->render(
+			array(
+				'config'              => $this->config,
+				'field_repository'    => $this->field_repository,
+				'active_platforms'    => $this->active_platforms,
+				'connected_platforms' => $this->connected_platforms,
+			)
+		);
+	}
+}
