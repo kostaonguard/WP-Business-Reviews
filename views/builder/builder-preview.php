@@ -1,9 +1,9 @@
 <div class="wpbr-builder__preview">
 	<div class="wpbr-notice wpbr-notice--warning js-wpbr-builder-notice" style="display: none;"><strong>Note:</strong> The Google API returns a maximum of 5 reviews, however your total number may grow over time as new reviews become available.</div>
 	<div class="wpbr-wrap wpbr-theme--card js-wpbr-wrap">
-		<ul class="wpbr-gallery js-wpbr-list">
+		<ul class="wpbr-review-gallery js-wpbr-list">
 			<?php for ( $i = 0; $i < 12; $i++ ) : ?>
-				<li class="wpbr-gallery__item wpbr-gallery__item--3 js-wpbr-item" data-rating="5" data-time-created="">
+				<li class="wpbr-review-gallery__item wpbr-review-gallery__item--3 js-wpbr-item" data-rating="5" data-time-created="">
 					<div class="wpbr-review js-wpbr-review">
 						<div class="wpbr-review__header js-wpbr-review-details">
 							<div class="wpbr-review__image js-wpbr-review-image">

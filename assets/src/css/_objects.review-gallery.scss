@@ -1,8 +1,8 @@
 /*--------------------------------------------------------------
-# Gallery
+# Review-Gallery
 --------------------------------------------------------------*/
 
-.wpbr-gallery {
+.wpbr-review-gallery {
 	@include wpbr-gallery( $wpbr-space );
 	list-style: none;
 	margin-bottom: $wpbr-space;
