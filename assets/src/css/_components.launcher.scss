@@ -1,0 +1,14 @@
+/*--------------------------------------------------------------
+# Launcher
+--------------------------------------------------------------*/
+
+.wpbr-launcher {
+	color: $wpbr-color-text;
+	font-size: 14px;
+	padding: $wpbr-space;
+	text-align: center;
+
+	&__heading {
+		color: $wpbr-color-text;
+	}
+}
