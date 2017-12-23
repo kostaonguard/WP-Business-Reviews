@@ -5,7 +5,7 @@
 		if (
 			'general' === $this->tab_id
 			&& 'platforms' !== $section_id
-			&& ! in_array( $section_id, $this->active_platforms ) ) {
+			&& ! in_array( $section_id, array_keys( $this->active_platforms ) ) ) {
 			continue;
 		}
 		?>
