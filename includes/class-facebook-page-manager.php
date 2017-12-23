@@ -88,6 +88,11 @@ class Facebook_Page_Manager {
 		}
 	}
 
+	/**
+	 * Saves Facebook page names and tokens.
+	 *
+	 * @return bool True if pages saved, false otherwise.
+	 */
 	public function save_pages() {
 		if ( ! $this->request->has_token() ) {
 			return false;
