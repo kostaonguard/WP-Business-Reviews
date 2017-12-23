@@ -105,7 +105,7 @@ final class Plugin {
 			$field_factory = new Field_Factory();
 
 			// Register plugin settings.
-			$plugin_settings_config       = new Config( WPBR_PLUGIN_DIR . 'configs/config-plugin-settings.php' );
+			$plugin_settings_config       = new Config( WPBR_PLUGIN_DIR . 'config/config-plugin-settings.php' );
 			$plugin_settings_field_parser = new Plugin_Settings_Field_Parser( $field_factory, $option_deserializer );
 			$plugin_settings              = new Plugin_Settings(
 				$plugin_settings_config,
@@ -116,7 +116,7 @@ final class Plugin {
 			$plugin_settings->register();
 
 			// Register builder settings.
-			$builder_settings_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-builder-settings.php' );
+			$builder_settings_config = new Config( WPBR_PLUGIN_DIR . 'config/config-builder-settings.php' );
 			$builder_field_parser    = new Builder_Field_Parser( $field_factory );
 			$builder_settings        = new Builder_Settings(
 				$builder_settings_config,
@@ -134,7 +134,7 @@ final class Plugin {
 			$facebook_page_manager->register();
 
 			// Register admin pages.
-			$admin_pages_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
+			$admin_pages_config = new Config( WPBR_PLUGIN_DIR . 'config/config-admin-pages.php' );
 			$admin_menu         = new Admin_Menu( $admin_pages_config );
 			$admin_menu->register();
 
