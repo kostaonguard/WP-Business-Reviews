@@ -113,8 +113,10 @@ class Facebook_Page_Manager {
 					'token' => $page['access_token'],
 				);
 			}
+
+			return $this->serializer->save( 'facebook_pages', $pages );
 		}
 
-		return $this->serializer->save( 'facebook_pages', $pages );
+		return false;
 	}
 }
