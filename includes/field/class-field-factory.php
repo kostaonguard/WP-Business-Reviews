@@ -49,6 +49,6 @@ class Field_Factory {
 			}
 		}
 
-		// TODO: Add logic to return different field subclasses based on type.
+		return false;
 	}
 }
