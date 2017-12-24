@@ -1,5 +1,9 @@
 import Field from './field';
 import GooglePlacesTextSearch from './google-places-text-search';
+import '../images/platform-google-places-160w.png';
+import '../images/platform-facebook-160w.png';
+import '../images/platform-yelp-160w.png';
+import '../images/platform-yp-160w.png';
 
 class Builder {
 	constructor( selector ) {
