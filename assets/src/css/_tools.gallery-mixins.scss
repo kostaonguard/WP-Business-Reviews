@@ -5,6 +5,7 @@
 @mixin wpbr-gallery( $gutter ) {
 	display: flex;
 	flex-wrap: wrap;
+	list-style: none;
 	margin: 0 ( -$gutter ) 0;
 
 	&:after {
@@ -14,12 +15,13 @@
 	}
 }
 
-@mixin wpbr-gallery-item( $columns, $gutter ) {
-	$gutter-adjustment: $gutter + $gutter *  1 / $columns;
-	$width: calc( #{percentage( 1 / $columns )} - #{$gutter-adjustment} );
-
+@mixin wpbr-gallery-item( $gutter ) {
 	display: flex;
 	margin-bottom: $gutter;
 	margin-left: $gutter;
-	width: $width;
+}
+
+@mixin wpbr-gallery-columns( $columns, $gutter ) {
+	$gutter-adjustment: $gutter + $gutter *  1 / $columns;
+	width: calc( #{percentage( 1 / $columns )} - #{$gutter-adjustment} );
 }
