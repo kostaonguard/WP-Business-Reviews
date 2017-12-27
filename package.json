@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WordImpress/WP-Business-Reviews-Core.git"
+    "url": "git+https://github.com/WordImpress/WP-Business-Reviews.git"
   },
   "author": "WordImpress, LLC",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/WordImpress/WP-Business-Reviews-Core/issues"
+    "url": "https://github.com/WordImpress/WP-Business-Reviews/issues"
   },
-  "homepage": "https://github.com/WordImpress/WP-Business-Reviews-Core#readme",
+  "homepage": "https://github.com/WordImpress/WP-Business-Reviews#readme",
   "devDependencies": {
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.26.0",
