@@ -12,18 +12,20 @@ $platform_count = count( $this->active_platforms );
 					$platform_url  = add_query_arg( array( 'wpbr_platform' => $platform_id ) );
 					$platform_slug = str_replace( '_', '-', $platform_id );
 					$image_url     = WPBR_ASSETS_URL . "images/platform-{$platform_slug}-160w.png";
-				?>
+
+					?>
 					<li class="wpbr-platform-gallery__item wpbr-platform-gallery__item--<?php echo esc_attr( $platform_count ); ?>">
 						<div class="wpbr-card">
 							<img class="wpbr-platform-gallery__image" src="<?php echo esc_attr( $image_url ); ?>" alt="Some alt text">
-							<a class="button button-primary" href="<?php echo esc_url( $platform_url ); ?>">
-								<?php
-								printf(
-									__( 'Build %1$s Reviews', 'wp-business-reviews' ),
-									esc_html( $platform_name )
-								);
-								?>
-							</a>
+							<?php if ( in_array( $platform_id, array_keys( $this->connected_platforms ) ) ) : ?>
+								<a class="button button-primary" href="<?php echo esc_url( $platform_url ); ?>">
+									<?php printf( __( 'Build %1$s Reviews', 'wp-business-reviews' ), esc_html( $platform_name ) ); ?>
+								</a>
+							<?php else : ?>
+								<a class="button" href="<?php echo esc_url( $platform_url ); ?>">
+									<?php printf( __( 'Connect to %1$s', 'wp-business-reviews' ), esc_html( $platform_name ) ); ?>
+								</a>
+							<?php endif; ?>
 						</div>
 					</li>
 				<?php endforeach; ?>
