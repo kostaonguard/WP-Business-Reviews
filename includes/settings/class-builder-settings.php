@@ -43,11 +43,9 @@ class Builder_Settings extends Settings_Abstract {
 	 * @since 0.1.0
 	 */
 	public function init() {
-		if( isset( $_GET['wpbr-review-set'], $_GET['wpbr-platform'] ) ) {
-			$this->review_set = sanitize_text_field( $_GET['wpbr-review-set'] );
-			$this->platform   = sanitize_text_field( $_GET['wpbr-platform'] );
-			$this->set_config( $this->platform );
-			$this->parse_fields();
+		if( isset( $_GET['wpbr_platform'] ) ) {
+			$this->platform         = sanitize_text_field( $_GET['wpbr_platform'] );
+			$this->field_repository = $this->parse_fields();
 		} else {
 			// Either a review set or platform was not defined, so display the launcher.
 			$this->view = WPBR_PLUGIN_DIR . 'views/builder/builder-launcher.php';
@@ -58,18 +56,8 @@ class Builder_Settings extends Settings_Abstract {
 	 * @inheritDoc
 	 */
 	public function parse_fields() {
-		$field_objects          = $this->field_parser->parse_fields( $this->config );
-		$this->field_repository = new Field_Repository( $field_objects );
-	}
+		$field_objects = $this->field_parser->parse_fields( $this->config );
 
-	/**
-	 * Sets the config based on platform slug.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $platform The platform slug.
-	 */
-	protected function set_config( $platform ) {
-		$this->config = new Config( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
+		return new Field_Repository( $field_objects );
 	}
 }
