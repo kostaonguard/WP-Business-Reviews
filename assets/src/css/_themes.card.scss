@@ -3,11 +3,13 @@
 --------------------------------------------------------------*/
 
 .wpbr-theme--card {
-	.wpbr-gallery .wpbr-review {
+	.wpbr-review-gallery .wpbr-review {
 		@include wpbr-card();
+		padding: $wpbr-space;
 	}
 
 	.wpbr-stacked-list {
 		@include wpbr-card();
+		padding: $wpbr-space;
 	}
 }

@@ -1,0 +1,29 @@
+/*--------------------------------------------------------------
+# Post-Table
+--------------------------------------------------------------*/
+
+.wpbr-post-table {
+	width: 100%;
+	border-collapse: collapse;
+
+	thead th,
+	thead td {
+		border-bottom: $wpbr-border-width solid $wpbr-color-dim;
+		font-weight: 400;
+		text-align: left;
+	}
+
+	th,
+	td {
+		padding: $wpbr-space;
+	}
+
+	tbody tr:nth-child(odd) {
+		background-color: $wpbr-color-off-white-light;
+	}
+
+	&__title {
+		font-weight: 600;
+		text-decoration: none;
+	}
+}

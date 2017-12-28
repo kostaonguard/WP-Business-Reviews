@@ -3,7 +3,7 @@
 		<?php
 		// Render the panel navigation if more than one section exists.
 		if ( ! empty( $tab['sections'] ) && count( $tab['sections'] ) > 1 ) {
-			$this->render_partial( WPBR_PLUGIN_DIR . 'views/settings/panel/panel-sidebar.php',
+			$this->render_partial( WPBR_PLUGIN_DIR . 'views/plugin-settings/plugin-settings-panel-sidebar.php',
 				array(
 					'tab_id'              => $tab_id,
 					'sections'            => $tab['sections'],
@@ -15,7 +15,7 @@
 
 			// Render the panel's sections.
 			$this->render_partial(
-				WPBR_PLUGIN_DIR . 'views/settings/panel/panel-main.php',
+				WPBR_PLUGIN_DIR . 'views/plugin-settings/plugin-settings-panel-main.php',
 			array(
 				'tab_id'           => $tab_id,
 				'sections'         => $tab['sections'],

@@ -18,12 +18,12 @@ namespace WP_Business_Reviews\Config;
 $config = apply_filters(
 	'wpbr_config_admin_pages',
 	array(
-		'reviews_builder' => array(
+		'builder' => array(
 			'page_parent' => 'edit.php?post_type=wpbr_review',
 			'page_title' => __( 'Reviews Builder', 'wp-business-reviews' ),
 			'menu_title' => __( 'Reviews Builder', 'wp-business-reviews' ),
 			'capability' => 'manage_options',
-			'menu_slug'  => 'wpbr_reviews_builder',
+			'menu_slug'  => 'wpbr_builder',
 		),
 		'settings' => array(
 			'page_parent' => 'edit.php?post_type=wpbr_review',

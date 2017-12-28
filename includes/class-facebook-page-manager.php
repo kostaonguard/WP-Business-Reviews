@@ -10,7 +10,7 @@
 
 namespace WP_Business_Reviews\Includes;
 
-use WP_Business_Reviews\Includes\Settings\Serializer;
+use WP_Business_Reviews\Includes\Serializer\Option_Serializer;
 use WP_Business_Reviews\Includes\Request\Facebook_Request;
 
 /**
@@ -27,10 +27,10 @@ use WP_Business_Reviews\Includes\Request\Facebook_Request;
  */
 class Facebook_Page_Manager {
 	/**
-	 * Serializer.
+	 * Settings serializer.
 	 *
 	 * @since 0.1.0
-	 * @var Serializer $serializer
+	 * @var Option_Serializer $serializer
 	 */
 	private $serializer;
 
@@ -47,10 +47,10 @@ class Facebook_Page_Manager {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Serializer       $serializer Settings saver.
-	 * @param Facebook_Request $request    Facebook request.
+	 * @param Option_Serializer $serializer Settings saver.
+	 * @param Facebook_Request  $request    Facebook request.
 	 */
-	public function __construct( Serializer $serializer, Facebook_Request $request ) {
+	public function __construct( Option_Serializer $serializer, Facebook_Request $request ) {
 		$this->serializer = $serializer;
 		$this->request    = $request;
 	}
@@ -61,8 +61,8 @@ class Facebook_Page_Manager {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_token' ), 1 );
-		add_action( 'wpbr_review_page_wpbr_settings', array( $this, 'save_pages' ), 1 );
+		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_token' ), 1 );
+		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_pages' ), 1 );
 	}
 
 	public function save_token() {
@@ -88,6 +88,11 @@ class Facebook_Page_Manager {
 		}
 	}
 
+	/**
+	 * Saves Facebook page names and tokens.
+	 *
+	 * @return bool True if pages saved, false otherwise.
+	 */
 	public function save_pages() {
 		if ( ! $this->request->has_token() ) {
 			return false;
@@ -108,8 +113,10 @@ class Facebook_Page_Manager {
 					'token' => $page['access_token'],
 				);
 			}
+
+			return $this->serializer->save( 'facebook_pages', $pages );
 		}
 
-		return $this->serializer->save( 'facebook_pages', $pages );
+		return false;
 	}
 }

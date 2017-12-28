@@ -10,22 +10,22 @@
 
 namespace WP_Business_Reviews\Includes;
 
-use WP_Business_Reviews\Includes\Field\Field_Parser;
+use WP_Business_Reviews\Includes\Field\Parser\Plugin_Settings_Field_Parser;
 use WP_Business_Reviews\Includes\Field\Field_Repository;
-use WP_Business_Reviews\Includes\Settings\Serializer;
-use WP_Business_Reviews\Includes\Settings\Deserializer;
-use WP_Business_Reviews\Includes\Settings\Settings;
+use WP_Business_Reviews\Includes\Serializer\Option_Serializer;
+use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
+use WP_Business_Reviews\Includes\Settings\Plugin_Settings;
 use WP_Business_Reviews\Includes\Admin\Admin_Menu;
 use WP_Business_Reviews\Includes\Admin\Admin_Banner;
 use WP_Business_Reviews\Includes\Admin\Admin_Footer;
 use WP_Business_Reviews\Includes\Admin\Blank_Slate;
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Reviews_Builder;
-use WP_Business_Reviews\Includes\Settings\Option_Repository;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
 use WP_Business_Reviews\Includes\Facebook_Page_Manager;
 use WP_Business_Reviews\Includes\Platform_Manager;
 use WP_Business_Reviews\Includes\Field\Field_Factory;
+use WP_Business_Reviews\Includes\Settings\Builder_Settings;
+use WP_Business_Reviews\Includes\Field\Parser\Builder_Field_Parser;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -86,50 +86,55 @@ final class Plugin {
 
 		if ( is_admin() ) {
 			// Register settings.
-			$settings_deserializer     = new Deserializer();
-			$settings_serializer       = new Serializer();
-			$settings_serializer->register();
+			$option_deserializer = new Option_Deserializer();
+			$option_serializer   = new Option_Serializer();
+			$option_serializer->register();
 
 			// Register remote API requests to connect to review platforms.
-			$request_factory = new Request_Factory( $settings_deserializer );
+			$request_factory = new Request_Factory( $option_deserializer );
 
 			// Register platform manager to manage active and connected platforms.
 			$platform_manager = new Platform_Manager(
-				$settings_deserializer,
-				$settings_serializer,
+				$option_deserializer,
+				$option_serializer,
 				$request_factory
 			);
 			$platform_manager->register();
 
-			// Register field parser to create field objects from configs.
+			// Register field factory to create field objects.
 			$field_factory = new Field_Factory();
-			$field_parser  = new Field_Parser( $settings_deserializer, $field_factory );
 
-			// Register settings UI.
-			$settings_config           = new Config( WPBR_PLUGIN_DIR . 'configs/config-settings.php' );
-			$settings_field_repository = new Field_Repository( $field_parser->parse_config( $settings_config ) );
-			$settings = new Settings(
-				$settings_config,
-				$settings_field_repository,
+			// Register plugin settings.
+			$plugin_settings_config       = new Config( WPBR_PLUGIN_DIR . 'config/config-plugin-settings.php' );
+			$plugin_settings_field_parser = new Plugin_Settings_Field_Parser( $field_factory, $option_deserializer );
+			$plugin_settings              = new Plugin_Settings(
+				$plugin_settings_config,
+				$plugin_settings_field_parser,
 				$platform_manager->get_active_platforms(),
 				$platform_manager->get_connected_platforms()
 			);
-			$settings->register();
+			$plugin_settings->register();
 
-			// Register reviews builder to build review sets.
-			$reviews_builder_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-reviews-builder.php' );
-			$reviews_builder        = new Reviews_Builder( $reviews_builder_config, $field_parser );
-			$reviews_builder->register();
+			// Register builder settings.
+			$builder_settings_config = new Config( WPBR_PLUGIN_DIR . 'config/config-builder-settings.php' );
+			$builder_field_parser    = new Builder_Field_Parser( $field_factory );
+			$builder_settings        = new Builder_Settings(
+				$builder_settings_config,
+				$builder_field_parser,
+				$platform_manager->get_active_platforms(),
+				$platform_manager->get_connected_platforms()
+			);
+			$builder_settings->register();
 
 			// Register Facebook page manager to retrieve and update authenticated pages.
 			$facebook_page_manager = new Facebook_Page_Manager(
-				$settings_serializer,
+				$option_serializer,
 				$request_factory->create( 'facebook' )
 			);
 			$facebook_page_manager->register();
 
 			// Register admin pages.
-			$admin_pages_config = new Config( WPBR_PLUGIN_DIR . 'configs/config-admin-pages.php' );
+			$admin_pages_config = new Config( WPBR_PLUGIN_DIR . 'config/config-admin-pages.php' );
 			$admin_menu         = new Admin_Menu( $admin_pages_config );
 			$admin_menu->register();
 

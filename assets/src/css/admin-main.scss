@@ -35,7 +35,9 @@
 @import "objects.media"; // Flexbox media object.
 @import "objects.stacked-list"; // Unstyled vertical list.
 @import "objects.inline-list"; // Unstyled horizontal list.
-@import "objects.gallery"; // Multi-column gallery.
+@import "objects.review-gallery"; // Multi-column review gallery.
+@import "objects.platform-gallery"; // Multi-column platform gallery.
+@import "objects.post-table"; // Multi-column post table.
 
 /*--------------------------------------------------------------
 # Components - Designed components, chunks of UI.
@@ -54,13 +56,14 @@
 @import "components.icon"; // Icons in pseudo-elements.
 @import "components.blank-slate"; // Appears when no posts available.
 @import "components.card"; // Solid card with drop shadow.
-@import "components.reviews-builder"; // Reviews builder.
+@import "components.builder"; // Builder used to generate review sets.
 @import "components.review"; // Review.
 @import "components.business"; // Business.
 @import "components.scrollable"; // Scrollable fixed-height container.
 @import "components.stars"; // Five-star ratings.
 @import "components.tooltip"; // Tooltip styles that extend hint.css.
 @import "components.settings"; // Settings UI.
+@import "components.launcher"; // Launcher for platform selection.
 
 /*--------------------------------------------------------------
 # Themes - Styles that override many components.

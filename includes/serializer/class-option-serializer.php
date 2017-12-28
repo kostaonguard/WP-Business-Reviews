@@ -1,21 +1,21 @@
 <?php
 /**
- * Defines the Serializer class
+ * Defines the Option_Serializer class
  *
  * @link https://wpbusinessreviews.com
  *
- * @package WP_Business_Reviews\Includes\Settings
+ * @package WP_Business_Reviews\Includes\Serializer
  * @since 0.1.0
  */
 
-namespace WP_Business_Reviews\Includes\Settings;
+namespace WP_Business_Reviews\Includes\Serializer;
 
 /**
  * Saves information to the database.
  *
  * @since 0.1.0
  */
-class Serializer {
+class Option_Serializer {
 	/**
 	 * Registers functionality with WordPress hooks.
 	 *
@@ -31,12 +31,12 @@ class Serializer {
 	 * @since 0.1.0
 	 */
 	public function save_all() {
-		// Make sure settings exist
-		if ( ! empty( $_POST['wp_business_reviews_settings'] ) ) {
-			$settings = $_POST['wp_business_reviews_settings'];
-		} else {
-			return;
+		// Make sure settings exist.
+		if ( empty( $_POST['wp_business_reviews_settings'] ) ) {
+			$this->redirect();
 		}
+
+		$settings = $_POST['wp_business_reviews_settings'];
 
 		// Validate nonce and verify user has permission to save.
 		if ( $this->has_valid_nonce() && $this->has_permission() ) {

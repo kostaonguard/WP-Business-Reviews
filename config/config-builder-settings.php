@@ -9,6 +9,27 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
+	'business' => array(
+		'name'   => __( 'Business', 'wp-business-reviews' ),
+		'fields' => array(
+			'business_search_terms' => array(
+				'name'        => __( 'Search Terms', 'wp-business-reviews' ),
+				'type'        => 'text',
+				'tooltip'     => __( 'Defines the terms used when searching for a business.', 'wp-business-reviews' ),
+				'placeholder' => __( 'Business Name or Type', 'wp-business-reviews' ),
+			),
+			'business_search_location' => array(
+				'name'        => __( 'Location', 'wp-business-reviews' ),
+				'type'        => 'text',
+				'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
+				'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
+			),
+			'business_search_button' => array(
+				'type'        => 'button',
+				'button_text' => __( 'Find Business', 'wp-business-reviews' ),
+			),
+		),
+	),
 	'presentation' => array(
 		'name'   => __( 'Presentation', 'wp-business-reviews' ),
 		'fields' => array(
@@ -18,10 +39,10 @@ $config = array(
 				'tooltip' => __( 'Defines the format in which reviews are displayed.', 'wp-business-reviews' ),
 				'default' => 'gallery',
 				'options' => array(
-					'reviews-gallery'  => __( 'Reviews Gallery', 'wp-business-reviews' ),
-					'reviews-list'     => __( 'Reviews List', 'wp-business-reviews' ),
-					'reviews-carousel' => __( 'Reviews Carousel', 'wp-business-reviews' ),
-					'business-badge'   => __( 'Business Badge', 'wp-business-reviews' ),
+					'review-gallery'  => __( 'Review Gallery', 'wp-business-reviews' ),
+					'review-list'     => __( 'Review List', 'wp-business-reviews' ),
+					'review-carousel' => __( 'Review Carousel', 'wp-business-reviews' ),
+					'business-badge'  => __( 'Business Badge', 'wp-business-reviews' ),
 				),
 			),
 			'max_columns' => array(
@@ -49,33 +70,6 @@ $config = array(
 					'seamless-dark'  => __( 'Seamless Dark', 'wp-business-reviews' ),
 				),
 			),
-		),
-	),
-	'business' => array(
-		'name'   => __( 'Business', 'wp-business-reviews' ),
-		'fields' => array(
-			'platform' => array(
-				'name'    => __( 'Platform', 'wp-business-reviews' ),
-				'type'    => 'select',
-				'tooltip' => __( 'Defines the platform used when searching for a business.', 'wp-business-reviews' ),
-				'options' => array(
-					'google'   => __( 'Google', 'wp-business-reviews' ),
-					'facebook' => __( 'Facebook', 'wp-business-reviews' ),
-					'yelp'     => __( 'Yelp', 'wp-business-reviews' ),
-					'yp'       => __( 'YP', 'wp-business-reviews' ),
-				),
-			),
-			'business_search' => array(
-				'name'        => __( 'Business', 'wp-business-reviews' ),
-				'type'        => 'search',
-				'tooltip'     => __( 'Defines the query used when searching for a business.', 'wp-business-reviews' ),
-				'placeholder' => __( 'Business Name, Location', 'wp-business-reviews' ),
-			),
-		),
-	),
-	'reviews' => array(
-		'name'   => __( 'Reviews', 'wp-business-reviews' ),
-		'fields' => array(
 			'review_components' => array(
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
 				'type'    => 'checkboxes',

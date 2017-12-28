@@ -8,6 +8,8 @@
 
 namespace WP_Business_Reviews\Includes\Admin;
 
+use WP_Business_Reviews\Includes\View;
+
 /**
  * Creates an admin page for the plugin.
  *
@@ -58,8 +60,8 @@ class Admin_Page {
 			$this->page_title,
 			$this->menu_title,
 			$this->capability,
-			$this->menu_slug
-			// TODO: Add default callable to ensure the page renders.
+			$this->menu_slug,
+			array( $this, 'render' )
 		);
 	}
 
@@ -82,5 +84,22 @@ class Admin_Page {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Renders the admin page.
+	 *
+	 * The page is blank by default, but a page-specific hook is triggered
+	 * that can be used by other classes to render page elements.
+	 *
+	 * @since  0.1.0
+	 */
+	public function render() {
+		/**
+		 * Fires when the admin page body renders.
+		 *
+		 * @since 0.1.0
+		 */
+		do_action( "wp_business_reviews_admin_page_{$this->menu_slug}" );
 	}
 }

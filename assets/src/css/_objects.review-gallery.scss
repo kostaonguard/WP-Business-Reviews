@@ -1,14 +1,14 @@
 /*--------------------------------------------------------------
-# Gallery
+# Review-Gallery
 --------------------------------------------------------------*/
 
-.wpbr-gallery {
+.wpbr-review-gallery {
 	@include wpbr-gallery( $wpbr-space );
 	list-style: none;
-	margin-bottom: $wpbr-space;
 
 	&__item {
-		@include wpbr-gallery-item( 1, $wpbr-space );
+		@include wpbr-gallery-item( $wpbr-space );
+		@include wpbr-gallery-columns( 1, $wpbr-space );
 
 		&--2,
 		&--3,
@@ -16,7 +16,7 @@
 		&--5,
 		&--6 {
 			@media ( min-width: 960px ) {
-				@include wpbr-gallery-item( 2, $wpbr-space );
+				@include wpbr-gallery-columns( 2, $wpbr-space );
 			}
 		}
 
@@ -25,7 +25,7 @@
 		&--5,
 		&--6{
 			@media ( min-width: 1140px ) {
-				@include wpbr-gallery-item( 3, $wpbr-space );
+				@include wpbr-gallery-columns( 3, $wpbr-space );
 			}
 		}
 
@@ -33,20 +33,20 @@
 		&--5,
 		&--6 {
 			@media ( min-width: 1440px ) {
-				@include wpbr-gallery-item( 4, $wpbr-space );
+				@include wpbr-gallery-columns( 4, $wpbr-space );
 			}
 		}
 
 		&--5,
 		&--6 {
 			@media ( min-width: 1600px ) {
-				@include wpbr-gallery-item( 5, $wpbr-space );
+				@include wpbr-gallery-columns( 5, $wpbr-space );
 			}
 		}
 
 		&--6 {
 			@media ( min-width: 1920px ) {
-				@include wpbr-gallery-item( 6, $wpbr-space );
+				@include wpbr-gallery-columns( 6, $wpbr-space );
 			}
 		}
 	}

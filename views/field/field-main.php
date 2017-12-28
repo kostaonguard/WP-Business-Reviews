@@ -19,6 +19,36 @@ if ( ! empty( $this->args['name'] ) ) {
 	<?php
 		// Render field control.
 		$type = str_replace( '_', '-', $this->args['type'] );
+
+		switch ( $this->args['type'] ) {
+			case 'checkboxes':
+				$type = 'checkboxes';
+				break;
+			case 'facebook_pages':
+				$type = 'facebook-pages';
+				break;
+			case 'platform_status':
+				$type = 'platform-status';
+				break;
+			case 'radio':
+				$type = 'radio';
+				break;
+			case 'save':
+				$type = 'save';
+				break;
+			case 'search':
+				$type = 'search';
+				break;
+			case 'select':
+				$type = 'select';
+				break;
+			case 'button':
+				$type = 'button';
+				break;
+			default:
+				$type = 'input';
+		}
+
 		$this->render_partial( WPBR_PLUGIN_DIR . "views/field/controls/control-{$type}.php" );
 
 		if ( ! empty( $this->args['description'] ) ) {

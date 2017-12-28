@@ -1,7 +1,11 @@
 import Field from './field';
 import GooglePlacesTextSearch from './google-places-text-search';
+import '../images/platform-google-places-160w.png';
+import '../images/platform-facebook-160w.png';
+import '../images/platform-yelp-160w.png';
+import '../images/platform-yp-160w.png';
 
-class ReviewsBuilder {
+class Builder {
 	constructor( selector ) {
 
 		// Define the root element of the Reviews Builder.
@@ -13,8 +17,8 @@ class ReviewsBuilder {
 		this.themeField      = document.getElementById( 'wpbr-field-theme' );
 
 		// Define controls.
-		this.settings               = document.getElementById( 'wpbr-reviews-builder-settings' );
-		this.settingsControl        = document.getElementById( 'wpbr-control-settings' );
+		this.inspector              = document.getElementById( 'wpbr-builder-inspector' );
+		this.inspectorControl       = document.getElementById( 'wpbr-control-inspector' );
 		this.saveControl            = document.getElementById( 'wpbr-control-save' );
 		this.formatControl          = document.getElementById( 'wpbr-control-format' );
 		this.maxColumnsControl      = document.getElementById( 'wpbr-control-max_columns' );
@@ -53,9 +57,9 @@ class ReviewsBuilder {
 	}
 
 	init() {
-		this.settingsControl.addEventListener( 'click', event => {
+		this.inspectorControl.addEventListener( 'click', event => {
 			event.preventDefault();
-			this.toggleVisibility( this.settings );
+			this.toggleVisibility( this.inspector );
 		});
 
 		this.saveControl.addEventListener( 'click', event => {
@@ -112,18 +116,18 @@ class ReviewsBuilder {
 		element.classList.toggle( this.hiddenClass );
 	}
 
-	format( type = 'reviews-gallery' ) {
+	format( type = 'review-gallery' ) {
 		switch ( type ) {
 
-		case 'reviews-gallery':
+		case 'review-gallery':
 			this.formatGallery();
 			break;
 
-		case 'reviews-list':
+		case 'review-list':
 			this.formatList();
 			break;
 
-		case 'reviews-carousel':
+		case 'review-carousel':
 			this.formatCarousel();
 			break;
 
@@ -134,9 +138,9 @@ class ReviewsBuilder {
 	}
 
 	formatGallery( columns = 3 ) {
-		this.list.classList = 'wpbr-gallery';
+		this.list.classList = 'wpbr-review-gallery';
 		this.items.forEach( item => {
-			item.className = `wpbr-gallery__item wpbr-gallery__item--${columns} ${this.itemHandle}`;
+			item.className = `wpbr-review-gallery__item wpbr-review-gallery__item--${columns} ${this.itemHandle}`;
 		});
 	}
 
@@ -182,4 +186,4 @@ class ReviewsBuilder {
 	}
 }
 
-export default ReviewsBuilder;
+export default Builder;

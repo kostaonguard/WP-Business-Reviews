@@ -10,9 +10,9 @@
 
 namespace WP_Business_Reviews\Includes;
 
-use WP_Business_Reviews\Includes\Settings\Serializer;
+use WP_Business_Reviews\Includes\Serializer\Option_Serializer;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
-use WP_Business_Reviews\Includes\Settings\Deserializer;
+use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
 
 /**
  * Manages the existing, active, and connected platforms.
@@ -24,14 +24,14 @@ class Platform_Manager {
 	 * Settings saver.
 	 *
 	 * @since 0.1.0
-	 * @var Serializer $serializer
+	 * @var Option_Serializer $serializer
 	 */
 
 	/**
 	 * Settings retriever.
 	 *
 	 * @since 0.1.0
-	 * @var Deserializer $deserializer
+	 * @var Option_Deserializer $deserializer
 	 */
 
 	/**
@@ -76,13 +76,13 @@ class Platform_Manager {
 	/**
 	 * Instantiates the Platform_Manager object.
 	 *
-	 * @param Deserializer    $deserializer     Settings retriever.
-	 * @param Serializer      $serializer       Settings saver.
-	 * @param Request_Factory $request_factory  Request factory.
+	 * @param Option_Deserializer $deserializer     Settings retriever.
+	 * @param Option_Serializer   $serializer       Settings saver.
+	 * @param Request_Factory     $request_factory  Request factory.
 	 */
 	public function __construct(
-		Deserializer $deserializer,
-		Serializer $serializer,
+		Option_Deserializer $deserializer,
+		Option_Serializer $serializer,
 		Request_Factory $request_factory
 	) {
 		$this->deserializer    = $deserializer;
@@ -154,7 +154,7 @@ class Platform_Manager {
 	* @return array Array of default platform slugs.
 	*/
 	public function get_default_platforms() {
-		return $this->default_platforms;
+		return array_intersect_key( $this->platforms, $this->default_platforms );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class Platform_Manager {
 			$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
 		}
 
-		return $active_platforms;
+		return array_intersect_key( $this->platforms, $active_platforms );
 	}
 
 	/**
@@ -194,15 +194,17 @@ class Platform_Manager {
 		} else {
 			$connected_platforms = array();
 
-			foreach ( array_keys( $this->platforms ) as $platform ) {
-				$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
+			foreach ( $this->platforms as $platform_id => $platform_name ) {
+				$status = $this->deserializer->get( "{$platform_id}_platform_status", 'status' );
 				if ( 'connected' === $status ) {
-					$connected_platforms[] = $platform;
+					$connected_platforms[ $platform_id ] = $platform_name;
 				}
 			}
 		}
 
-		return $connected_platforms;
+		error_log( print_r( $connected_platforms, true ) );
+
+		return array_intersect_key( $this->platforms, $connected_platforms );
 	}
 
 	/**
@@ -257,7 +259,7 @@ class Platform_Manager {
 	 * @param string $platform The platform slug.
 	 */
 	private function is_active( $platform ) {
-		return in_array( $platform, $this->get_active_platforms() );
+		return in_array( $platform, array_keys( $this->get_active_platforms() ) );
 	}
 
 	/**
