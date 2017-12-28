@@ -33,7 +33,7 @@ $platform_count = count( $this->active_platforms );
 				$image_url     = WPBR_ASSETS_URL . "images/platform-{$platform_slug}-160w.png";
 				?>
 				<li class="wpbr-platform-gallery__item wpbr-platform-gallery__item--<?php echo esc_attr( $platform_count ); ?>">
-					<div class="wpbr-card">
+					<div class="wpbr-card wpbr-card--pad">
 						<img class="wpbr-platform-gallery__image" src="<?php echo esc_attr( $image_url ); ?>" alt="Some alt text">
 						<a class="<?php echo esc_attr( $cta_class ); ?>" href="<?php echo esc_url( $cta_url ); ?>">
 							<?php echo esc_html( $cta_text ); ?>
@@ -45,7 +45,7 @@ $platform_count = count( $this->active_platforms );
 	</div>
 	<h2 class="wpbr-launcher__heading"><?php esc_html_e( '...or load an existing Review Set.', 'wp-business-reviews' ); ?></h2>
 	<?php // TODO: Make Review Set table dynamic. ?>
-	<div class="wpbr-card" style="padding: 0;">
+	<div class="wpbr-card">
 		<table class="wpbr-post-table">
 			<thead>
 				<tr>

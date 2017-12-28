@@ -4,4 +4,8 @@
 
 .wpbr-card {
 	@include wpbr-card();
+
+	&--pad {
+		padding: $wpbr-space;
+	}
 }
