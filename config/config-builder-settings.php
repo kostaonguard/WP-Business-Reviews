@@ -70,11 +70,6 @@ $config = array(
 					'seamless-dark'  => __( 'Seamless Dark', 'wp-business-reviews' ),
 				),
 			),
-		),
-	),
-	'reviews' => array(
-		'name'   => __( 'Reviews', 'wp-business-reviews' ),
-		'fields' => array(
 			'review_components' => array(
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
 				'type'    => 'checkboxes',
