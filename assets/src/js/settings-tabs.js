@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 
-class Settings {
+class SettingsTabs {
 	constructor( selector ) {
 
 		// Define the root element of the Settings UI.
@@ -30,6 +30,7 @@ class Settings {
 		this.panels = this.root.querySelectorAll( '.js-wpbr-panel' );
 		this.subtabs = this.root.querySelectorAll( '.js-wpbr-subtab' );
 		this.sections = this.root.querySelectorAll( '.js-wpbr-section' );
+		this.disconnectButton = this.root.querySelector( '.js-wpbr-facebook-disconnect' );
 
 		// Define default active elements.
 		this.activeTab = this.tabs[0];
@@ -138,6 +139,27 @@ class Settings {
 		history.pushState( null, null, `?${queryString.stringify( this.queryStringObject )}` );
 	}
 
+	disconnectFacebook() {
+		console.log( 'fb click' );
+		var data = {
+			'action': 'my_action',
+			'whatever': 1234
+		};
+
+		jQuery.post( ajaxurl, data, function( response ) {
+			alert( 'Got this from the server: ' + response );
+		});
+	}
+
+	registerFacebookButtonHandler() {
+		if ( null != this.disconnectButton ) {
+			this.disconnectButton.addEventListener( 'click', ( event ) => {
+				event.preventDefault();
+				this.disconnectFacebook();
+			}, this );
+		}
+	}
+
 	registerTabEventHandlers() {
 		this.tabs.forEach( ( tab ) => {
 			tab.addEventListener( 'click', ( event ) => {
@@ -151,6 +173,7 @@ class Settings {
 				}
 			});
 		}, this );
+		this.registerFacebookButtonHandler();
 	}
 
 	registerSubtabEventHandlers() {
@@ -177,4 +200,4 @@ class Settings {
 	}
 }
 
-export default Settings;
+export default SettingsTabs;
