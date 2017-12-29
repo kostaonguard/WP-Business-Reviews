@@ -22,15 +22,15 @@ class Option_Serializer {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_all' ) );
+		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_section' ) );
 	}
 
 	/**
-	 * Saves all settings to database.
+	 * Saves settings section to database.
 	 *
 	 * @since 0.1.0
 	 */
-	public function save_all() {
+	public function save_section() {
 		// Make sure settings exist.
 		if ( empty( $_POST['wp_business_reviews_settings'] ) ) {
 			$this->redirect();
