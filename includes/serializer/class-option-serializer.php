@@ -11,7 +11,7 @@
 namespace WP_Business_Reviews\Includes\Serializer;
 
 /**
- * Saves information to the database.
+ * Saves options to the database.
  *
  * @since 0.1.0
  */
@@ -26,7 +26,7 @@ class Option_Serializer {
 	}
 
 	/**
-	 * Saves all valid settings to database.
+	 * Saves all settings to database.
 	 *
 	 * @since 0.1.0
 	 */
@@ -40,8 +40,8 @@ class Option_Serializer {
 
 		// Validate nonce and verify user has permission to save.
 		if ( $this->has_valid_nonce() && $this->has_permission() ) {
-			foreach ( $settings as $setting => $value ) {
-				$this->save( $setting, $value);
+			foreach ( $settings as $option => $value ) {
+				$this->save( $option, $value);
 			}
 
 			$section = sanitize_text_field( $_POST['wp_business_reviews_subtab'] );
@@ -62,16 +62,16 @@ class Option_Serializer {
 	}
 
 	/**
-	 * Saves a single sanitized setting to the database.
+	 * Saves a single sanitized option to the database.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $setting Key of the setting being saved.
-	 * @param mixed  $value   Value of the setting being saved.
+	 * @param string $option Name of the option being saved.
+	 * @param mixed  $value  Value of the option being saved.
 	 * @return boolean True if option saved successfully, false otherwise.
 	 */
-	public function save( $setting, $value ) {
-		return update_option( 'wp_business_reviews_' . $setting, $this->clean( $value ) );
+	public function save( $option, $value ) {
+		return update_option( 'wp_business_reviews_' . $option, $this->clean( $value ) );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Option_Serializer {
 	}
 
 	/**
-	 * Verifies user has permission to save settings.
+	 * Verifies user has permission to save.
 	 *
 	 * @since 0.1.0
 	 *
