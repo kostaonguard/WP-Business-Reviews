@@ -30,7 +30,6 @@ class SettingsTabs {
 		this.panels = this.root.querySelectorAll( '.js-wpbr-panel' );
 		this.subtabs = this.root.querySelectorAll( '.js-wpbr-subtab' );
 		this.sections = this.root.querySelectorAll( '.js-wpbr-section' );
-		this.disconnectButton = this.root.querySelector( '.js-wpbr-facebook-disconnect' );
 
 		// Define default active elements.
 		this.activeTab = this.tabs[0];
@@ -139,27 +138,6 @@ class SettingsTabs {
 		history.pushState( null, null, `?${queryString.stringify( this.queryStringObject )}` );
 	}
 
-	disconnectFacebook() {
-		console.log( 'fb click' );
-		var data = {
-			'action': 'my_action',
-			'whatever': 1234
-		};
-
-		jQuery.post( ajaxurl, data, function( response ) {
-			alert( 'Got this from the server: ' + response );
-		});
-	}
-
-	registerFacebookButtonHandler() {
-		if ( null != this.disconnectButton ) {
-			this.disconnectButton.addEventListener( 'click', ( event ) => {
-				event.preventDefault();
-				this.disconnectFacebook();
-			}, this );
-		}
-	}
-
 	registerTabEventHandlers() {
 		this.tabs.forEach( ( tab ) => {
 			tab.addEventListener( 'click', ( event ) => {
@@ -173,7 +151,6 @@ class SettingsTabs {
 				}
 			});
 		}, this );
-		this.registerFacebookButtonHandler();
 	}
 
 	registerSubtabEventHandlers() {
