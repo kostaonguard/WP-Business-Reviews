@@ -16,14 +16,7 @@
 			</li>
 		<?php endforeach; ?>
 	</ul>
-	<ul class="wpbr-inline-list">
-		<li class="wpbr-inline-list__item">
-			<button class="button button-primary"><?php _e( 'Refresh Pages', 'wp-business-reviews' ); ?></button>
-		</li>
-		<li class="wpbr-inline-list__item">
-			<button class="button"><?php esc_html_e( 'Disconnect Facebook', 'wp-business-reviews' ) ?></button>
-		</li>
-	</ul>
+	<button class="button js-wpbr-facebook-disconnect"><?php esc_html_e( 'Disconnect Facebook', 'wp-business-reviews' ) ?></button>
 <?php else : ?>
 	<?php
 	if ( 'development' === WPBR_ENV ) {
