@@ -15,22 +15,16 @@ namespace WP_Business_Reviews\Includes\Deserializer;
  *
  * @since 0.1.0
  */
-class Option_Deserializer {
+class Option_Deserializer extends Deserializer_Abstract {
 	/**
-	 * Retrieves a value from the database.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $option  Name of the option to retrieve.
-	 * @param string $key     Optional. Specific array key for when the
-	 *                        option's value is an array.
+	 * @inheritDoc
 	 */
-	public function get( $option, $key = false ) {
-		$value = get_option( 'wp_business_reviews_' . $option );
+	public function get( $key, $subkey = false ) {
+		$value = get_option( $this->prefix . $key );
 
-		if ( false !== $key ) {
-			if ( isset( $value[ $key ] ) ) {
-				return $value[ $key ];
+		if ( false !== $subkey ) {
+			if ( isset( $value[ $subkey ] ) ) {
+				return $value[ $subkey ];
 			} else {
 				return null;
 			}
