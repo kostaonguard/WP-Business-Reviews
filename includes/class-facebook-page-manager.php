@@ -61,18 +61,47 @@ class Facebook_Page_Manager {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_token' ), 1 );
+		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_user_token' ), 1 );
 		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_pages' ), 1 );
+		add_action( 'admin_post_wp_business_reviews_disconnect_facebook', array( $this, 'disconnect' ) );
 	}
 
-	public function save_token() {
+	/**
+	 * Resets all Facebook settings.
+	 *
+	 * @since 0.1.0
+	 */
+	public function disconnect() {
+		if (
+			$this->serializer->has_valid_nonce( 'wp_business_reviews_save_settings', 'wp_business_reviews_settings_nonce' )
+			&& $this->serializer->has_permission()
+		) {
+			$facebook_settings = array(
+				'facebook_user_token' => '',
+				'facebook_platform_status' => '',
+				'facebook_pages' => '',
+			);
+			$this->serializer->save_multiple( $facebook_settings );
+		}
+
+		$this->serializer->redirect();
+	}
+
+	/**
+	 * Saves Facebook user token.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return bool True if token saved, false otherwise.
+	 */
+	public function save_user_token() {
 		if ( ! isset( $_POST['wpbr_facebook_user_token'] ) ) {
 			return false;
 		}
 
 		$token = sanitize_text_field( $_POST['wpbr_facebook_user_token'] );
 
-		// Update the request token so it can be used in other methods.
+		// Set the request token so it can be used in other methods.
 		$this->request->set_token( $token );
 
 		if ( $this->serializer->save( 'facebook_user_token', $token ) ) {
@@ -90,6 +119,8 @@ class Facebook_Page_Manager {
 
 	/**
 	 * Saves Facebook page names and tokens.
+	 *
+	 * @since 0.1.0
 	 *
 	 * @return bool True if pages saved, false otherwise.
 	 */
