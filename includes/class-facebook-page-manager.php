@@ -95,7 +95,10 @@ class Facebook_Page_Manager {
 	 * @return bool True if token saved, false otherwise.
 	 */
 	public function save_user_token() {
-		if ( ! isset( $_POST['wpbr_facebook_user_token'] ) ) {
+		if (
+			! isset( $_POST['wpbr_facebook_user_token'] )
+			|| ! $this->serializer->has_permission()
+		) {
 			return false;
 		}
 
@@ -111,6 +114,7 @@ class Facebook_Page_Manager {
 			 * @since 0.1.0
 			 */
 			do_action( 'wp_business_reviews_facebook_user_token_saved', 'facebook' );
+
 			return true;
 		} else {
 			return false;
@@ -125,12 +129,15 @@ class Facebook_Page_Manager {
 	 * @return bool True if pages saved, false otherwise.
 	 */
 	public function save_pages() {
-		if ( ! $this->request->has_token() ) {
+		if (
+			! $this->serializer->has_permission()
+			|| ! $this->request->has_token()
+		) {
 			return false;
 		}
 
-		$pages = array();
-		$response  = $this->request->get_pages();
+		$pages    = array();
+		$response = $this->request->get_pages();
 
 		// Process the array of pages and pull out only the keys we need.
 		if ( isset( $response['data'] ) ) {
