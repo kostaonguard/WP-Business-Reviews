@@ -27,8 +27,6 @@ abstract class Serializer_Abstract {
 	/**
 	 * Saves a single sanitized value to the database.
 	 *
-	 * This method should make use of the `clean` method prior to saving.
-	 *
 	 * @since 0.1.0
 	 *
 	 * @param string $key   The key being saved.
