@@ -74,7 +74,7 @@ class Option_Serializer extends Serializer_Abstract {
 	 *
 	 * @since 0.1.0
 	 */
-	protected function redirect() {
+	public function redirect() {
 		$active_tab = $active_subtab = $referer = '';
 
 		if ( ! empty( $_POST['_wp_http_referer'] ) ) {
