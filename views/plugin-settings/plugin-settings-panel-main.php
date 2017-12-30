@@ -34,7 +34,7 @@
 
 			<?php if ( ! empty( $section['fields'] ) ) : ?>
 				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-					<input type="hidden" name="action" value="wp_business_reviews_save_settings">
+					<input class="js-wpbr-action" type="hidden" name="action" value="wp_business_reviews_save_settings">
 					<input type="hidden" name="wp_business_reviews_tab" value="<?php echo esc_attr( $this->tab_id ); ?>">
 					<input type="hidden" name="wp_business_reviews_subtab" value="<?php echo esc_attr( $section_id ); ?>">
 					<?php

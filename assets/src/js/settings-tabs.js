@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 
-class Settings {
+class SettingsTabs {
 	constructor( selector ) {
 
 		// Define the root element of the Settings UI.
@@ -177,4 +177,4 @@ class Settings {
 	}
 }
 
-export default Settings;
+export default SettingsTabs;

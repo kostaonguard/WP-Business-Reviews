@@ -202,8 +202,6 @@ class Platform_Manager {
 			}
 		}
 
-		error_log( print_r( $connected_platforms, true ) );
-
 		return array_intersect_key( $this->platforms, $connected_platforms );
 	}
 
