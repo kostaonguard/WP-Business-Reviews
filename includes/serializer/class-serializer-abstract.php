@@ -80,7 +80,7 @@ abstract class Serializer_Abstract {
 	 * @return false|int False if the nonce is invalid, 1 if the nonce is valid and generated between
 	 *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
 	 */
-	protected function has_valid_nonce( $action, $name ) {
+	public function has_valid_nonce( $action, $name ) {
 		if ( empty( $_POST[ $name ] ) ) {
 			// Nonce field is not present or not populated, and therefore invalid.
 			return false;
@@ -98,7 +98,7 @@ abstract class Serializer_Abstract {
 	 *
 	 * @return boolean True if user has permission, false if not.
 	 */
-	protected function has_permission() {
+	public function has_permission() {
 		return current_user_can( $this->capability );
 	}
 }
