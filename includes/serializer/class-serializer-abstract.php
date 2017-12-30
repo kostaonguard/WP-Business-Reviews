@@ -25,6 +25,14 @@ abstract class Serializer_Abstract {
 	protected $prefix = 'wp_business_reviews_';
 
 	/**
+	 * User capability required in order to save.
+	 *
+	 * @since 0.1.0
+	 * @var string $capability
+	 */
+	protected $capability = 'manage_options';
+
+	/**
 	 * Saves a single sanitized value to the database.
 	 *
 	 * @since 0.1.0
@@ -88,10 +96,9 @@ abstract class Serializer_Abstract {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $capability Capability name.
 	 * @return boolean True if user has permission, false if not.
 	 */
-	protected function has_permission( $capability = 'manage_options' ) {
-		return current_user_can( $capability );
+	protected function has_permission() {
+		return current_user_can( $this->capability );
 	}
 }
