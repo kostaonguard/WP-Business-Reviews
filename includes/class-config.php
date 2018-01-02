@@ -20,6 +20,8 @@ use ArrayObject;
 use Exception;
 use RuntimeException;
 
+// TODO: Update Config file header.
+
 /**
  * Class Config.
  *
@@ -87,6 +89,17 @@ class Config extends ArrayObject {
 	public function get_keys() {
 		return array_keys( (array) $this );
 	}
+
+	/**
+	 * Prepends another config to this config.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param Config The config to be prepended.
+	 */
+	public function prepend_config( Config $config ) {
+        $this->exchangeArray( array_merge( (array) $config, (array) $this ) );
+    }
 
 	/**
 	 * Load the contents of a resource identified by an URI.
