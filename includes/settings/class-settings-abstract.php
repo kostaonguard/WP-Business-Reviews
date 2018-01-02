@@ -99,8 +99,13 @@ abstract class Settings_Abstract {
 	 * Parses the config into a repository of field objects.
 	 *
 	 * @since 0.1.0
+	 *
+	 * @param string|Config $config Path to config or `Config` object.
+	 * @return Fields[] Array of `Field` objects.
 	 */
-	abstract public function parse_fields();
+	protected function parse_fields( $config ) {
+		return $this->field_parser->parse_fields( $config );
+	}
 
 	/**
 	 * Renders the settings UI.

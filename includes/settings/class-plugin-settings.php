@@ -25,15 +25,18 @@ class Plugin_Settings extends Settings_Abstract {
 	 * @inheritDoc
 	 */
 	public function register() {
-		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'parse_fields' ) );
+		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'init' ) );
 		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'render' ) );
 	}
 
 	/**
-	 * @inheritDoc
+	 * Initializes the object for use.
+	 *
+	 * @since 0.1.0
 	 */
-	public function parse_fields() {
-		$field_objects          = $this->field_parser->parse_fields( $this->config );
-		$this->field_repository = new Field_Repository( $field_objects );
+	public function init() {
+		$this->field_repository = new Field_Repository(
+			$this->parse_fields( $this->config )
+		);
 	}
 }
