@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "hint.css": "^2.5.0",
-    "query-string": "^5.0.0"
+    "query-string": "^5.0.0",
+    "tiny-emitter": "^2.0.2"
   }
 }
