@@ -13,7 +13,7 @@ class Builder {
 		this.inspector = document.getElementById( 'wpbr-builder-inspector' );
 
 		// Define fields.
-		this.fields = this.initFields();
+		this.fields = this.createFieldObjects();
 
 		// Define controls.
 		this.inspectorControl       = document.getElementById( 'wpbr-control-inspector' );
@@ -37,7 +37,7 @@ class Builder {
 		this.registerEventHandlers();
 	}
 
-	initFields() {
+	createFieldObjects() {
 		const fields = [];
 		const fieldElements = this.root.querySelectorAll( '.js-wpbr-field' );
 
