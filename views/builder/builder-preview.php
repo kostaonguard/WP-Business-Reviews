@@ -5,7 +5,7 @@
 			<?php for ( $i = 0; $i < 12; $i++ ) : ?>
 				<li class="wpbr-review-gallery__item wpbr-review-gallery__item--3 js-wpbr-item" data-rating="5" data-time-created="">
 					<div class="wpbr-review js-wpbr-review">
-						<div class="wpbr-review__header js-wpbr-review-details">
+						<div class="wpbr-review__header">
 							<div class="wpbr-review__image js-wpbr-review-image">
 								<img src="" alt="" class="js-wpbr-review-image-el">
 							</div>
@@ -18,7 +18,7 @@
 								<span class="wpbr-review__timestamp js-wpbr-review-timestamp">Last week via Facebook</span>
 							</div>
 						</div>
-						<div class="wpbr-review__body js-wpbr-review-body">
+						<div class="wpbr-review__content js-wpbr-review-content">
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae in laborum laudantium neque omnis optio quasi qui sit voluptatum!</p>
 						</div>
 					</div>
