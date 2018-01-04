@@ -41,9 +41,6 @@ class Field_Factory {
 					$args['name_element'] = 'label';
 					return new Base_Field( $id, $args );
 					break;
-				case 'platform_status':
-					return new Platform_Status_Field( $id, $args );
-					break;
 				default:
 					return new Base_Field( $id, $args );
 			}
