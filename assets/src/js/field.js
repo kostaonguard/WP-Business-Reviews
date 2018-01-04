@@ -13,8 +13,10 @@ class Field {
 
 	registerEventHandlers() {
 		this.control.addEventListener( 'change', event => {
-			event.preventDefault();
-			this.emitter.emit( 'change', this.value );
+			const controlType  = event.currentTarget.dataset.controlType;
+			const controlValue = event.currentTarget.value;
+
+			this.emitter.emit( 'wpbrcontrolchange', controlType, controlValue );
 		});
 	}
 }
