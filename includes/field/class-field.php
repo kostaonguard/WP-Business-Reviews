@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Base_Field class
+ * Defines the Field class
  *
  * @package WP_Business_Reviews\Includes\Field
  * @since   0.1.0
@@ -15,7 +15,7 @@ use WP_Business_Reviews\Includes\View;
  *
  * @since 0.1.0
  */
-class Base_Field {
+class Field {
 	/**
 	 * Unique identifier of the field.
 	 *
@@ -41,7 +41,7 @@ class Base_Field {
 	protected $value;
 
 	/**
-	 * Instantiates a Base_Field object.
+	 * Instantiates a Field object.
 	 *
 	 * @since 0.1.0
 	 *
