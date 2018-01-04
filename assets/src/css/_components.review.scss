@@ -16,16 +16,15 @@
 	margin-bottom: $wpbr-space;
 	transition: all 0.2s ease-out;
 
-	&:last-child,
-	& :last-child {
+	&:last-child {
 		margin-bottom: 0;
 	}
 
 	&__header { /* [1] */
 		align-items: center;
 		display: flex;
-		margin-bottom: $wpbr-space-half;
 	}
+
 	&__image { /* [2] */
 		background-size: contain;
 		background-image: url( '../images/demo-user-placeholder-solid.png' );
@@ -58,7 +57,7 @@
 	&__name {
 		font-size: 1em;
 		color: $wpbr-color-text;
-		margin: 0 0 $wpbr-space * .125;
+		margin: 0;
 	}
 
 	&__timestamp {
@@ -68,7 +67,9 @@
 		font-style: italic;
 	}
 
-	&__body {
+	&__content {
+		margin-top: $wpbr-space-half;
+
 		& :last-child {
 			margin-bottom: 0;
 		}
