@@ -12,22 +12,17 @@ class Builder {
 		this.root      = document.querySelector( selector );
 		this.inspector = document.getElementById( 'wpbr-builder-inspector' );
 
-		// Define field wrappers.
-		// this.formatField     = document.getElementById( 'wpbr-field-format' );
-		// this.formatField     = new Field( 'format' );
-		// console.log( this.formatField.value );
-		this.maxColumnsField = document.getElementById( 'wpbr-field-max_columns' );
-		this.themeField      = document.getElementById( 'wpbr-field-theme' );
+		// Define fields.
+		this.fields = [];
+		this.initFields();
 
 		// Define controls.
 		this.inspectorControl       = document.getElementById( 'wpbr-control-inspector' );
 		this.saveControl            = document.getElementById( 'wpbr-control-save' );
-		this.formatControl          = document.getElementById( 'wpbr-control-format' );
-		this.maxColumnsControl      = document.getElementById( 'wpbr-control-max_columns' );
-		this.themeControl           = document.getElementById( 'wpbr-control-theme' );
-		this.reviewImageControl     = document.getElementById( 'wpbr-control-review_image' );
-		this.reviewRatingControl    = document.getElementById( 'wpbr-control-rating' );
-		this.reviewTimestampControl = document.getElementById( 'wpbr-control-timestamp' );
+
+		// this.reviewImageControl     = document.getElementById( 'wpbr-control-review_image' );
+		// this.reviewRatingControl    = document.getElementById( 'wpbr-control-rating' );
+		// this.reviewTimestampControl = document.getElementById( 'wpbr-control-timestamp' );
 
 		// Define review elements.
 		this.wrap             = this.root.querySelector( '.js-wpbr-wrap' );
@@ -38,9 +33,11 @@ class Builder {
 		this.reviewRatings    = this.root.querySelectorAll( '.js-wpbr-review-rating' );
 		this.reviewTimestamps = this.root.querySelectorAll( '.js-wpbr-review-timestamp' );
 
-
 		// Define background element, which changes color in theme previews.
 		this.backgroundElement = document.querySelector( '.wpbr-admin' );
+
+		// Register event handlers.
+		this.registerFieldEventHandlers();
 	}
 
 	init() {
@@ -53,54 +50,35 @@ class Builder {
 			event.preventDefault();
 		});
 
-		this.formatControl.addEventListener( 'change', event => {
-			event.preventDefault();
-			this.format( event.currentTarget.value );
-		});
+		// this.reviewImageControl.addEventListener( 'change', event => {
+		// 	event.preventDefault();
 
-		this.maxColumnsControl.addEventListener( 'change', event => {
-			event.preventDefault();
-			this.formatGallery( event.currentTarget.value );
-		});
+		// 	if ( event.currentTarget.checked ) {
+		// 		this.showMultiple( Array.from( this.reviewImages ) );
+		// 	} else {
+		// 		this.hideMultiple( Array.from( this.reviewImages ) );
+		// 	}
+		// });
 
-		this.themeControl.addEventListener( 'change', event => {
-			event.preventDefault();
-			this.applyTheme( event.currentTarget.value );
-		});
+		// this.reviewRatingControl.addEventListener( 'change', event => {
+		// 	event.preventDefault();
 
-		this.reviewImageControl.addEventListener( 'change', event => {
-			event.preventDefault();
+		// 	if ( event.currentTarget.checked ) {
+		// 		this.showMultiple( Array.from( this.reviewRatings ) );
+		// 	} else {
+		// 		this.hideMultiple( Array.from( this.reviewRatings ) );
+		// 	}
+		// });
 
-			if ( event.currentTarget.checked ) {
-				this.showMultiple( Array.from( this.reviewImages ) );
-			} else {
-				this.hideMultiple( Array.from( this.reviewImages ) );
-			}
-		});
+		// this.reviewTimestampControl.addEventListener( 'change', event => {
+		// 	event.preventDefault();
 
-		this.reviewRatingControl.addEventListener( 'change', event => {
-			event.preventDefault();
-
-			if ( event.currentTarget.checked ) {
-				this.showMultiple( Array.from( this.reviewRatings ) );
-			} else {
-				this.hideMultiple( Array.from( this.reviewRatings ) );
-			}
-		});
-
-		this.reviewTimestampControl.addEventListener( 'change', event => {
-			event.preventDefault();
-
-			if ( event.currentTarget.checked ) {
-				this.showMultiple( Array.from( this.reviewTimestamps ) );
-			} else {
-				this.hideMultiple( Array.from( this.reviewTimestamps ) );
-			}
-		});
-	}
-
-	toggleVisibility( element, condition ) {
-		element.classList.toggle( 'wpbr-u-hidden' );
+		// 	if ( event.currentTarget.checked ) {
+		// 		this.showMultiple( Array.from( this.reviewTimestamps ) );
+		// 	} else {
+		// 		this.hideMultiple( Array.from( this.reviewTimestamps ) );
+		// 	}
+		// });
 	}
 
 	format( type = 'review-gallery' ) {
@@ -147,13 +125,17 @@ class Builder {
 	}
 
 	applyTheme( theme = 'card' ) {
-		this.wrap.className = 'wpbr-wrap wpbr-theme--${theme} js-wpbr-wrap';
+		this.wrap.className = `wpbr-wrap wpbr-theme--${theme} js-wpbr-wrap`;
 
 		if ( 'seamless-dark' === theme ) {
 			this.backgroundElement.classList.add( 'wpbr-theme--dark' );
 		} else {
 			this.backgroundElement.classList.remove( 'wpbr-theme--dark' );
 		}
+	}
+
+	toggleVisibility( element, condition ) {
+		element.classList.toggle( 'wpbr-u-hidden' );
 	}
 
 	hideMultiple( elements ) {
@@ -170,6 +152,36 @@ class Builder {
 
 	show( element ) {
 		element.classList.remove( 'wpbr-u-hidden' );
+	}
+
+	initFields() {
+		const fieldElements = this.root.querySelectorAll( '.js-wpbr-field' );
+
+		fieldElements.forEach( ( fieldElement ) => {
+			this.fields.push( new Field( fieldElement ) );
+		}, this );
+
+		console.log( this.fields );
+	}
+
+	registerFieldEventHandlers() {
+		this.fields.forEach( ( field ) => {
+			field.emitter.on( 'wpbrcontrolchange', ( controlType, controlValue ) => {
+				this.updatePresentation( controlType, controlValue );
+				console.log( 'wpbrcontrolchange:', controlType, controlValue );
+			});
+		}, this );
+	}
+
+	updatePresentation( type, value ) {
+		switch ( type ) {
+		case 'format' :
+			this.format( value );
+		case 'max_columns':
+			this.formatGallery( value );
+		case 'theme':
+			this.applyTheme( value );
+		}
 	}
 }
 
