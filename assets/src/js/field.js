@@ -4,8 +4,11 @@ class Field {
 	constructor( element ) {
 		this.root    = element;
 		this.control = this.root.querySelector( '.js-wpbr-control' );
-		this.emitter = new Emitter();
-		this.registerEventHandlers();
+
+		if ( this.control ) {
+			this.emitter = new Emitter();
+			this.registerEventHandlers();
+		}
 	}
 
 	registerEventHandlers() {
