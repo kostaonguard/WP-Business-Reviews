@@ -57,11 +57,13 @@ $config = array(
 					'review_image',
 					'review_rating',
 					'review_timestamp',
+					'review_content',
 				),
 				'options' => array(
 					'review_image'     => __( 'Review Image', 'wp-business-reviews' ),
 					'review_rating'    => __( 'Star Rating', 'wp-business-reviews' ),
 					'review_timestamp' => __( 'Timestamp', 'wp-business-reviews' ),
+					'review_content'   => __( 'Review Content', 'wp-business-reviews' ),
 				),
 			),
 		),

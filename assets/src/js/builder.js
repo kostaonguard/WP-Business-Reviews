@@ -27,6 +27,7 @@ class Builder {
 		this.reviewImages     = this.root.querySelectorAll( '.js-wpbr-review-image' );
 		this.reviewRatings    = this.root.querySelectorAll( '.js-wpbr-review-rating' );
 		this.reviewTimestamps = this.root.querySelectorAll( '.js-wpbr-review-timestamp' );
+		this.reviewContents   = this.root.querySelectorAll( '.js-wpbr-review-content' );
 
 		// Define background element, which changes color in theme previews.
 		this.backgroundElement = document.querySelector( '.wpbr-admin' );
@@ -77,11 +78,15 @@ class Builder {
 			break;
 		case 'review_image':
 			this.setMultipleVisibility( Array.from( this.reviewImages ), value );
+			break;
 		case 'review_rating':
 			this.setMultipleVisibility( Array.from( this.reviewRatings ), value );
 			break;
 		case 'review_timestamp':
 			this.setMultipleVisibility( Array.from( this.reviewTimestamps ), value );
+			break;
+		case 'review_content':
+			this.setMultipleVisibility( Array.from( this.reviewContents ), value );
 			break;
 		}
 	}
