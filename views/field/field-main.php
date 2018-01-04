@@ -15,9 +15,9 @@ $field_class_att = implode( $field_classes, ' ' );
 ?>
 
 <div
-id="wpbr-field-<?php echo esc_attr( $this->id ); ?>"
-class="<?php echo esc_attr( $field_class_att ); ?>"
-data-wpbr-field-type="<?php echo esc_attr( $this->args['type'] ); ?>"
+	id="wpbr-field-<?php echo esc_attr( $this->id ); ?>"
+	class="<?php echo esc_attr( $field_class_att ); ?>"
+	data-wpbr-field-type="<?php echo esc_attr( $this->args['type'] ); ?>"
 >
 
 <?php
