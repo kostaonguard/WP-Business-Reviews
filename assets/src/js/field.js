@@ -1,11 +1,18 @@
+import Emitter from 'tiny-emitter';
+
 class Field {
-	constructor( name ) {
-		this.root    = document.getElementById( `wpbr-field-${name}` );
-		this.control = document.getElementById( `wpbr-control-${name}` );
+	constructor( element ) {
+		this.root    = element;
+		this.control = this.root.querySelector( '.js-wpbr-control' );
+		this.emitter = new Emitter();
+		this.registerEventHandlers();
 	}
 
-	get value() {
-		return this.control.value;
+	registerEventHandlers() {
+		this.control.addEventListener( 'change', event => {
+			event.preventDefault();
+			this.emitter.emit( 'change', this.value );
+		});
 	}
 }
 
