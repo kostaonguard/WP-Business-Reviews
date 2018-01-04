@@ -5,9 +5,6 @@ class Field {
 		this.root     = element;
 		this.controls = this.root.querySelectorAll( '.js-wpbr-control' );
 		this.emitter  = new Emitter();
-
-		console.log( this.controls );
-
 		this.registerControlEventHandlers();
 	}
 
