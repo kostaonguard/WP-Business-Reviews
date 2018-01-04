@@ -2,6 +2,7 @@
 	id="wpbr-control-<?php echo esc_attr( $this->id ); ?>"
 	class="wpbr-field__select js-wpbr-control"
 	name="wp_business_reviews_settings[<?php echo esc_attr( $this->id ); ?>]"
+	data-control-type="<?php echo esc_attr( $this->id ); ?>"
 	>
 	<?php foreach ( $this->args['options'] as $option_value => $option_text ) : ?>
 		<option value="<?php echo esc_attr( $option_value ); ?>" <?php selected( $option_value === $this->value ); ?>>
