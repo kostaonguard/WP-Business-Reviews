@@ -8,7 +8,7 @@ import '../images/wpbr-icon-color.png';
 
 if ( document.querySelector( 'body' ).classList.contains( 'wpbr_review_page_wpbr_settings' ) ) {
 	const settingsTabs       = new SettingsTabs( '.js-wpbr-settings' );
-	const facebookPagesField = new FacebookPagesField( 'facebook_pages' );
+	const facebookPagesField = new FacebookPagesField( document.getElementById( 'wpbr-field-facebook_pages' ) );
 
 	settingsTabs.init();
 	facebookPagesField.init();
