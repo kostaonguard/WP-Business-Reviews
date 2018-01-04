@@ -3,10 +3,7 @@ import Field from './field';
 class FacebookPagesField extends Field {
 	constructor( name ) {
 		super( name );
-
-		if ( null !== this.root ) {
-			this.disconnectButton = this.root.querySelector( '.js-wpbr-facebook-disconnect' );
-		}
+		this.disconnectButton = this.root.querySelector( '.js-wpbr-facebook-disconnect' );
 	}
 
 	init() {
@@ -16,7 +13,6 @@ class FacebookPagesField extends Field {
 	disconnect() {
 		this.root.parentNode.querySelector( '.js-wpbr-action' ).value = 'wp_business_reviews_disconnect_facebook';
 	}
-
 
 	registerEventHandlers() {
 		if ( null !== this.disconnectButton ) {
