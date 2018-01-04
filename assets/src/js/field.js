@@ -2,22 +2,30 @@ import Emitter from 'tiny-emitter';
 
 class Field {
 	constructor( element ) {
-		this.root    = element;
-		this.control = this.root.querySelector( '.js-wpbr-control' );
-		this.emitter = new Emitter();
+		this.root     = element;
+		this.controls = this.root.querySelectorAll( '.js-wpbr-control' );
+		this.emitter  = new Emitter();
 
-		if ( this.control ) {
-			this.registerEventHandlers();
-		}
+		console.log( this.controls );
+
+		this.registerControlEventHandlers();
 	}
 
-	registerEventHandlers() {
-		this.control.addEventListener( 'change', event => {
-			const controlType  = event.currentTarget.dataset.controlType;
-			const controlValue = event.currentTarget.value;
+	registerControlEventHandlers() {
+		this.controls.forEach( ( control ) => {
+			control.addEventListener( 'change', event => {
 
-			this.emitter.emit( 'wpbrcontrolchange', controlType, controlValue );
-		});
+				// Get the control type from the data attribute.
+				const controlType  = event.currentTarget.dataset.controlType;
+
+				// Use 'checked' for radios/checkboxes; otherwise use 'value'.
+				const valueProperty = undefined !== event.currentTarget.checked ? 'checked' : 'value';
+				const controlValue = event.currentTarget[valueProperty];
+
+				// Emit custom event that passes the control type and value that changed.
+				this.emitter.emit( 'wpbrcontrolchange', controlType, controlValue );
+			});
+		}, this );
 	}
 }
 
