@@ -56,9 +56,10 @@ class Google_Places_Request extends Request_Base {
 	 * @return array Associative array containing the response body.
 	 */
 	public function search( $terms, $location ) {
+		$query = trim( implode( array( $terms, $location ), ' ' ) );
 		$url = add_query_arg(
 			array(
-				'query' => $terms . ', ' . $location,
+				'query' =>  $query,
 				'key'   => $this->key,
 			),
 			'https://maps.googleapis.com/maps/api/place/textsearch/json'
