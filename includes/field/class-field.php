@@ -63,17 +63,19 @@ class Field {
 	public function __construct( $id, array $args ) {
 		$this->id   = $id;
 		$this->default_args = array(
-			'name'          => '',
+			'name'          => null,
 			'type'          => 'text',
-			'default'       => '',
-			'tooltip'       => '',
-			'description'   => '',
-			'wrapper_class' => '',
+			'value'         => null,
+			'default'       => null,
+			'tooltip'       => null,
+			'description'   => null,
+			'wrapper_class' => null,
 			'name_element'  => 'span',
-			'placeholder'   => '',
+			'placeholder'   => null,
 			'options'       => array(),
 		);
 		$this->args = wp_parse_args( $args, $this->default_args );
+		$this->set_value();
 	}
 
 	/**
@@ -133,7 +135,13 @@ class Field {
 	 * @param mixed $value Field value.
 	 */
 	public function set_value( $value = null ) {
-		$this->value = $value;
+		if ( null !== $value ) {
+			$this->value = $value;
+		} elseif ( isset( $this->args['value'] ) ) {
+			$this->value = $this->args['value'];
+		} else {
+			$this->value = $this->args['default'];
+		}
 	}
 
 	/**

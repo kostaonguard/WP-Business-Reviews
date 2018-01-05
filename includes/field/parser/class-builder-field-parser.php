@@ -60,15 +60,6 @@ class Builder_Field_Parser extends Field_Parser_Abstract {
 
 				if ( $field_object ) {
 					// TODO: Attempt to retrieve the field value.
-					$field_value = null;
-
-					if ( null === $field_value ) {
-						// Get the default value.
-						$field_value = $field_object->get_arg( 'default' );
-					}
-
-					// Set the field value.
-					$field_object->set_value( $field_value );
 
 					// Add the field object to array of parsed fields.
 					$field_objects[ $field_id ] = $field_object;
