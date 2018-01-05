@@ -19,6 +19,14 @@ use WP_Business_Reviews\Includes\Request\Request_Factory;
  */
 class Platform_Search {
 	/**
+	 * Factory that creates requests.
+	 *
+	 * @since 0.1.0
+	 * @var string $request_factory
+	 */
+	private $request_factory;
+
+	/**
 	 * Instantiates the Platform_Search object.
 	 *
 	 * @param Request_Factory $request_factory Factory that creates requests
@@ -43,7 +51,22 @@ class Platform_Search {
 	 * @since 0.1.0
 	 */
 	public function ajax_search() {
+		// TODO: Verify nonce and permission.
 
+		if ( ! isset(
+			$_REQUEST['platform'],
+			$_REQUEST['terms'],
+			$_REQUEST['location']
+		)
+		) {
+			wp_die();
+		}
+
+		$platform = sanitize_text_field( $_REQUEST['platform'] );
+		$terms = sanitize_text_field( $_REQUEST['terms'] );
+		$location = sanitize_text_field( $_REQUEST['location'] );
+		$response = $this->search( $platform, $terms, $location );
+		wp_send_json( $response );
 	}
 
 	/**
@@ -57,7 +80,8 @@ class Platform_Search {
 	 * @return array Associative array containing the response body.
 	 */
 	public function search( $platform, $terms, $location ) {
-		error_log( print_r( $_REQUEST, true ) );
-		wp_die();
+		$request = $this->request_factory->create( $platform );
+
+		return $request->search( $terms, $location );
 	}
 }
