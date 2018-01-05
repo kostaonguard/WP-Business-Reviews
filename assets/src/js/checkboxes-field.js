@@ -22,7 +22,7 @@ class CheckboxesField {
 				const controlValue = event.currentTarget.checked;
 
 				// Emit custom event that passes the control ID and value that changed.
-				this.emitter.emit( 'wpbrfieldchange', controlId, controlValue );
+				this.emitter.emit( 'wpbrcontrolchange', controlId, controlValue );
 			});
 		}, this );
 	}

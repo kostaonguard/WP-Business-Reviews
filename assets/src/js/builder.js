@@ -66,6 +66,8 @@ class Builder {
 	}
 
 	registerEventHandlers() {
+
+		// Register toolbar events.
 		this.inspectorControl.addEventListener( 'click', event => {
 			event.preventDefault();
 			this.toggleVisibility( this.inspector );
@@ -75,8 +77,9 @@ class Builder {
 			event.preventDefault();
 		});
 
+		// Register field events.
 		this.fields.forEach( ( field ) => {
-			field.emitter.on( 'wpbrfieldchange', ( controlId, controlValue ) => {
+			field.emitter.on( 'wpbrcontrolchange', ( controlId, controlValue ) => {
 				this.updatePresentation( controlId, controlValue );
 			});
 		});
