@@ -1,5 +1,6 @@
 import Field from './field';
-import GooglePlacesTextSearch from './google-places-text-search';
+import ButtonField from './button-field';
+import CheckboxesField from './checkboxes-field';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
@@ -15,7 +16,7 @@ class Builder {
 		// Define fields.
 		this.fields = this.createFieldObjects();
 
-		// Define controls.
+		// Define toolbar controls.
 		this.inspectorControl       = document.getElementById( 'wpbr-control-inspector' );
 		this.saveControl            = document.getElementById( 'wpbr-control-save' );
 
@@ -38,12 +39,28 @@ class Builder {
 	}
 
 	createFieldObjects() {
-		const fields = [];
+		const fields = new Map();
 		const fieldElements = this.root.querySelectorAll( '.js-wpbr-field' );
 
 		fieldElements.forEach( ( fieldElement ) => {
-			fields.push( new Field( fieldElement ) );
-		}, this );
+			const fieldId   = fieldElement.dataset.wpbrFieldId;
+			const fieldType = fieldElement.dataset.wpbrFieldType;
+			let field;
+
+			switch ( fieldType ) {
+			case 'button' :
+				field = new ButtonField( fieldElement );
+				break;
+			case 'checkboxes' :
+				field = new CheckboxesField( fieldElement );
+				break;
+			default :
+				field = new Field( fieldElement );
+			}
+
+			field.init();
+			fields.set( fieldId, field );
+		});
 
 		return fields;
 	}
@@ -59,10 +76,10 @@ class Builder {
 		});
 
 		this.fields.forEach( ( field ) => {
-			field.emitter.on( 'wpbrfieldchange', ( controlType, controlValue ) => {
-				this.updatePresentation( controlType, controlValue );
+			field.emitter.on( 'wpbrfieldchange', ( controlId, controlValue ) => {
+				this.updatePresentation( controlId, controlValue );
 			});
-		}, this );
+		});
 	}
 
 	updatePresentation( type, value ) {
