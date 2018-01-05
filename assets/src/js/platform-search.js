@@ -11,8 +11,17 @@ class PlatformSearch {
 
 	init() {
 		this.registerEventHandlers();
+	}
 
-		axios.post(
+	registerEventHandlers() {
+		console.log( 'registering event handler' );
+		this.buttonField.emitter.on( 'wpbrcontrolchange', ( controlId, controlValue ) => {
+			this.search();
+		});
+	}
+
+	search() {
+		return axios.post(
 			ajaxurl,
 			queryString.stringify({
 				action: 'wpbr_platform_search',
@@ -22,17 +31,11 @@ class PlatformSearch {
 			})
 		)
 			.then( function( response ) {
-				console.log( response );
+				console.table( response.data );
 			})
 			.catch( function( error ) {
 				console.log( error );
 			});
-	}
-
-	registerEventHandlers() {
-		this.buttonField.emitter.on( 'wpbrbuttonclick', ( controlId, controlValue ) => {
-			console.log( this.termsField.value, this.locationField.value );
-		});
 	}
 }
 
