@@ -68,6 +68,7 @@ class Builder {
 
 	initPlatformSearch() {
 		this.platformSearch = new PlatformSearch(
+			this.fields.get( 'search_platform' ),
 			this.fields.get( 'search_terms' ),
 			this.fields.get( 'search_location' ),
 			this.fields.get( 'search_button' )
