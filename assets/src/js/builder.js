@@ -1,6 +1,7 @@
 import Field from './field';
 import ButtonField from './button-field';
 import CheckboxesField from './checkboxes-field';
+import PlatformSearch from './platform-search';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
@@ -61,10 +62,17 @@ class Builder {
 			}
 
 			field.init();
-			fields.set( fieldId, field );
+			this.fields.set( fieldId, field );
 		});
+	}
 
-		return fields;
+	initPlatformSearch() {
+		this.platformSearch = new PlatformSearch(
+			this.fields.get( 'search_terms' ),
+			this.fields.get( 'search_location' ),
+			this.fields.get( 'search_button' )
+		);
+		this.platformSearch.init();
 	}
 
 	registerEventHandlers() {
