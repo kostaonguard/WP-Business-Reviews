@@ -19,12 +19,14 @@ $config = array(
 			'search_terms' => array(
 				'name'        => __( 'Search Terms', 'wp-business-reviews' ),
 				'type'        => 'text',
+				'value'       => 'pnc park',
 				'tooltip'     => __( 'Defines the terms used when searching for a business.', 'wp-business-reviews' ),
 				'placeholder' => __( 'Business Name or Type', 'wp-business-reviews' ),
 			),
 			'search_location' => array(
 				'name'        => __( 'Location', 'wp-business-reviews' ),
 				'type'        => 'text',
+				'value'       => 'pittsburgh, pa',
 				'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
 				'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
 			),
