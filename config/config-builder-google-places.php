@@ -12,6 +12,10 @@ $config = array(
 	'review_source' => array(
 		'name'   => __( 'Google Places Search', 'wp-business-reviews' ),
 		'fields' => array(
+			'platform' => array(
+				'type'        => 'hidden',
+				'value'       => 'google_places',
+			),
 			'search_terms' => array(
 				'name'        => __( 'Search Terms', 'wp-business-reviews' ),
 				'type'        => 'text',
