@@ -66,7 +66,11 @@ class Google_Places_Request extends Request_Base {
 
 		$response = $this->get( $url );
 
-		return $response;
+		if ( isset( $response['results'] ) ) {
+			return $response['results'];
+		} else {
+			// TODO: Return WP_Error()
+		}
 	}
 
 	/**
