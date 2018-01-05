@@ -47,18 +47,18 @@ class Google_Places_Request extends Request_Base {
 	}
 
 	/**
-	 * Retrieves search results based on a search term and location.
+	 * Retrieves search results based on a search terms and location.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $term     The search term, usually a business name.
+	 * @param string $terms    The search terms, usually a business name.
 	 * @param string $location The location within which to search.
 	 * @return array Associative array containing the response body.
 	 */
-	public function search( $term, $location ) {
+	public function search( $terms, $location ) {
 		$url = add_query_arg(
 			array(
-				'query' => $term . ', ' . $location,
+				'query' => $terms . ', ' . $location,
 				'key'   => $this->key,
 			),
 			'https://maps.googleapis.com/maps/api/place/textsearch/json'
