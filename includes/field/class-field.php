@@ -150,6 +150,10 @@ class Field {
 	 * @since 0.1.0
 	 */
 	public function render() {
+		if ( 'internal' === $this->get_arg( 'type' ) ) {
+			return;
+		}
+
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/field/field-main.php' );
 		$view_object->render(
 			array(
