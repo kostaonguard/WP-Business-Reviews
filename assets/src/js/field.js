@@ -20,7 +20,7 @@ class Field {
 				const controlValue = event.currentTarget[valueProperty];
 
 				// Emit custom event that passes the control type and value that changed.
-				this.emitter.emit( 'wpbrcontrolchange', controlType, controlValue );
+				this.emitter.emit( 'wpbrfieldchange', controlType, controlValue );
 			});
 		}, this );
 	}

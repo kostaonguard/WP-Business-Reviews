@@ -59,7 +59,7 @@ class Builder {
 		});
 
 		this.fields.forEach( ( field ) => {
-			field.emitter.on( 'wpbrcontrolchange', ( controlType, controlValue ) => {
+			field.emitter.on( 'wpbrfieldchange', ( controlType, controlValue ) => {
 				this.updatePresentation( controlType, controlValue );
 			});
 		}, this );
