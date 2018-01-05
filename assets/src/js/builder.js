@@ -14,7 +14,7 @@ class Builder {
 		this.inspector = document.getElementById( 'wpbr-builder-inspector' );
 
 		// Define fields.
-		this.fields = this.createFieldObjects();
+		this.fields = new Map();
 
 		// Define toolbar controls.
 		this.inspectorControl       = document.getElementById( 'wpbr-control-inspector' );
@@ -35,11 +35,13 @@ class Builder {
 	}
 
 	init() {
+		this.initFieldObjects();
+		this.initPlatformSearch();
 		this.registerEventHandlers();
 	}
 
-	createFieldObjects() {
-		const fields = new Map();
+	// TODO: Move this to FieldFactory class.
+	initFieldObjects() {
 		const fieldElements = this.root.querySelectorAll( '.js-wpbr-field' );
 
 		fieldElements.forEach( ( fieldElement ) => {
