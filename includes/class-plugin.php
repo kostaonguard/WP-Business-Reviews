@@ -74,8 +74,6 @@ final class Plugin {
 	 * @since 0.1.0
 	 */
 	public function register_services() {
-
-
 		// Register assets.
 		$assets = new Assets( WPBR_ASSETS_URL, $this->version );
 		$assets->register();
@@ -100,6 +98,10 @@ final class Plugin {
 				$request_factory
 			);
 			$platform_manager->register();
+
+			// Register platform search to handle Ajax search requests.
+			$platform_search = new Platform_Search( $request_factory );
+			$platform_search->register();
 
 			// Register field factory to create field objects.
 			$field_factory = new Field_Factory();
