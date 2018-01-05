@@ -1,7 +1,7 @@
 <?php
 $field_classes = array(
 	'wpbr-field',
-	"wpbr-field-{$this->args['type']}",
+	"wpbr-field--{$this->args['type']}",
 	'js-wpbr-field',
 );
 
