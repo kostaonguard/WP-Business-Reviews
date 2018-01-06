@@ -16,18 +16,22 @@ class PlatformSearch {
 	registerEventHandlers() {
 		console.log( 'registering event handler' );
 		this.buttonField.emitter.on( 'wpbrcontrolchange', ( controlId, controlValue ) => {
-			this.search();
+			this.search(
+				this.platformField.value,
+				this.termsField.value,
+				this.locationField.value
+			);
 		});
 	}
 
-	search() {
-		return axios.post(
+	search( platform, terms, location ) {
+		const response = axios.post(
 			ajaxurl,
 			queryString.stringify({
 				action: 'wpbr_platform_search',
-				platform: this.platformField.value,
-				terms: this.termsField.value,
-				location: this.locationField.value
+				platform: platform,
+				terms: terms,
+				location: location
 			})
 		)
 			.then( function( response ) {
