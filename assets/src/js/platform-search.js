@@ -1,3 +1,4 @@
+import PlatformSearchResults from './platform-search-results';
 import axios from 'axios';
 import queryString from 'query-string';
 
@@ -10,12 +11,11 @@ class PlatformSearch {
 	}
 
 	init() {
-		this.registerEventHandlers();
+		this.registerButtonEventHandlers();
 	}
 
-	registerEventHandlers() {
-		console.log( 'registering event handler' );
-		this.buttonField.emitter.on( 'wpbrcontrolchange', ( controlId, controlValue ) => {
+	registerButtonEventHandlers() {
+		this.buttonField.emitter.once( 'wpbrcontrolchange', () => {
 			this.search(
 				this.platformField.value,
 				this.termsField.value,
@@ -25,6 +25,7 @@ class PlatformSearch {
 	}
 
 	search( platform, terms, location ) {
+		console.log( terms, location );
 		const response = axios.post(
 			ajaxurl,
 			queryString.stringify({
@@ -34,10 +35,23 @@ class PlatformSearch {
 				location: location
 			})
 		)
-			.then( function( response ) {
-				console.table( response.data );
+			.then( response => {
+				if ( response.data && 0 < response.data.length ) {
+					console.log( response.data );
+
+					// Hide search input fields.
+					this.termsField.root.classList.add( 'wpbr-u-hidden' );
+					this.locationField.root.classList.add( 'wpbr-u-hidden' );
+					this.buttonField.root.classList.add( 'wpbr-u-hidden' );
+					this.results = new PlatformSearchResults( this.platformField.value );
+					this.results.populateResults( response.data );
+				} else {
+
+					// No results to populate, so the button needs re-enabled to try again.
+					this.registerButtonEventHandlers();
+				}
 			})
-			.catch( function( error ) {
+			.catch( error => {
 				console.log( error );
 			});
 	}
