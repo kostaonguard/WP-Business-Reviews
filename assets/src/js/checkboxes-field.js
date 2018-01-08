@@ -1,10 +1,10 @@
+import Field from './field.js';
 import Emitter from 'tiny-emitter';
 
-class CheckboxesField {
+class CheckboxesField extends Field {
 	constructor( element ) {
-		this.root     = element;
+		super( element );
 		this.controls = this.root.querySelectorAll( '.js-wpbr-control' );
-		this.emitter  = new Emitter();
 	}
 
 	init() {

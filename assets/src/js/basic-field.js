@@ -1,10 +1,10 @@
-import Field from './field.js';
+import Field from './field';
 import Emitter from 'tiny-emitter';
 
-class ButtonField extends Field {
+class BasicField extends Field {
 	constructor( element ) {
 		super( element );
-		this.control = this.root.querySelector( '.js-wpbr-control' );
+		this.control  = this.root.querySelector( '.js-wpbr-control' );
 	}
 
 	init() {
@@ -12,7 +12,7 @@ class ButtonField extends Field {
 	}
 
 	registerEventHandlers() {
-		this.control.addEventListener( 'click', event => {
+		this.control.addEventListener( 'change', event => {
 
 			// Get the control ID from the data attribute.
 			const controlId    = event.currentTarget.dataset.wpbrControlId;
@@ -24,6 +24,11 @@ class ButtonField extends Field {
 			this.emitter.emit( 'wpbrcontrolchange', controlId, controlValue );
 		});
 	}
+
+	// Retrieve the value of the field.
+	get value() {
+		return this.control.value;
+	}
 }
 
-export default ButtonField;
+export default BasicField;
