@@ -9,24 +9,31 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
-	'yelp_search' => array(
+	'review_source' => array(
 		'name'   => __( 'Yelp Search', 'wp-business-reviews' ),
 		'fields' => array(
-			'yelp_search_terms' => array(
+			'search_platform' => array(
+				'type'        => 'hidden',
+				'value'       => 'yelp',
+			),
+			'search_terms' => array(
 				'name'        => __( 'Search Terms', 'wp-business-reviews' ),
 				'type'        => 'text',
+				'value'       => 'gyms',
 				'tooltip'     => __( 'Defines the terms used when searching for a business.', 'wp-business-reviews' ),
 				'placeholder' => __( 'Business Name or Type', 'wp-business-reviews' ),
 			),
-			'yelp_search_location' => array(
+			'search_location' => array(
 				'name'        => __( 'Location', 'wp-business-reviews' ),
 				'type'        => 'text',
+				'value'       => 'pittsburgh, pa',
 				'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
 				'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
 			),
-			'yelp_search_button' => array(
+			'search_button' => array(
 				'type'        => 'button',
 				'button_text' => __( 'Find Business', 'wp-business-reviews' ),
+				'value'       => 'search',
 			),
 		),
 	),
