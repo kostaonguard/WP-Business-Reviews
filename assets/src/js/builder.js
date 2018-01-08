@@ -1,4 +1,4 @@
-import Field from './field';
+import BasicField from './basic-field';
 import ButtonField from './button-field';
 import CheckboxesField from './checkboxes-field';
 import PlatformSearch from './platform-search';
@@ -37,6 +37,7 @@ class Builder {
 
 	init() {
 		this.initFieldObjects();
+
 		this.initPlatformSearch();
 		this.registerEventHandlers();
 	}
@@ -58,7 +59,7 @@ class Builder {
 				field = new CheckboxesField( fieldElement );
 				break;
 			default :
-				field = new Field( fieldElement );
+				field = new BasicField( fieldElement );
 			}
 
 			field.init();
