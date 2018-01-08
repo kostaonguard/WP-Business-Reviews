@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Request_Base class
+ * Defines the Request class
  *
  * @package WP_Business_Reviews\Includes\Request
  * @since   0.1.0
@@ -9,11 +9,11 @@
 namespace WP_Business_Reviews\Includes\Request;
 
 /**
- * Retrieves data from a URL.
+ * Retrieves and sanitizes data from a URL.
  *
  * @since 0.1.0
  */
-class Request_Base {
+class Request {
 	/**
 	 * Retrieves a response from a safe HTTP request using the GET method.
 	 *
@@ -21,6 +21,7 @@ class Request_Base {
 	 *
 	 * @see wp_safe_remote_get()
 	 *
+	 * @param string $url Site URL to retrieve.
 	 * @return array Associative array containing the response body.
 	 */
 	public function get( $url, $args = array() ) {
@@ -36,6 +37,7 @@ class Request_Base {
 	 *
 	 * @see wp_safe_remote_post()
 	 *
+	 * @param string $url Site URL to retrieve.
 	 * @return array Associative array containing the response body.
 	 */
 	public function post( $url, $args = array() ) {
@@ -60,5 +62,17 @@ class Request_Base {
 
 		// TODO: Possibly filter the response body.
 		return json_decode( $body, true );
+	}
+
+	/**
+	 * Sanitizes a string.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param mixed $value API response value.
+	 * @return string Sanitized string.
+	 */
+	protected function clean( $value ) {
+		return sanitize_text_field( $value );
 	}
 }

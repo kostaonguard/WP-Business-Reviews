@@ -10,14 +10,12 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
-use WP_Business_Reviews\Includes\Request\Request_Base;
-
 /**
  * Retrieves data from Yelp Fusion API.
  *
  * @since 0.1.0
  */
-class Yelp_Request extends Request_Base {
+class Yelp_Request extends Request {
 	/**
 	 * Instantiates the Yelp_Request object.
 	 *

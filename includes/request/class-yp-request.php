@@ -10,14 +10,12 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
-use WP_Business_Reviews\Includes\Request\Request_Base;
-
 /**
  * Retrieves data from YP API.
  *
  * @since 0.1.0
  */
-class YP_Request extends Request_Base {
+class YP_Request extends Request {
 	/**
 	 * Instantiates the YP_Request object.
 	 *

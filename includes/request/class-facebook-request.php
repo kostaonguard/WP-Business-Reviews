@@ -10,14 +10,12 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
-use WP_Business_Reviews\Includes\Request\Request_Base;
-
 /**
  * Retrieves data from Facebook Graph API.
  *
  * @since 0.1.0
  */
-class Facebook_Request extends Request_Base {
+class Facebook_Request extends Request {
 	/**
 	 * Instantiates the Facebook_Request object.
 	 *

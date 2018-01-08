@@ -10,14 +10,12 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
-use WP_Business_Reviews\Includes\Request\Request_Base;
-
 /**
  * Retrieves data from Google Places API.
  *
  * @since 0.1.0
  */
-class Google_Places_Request extends Request_Base {
+class Google_Places_Request extends Request {
 	/**
 	 * Instantiates the Google_Places_Request object.
 	 *
