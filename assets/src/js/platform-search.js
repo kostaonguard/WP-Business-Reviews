@@ -4,6 +4,7 @@ import queryString from 'query-string';
 
 class PlatformSearch {
 	constructor( platformField, termsField, locationField, buttonField ) {
+		this.root = platformField.root.parentNode;
 		this.platformField = platformField;
 		this.termsField    = termsField;
 		this.locationField = locationField;
@@ -43,7 +44,7 @@ class PlatformSearch {
 					this.termsField.root.classList.add( 'wpbr-u-hidden' );
 					this.locationField.root.classList.add( 'wpbr-u-hidden' );
 					this.buttonField.root.classList.add( 'wpbr-u-hidden' );
-					this.results = new PlatformSearchResults( this.platformField.value );
+					this.results = new PlatformSearchResults( this.root, this.platformField.value );
 					this.results.populateResults( response.data );
 				} else {
 
