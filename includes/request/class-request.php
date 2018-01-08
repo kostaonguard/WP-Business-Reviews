@@ -101,14 +101,16 @@ class Request {
 	}
 
 	/**
-	 * Sanitizes a string.
+	 * Recursively sanitizes a given value.
 	 *
-	 * @since 0.1.0
-	 *
-	 * @param mixed $value API response value.
-	 * @return string Sanitized string.
+	 * @param string|array $value The value to be sanitized.
+	 * @return string|array Array of clean values or single clean value.
 	 */
 	protected function clean( $value ) {
-		return sanitize_text_field( $value );
+		if ( is_array( $value ) ) {
+			return array_map( array( $this, 'clean' ), $value );
+		} else {
+			return is_scalar( $value ) ? sanitize_text_field( $value ) : '';
+		}
 	}
 }
