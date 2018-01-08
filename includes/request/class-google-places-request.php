@@ -17,12 +17,9 @@ namespace WP_Business_Reviews\Includes\Request;
  */
 class Google_Places_Request extends Request {
 	/**
-	 * Platform ID.
-	 *
-	 * @since 0.1.0
-	 * @var string $platform
+	 * @inheritDoc
 	 */
-	private $platform = 'google_places';
+	protected $platform = 'google_places';
 
 	/**
 	 * Google Places API key.
@@ -126,66 +123,47 @@ class Google_Places_Request extends Request {
 	 */
 	public function normalize_review_source( array $raw_review_source ) {
 		$r = $raw_review_source;
-
-		// Set defaults.
-		$review_source = array(
-			'platform'        => $this->platform,
-			'platform_id'     => null,
-			'name'            => null,
-			'url'             => null,
-			'rating'          => null,
-			'icon'            => null,
-			'image'           => null,
-			'phone'           => null,
-			'display_address' => null,
-			'street_address'  => null,
-			'city'            => null,
-			'state_province'  => null,
-			'postal_code'     => null,
-			'country'         => null,
-			'latitude'        => null,
-			'longitude'       => null,
-		);
+		$r_clean = array();
 
 		// Set ID of the review source on the platform.
 		if ( isset( $r['id'] ) ) {
-			$review_source['platform_id'] =  $this->clean( $r['id'] );
+			$r_clean['platform_id'] =  $this->clean( $r['id'] );
 		}
 
 		// Set name.
 		if ( isset( $r['name'] ) ) {
-			$review_source['name'] =  $this->clean( $r['name'] );
+			$r_clean['name'] =  $this->clean( $r['name'] );
 		}
 
 		// Set page URL.
 		if ( isset( $r['url'] ) ) {
-			$review_source['url'] = $this->clean( $r['url'] );
+			$r_clean['url'] = $this->clean( $r['url'] );
 		}
 
 		// Set rating.
 		if ( isset( $r['rating'] ) ) {
-			$review_source['rating'] = $this->clean( $r['rating'] );
+			$r_clean['rating'] = $this->clean( $r['rating'] );
 		}
 
 		// Set icon.
 		if ( isset( $r['icon'] ) ) {
-			$review_source['icon'] = $this->clean( $r['icon'] );
+			$r_clean['icon'] = $this->clean( $r['icon'] );
 		}
 
 		// Set image.
 		if ( isset( $r['photos'][0]['photo_reference'] ) ) {
 			$photo_reference = $this->clean( $r['photos'][0]['photo_reference'] );
-			$review_source['image'] = $this->build_image( $photo_reference );
+			$r_clean['image'] = $this->build_image( $photo_reference );
 		}
 
 		// Set phone.
 		if ( isset( $r['formatted_phone_number'] ) ) {
-			$review_source['phone'] =  $this->clean( $r['formatted_phone_number'] );
+			$r_clean['phone'] =  $this->clean( $r['formatted_phone_number'] );
 		}
 
 		// Set display address.
 		if ( isset( $r['formatted_address'] ) ) {
-			$review_source['display_address'] =  $this->clean( $r['formatted_address'] );
+			$r_clean['display_address'] =  $this->clean( $r['formatted_address'] );
 		}
 
 		// Set address properties.
@@ -194,34 +172,37 @@ class Google_Places_Request extends Request {
 			$address_components = $this->parse_address_components( $r['address_components'] );
 
 			// Build street address since it is not provided as a single field.
-			$review_source['street_address'] = $this->build_street_address( $address_components );
+			$r_clean['street_address'] = $this->build_street_address( $address_components );
 
 			if ( isset( $address_components['city'] ) ) {
-				$review_source['city'] = sanitize_text_field( $address_components['city'] );
+				$r_clean['city'] = sanitize_text_field( $address_components['city'] );
 			}
 
 			if ( isset( $address_components['state_province'] ) ) {
-				$review_source['state_province'] = sanitize_text_field( $address_components['state_province'] );
+				$r_clean['state_province'] = sanitize_text_field( $address_components['state_province'] );
 			}
 
 			if ( isset( $address_components['postal_code'] ) ) {
-				$review_source['postal_code'] = sanitize_text_field( $address_components['postal_code'] );
+				$r_clean['postal_code'] = sanitize_text_field( $address_components['postal_code'] );
 			}
 
 			if ( isset( $address_components['country'] ) ) {
-				$review_source['country'] = sanitize_text_field( $address_components['country'] );
+				$r_clean['country'] = sanitize_text_field( $address_components['country'] );
 			}
 		}
 
 		// Set latitude.
 		if ( isset( $r['geometry']['location']['lat'] ) ) {
-			$review_source['latitude'] = $this->clean( $r['geometry']['location']['lat'] );
+			$r_clean['latitude'] = $this->clean( $r['geometry']['location']['lat'] );
 		}
 
 		// Set longitude.
 		if ( isset( $r['geometry']['location']['lng'] ) ) {
-			$review_source['latitude'] = $this->clean( $r['geometry']['location']['lng'] );
+			$r_clean['latitude'] = $this->clean( $r['geometry']['location']['lng'] );
 		}
+
+		// Merge clean response values with default values in case any values were not provided.
+		$review_source = $this->args = wp_parse_args( $r_clean, $this->get_review_source_defaults() );
 
 		return $review_source;
 	}

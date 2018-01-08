@@ -15,6 +15,14 @@ namespace WP_Business_Reviews\Includes\Request;
  */
 class Request {
 	/**
+	 * Platform ID.
+	 *
+	 * @since 0.1.0
+	 * @var string $platform
+	 */
+	protected $platform;
+
+	/**
 	 * Retrieves a response from a safe HTTP request using the GET method.
 	 *
 	 * @since 0.1.0
@@ -62,6 +70,34 @@ class Request {
 
 		// TODO: Possibly filter the response body.
 		return json_decode( $body, true );
+	}
+
+	/**
+	 * Retrieves default values for a normalized review source.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Associative array of default values.
+	 */
+	protected function get_review_source_defaults() {
+		return array (
+			'platform'        => $this->platform,
+			'platform_id'     => null,
+			'name'            => null,
+			'url'             => null,
+			'rating'          => null,
+			'icon'            => null,
+			'image'           => null,
+			'phone'           => null,
+			'display_address' => null,
+			'street_address'  => null,
+			'city'            => null,
+			'state_province'  => null,
+			'postal_code'     => null,
+			'country'         => null,
+			'latitude'        => null,
+			'longitude'       => null,
+		);
 	}
 
 	/**
