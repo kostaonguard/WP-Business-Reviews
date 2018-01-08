@@ -41,9 +41,7 @@ class PlatformSearch {
 					console.log( response.data );
 
 					// Hide search input fields.
-					this.termsField.root.classList.add( 'wpbr-u-hidden' );
-					this.locationField.root.classList.add( 'wpbr-u-hidden' );
-					this.buttonField.root.classList.add( 'wpbr-u-hidden' );
+					this.hideSearchFields();
 					this.results = new PlatformSearchResults( this.root, this.platformField.value );
 					this.results.populateResults( response.data );
 				} else {
@@ -55,6 +53,12 @@ class PlatformSearch {
 			.catch( error => {
 				console.log( error );
 			});
+	}
+
+	hideSearchFields() {
+		this.termsField.hide();
+		this.locationField.hide();
+		this.buttonField.hide();
 	}
 }
 
