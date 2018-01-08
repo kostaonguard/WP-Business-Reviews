@@ -117,7 +117,6 @@ class Google_Places_Request extends Request {
 	 * @since 0.1.0
 	 *
 	 * @param array $raw_review_source Review source data from platform API.
-	 *
 	 * @return array|WP_Error Standardized review source properties or WP_Error
 	 *                        if response structure is invalid.
 	 */
