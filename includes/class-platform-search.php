@@ -63,7 +63,7 @@ class Platform_Search {
 		}
 
 		$platform = sanitize_text_field( $_REQUEST['platform'] );
-		$terms = sanitize_text_field( $_REQUEST['terms'] );
+		$terms    = sanitize_text_field( $_REQUEST['terms'] );
 		$location = sanitize_text_field( $_REQUEST['location'] );
 		$response = $this->search( $platform, $terms, $location );
 		wp_send_json( $response );
@@ -82,6 +82,6 @@ class Platform_Search {
 	public function search( $platform, $terms, $location ) {
 		$request = $this->request_factory->create( $platform );
 
-		return $request->search( $terms, $location );
+		return $request->search_review_source( $terms, $location );
 	}
 }
