@@ -81,22 +81,22 @@ class Request {
 	 */
 	protected function get_review_source_defaults() {
 		return array (
-			'platform'        => $this->platform,
-			'platform_id'     => null,
-			'name'            => null,
-			'url'             => null,
-			'rating'          => null,
-			'icon'            => null,
-			'image'           => null,
-			'phone'           => null,
-			'display_address' => null,
-			'street_address'  => null,
-			'city'            => null,
-			'state_province'  => null,
-			'postal_code'     => null,
-			'country'         => null,
-			'latitude'        => null,
-			'longitude'       => null,
+			'platform'          => $this->platform,
+			'platform_id'       => null,
+			'name'              => null,
+			'url'               => null,
+			'rating'            => null,
+			'icon'              => null,
+			'image'             => null,
+			'phone'             => null,
+			'formatted_address' => null,
+			'street_address'    => null,
+			'city'              => null,
+			'state_province'    => null,
+			'postal_code'       => null,
+			'country'           => null,
+			'latitude'          => null,
+			'longitude'         => null,
 		);
 	}
 

@@ -161,9 +161,9 @@ class Google_Places_Request extends Request {
 			$r_clean['phone'] =  $this->clean( $r['formatted_phone_number'] );
 		}
 
-		// Set display address.
+		// Set formatted address.
 		if ( isset( $r['formatted_address'] ) ) {
-			$r_clean['display_address'] =  $this->clean( $r['formatted_address'] );
+			$r_clean['formatted_address'] =  $this->clean( $r['formatted_address'] );
 		}
 
 		// Set address properties.
