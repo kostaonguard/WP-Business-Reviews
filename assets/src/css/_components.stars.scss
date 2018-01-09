@@ -4,8 +4,11 @@
 
 .wpbr-stars {
 
-	&--google {
-		color: $wpbr-color-google-rating;
+	&--google_places {
+		color: $wpbr-color-google-places-rating;
 	}
 
+	&--facebook {
+		color: $wpbr-color-facebook-rating;
+	}
 }

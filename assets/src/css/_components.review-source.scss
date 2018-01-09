@@ -21,6 +21,12 @@
 		}
 	}
 
+	&__rating {
+		&--google-places {
+			color: $wpbr-color-google-places-rating;
+		}
+	}
+
 	&__address {
 		font-size: 0.875em;
 		margin-bottom: $wpbr-space-quarter;
