@@ -139,10 +139,9 @@ class Yelp_Request extends Request {
 			$r_clean['rating'] = $this->clean( $r['rating'] );
 		}
 
-		// Set icon and image to the same value since Yelp only provides one image.
+		// Set image.
 		if ( isset( $r['image_url'] ) ) {
-			$r_clean['icon'] = $this->clean( $r['image_url'] );
-			$r_clean['image'] = $r_clean['icon'];
+			$r_clean['image'] = $this->clean( $r['image_url'] );
 		}
 
 		// Set phone.
