@@ -6,7 +6,7 @@
 			$page_name = ! empty( $page_atts['name'] ) ? $page_atts['name'] : '';
 			$page_url  = 'https://facebook.com/' . $page_id;
 			?>
-			<li class="wpbr-stacked-list__item">
+			<li class="wpbr-stacked-list__item wpbr-stacked-list__item--border-bottom">
 				<div class="wpbr-media">
 					<div class="wpbr-media__figure wpbr-media__figure--icon">
 						<img src="<?php echo esc_url( $image_url ); ?>">
