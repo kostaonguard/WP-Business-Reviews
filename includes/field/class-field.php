@@ -62,19 +62,7 @@ class Field {
 	 */
 	public function __construct( $id, array $args ) {
 		$this->id   = $id;
-		$this->default_args = array(
-			'name'          => null,
-			'type'          => 'text',
-			'value'         => null,
-			'default'       => null,
-			'tooltip'       => null,
-			'description'   => null,
-			'wrapper_class' => null,
-			'name_element'  => 'span',
-			'placeholder'   => null,
-			'options'       => array(),
-		);
-		$this->args = wp_parse_args( $args, $this->default_args );
+		$this->args = wp_parse_args( $args, $this->get_default_args() );
 		$this->set_value();
 	}
 
@@ -87,6 +75,28 @@ class Field {
 	 */
 	public function get_id() {
 		return $this->id;
+	}
+
+	/**
+	 * Gets default field arguments.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Default field arguments.
+	 */
+	public function get_default_args() {
+		return array(
+			'name'          => null,
+			'type'          => 'text',
+			'value'         => null,
+			'default'       => null,
+			'tooltip'       => null,
+			'description'   => null,
+			'wrapper_class' => null,
+			'name_element'  => 'span',
+			'placeholder'   => null,
+			'options'       => array(),
+		);
 	}
 
 	/**
