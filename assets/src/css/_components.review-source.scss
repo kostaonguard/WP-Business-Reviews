@@ -29,4 +29,12 @@
 			margin-bottom: 0;
 		}
 	}
+
+	&__image {
+		&--cover {
+			object-fit: cover;
+			max-height: $wpbr-space * 8;
+			width: 100%;
+		}
+	}
 }
