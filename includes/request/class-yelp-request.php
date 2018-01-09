@@ -58,6 +58,7 @@ class Yelp_Request extends Request {
 			array(
 				'term'     => $terms,
 				'location' => $location,
+				'limit'    => 10,
 			),
 			'https://api.yelp.com/v3/businesses/search'
 		);
