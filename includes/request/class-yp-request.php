@@ -223,10 +223,11 @@ class YP_Request extends Request {
 	/**
 	 * Formats address from separate address components.
 	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $address_components Associative array of address strings.
-	 * @return string Formatted address.
+	 * @param string $street_address Street address.
+	 * @param string $city           City.
+	 * @param string $state_province State.
+	 * @param string $postal_code    Zip code.
+	 * @return string Concatenated, formatted address.
 	 */
 	protected function format_address( $street_address, $city, $state_province, $postal_code ) {
 		return  "{$street_address}, {$city}, {$state_province} {$postal_code}";
