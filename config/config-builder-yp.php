@@ -26,7 +26,7 @@ $config = array(
 			'search_location' => array(
 				'name'        => __( 'Location', 'wp-business-reviews' ),
 				'type'        => 'text',
-				'value'       => 'pittsburgh, pa',
+				'value'       => 'Raleigh, NC',
 				'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
 				'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
 			),
