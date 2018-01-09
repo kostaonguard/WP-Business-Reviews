@@ -218,6 +218,14 @@ class Yelp_Request extends Request {
 		return $response;
 	}
 
+	/**
+	 * Formats address from separate address components.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $address_components Associative array of address strings.
+	 * @return string Formatted address.
+	 */
 	protected function format_address( $address_components ) {
 		return trim( implode( $address_components, ', ' ) );
 	}
