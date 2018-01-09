@@ -152,7 +152,7 @@ class Yelp_Request extends Request {
 
 		// Set formatted address.
 		if ( isset( $r['location']['display_address'] ) ) {
-			$r_clean['formatted_address'] = $this->clean( $this->format_address( $r['location']['display_address'] ) );
+			$r_clean['formatted_address'] = $this->format_address( $this->clean( $r['location']['display_address'] ) );
 		}
 
 		// Set street address.
