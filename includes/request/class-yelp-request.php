@@ -141,7 +141,7 @@ class Yelp_Request extends Request {
 
 		// Set image.
 		if ( isset( $r['image_url'] ) ) {
-			$r_clean['image'] = $this->clean( $r['image_url'] );
+			$r_clean['image'] = $this->modify_image_size( $this->clean( $r['image_url'] ) );
 		}
 
 		// Set phone.
@@ -216,6 +216,22 @@ class Yelp_Request extends Request {
 		$response = $this->get( $url, $args );
 
 		return $response;
+	}
+
+	/**
+	 * Modify the image URL from API response.
+	 *
+	 * The image returned by the Yelp Fusion API is 1000px wide, which is
+	 * unnecessarily big for this plugin's purposes. Changing the suffix
+	 * results in a more appropriate size.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $image Image URL.
+	 * @return string Modified image URL.
+	 */
+	protected function modify_image_size( $image ) {
+		return str_replace( 'o.jpg', 'l.jpg', $image );
 	}
 
 	/**
