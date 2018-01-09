@@ -6,6 +6,10 @@
 	list-style: none;
 	margin: 0 0 $wpbr-space;
 
+	&--border {
+		border: $wpbr-border-width solid $wpbr-color-wp-form-border;
+	}
+
 	&:last-child {
 		margin-bottom: 0;
 	}

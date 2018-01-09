@@ -38,6 +38,11 @@
 		}
 	}
 
+	&__id {
+		color: $wpbr-color-text-light;
+		font-size: 0.875em;
+	}
+
 	&__image {
 		&--cover {
 			object-fit: cover;
