@@ -2,8 +2,8 @@ import Emitter from 'tiny-emitter';
 
 class Field {
 	constructor( element ) {
-		this.root     = element;
-		this.emitter  = new Emitter();
+		this.root    = element;
+		this.emitter = new Emitter();
 	}
 
 	hide() {
