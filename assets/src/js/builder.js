@@ -38,7 +38,9 @@ class Builder {
 	init() {
 		this.initFieldObjects();
 
-		this.initPlatformSearch();
+		if ( this.fields.has( 'search_platform' ) ) {
+			this.initPlatformSearch();
+		}
 		this.registerEventHandlers();
 	}
 
