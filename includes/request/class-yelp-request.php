@@ -78,6 +78,7 @@ class Yelp_Request extends Request {
 		} else {
 			return new \WP_Error( 'invalid_response_structure', __( 'Response could not be normalized due to invalid response structure.', 'wp-business-reviews' ) );
 		}
+
 		return $review_sources;
 	}
 
@@ -218,6 +219,6 @@ class Yelp_Request extends Request {
 	}
 
 	protected function format_address( $address_components ) {
-		return trim( implode( $address_components ), ',' );
+		return trim( implode( $address_components, ', ' ) );
 	}
 }
