@@ -33,7 +33,7 @@
 	&__image {
 		&--cover {
 			object-fit: cover;
-			max-height: $wpbr-space * 8;
+			height: $wpbr-space * 6.75;
 			width: 100%;
 		}
 	}
