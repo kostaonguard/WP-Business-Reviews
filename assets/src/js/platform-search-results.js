@@ -22,42 +22,124 @@ class PlatformSearchResults {
 	populateResults( results ) {
 
 		// Create scrollable container to hold results.
-		this.scrollable = document.createElement( 'div' );
-		this.scrollable.className = 'wpbr-scrollable wpbr-scrollable--border';
+		const scrollable = document.createElement( 'div' );
+		scrollable.className = 'wpbr-scrollable wpbr-scrollable--border';
 
 		// Create empty results list.
-		this.resultsList = document.createElement( 'ul' );
-		this.resultsList.className = 'wpbr-stacked-list wpbr-stacked-list--striped';
+		const resultsList = document.createElement( 'ul' );
+		resultsList.className = 'wpbr-stacked-list wpbr-stacked-list--striped';
 
 		// Append empty results list to scrollable container.
-		this.scrollable.appendChild( this.resultsList );
+		scrollable.appendChild( resultsList );
 
-		// TODO: Translate strings in search results.
-		const listItemsMarkup = `
-			${results.map( reviewSource => `
-				<li class="wpbr-stacked-list__item wpbr-stacked-list__item--border-bottom">
-					<div class="wpbr-media">
-						<div class="wpbr-media__figure wpbr-media__figure--icon js-wpbr-icon">
-							<img src="${reviewSource.icon}"><br>
-						</div>
-						<div class="wpbr-media__body">
-							<div class="wpbr-business">
-								<a class="wpbr-business__name" href="${reviewSource.url}" target="_blank" rel="noopener noreferrer">${reviewSource.name}</a><br>
-								<span class="wpbr-business__rating">${parseFloat( reviewSource.rating ).toFixed( 1 )} <span class="wpbr-stars wpbr-stars--google">★★★★★</span></span>
-								<span class="wpbr-business__address">${reviewSource.formatted_address}</span><br>
-								<button class="button button-primary js-wpbr-get-reviews-button">Get Reviews</button>
-							</div>
-						</div>
-					</div>
-				</li>
-			` ).join( '' ) }
-		`;
+		// Create list items.
+		results.forEach( result => {
+			const listItem = document.createElement( 'li' );
+			listItem.className = 'wpbr-stacked-list__item wpbr-stacked-list__item--border-bottom';
+			listItem.appendChild( this.createReviewSourceElement( result ) );
+			resultsList.appendChild( listItem );
+		});
 
-		// Update and display results list.
-		this.resultsList.innerHTML = listItemsMarkup;
+		// Here the results are added to the page.
+		this.root.appendChild( scrollable );
+	}
 
-		// Append scrollable to bottom of root.
-		this.root.appendChild( this.scrollable );
+	createReviewSourceElement( result ) {
+		const el     = document.createElement( 'div' );
+		el.className = 'wpbr-review-source';
+
+		if ( result.image )  {
+			el.appendChild( this.createImageElement( result.image, result.name ) );
+		}
+
+		el.appendChild( this.createNameElement( result.name, result.url ) );
+		el.appendChild( document.createElement( 'br' ) );
+
+		if ( parseFloat( result.rating ) ) {
+			el.appendChild( this.createRatingElement( result.rating, result.platform ) );
+		} else {
+			el.appendChild( this.createRatingFallbackElement( result.rating ) );
+		}
+
+		el.appendChild( document.createElement( 'br' ) );
+		el.appendChild( this.createAddressElement( result.formatted_address ) );
+		el.appendChild( document.createElement( 'br' ) );
+		el.appendChild(	this.createGetReviewsButton( result.platform_id ) );
+
+		return el;
+	}
+
+	createIconElement( icon ) {
+		const el = document.createElement( 'img' );
+		el.className = 'wpbr-review-source__image wpbr-review-source__image--cover';
+		el.src = image;
+		el.alt = alt;
+
+		return el;
+	}
+
+	createImageElement( image, alt ) {
+		const el = document.createElement( 'img' );
+		el.className = 'wpbr-review-source__image wpbr-review-source__image--cover';
+		el.src = image;
+		el.alt = alt;
+
+		return el;
+	}
+
+	createNameElement( name, url ) {
+		const el     = document.createElement( 'span' );
+		el.className = 'wpbr-review-source__name';
+		el.innerText = name;
+
+		return el;
+	}
+
+	createRatingElement( rating, platform ) {
+		const el     = document.createElement( 'span' );
+		platform = platform.replace( /_/, '-' );
+		el.className = `wpbr-review-source__rating wpbr-review-source__rating--${platform}`;
+		el.innerText = rating + ' ';
+		el.appendChild( this.createStars( rating, platform ) );
+
+		return el;
+	}
+
+	createRatingFallbackElement() {
+		const el     = document.createElement( 'span' );
+		el.className = 'wpbr-review-source__rating';
+
+		// Translate 'Not yet rated.'
+		el.innerText = 'Not yet rated.';
+
+		return el;
+	}
+
+	createStars( rating, platform ) {
+		const el     = document.createElement( 'span' );
+		el.className = `wpbr-stars wpbr-stars--${platform}`;
+		el.innerText = '★★★★★';
+
+		return el;
+	}
+
+	createAddressElement( address ) {
+		const el     = document.createElement( 'span' );
+		el.className = 'wpbr-review-source__address';
+		el.innerText = address;
+
+		return el;
+	}
+
+	createGetReviewsButton( platformId ) {
+		const el     = document.createElement( 'button' );
+		el.className = 'button button-primary js-wpbr-get-reviews-button';
+		el.setAttribute( 'data-wpbr-platform-id', platformId );
+
+		//TODO: Translate 'Get Reviews'.
+		el.innerText = 'Get Reviews';
+
+		return el;
 	}
 }
 
