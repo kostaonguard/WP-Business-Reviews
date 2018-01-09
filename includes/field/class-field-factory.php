@@ -39,11 +39,13 @@ class Field_Factory {
 				case 'search':
 				case 'select':
 					$args['name_element'] = 'label';
-					return new Field( $id, $args );
+					$field = new Field( $id, $args );
 					break;
 				default:
-					return new Field( $id, $args );
+					$field = new Field( $id, $args );
 			}
+
+			return $field;
 		}
 
 		return false;
