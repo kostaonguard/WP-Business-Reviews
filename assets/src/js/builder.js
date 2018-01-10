@@ -136,7 +136,7 @@ class Builder {
 		switch ( type ) {
 
 		case 'review_gallery':
-			this.formatGallery();
+			this.formatGallery( this.fields.get( 'max_columns' ).value );
 			break;
 
 		case 'review_list':
