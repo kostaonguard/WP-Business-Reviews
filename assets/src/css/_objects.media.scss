@@ -13,6 +13,11 @@
 			width: $wpbr-space-triple;
 		}
 
+		&--round {
+			border-radius: 9999px;
+			overflow: hidden;
+		}
+
 		img {
 			display: block;
 			width: 100%;

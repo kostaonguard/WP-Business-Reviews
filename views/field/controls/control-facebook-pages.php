@@ -8,7 +8,7 @@
 			?>
 			<li class="wpbr-stacked-list__item wpbr-stacked-list__item--border-bottom">
 				<div class="wpbr-media">
-					<div class="wpbr-media__figure wpbr-media__figure--icon">
+					<div class="wpbr-media__figure wpbr-media__figure--icon wpbr-media__figure--round">
 						<img src="<?php echo esc_url( $image_url ); ?>">
 					</div>
 					<div class="wpbr-media__body">
