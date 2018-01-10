@@ -3,7 +3,7 @@
 	<div class="wpbr-wrap wpbr-theme--card js-wpbr-wrap">
 		<ul class="wpbr-review-gallery js-wpbr-list">
 			<?php for ( $i = 0; $i < 12; $i++ ) : ?>
-				<li class="wpbr-review-gallery__item wpbr-review-gallery__item--1 js-wpbr-item" data-rating="5" data-time-created="">
+				<li class="wpbr-review-gallery__item wpbr-review-gallery__item--2 js-wpbr-item" data-rating="5" data-time-created="">
 					<div class="wpbr-review js-wpbr-review">
 						<div class="wpbr-review__header">
 							<div class="wpbr-review__image js-wpbr-review-image">
