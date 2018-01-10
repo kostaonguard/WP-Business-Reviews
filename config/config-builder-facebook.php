@@ -9,12 +9,12 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
-	'facebook_pages_select' => array(
+	'review_source' => array(
 		'name'   => __( 'Facebook Page', 'wp-business-reviews' ),
 		'fields' => array(
-			'facebook_pages' => array(
-				'name'        => __( 'Select a Facebook Page', 'wp-business-reviews' ),
-				'type'        => 'facebook_pages',
+			'facebook_pages_select' => array(
+				'name' => __( 'Authenticated Pages', 'wp-business-reviews' ),
+				'type' => 'facebook_pages_select',
 			),
 		),
 	),

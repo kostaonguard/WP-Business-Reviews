@@ -10,7 +10,7 @@ namespace WP_Business_Reviews\Config;
 
 $config = array(
 	'review_source' => array(
-		'name'   => __( 'Yelp Business Search', 'wp-business-reviews' ),
+		'name'   => __( 'Yelp Business', 'wp-business-reviews' ),
 		'fields' => array(
 			'search_platform' => array(
 				'type'        => 'hidden',
