@@ -56,7 +56,7 @@ class PlatformSearchResults {
 		el.appendChild( document.createElement( 'br' ) );
 
 		if ( parseFloat( result.rating ) ) {
-			el.appendChild( this.createRatingElement( result.rating, result.platform ) );
+			el.appendChild( this.createRatingElement( result.rating, this.platform ) );
 		} else {
 			el.appendChild( this.createRatingFallbackElement( result.rating ) );
 		}
@@ -64,7 +64,7 @@ class PlatformSearchResults {
 		el.appendChild( document.createElement( 'br' ) );
 		el.appendChild( this.createAddressElement( result.formatted_address ) );
 		el.appendChild( document.createElement( 'br' ) );
-		el.appendChild(	this.createGetReviewsButton( result.platform_id ) );
+		el.appendChild(	this.createGetReviewsButton( this.platform ) );
 
 		return el;
 	}
