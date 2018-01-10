@@ -35,24 +35,25 @@
 
 	&__address {
 		font-size: 0.875em;
-		margin-bottom: $wpbr-space-quarter;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
 	}
 
 	&__id {
 		color: $wpbr-color-text-light;
 		font-size: 0.875em;
-		margin-bottom: $wpbr-space-eighth;
 	}
 
 	&__image {
+		display: block;
+
 		&--cover {
 			object-fit: cover;
 			height: $wpbr-space * 6.75;
+			margin-bottom: $wpbr-space-half;
 			width: 100%;
 		}
+	}
+
+	button#{&}__button {
+		margin-top: $wpbr-space-quarter;
 	}
 }
