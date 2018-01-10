@@ -3,10 +3,14 @@
 --------------------------------------------------------------*/
 
 .wpbr-review-source {
+	> :last-child {
+		margin-bottom: 0;
+	}
 
 	&__name,
 	&__rating,
-	&__address {
+	&__address,
+	&__id {
 		display: inline-block;
 	}
 
@@ -41,6 +45,7 @@
 	&__id {
 		color: $wpbr-color-text-light;
 		font-size: 0.875em;
+		margin-bottom: $wpbr-space-eighth;
 	}
 
 	&__image {
