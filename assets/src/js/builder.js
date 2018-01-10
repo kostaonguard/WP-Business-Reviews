@@ -41,6 +41,7 @@ class Builder {
 		if ( this.fields.has( 'search_platform' ) ) {
 			this.initPlatformSearch();
 		}
+
 		this.registerEventHandlers();
 	}
 

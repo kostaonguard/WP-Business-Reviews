@@ -26,7 +26,6 @@ class PlatformSearch {
 	}
 
 	search( platform, terms, location ) {
-		console.log( terms, location );
 		const response = axios.post(
 			ajaxurl,
 			queryString.stringify({
@@ -38,7 +37,6 @@ class PlatformSearch {
 		)
 			.then( response => {
 				if ( response.data && 0 < response.data.length ) {
-					console.log( response.data );
 
 					// Hide search input fields.
 					this.hideSearchFields();
@@ -51,7 +49,8 @@ class PlatformSearch {
 				}
 			})
 			.catch( error => {
-				console.log( error );
+
+				// TODO: Handle error of failed platform search request.
 			});
 	}
 

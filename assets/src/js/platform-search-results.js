@@ -2,21 +2,10 @@ class PlatformSearchResults {
 	constructor( element, platform ) {
 		this.root = element;
 		this.platform = platform;
-
-		// Set this.buttons.
 	}
 
 	init() {
 		this.registerButtonEventHandlers();
-	}
-
-	registerButtonEventHandlers() {
-
-		// this.buttons.forEach( ( button ) => {
-		// 	button.on( 'click', () => {
-
-		// 	});
-		// });
 	}
 
 	populateResults( results ) {
