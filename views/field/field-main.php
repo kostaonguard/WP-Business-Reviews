@@ -45,6 +45,9 @@ $field_class_att = implode( $field_classes, ' ' );
 			case 'facebook_pages':
 				$type = 'facebook-pages';
 				break;
+			case 'facebook_pages_select':
+				$type = 'facebook-pages-select';
+				break;
 			case 'platform_status':
 				$type = 'platform-status';
 				break;
