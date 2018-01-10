@@ -8,7 +8,9 @@ class BasicField extends Field {
 	}
 
 	init() {
-		this.registerEventHandlers();
+		if ( this.control ) {
+			this.registerEventHandlers();
+		}
 	}
 
 	registerEventHandlers() {
