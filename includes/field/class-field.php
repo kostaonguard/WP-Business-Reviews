@@ -145,13 +145,23 @@ class Field {
 	 * @param mixed $value Field value.
 	 */
 	public function set_value( $value = null ) {
-		if ( null !== $value ) {
-			$this->value = $value;
-		} elseif ( isset( $this->args['value'] ) ) {
-			$this->value = $this->args['value'];
-		} else {
-			$this->value = $this->args['default'];
+		// Determine value if one is not directly passed.
+		if ( null === $value ) {
+			if ( isset( $this->args['value'] ) ) {
+				// Set value as provided via constructor.
+				$value = $this->args['value'];
+			} elseif ( isset( $this->args['default'] ) ) {
+				// Otherwise fall back to default value.
+				$value = $this->args['default'];
+			}
 		}
+
+		/**
+		 * Filters the field value being set.
+		 *
+		 * @since 0.1.0
+		 */
+		$this->value = apply_filters( "wp_business_reviews_set_field_value_{$this->id}", $value );
 	}
 
 	/**
