@@ -104,6 +104,12 @@ class Builder {
 		switch ( type ) {
 		case 'format' :
 			this.format( value );
+
+			if ( 'review_gallery' === value ) {
+				this.fields.get( 'max_columns' ).show();
+			} else {
+				this.fields.get( 'max_columns' ).hide();
+			}
 			break;
 		case 'max_columns':
 			this.formatGallery( value );
