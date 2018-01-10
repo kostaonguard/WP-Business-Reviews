@@ -122,7 +122,7 @@ class PlatformSearchResults {
 
 	createGetReviewsButton( platformId ) {
 		const el     = document.createElement( 'button' );
-		el.className = 'button button-primary js-wpbr-get-reviews-button';
+		el.className = 'wpbr-review-source__button button button-primary js-wpbr-get-reviews-button';
 		el.setAttribute( 'data-wpbr-platform-id', platformId );
 
 		//TODO: Translate 'Get Reviews'.
