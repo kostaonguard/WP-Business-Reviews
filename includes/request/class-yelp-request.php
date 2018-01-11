@@ -35,7 +35,7 @@ class Yelp_Request extends Request {
 	 * @return bool True if connection was successful, false otherwise.
 	 */
 	public function is_connected() {
-		$response = $this->search( 'PNC Park', 'Pittsburgh' );
+		$response = $this->search_review_source( 'PNC Park', 'Pittsburgh' );
 
 		if ( isset( $response['error'] ) ) {
 			return false;
