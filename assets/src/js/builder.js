@@ -42,7 +42,8 @@ class Builder {
 			this.initPlatformSearch();
 		}
 
-		this.registerEventHandlers();
+		this.registerToolbarEventHandlers();
+		this.registerFieldEventHandlers();
 	}
 
 	// TODO: Move this to FieldFactory class.
@@ -80,9 +81,7 @@ class Builder {
 		this.platformSearch.init();
 	}
 
-	registerEventHandlers() {
-
-		// Register toolbar events.
+	registerToolbarEventHandlers() {
 		this.inspectorControl.addEventListener( 'click', event => {
 			event.preventDefault();
 			this.toggleVisibility( this.inspector );
@@ -91,8 +90,9 @@ class Builder {
 		this.saveControl.addEventListener( 'click', event => {
 			event.preventDefault();
 		});
+	}
 
-		// Register field events.
+	registerFieldEventHandlers() {
 		this.fields.forEach( ( field ) => {
 			field.emitter.on( 'wpbrcontrolchange', ( controlId, controlValue ) => {
 				this.updatePresentation( controlId, controlValue );
