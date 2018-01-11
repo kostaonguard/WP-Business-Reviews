@@ -170,11 +170,13 @@ class Field {
 	 * @since 0.1.0
 	 */
 	public function render() {
-		if ( 'internal' === $this->get_arg( 'type' ) ) {
+		$field_slug  = str_replace( '_', '-', $this->args['type'] );
+
+		if ( 'internal' === $field_slug ) {
 			return;
 		}
 
-		$view_object = new View( WPBR_PLUGIN_DIR . 'views/field/field-main.php' );
+		$view_object = new View( WPBR_PLUGIN_DIR . "views/field/{$field_slug}.php" );
 		$view_object->render(
 			array(
 				'id'    => $this->get_id(),
