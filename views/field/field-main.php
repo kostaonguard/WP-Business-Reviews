@@ -1,22 +1,40 @@
-<div
-id="wpbr-field-<?php echo esc_attr( $this->id ); ?>"
-class="wpbr-field wpbr-field--<?php echo esc_attr( $this->args['type'] ); ?> js-wpbr-field<?php echo ( $this->args['wrapper_class'] ? ' ' . esc_attr( $this->args['wrapper_class'] ) : '' ); ?>"
->
-
 <?php
-if ( ! empty( $this->args['name'] ) ) {
-	if ( ! empty( $this->args['name_element'] ) && 'label' === $this->args['name_element'] ) {
-		// Render field name in label tag.
-		$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/field-label.php' );
-	} else {
-		// Render field name in span tag (intended for use alongside fieldsets).
-		$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/field-name.php' );
-	}
+$field_classes = array(
+	'wpbr-field',
+	"wpbr-field--{$this->args['type']}",
+	'js-wpbr-field',
+);
+
+// Add wrapper class if one is set.
+if ( ! empty( $this->args['wrapper_class'] ) ) {
+	$field_classes[] = $this->args['wrapper_class'];
 }
+
+// Convert classes from array to string.
+$field_class_att = implode( $field_classes, ' ' );
 ?>
 
-<div id="wpbr-field-control-wrap-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__control-wrap">
+<div
+	id="wpbr-field-<?php echo esc_attr( $this->id ); ?>"
+	class="<?php echo esc_attr( $field_class_att ); ?>"
+	data-wpbr-field-id="<?php echo esc_attr( $this->id ); ?>"
+	data-wpbr-field-type="<?php echo esc_attr( $this->args['type'] ); ?>"
+>
+
 	<?php
+	if ( ! empty( $this->args['name'] ) ) {
+		if ( ! empty( $this->args['name_element'] ) && 'label' === $this->args['name_element'] ) {
+			// Render field name in label tag.
+			$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/field-label.php' );
+		} else {
+			// Render field name in span tag (intended for use alongside fieldsets).
+			$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/field-name.php' );
+		}
+	}
+	?>
+
+	<div id="wpbr-field-control-wrap-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__control-wrap">
+		<?php
 		// Render field control.
 		$type = str_replace( '_', '-', $this->args['type'] );
 
@@ -26,6 +44,9 @@ if ( ! empty( $this->args['name'] ) ) {
 				break;
 			case 'facebook_pages':
 				$type = 'facebook-pages';
+				break;
+			case 'facebook_pages_select':
+				$type = 'facebook-pages-select';
 				break;
 			case 'platform_status':
 				$type = 'platform-status';

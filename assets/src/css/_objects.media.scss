@@ -4,16 +4,22 @@
 
 .wpbr-media {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 
 	&__figure {
 		margin-right: $wpbr-space;
 
 		&--icon {
-			width: $wpbr-space-double;
+			width: $wpbr-space-triple;
+		}
+
+		&--round {
+			border-radius: 9999px;
+			overflow: hidden;
 		}
 
 		img {
+			display: block;
 			width: 100%;
 		}
 	}

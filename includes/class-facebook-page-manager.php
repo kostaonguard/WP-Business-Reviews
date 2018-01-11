@@ -27,6 +27,14 @@ use WP_Business_Reviews\Includes\Request\Facebook_Request;
  */
 class Facebook_Page_Manager {
 	/**
+	 * Array of Facebook pages and tokens.
+	 *
+	 * @since 0.1.0
+	 * @var array $pages
+	 */
+	private $pages;
+
+	/**
 	 * Settings serializer.
 	 *
 	 * @since 0.1.0
@@ -47,10 +55,12 @@ class Facebook_Page_Manager {
 	 *
 	 * @since 0.1.0
 	 *
+	 * @param array             $pages      Facebook pages and tokens.
 	 * @param Option_Serializer $serializer Settings saver.
 	 * @param Facebook_Request  $request    Facebook request.
 	 */
-	public function __construct( Option_Serializer $serializer, Facebook_Request $request ) {
+	public function __construct( array $pages, Option_Serializer $serializer, Facebook_Request $request ) {
+		$this->pages      = $pages;
 		$this->serializer = $serializer;
 		$this->request    = $request;
 	}
@@ -64,6 +74,18 @@ class Facebook_Page_Manager {
 		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_user_token' ), 1 );
 		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_pages' ), 1 );
 		add_action( 'admin_post_wp_business_reviews_disconnect_facebook', array( $this, 'disconnect' ) );
+		add_action( 'wp_business_reviews_set_field_value_facebook_pages_select', array( $this, 'get_pages' ) );
+	}
+
+	/**
+	 * Retrieves array of Facebook pages and tokens.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Facebook pages and tokens.
+	 */
+	public function get_pages() {
+		return $this->pages;
 	}
 
 	/**

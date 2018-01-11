@@ -1,5 +1,7 @@
-import Field from './field';
-import GooglePlacesTextSearch from './google-places-text-search';
+import BasicField from './basic-field';
+import ButtonField from './button-field';
+import CheckboxesField from './checkboxes-field';
+import PlatformSearch from './platform-search';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
@@ -9,54 +11,78 @@ class Builder {
 	constructor( selector ) {
 
 		// Define the root element of the Reviews Builder.
-		this.root = document.querySelector( selector );
+		this.root      = document.querySelector( selector );
+		this.inspector = document.getElementById( 'wpbr-builder-inspector' );
 
-		// Define field wrappers.
-		this.formatField     = document.getElementById( 'wpbr-field-format' );
-		this.maxColumnsField = document.getElementById( 'wpbr-field-max_columns' );
-		this.themeField      = document.getElementById( 'wpbr-field-theme' );
+		// Define fields.
+		this.fields = new Map();
 
-		// Define controls.
-		this.inspector              = document.getElementById( 'wpbr-builder-inspector' );
+		// Define toolbar controls.
 		this.inspectorControl       = document.getElementById( 'wpbr-control-inspector' );
 		this.saveControl            = document.getElementById( 'wpbr-control-save' );
-		this.formatControl          = document.getElementById( 'wpbr-control-format' );
-		this.maxColumnsControl      = document.getElementById( 'wpbr-control-max_columns' );
-		this.themeControl           = document.getElementById( 'wpbr-control-theme' );
-		this.reviewImageControl     = document.getElementById( 'wpbr-control-review_image' );
-		this.reviewRatingControl    = document.getElementById( 'wpbr-control-rating' );
-		this.reviewTimestampControl = document.getElementById( 'wpbr-control-timestamp' );
-
-		// Define handles used to identify review elements.
-		this.wrapHandle            = 'js-wpbr-wrap';
-		this.listHandle            = 'js-wpbr-list';
-		this.itemHandle            = 'js-wpbr-item';
-		this.reviewHandle          = 'js-wpbr-review';
-		this.reviewImageHandle     = 'js-wpbr-review-image';
-		this.reviewRatingHandle    = 'js-wpbr-review-rating';
-		this.reviewTimestampHandle = 'js-wpbr-review-timestamp';
 
 		// Define review elements.
-		this.wrap             = this.root.querySelector( `.${this.wrapHandle}` );
-		this.list             = this.root.querySelector( `.${this.listHandle}` );
-		this.items            = this.root.querySelectorAll( `.${this.itemHandle}` );
-		this.reviews          = this.root.querySelectorAll( `.${this.reviewHandle}` );
-		this.reviewImages     = this.root.querySelectorAll( `.${this.reviewImageHandle}` );
-		this.reviewRatings    = this.root.querySelectorAll( `.${this.reviewRatingHandle}` );
-		this.reviewTimestamps = this.root.querySelectorAll( `.${this.reviewTimestampHandle}` );
-
+		this.wrap             = this.root.querySelector( '.js-wpbr-wrap' );
+		this.list             = this.root.querySelector( '.js-wpbr-list' );
+		this.items            = this.root.querySelectorAll( '.js-wpbr-item' );
+		this.reviews          = this.root.querySelectorAll( '.js-wpbr-review' );
+		this.reviewImages     = this.root.querySelectorAll( '.js-wpbr-review-image' );
+		this.reviewRatings    = this.root.querySelectorAll( '.js-wpbr-review-rating' );
+		this.reviewTimestamps = this.root.querySelectorAll( '.js-wpbr-review-timestamp' );
+		this.reviewContents   = this.root.querySelectorAll( '.js-wpbr-review-content' );
 
 		// Define background element, which changes color in theme previews.
 		this.backgroundElement = document.querySelector( '.wpbr-admin' );
-
-		// Define class used to hide elements.
-		this.hiddenClass = 'wpbr-u-hidden';
-
-		// const googlePlacesTextSearch = new GooglePlacesTextSearch( `${selector} .js-wpbr-section-business` );
-		// googlePlacesTextSearch.init();
 	}
 
 	init() {
+		this.initFieldObjects();
+
+		if ( this.fields.has( 'search_platform' ) ) {
+			this.initPlatformSearch();
+		}
+
+		this.registerEventHandlers();
+	}
+
+	// TODO: Move this to FieldFactory class.
+	initFieldObjects() {
+		const fieldElements = this.root.querySelectorAll( '.js-wpbr-field' );
+
+		fieldElements.forEach( ( fieldElement ) => {
+			const fieldId   = fieldElement.dataset.wpbrFieldId;
+			const fieldType = fieldElement.dataset.wpbrFieldType;
+			let field;
+
+			switch ( fieldType ) {
+			case 'button' :
+				field = new ButtonField( fieldElement );
+				break;
+			case 'checkboxes' :
+				field = new CheckboxesField( fieldElement );
+				break;
+			default :
+				field = new BasicField( fieldElement );
+			}
+
+			field.init();
+			this.fields.set( fieldId, field );
+		});
+	}
+
+	initPlatformSearch() {
+		this.platformSearch = new PlatformSearch(
+			this.fields.get( 'search_platform' ),
+			this.fields.get( 'search_terms' ),
+			this.fields.get( 'search_location' ),
+			this.fields.get( 'search_button' )
+		);
+		this.platformSearch.init();
+	}
+
+	registerEventHandlers() {
+
+		// Register toolbar events.
 		this.inspectorControl.addEventListener( 'click', event => {
 			event.preventDefault();
 			this.toggleVisibility( this.inspector );
@@ -66,72 +92,62 @@ class Builder {
 			event.preventDefault();
 		});
 
-		this.formatControl.addEventListener( 'change', event => {
-			event.preventDefault();
-			this.format( event.currentTarget.value );
-		});
-
-		this.maxColumnsControl.addEventListener( 'change', event => {
-			event.preventDefault();
-			this.formatGallery( event.currentTarget.value );
-		});
-
-		this.themeControl.addEventListener( 'change', event => {
-			event.preventDefault();
-			this.applyTheme( event.currentTarget.value );
-		});
-
-		this.reviewImageControl.addEventListener( 'change', event => {
-			event.preventDefault();
-
-			if ( event.currentTarget.checked ) {
-				this.showMultiple( Array.from( this.reviewImages ) );
-			} else {
-				this.hideMultiple( Array.from( this.reviewImages ) );
-			}
-		});
-
-		this.reviewRatingControl.addEventListener( 'change', event => {
-			event.preventDefault();
-			console.log( 'clicked rating checkbox' );
-			if ( event.currentTarget.checked ) {
-				this.showMultiple( Array.from( this.reviewRatings ) );
-			} else {
-				this.hideMultiple( Array.from( this.reviewRatings ) );
-			}
-		});
-
-		this.reviewTimestampControl.addEventListener( 'change', event => {
-			event.preventDefault();
-
-			if ( event.currentTarget.checked ) {
-				this.showMultiple( Array.from( this.reviewTimestamps ) );
-			} else {
-				this.hideMultiple( Array.from( this.reviewTimestamps ) );
-			}
+		// Register field events.
+		this.fields.forEach( ( field ) => {
+			field.emitter.on( 'wpbrcontrolchange', ( controlId, controlValue ) => {
+				this.updatePresentation( controlId, controlValue );
+			});
 		});
 	}
 
-	toggleVisibility( element, condition ) {
-		element.classList.toggle( this.hiddenClass );
+	updatePresentation( type, value ) {
+		switch ( type ) {
+		case 'format' :
+			this.format( value );
+
+			if ( 'review_gallery' === value ) {
+				this.fields.get( 'max_columns' ).show();
+			} else {
+				this.fields.get( 'max_columns' ).hide();
+			}
+			break;
+		case 'max_columns':
+			this.formatGallery( value );
+			break;
+		case 'theme':
+			this.applyTheme( value );
+			break;
+		case 'review_image':
+			this.setMultipleVisibility( Array.from( this.reviewImages ), value );
+			break;
+		case 'review_rating':
+			this.setMultipleVisibility( Array.from( this.reviewRatings ), value );
+			break;
+		case 'review_timestamp':
+			this.setMultipleVisibility( Array.from( this.reviewTimestamps ), value );
+			break;
+		case 'review_content':
+			this.setMultipleVisibility( Array.from( this.reviewContents ), value );
+			break;
+		}
 	}
 
-	format( type = 'review-gallery' ) {
+	format( type ) {
 		switch ( type ) {
 
-		case 'review-gallery':
-			this.formatGallery();
+		case 'review_gallery':
+			this.formatGallery( this.fields.get( 'max_columns' ).value );
 			break;
 
-		case 'review-list':
+		case 'review_list':
 			this.formatList();
 			break;
 
-		case 'review-carousel':
+		case 'review_carousel':
 			this.formatCarousel();
 			break;
 
-		case 'business-badge':
+		case 'business_badge':
 			this.formatBadge();
 			break;
 		}
@@ -140,14 +156,14 @@ class Builder {
 	formatGallery( columns = 3 ) {
 		this.list.classList = 'wpbr-review-gallery';
 		this.items.forEach( item => {
-			item.className = `wpbr-review-gallery__item wpbr-review-gallery__item--${columns} ${this.itemHandle}`;
+			item.className = `wpbr-review-gallery__item wpbr-review-gallery__item--${columns} js-wpbr-item`;
 		});
 	}
 
 	formatList() {
 		this.list.classList = 'wpbr-stacked-list';
 		this.items.forEach( item => {
-			item.className = `wpbr-stacked-list__item ${this.itemHandle}`;
+			item.className = 'wpbr-stacked-list__item js-wpbr-item';
 		});
 	}
 
@@ -169,6 +185,18 @@ class Builder {
 		}
 	}
 
+	setMultipleVisibility( elements, visibility ) {
+		if ( visibility ) {
+			elements.map( element => this.show( element ) );
+		} else {
+			elements.map( element => this.hide( element ) );
+		}
+	}
+
+	toggleVisibility( element ) {
+		element.classList.toggle( 'wpbr-u-hidden' );
+	}
+
 	hideMultiple( elements ) {
 		elements.map( element => this.hide( element ) );
 	}
@@ -178,11 +206,11 @@ class Builder {
 	}
 
 	hide( element ) {
-		element.classList.add( this.hiddenClass );
+		element.classList.add( 'wpbr-u-hidden' );
 	}
 
 	show( element ) {
-		element.classList.remove( this.hiddenClass );
+		element.classList.remove( 'wpbr-u-hidden' );
 	}
 }
 

@@ -1,0 +1,59 @@
+/*--------------------------------------------------------------
+# Review-Source
+--------------------------------------------------------------*/
+
+.wpbr-review-source {
+	> :last-child {
+		margin-bottom: 0;
+	}
+
+	&__name,
+	&__rating,
+	&__address,
+	&__id {
+		display: inline-block;
+	}
+
+	&__name {
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	a.wpbr-review-source__name {
+		&:hover,
+		&:focus,
+		&:active {
+			text-decoration: underline;
+		}
+	}
+
+	&__rating {
+		&--google-places {
+			color: $wpbr-color-google-places-rating;
+		}
+	}
+
+	&__address {
+		font-size: 0.875em;
+	}
+
+	&__id {
+		color: $wpbr-color-text-light;
+		font-size: 0.875em;
+	}
+
+	&__image {
+		display: block;
+
+		&--cover {
+			object-fit: cover;
+			height: $wpbr-space * 6.75;
+			margin-bottom: $wpbr-space-half;
+			width: 100%;
+		}
+	}
+
+	button#{&}__button {
+		margin-top: $wpbr-space-quarter;
+	}
+}

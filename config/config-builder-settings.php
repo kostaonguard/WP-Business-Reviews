@@ -9,27 +9,6 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
-	'business' => array(
-		'name'   => __( 'Business', 'wp-business-reviews' ),
-		'fields' => array(
-			'business_search_terms' => array(
-				'name'        => __( 'Search Terms', 'wp-business-reviews' ),
-				'type'        => 'text',
-				'tooltip'     => __( 'Defines the terms used when searching for a business.', 'wp-business-reviews' ),
-				'placeholder' => __( 'Business Name or Type', 'wp-business-reviews' ),
-			),
-			'business_search_location' => array(
-				'name'        => __( 'Location', 'wp-business-reviews' ),
-				'type'        => 'text',
-				'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
-				'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
-			),
-			'business_search_button' => array(
-				'type'        => 'button',
-				'button_text' => __( 'Find Business', 'wp-business-reviews' ),
-			),
-		),
-	),
 	'presentation' => array(
 		'name'   => __( 'Presentation', 'wp-business-reviews' ),
 		'fields' => array(
@@ -37,19 +16,19 @@ $config = array(
 				'name'    => __( 'Format', 'wp-business-reviews' ),
 				'type'    => 'select',
 				'tooltip' => __( 'Defines the format in which reviews are displayed.', 'wp-business-reviews' ),
-				'default' => 'gallery',
+				'default' => 'review_gallery',
 				'options' => array(
-					'review-gallery'  => __( 'Review Gallery', 'wp-business-reviews' ),
-					'review-list'     => __( 'Review List', 'wp-business-reviews' ),
-					'review-carousel' => __( 'Review Carousel', 'wp-business-reviews' ),
-					'business-badge'  => __( 'Business Badge', 'wp-business-reviews' ),
+					'review_gallery'  => __( 'Review Gallery', 'wp-business-reviews' ),
+					'review_list'     => __( 'Review List', 'wp-business-reviews' ),
+					'review_carousel' => __( 'Review Carousel', 'wp-business-reviews' ),
+					'business_badge'  => __( 'Business Badge', 'wp-business-reviews' ),
 				),
 			),
 			'max_columns' => array(
 				'name'     => __( 'Maximum Columns', 'wp-business-reviews' ),
 				'type'     => 'select',
 				'tooltip'  => __( 'Sets the maximum number of columns in the responsive gallery. Fewer columns may be shown based on available width.', 'wp-business-reviews' ),
-				'default'  => 3,
+				'default'  => 2,
 				'options'  => array(
 					'1' => __( '1 Column', 'wp-business-reviews' ),
 					'2' => __( '2 Columns', 'wp-business-reviews' ),
@@ -76,13 +55,15 @@ $config = array(
 				'tooltip' => __( 'Defines the visible components of a review.', 'wp-business-reviews' ),
 				'default' => array(
 					'review_image',
-					'rating',
-					'timestamp',
+					'review_rating',
+					'review_timestamp',
+					'review_content',
 				),
 				'options' => array(
-					'review_image' => __( 'Review Image', 'wp-business-reviews' ),
-					'rating'       => __( 'Star Rating', 'wp-business-reviews' ),
-					'timestamp'    => __( 'Timestamp', 'wp-business-reviews' ),
+					'review_image'     => __( 'Review Image', 'wp-business-reviews' ),
+					'review_rating'    => __( 'Star Rating', 'wp-business-reviews' ),
+					'review_timestamp' => __( 'Timestamp', 'wp-business-reviews' ),
+					'review_content'   => __( 'Review Content', 'wp-business-reviews' ),
 				),
 			),
 		),

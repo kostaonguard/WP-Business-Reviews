@@ -10,14 +10,12 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
-use WP_Business_Reviews\Includes\Request\Request_Base;
-
 /**
  * Retrieves data from YP API.
  *
  * @since 0.1.0
  */
-class YP_Request extends Request_Base {
+class YP_Request extends Request {
 	/**
 	 * Instantiates the YP_Request object.
 	 *
@@ -52,18 +50,18 @@ class YP_Request extends Request_Base {
 	}
 
 	/**
-	 * Retrieves search results based on a search term and location.
+	 * Searches review sources based on search terms and location.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $term     The search term, usually a business name.
+	 * @param string $terms    The search terms, usually a business name.
 	 * @param string $location The location within which to search.
-	 * @return array Associative array containing the response body.
+	 * @return array Array containing normalized review sources.
 	 */
-	public function search( $term, $location ) {
+	public function search_review_source( $terms, $location ) {
 		$url = add_query_arg(
 			array(
-				'term'   => $term . ', ' . $location,
+				'term'  => $terms . ', ' . $location,
 				'format' => 'json',
 				'key'    => $this->key,
 			),
@@ -72,7 +70,17 @@ class YP_Request extends Request_Base {
 
 		$response = $this->get( $url );
 
-		return $response;
+		if ( isset( $response['searchResult']['searchListings']['searchListing'] ) ) {
+			$listings = $response['searchResult']['searchListings']['searchListing'];
+
+			foreach ( $listings as $review_source ) {
+				$review_sources[] = $this->normalize_review_source( $review_source );
+			}
+		} else {
+			return new \WP_Error( 'invalid_response_structure', __( 'Response could not be normalized due to invalid response structure.', 'wp-business-reviews' ) );
+		}
+
+		return $review_sources;
 	}
 
 	/**
@@ -119,5 +127,109 @@ class YP_Request extends Request_Base {
 		$response = $this->get( $url );
 
 		return $response;
+	}
+
+	/**
+	 * Normalizes and sanitize a raw review source from the platform API.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $raw_review_source Review source data from platform API.
+	 * @return array|WP_Error Standardized review source properties or WP_Error
+	 *                        if response structure is invalid.
+	 */
+	public function normalize_review_source( array $raw_review_source ) {
+		$r = $raw_review_source;
+		$r_clean = array();
+
+		// Set ID of the review source on the platform.
+		if ( isset( $r['listingId'] ) ) {
+			$r_clean['platform_id'] = $this->clean( $r['listingId'] );
+		}
+
+		// Set name.
+		if ( isset( $r['businessName'] ) ) {
+			$r_clean['name'] = $this->clean( $r['businessName'] );
+		}
+
+		// Set page URL.
+		if ( isset( $r['businessNameURL'] ) ) {
+			$r_clean['url'] = $this->clean( $r['businessNameURL'] );
+		}
+
+		// Set rating.
+		if ( isset( $r['averageRating'] ) ) {
+			$r_clean['rating'] = $this->clean( $r['averageRating'] );
+		}
+
+		// Set phone.
+		if ( isset( $r['phone'] ) ) {
+			$r_clean['phone'] = $this->clean( $r['phone'] );
+		}
+
+		// Set street address.
+		if ( isset( $r['street'] ) ) {
+			$r_clean['street_address'] = $this->clean( $r['street'] );
+		}
+
+		// Set city.
+		if ( isset( $r['city'] ) ) {
+			$r_clean['city'] = $this->clean( $r['city'] );
+		}
+
+		// Set state.
+		if ( isset( $r['state'] ) ) {
+			$r_clean['state_province'] = $this->clean( $r['state'] );
+		}
+
+		// Set postal code.
+		if ( isset( $r['zip'] ) ) {
+			$r_clean['postal_code'] = $this->clean( $r['zip'] );
+		}
+
+		// Set formatted address by concatenating address components.
+		if (
+			isset(
+				$r_clean['street_address'],
+				$r_clean['city'],
+				$r_clean['state_province'],
+				$r_clean['postal_code']
+			)
+		) {
+			$r_clean['formatted_address'] = $this->format_address(
+				$r_clean['street_address'],
+				$r_clean['city'],
+				$r_clean['state_province'],
+				$r_clean['postal_code']
+			);
+		}
+
+		// Set latitude.
+		if ( isset( $r['latitude'] ) ) {
+			$r_clean['latitude'] = $this->clean( $r['latitude'] );
+		}
+
+		// Set longitude.
+		if ( isset( $r['longitude'] ) ) {
+			$r_clean['longitude'] = $this->clean( $r['longitude'] );
+		}
+
+		// Merge clean response values with default values in case any values were not provided.
+		$review_source = $this->args = wp_parse_args( $r_clean, $this->get_review_source_defaults() );
+
+		return $review_source;
+	}
+
+	/**
+	 * Formats address from separate address components.
+	 *
+	 * @param string $street_address Street address.
+	 * @param string $city           City.
+	 * @param string $state_province State.
+	 * @param string $postal_code    Zip code.
+	 * @return string Concatenated, formatted address.
+	 */
+	protected function format_address( $street_address, $city, $state_province, $postal_code ) {
+		return  "{$street_address}, {$city}, {$state_province} {$postal_code}";
 	}
 }

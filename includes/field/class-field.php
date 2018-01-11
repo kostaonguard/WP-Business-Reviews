@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Base_Field class
+ * Defines the Field class
  *
  * @package WP_Business_Reviews\Includes\Field
  * @since   0.1.0
@@ -15,7 +15,7 @@ use WP_Business_Reviews\Includes\View;
  *
  * @since 0.1.0
  */
-class Base_Field {
+class Field {
 	/**
 	 * Unique identifier of the field.
 	 *
@@ -41,7 +41,7 @@ class Base_Field {
 	protected $value;
 
 	/**
-	 * Instantiates a Base_Field object.
+	 * Instantiates a Field object.
 	 *
 	 * @since 0.1.0
 	 *
@@ -62,18 +62,8 @@ class Base_Field {
 	 */
 	public function __construct( $id, array $args ) {
 		$this->id   = $id;
-		$this->default_args = array(
-			'name'          => '',
-			'type'          => 'text',
-			'default'       => '',
-			'tooltip'       => '',
-			'description'   => '',
-			'wrapper_class' => '',
-			'name_element'  => 'span',
-			'placeholder'   => '',
-			'options'       => array(),
-		);
-		$this->args = wp_parse_args( $args, $this->default_args );
+		$this->args = wp_parse_args( $args, $this->get_default_args() );
+		$this->set_value();
 	}
 
 	/**
@@ -85,6 +75,28 @@ class Base_Field {
 	 */
 	public function get_id() {
 		return $this->id;
+	}
+
+	/**
+	 * Gets default field arguments.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Default field arguments.
+	 */
+	public function get_default_args() {
+		return array(
+			'name'          => null,
+			'type'          => 'text',
+			'value'         => null,
+			'default'       => null,
+			'tooltip'       => null,
+			'description'   => null,
+			'wrapper_class' => null,
+			'name_element'  => 'span',
+			'placeholder'   => null,
+			'options'       => array(),
+		);
 	}
 
 	/**
@@ -133,7 +145,23 @@ class Base_Field {
 	 * @param mixed $value Field value.
 	 */
 	public function set_value( $value = null ) {
-		$this->value = $value;
+		// Determine value if one is not directly passed.
+		if ( null === $value ) {
+			if ( isset( $this->args['value'] ) ) {
+				// Set value as provided via constructor.
+				$value = $this->args['value'];
+			} elseif ( isset( $this->args['default'] ) ) {
+				// Otherwise fall back to default value.
+				$value = $this->args['default'];
+			}
+		}
+
+		/**
+		 * Filters the field value being set.
+		 *
+		 * @since 0.1.0
+		 */
+		$this->value = apply_filters( "wp_business_reviews_set_field_value_{$this->id}", $value );
 	}
 
 	/**
@@ -142,6 +170,10 @@ class Base_Field {
 	 * @since 0.1.0
 	 */
 	public function render() {
+		if ( 'internal' === $this->get_arg( 'type' ) ) {
+			return;
+		}
+
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/field/field-main.php' );
 		$view_object->render(
 			array(

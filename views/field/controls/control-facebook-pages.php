@@ -1,18 +1,28 @@
 <?php if ( ! empty( $this->value ) ) : ?>
-	<ul class="wpbr-media-list">
+	<ul class="wpbr-stacked-list wpbr-stacked-list--striped wpbr-stacked-list--border">
 		<?php foreach ( $this->value as $page_id => $page_atts ) : ?>
 			<?php
 			$image_url = 'https://graph.facebook.com/' . $page_id . '/picture';
 			$page_name = ! empty( $page_atts['name'] ) ? $page_atts['name'] : '';
 			$page_url  = 'https://facebook.com/' . $page_id;
 			?>
-			<li class="wpbr-media-list__item">
-				<a class="wpbr-media-list__link" href="<?php echo esc_url( $page_url ); ?>" target="_blank" rel="noopener noreferrer">
-					<img class="wpbr-media-list__image wpbr-media-list__image--avatar" src="<?php echo esc_url( $image_url ); ?>" alt="">
-					<div class="wpbr-media-list__content">
-						<?php esc_html_e( $page_name ); ?>
+			<li class="wpbr-stacked-list__item wpbr-stacked-list__item--border-bottom">
+				<div class="wpbr-media">
+					<div class="wpbr-media__figure wpbr-media__figure--icon wpbr-media__figure--round">
+						<img src="<?php echo esc_url( $image_url ); ?>">
 					</div>
-				</a>
+					<div class="wpbr-media__body">
+						<div class="wpbr-review-source">
+							<a class="wpbr-review-source__name" href="<?php echo esc_url( $page_url ); ?>" target="_blank" rel="noopener noreferrer">
+								<?php echo esc_html( $page_name ); ?>
+							</a>
+							<br>
+							<span class="wpbr-review-source__id">
+								<?php printf( esc_html__( 'ID: %s', 'wp-business-reviews' ), $page_id ); ?>
+							</span>
+						</div>
+					</div>
+				</div>
 			</li>
 		<?php endforeach; ?>
 	</ul>

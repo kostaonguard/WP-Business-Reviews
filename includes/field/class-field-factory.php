@@ -24,7 +24,7 @@ class Field_Factory {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @see WP_Business_Reviews\Includes\Field\Base_Field
+	 * @see WP_Business_Reviews\Includes\Field\Field
 	 *
 	 * @param string $id   Unique identifier of the field.
 	 * @param array  $args Field arguments.
@@ -39,14 +39,13 @@ class Field_Factory {
 				case 'search':
 				case 'select':
 					$args['name_element'] = 'label';
-					return new Base_Field( $id, $args );
-					break;
-				case 'platform_status':
-					return new Platform_Status_Field( $id, $args );
+					$field = new Field( $id, $args );
 					break;
 				default:
-					return new Base_Field( $id, $args );
+					$field = new Field( $id, $args );
 			}
+
+			return $field;
 		}
 
 		return false;

@@ -7,35 +7,35 @@ class SettingsTabs {
 		this.root = document.querySelector( selector );
 
 		// Define CSS class that denotes active element.
-		this.activeClass = 'is-active';
+		this.activeClass       = 'is-active';
 
 		// Define CSS classes used to select groups of elements.
-		this.tabSelector = '.js-wpbr-tab';
-		this.panelSelector = '.js-wpbr-panel';
-		this.subtabSelector = '.js-wpbr-subtab';
-		this.sectionSelector = '.js-wpbr-section';
+		this.tabSelector       = '.js-wpbr-tab';
+		this.panelSelector     = '.js-wpbr-panel';
+		this.subtabSelector    = '.js-wpbr-subtab';
+		this.sectionSelector   = '.js-wpbr-section';
 
 		// Define ID prefixes used to select individual elements.
-		this.tabIdPrefix = 'wpbr-tab-';
-		this.subtabIdPrefix = 'wpbr-subtab-';
-		this.panelPrefix = 'wpbr-panel-';
-		this.sectionPrefix = 'wpbr-section-';
+		this.tabIdPrefix       = 'wpbr-tab-';
+		this.subtabIdPrefix    = 'wpbr-subtab-';
+		this.panelPrefix       = 'wpbr-panel-';
+		this.sectionPrefix     = 'wpbr-section-';
 
 		// Define URL query parameters.
-		this.tabQueryParam = 'wpbr_tab';
-		this.subtabParam = 'wpbr_subtab';
+		this.tabQueryParam     = 'wpbr_tab';
+		this.subtabQueryParam  = 'wpbr_subtab';
 
 		// Group collections of elements that make up tabbed UI.
-		this.tabs = this.root.querySelectorAll( '.js-wpbr-tab' );
-		this.panels = this.root.querySelectorAll( '.js-wpbr-panel' );
-		this.subtabs = this.root.querySelectorAll( '.js-wpbr-subtab' );
-		this.sections = this.root.querySelectorAll( '.js-wpbr-section' );
+		this.tabs              = this.root.querySelectorAll( '.js-wpbr-tab' );
+		this.panels            = this.root.querySelectorAll( '.js-wpbr-panel' );
+		this.subtabs           = this.root.querySelectorAll( '.js-wpbr-subtab' );
+		this.sections          = this.root.querySelectorAll( '.js-wpbr-section' );
 
 		// Define default active elements.
-		this.activeTab = this.tabs[0];
-		this.activePanel = this.panels[0];
-		this.activeSubtab = this.subtabs[0];
-		this.activeSection = this.sections[0];
+		this.activeTab         = this.tabs[0];
+		this.activePanel       = this.panels[0];
+		this.activeSubtab      = this.subtabs[0];
+		this.activeSection     = this.sections[0];
 
 		// Parse the query string into key-value pairs.
 		this.queryStringObject = queryString.parse( location.search );
@@ -52,19 +52,19 @@ class SettingsTabs {
 		if ( this.tabQueryParam in this.queryStringObject ) {
 
 			// Get tab ID from query string.
-			const tabId = this.queryStringObject[ this.tabQueryParam ];
-			const tab = document.getElementById( this.tabIdPrefix + tabId );
+			const tabId      = this.queryStringObject[ this.tabQueryParam ];
+			const tab        = document.getElementById( this.tabIdPrefix + tabId );
 
 			// Set active tab and panel.
-			this.activeTab = tab;
+			this.activeTab   = tab;
 			this.activePanel = document.getElementById( this.panelPrefix + tabId );
 
 			// Check query string for subtab parameter.
-			if ( this.subtabParam in this.queryStringObject ) {
-				const subtabId = this.queryStringObject[ this.subtabParam ];
-				const subtab = document.getElementById( this.subtabIdPrefix + subtabId );
+			if ( this.subtabQueryParam in this.queryStringObject ) {
+				const subtabId     = this.queryStringObject[ this.subtabQueryParam ];
+				const subtab       = document.getElementById( this.subtabIdPrefix + subtabId );
 
-				this.activeSubtab = subtab;
+				this.activeSubtab  = subtab;
 				this.activeSection = document.getElementById( this.sectionPrefix + subtabId );
 			} else {
 
@@ -83,9 +83,9 @@ class SettingsTabs {
 		const tabId = this.removePrefix( tab.id, this.tabIdPrefix );
 
 		// Update active tab elements.
-		this.activeTab = tab;
-		this.activePanel = document.getElementById( this.panelPrefix + tabId );
-		this.activeSubtab = this.activePanel.querySelector( this.subtabSelector );
+		this.activeTab     = tab;
+		this.activePanel   = document.getElementById( this.panelPrefix + tabId );
+		this.activeSubtab  = this.activePanel.querySelector( this.subtabSelector );
 		this.activeSection = this.activePanel.querySelector( this.sectionSelector );
 
 		// Add active class to new elements.
@@ -93,21 +93,21 @@ class SettingsTabs {
 
 		// Set tab in query string.
 		this.queryStringObject[ this.tabQueryParam ] = tabId;
-		delete this.queryStringObject[ this.subtabParam ];
+		delete this.queryStringObject[ this.subtabQueryParam ];
 	}
 
 	activateSubtab( subtab = this.subtabs[0]) {
 		const subtabId = this.removePrefix( subtab.id, this.subtabIdPrefix );
 
 		// Update active subtab elements.
-		this.activeSubtab = subtab;
+		this.activeSubtab  = subtab;
 		this.activeSection = document.getElementById( this.sectionPrefix + subtabId );
 
 		// Add class to new elements.
 		this.addClass( this.activeClass, ...[ this.activeSubtab, this.activeSection ]);
 
 		// Set subtab in query string.
-		this.queryStringObject[ this.subtabParam ] = subtabId;
+		this.queryStringObject[ this.subtabQueryParam ] = subtabId;
 	}
 
 	deactivateTab() {
