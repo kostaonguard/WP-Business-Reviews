@@ -61,10 +61,22 @@ class Builder_Field_Parser extends Field_Parser_Abstract {
 				if ( $field_object ) {
 					// TODO: Attempt to retrieve the field value.
 
-					// Add the field object to array of parsed fields.
-					$field_objects[ $field_id ] = $field_object;
+					// Hydrate subfields if they are set.
+					if ( ! empty( $field_args['subfields'] ) ) {
+						$subfields = $field_args['subfields'];
+						$subfield_objects = array();
+
+						foreach ( $subfields as $subfield_id => $subfield_args ) {
+							$subfield_object = $this->field_factory->create( $subfield_id, $subfield_args );
+							$subfield_objects[ $subfield_id ] = $subfield_object;
+						}
+
+						$field_object->set_arg( 'subfields', $subfield_objects );
+					}
 				}
 
+				// Add the field object to array of parsed fields.
+				$field_objects[ $field_id ] = $field_object;
 			}
 		}
 

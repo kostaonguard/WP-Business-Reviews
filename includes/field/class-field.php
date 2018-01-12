@@ -96,6 +96,7 @@ class Field {
 			'name_element'  => 'span',
 			'placeholder'   => null,
 			'options'       => array(),
+			'subfields'     => array(),
 		);
 	}
 
