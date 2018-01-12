@@ -111,16 +111,39 @@ class Field {
 	}
 
 	/**
-	 * Gets field arguments.
+	 * Gets a field argument.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return array Field arguments.
+	 * @param string $key Key of the requested arg.
+	 * @return mixed|null Value of the requested arg.
 	 */
-	public function get_arg( $arg ) {
-		if ( isset( $this->args[ $arg ] ) ) {
-			return $this->args[ $arg ];
+	public function get_arg( $key ) {
+		if ( isset( $this->args[ $key ] ) ) {
+			return $this->args[ $key ];
 		}
+
+		// Invalid key was provided.
+		return null;
+	}
+
+	/**
+	 * Sets a field argument.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $key Key of the arg being set.
+	 * @param mixed  $value Value of the arg being set.
+	 * @return bool True if successful, false otherwise.
+	 */
+	public function set_arg( $key, $value ) {
+		if ( isset( $this->args[ $key ] ) ) {
+			$this->args[ $key ] = $value;
+			return true;
+		}
+
+		// Invalid key was provided.
+		return false;
 	}
 
 	/**
