@@ -14,7 +14,6 @@ $config = array(
 		'fields' => array(
 			'platform_search' => array(
 				'type'  => 'platform_search',
-				'value' => 'google_places',
 				'subfields' => array(
 					'search_platform' => array(
 						'type'        => 'hidden',
@@ -24,14 +23,14 @@ $config = array(
 						'name'        => __( 'Search Terms', 'wp-business-reviews' ),
 						'type'        => 'text',
 						'value'       => 'coffee',
-						'tooltip'     => __( 'Defines the terms used when searching for a business.', 'wp-business-reviews' ),
+						'tooltip'     => __( 'Defines the terms used when searching for a place.', 'wp-business-reviews' ),
 						'placeholder' => __( 'Business Name or Type', 'wp-business-reviews' ),
 					),
 					'search_location' => array(
 						'name'        => __( 'Location', 'wp-business-reviews' ),
 						'type'        => 'text',
 						'value'       => 'Pittsburgh, PA',
-						'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
+						'tooltip'     => __( 'Defines the location used when searching for a place.', 'wp-business-reviews' ),
 						'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
 					),
 					'search_button' => array(
