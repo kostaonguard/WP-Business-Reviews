@@ -63,9 +63,10 @@ class PlatformSearchField extends Field {
 	registerReviewsButtonEventHandlers() {
 		this.reviewsButtons.forEach( ( button ) => {
 			button.addEventListener( 'click', ( event ) => {
-				console.log( 'clicked review' );
-
-				// this.populateReviews( controlId, controlValue );
+				const platform = event.currentTarget.getAttribute( 'data-wpbr-platform' );
+				const platformId = event.currentTarget.getAttribute( 'data-wpbr-platform-id' );
+				console.log( '==========================================' );
+				console.log( 'Requested: ' + platform, platformId );
 			});
 		});
 	}

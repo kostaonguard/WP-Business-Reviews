@@ -53,7 +53,7 @@ class PlatformSearchResults {
 		el.appendChild( document.createElement( 'br' ) );
 		el.appendChild( this.createAddressElement( result.formatted_address ) );
 		el.appendChild( document.createElement( 'br' ) );
-		el.appendChild(	this.createGetReviewsButton( this.platform ) );
+		el.appendChild(	this.createReviewsButtons( this.platform, result.platform_id ) );
 
 		return el;
 	}
@@ -120,10 +120,12 @@ class PlatformSearchResults {
 		return el;
 	}
 
-	createGetReviewsButton( platformId ) {
+	createReviewsButtons( platform, platformId ) {
 		const el     = document.createElement( 'button' );
 		el.className = 'wpbr-review-source__button button button-primary js-wpbr-get-reviews-button';
+		el.setAttribute( 'data-wpbr-platform', platform );
 		el.setAttribute( 'data-wpbr-platform-id', platformId );
+		console.log( 'Platform: ' + platform + '\n', 'ID: ' + platformId );
 
 		//TODO: Translate 'Get Reviews'.
 		el.innerText = 'Get Reviews';
