@@ -131,7 +131,12 @@ class Field {
 	 * @return mixed $value Field value.
 	 */
 	public function get_value() {
-		return $this->value;
+		/**
+		 * Filters the field value being retrieved.
+		 *
+		 * @since 0.1.0
+		 */
+		return apply_filters( "wp_business_reviews_get_field_value_{$this->id}", $this->value );
 	}
 
 	/**
