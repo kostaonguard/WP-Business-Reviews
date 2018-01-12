@@ -1,7 +1,7 @@
 import BasicField from './basic-field';
 import ButtonField from './button-field';
 import CheckboxesField from './checkboxes-field';
-import PlatformSearch from './platform-search';
+import PlatformSearchField from './platform-search-field';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
@@ -36,49 +36,54 @@ class Builder {
 	}
 
 	init() {
-		this.initFieldObjects();
-
-		if ( this.fields.has( 'platform_search' ) ) {
-			this.initPlatformSearch();
-		}
+		this.initFields( '.js-wpbr-field' );
+		this.initPlatformSearchField( 'wpbr-field-platform_search' );
 
 		this.registerToolbarEventHandlers();
 		this.registerFieldEventHandlers();
 	}
 
 	// TODO: Move this to FieldFactory class.
-	initFieldObjects() {
-		const fieldElements = this.root.querySelectorAll( '.js-wpbr-field' );
+	initFields( selector ) {
+		const fieldEls = this.root.querySelectorAll( selector );
 
-		fieldElements.forEach( ( fieldElement ) => {
-			const fieldId   = fieldElement.dataset.wpbrFieldId;
-			const fieldType = fieldElement.dataset.wpbrFieldType;
+		fieldEls.forEach( ( fieldEl ) => {
+			const fieldId   = fieldEl.dataset.wpbrFieldId;
+			const fieldType = fieldEl.dataset.wpbrFieldType;
 			let field;
 
 			switch ( fieldType ) {
+			case 'platform_search' :
+
+				// Skip because multi-fields require subfields not yet available.
+				break;
 			case 'button' :
-				field = new ButtonField( fieldElement );
+				field = new ButtonField( fieldEl );
 				break;
 			case 'checkboxes' :
-				field = new CheckboxesField( fieldElement );
+				field = new CheckboxesField( fieldEl );
 				break;
 			default :
-				field = new BasicField( fieldElement );
+				field = new BasicField( fieldEl );
 			}
 
-			field.init();
-			this.fields.set( fieldId, field );
+			if ( field ) {
+				field.init();
+				this.fields.set( fieldId, field );
+			}
 		});
 	}
 
-	initPlatformSearch() {
-		this.platformSearch = new PlatformSearch(
-			this.fields.get( 'platform_search_platform' ),
-			this.fields.get( 'platform_search_terms' ),
-			this.fields.get( 'platform_search_location' ),
-			this.fields.get( 'platform_search_button' )
-		);
-		this.platformSearch.init();
+	initPlatformSearchField( id ) {
+		const fieldEl   = document.getElementById( id );
+		const fieldId   = fieldEl.dataset.wpbrFieldId;
+		const fieldType = fieldEl.dataset.wpbrFieldType;
+		const field     = new PlatformSearchField( fieldEl );
+
+		if ( field ) {
+			field.init();
+			this.fields.set( fieldId, field );
+		}
 	}
 
 	registerToolbarEventHandlers() {
