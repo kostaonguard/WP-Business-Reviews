@@ -68,6 +68,7 @@ class Builder_Field_Parser extends Field_Parser_Abstract {
 
 						foreach ( $subfields as $subfield_id => $subfield_args ) {
 							$subfield_object = $this->field_factory->create( $subfield_id, $subfield_args );
+							$subfield_object->set_arg( 'is_subfield', true );
 							$subfield_objects[ $subfield_id ] = $subfield_object;
 						}
 

@@ -1,8 +1,15 @@
 <?php
+// Determine if field or subfield to help JS selectors.
+if ( $this->args['is_subfield'] ) {
+	$js_handle = 'js-wpbr-subfield';
+} else {
+	$js_handle = 'js-wpbr-field';
+}
+
 $field_classes = array(
 	'wpbr-field',
 	"wpbr-field--{$this->args['type']}",
-	'js-wpbr-field',
+	$js_handle,
 );
 
 // Add wrapper class if one is set.
