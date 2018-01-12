@@ -10,7 +10,7 @@ namespace WP_Business_Reviews\Config;
 
 $config = array(
 	'platform' => array(
-		'name'   => __( 'Yelp Business', 'wp-business-reviews' ),
+		'name'   => __( 'Yelp', 'wp-business-reviews' ),
 		'fields' => array(
 			'platform_search' => array(
 				'type'  => 'platform_search',
@@ -23,19 +23,19 @@ $config = array(
 						'name'        => __( 'Search Terms', 'wp-business-reviews' ),
 						'type'        => 'text',
 						'value'       => 'tacos',
-						'tooltip'     => __( 'Defines the terms used when searching for a business.', 'wp-business-reviews' ),
-						'placeholder' => __( 'Business Name or Type', 'wp-business-reviews' ),
+						'tooltip'     => __( 'Defines the terms used when searching the Yelp API.', 'wp-business-reviews' ),
+						'placeholder' => __( 'Business name or type', 'wp-business-reviews' ),
 					),
 					'search_location' => array(
 						'name'        => __( 'Location', 'wp-business-reviews' ),
 						'type'        => 'text',
 						'value'       => 'San Diego, CA',
-						'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
-						'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
+						'tooltip'     => __( 'Defines the location used when searching the Yelp API.', 'wp-business-reviews' ),
+						'placeholder' => __( 'City, state, or postal code', 'wp-business-reviews' ),
 					),
 					'search_button' => array(
 						'type'        => 'button',
-						'button_text' => __( 'Find Business', 'wp-business-reviews' ),
+						'button_text' => __( 'Search', 'wp-business-reviews' ),
 						'value'       => 'search',
 					),
 				),
