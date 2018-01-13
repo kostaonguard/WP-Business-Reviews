@@ -106,6 +106,23 @@ class PlatformSearchField extends Field {
 		this.locationField.hide();
 		this.searchButtonField.hide();
 	}
+
+	clearSearch() {
+
+		// this.searchInput.value = '';
+	}
+
+	clearResults() {
+
+		// this.results.classList.add( 'wpbr-u-hidden' );
+		// this.resetButton.classList.add( 'wpbr-u-hidden' );
+		// this.resultsList.innerHTML = '';
+	}
+
+	reset() {
+		this.clearSearch();
+		this.clearResults();
+	}
 }
 
 export default PlatformSearchField;
