@@ -45,11 +45,6 @@ class PlatformSearchField extends Field {
 		this.searchButtonField.init();
 	}
 
-	initReviewsButtons() {
-		this.reviewsButtons = this.root.querySelectorAll( '.js-wpbr-get-reviews-button' );
-		this.registerReviewsButtonEventHandlers();
-	}
-
 	registerSearchButtonEventHandlers() {
 		this.searchButtonField.emitter.once( 'wpbrcontrolchange', () => {
 			this.search(
@@ -57,17 +52,6 @@ class PlatformSearchField extends Field {
 				this.termsField.value,
 				this.locationField.value
 			);
-		});
-	}
-
-	registerReviewsButtonEventHandlers() {
-		this.reviewsButtons.forEach( ( button ) => {
-			button.addEventListener( 'click', ( event ) => {
-				const platform = event.currentTarget.getAttribute( 'data-wpbr-platform' );
-				const platformId = event.currentTarget.getAttribute( 'data-wpbr-platform-id' );
-				console.log( '==========================================' );
-				console.log( 'Requested: ' + platform, platformId );
-			});
 		});
 	}
 
@@ -88,7 +72,9 @@ class PlatformSearchField extends Field {
 					this.hideSearchFields();
 					this.results = new PlatformSearchResults( this.root, this.platformField.value );
 					this.results.populateResults( response.data );
-					this.initReviewsButtons();
+
+					// Emit custom event that passes the platform search results.
+					this.emitter.emit( 'wpbrAfterPopulateResults', 'response.data' );
 				} else {
 
 					// No results to populate, so the button needs re-enabled to try again.

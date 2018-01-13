@@ -2,6 +2,7 @@ import BasicField from './basic-field';
 import ButtonField from './button-field';
 import CheckboxesField from './checkboxes-field';
 import PlatformSearchField from './platform-search-field';
+import ReviewFetcher from './review-fetcher';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
@@ -16,10 +17,6 @@ class Builder {
 
 		// Define fields.
 		this.fields = new Map();
-
-		// Define toolbar controls.
-		this.inspectorControl       = document.getElementById( 'wpbr-control-inspector' );
-		this.saveControl            = document.getElementById( 'wpbr-control-save' );
 
 		// Define review elements.
 		this.wrap             = this.root.querySelector( '.js-wpbr-wrap' );
@@ -36,16 +33,22 @@ class Builder {
 	}
 
 	init() {
-		this.initFields( '.js-wpbr-field' );
-		this.initPlatformSearchField( 'wpbr-field-platform_search' );
-
+		this.initToolbar();
+		this.initFields();
+		this.initPlatformSearchField();
 		this.registerToolbarEventHandlers();
 		this.registerFieldEventHandlers();
+		this.registerReviewFetcherEventHandlers();
+	}
+
+	initToolbar() {
+		this.inspectorControl = document.getElementById( 'wpbr-control-inspector' );
+		this.saveControl      = document.getElementById( 'wpbr-control-save' );
 	}
 
 	// TODO: Move this to FieldFactory class.
 	initFields( selector ) {
-		const fieldEls = this.root.querySelectorAll( selector );
+		const fieldEls = this.root.querySelectorAll( '.js-wpbr-field' );
 
 		fieldEls.forEach( ( fieldEl ) => {
 			const fieldId   = fieldEl.dataset.wpbrFieldId;
@@ -74,16 +77,17 @@ class Builder {
 		});
 	}
 
-	initPlatformSearchField( id ) {
-		const fieldEl   = document.getElementById( id );
-		const fieldId   = fieldEl.dataset.wpbrFieldId;
-		const fieldType = fieldEl.dataset.wpbrFieldType;
-		const field     = new PlatformSearchField( fieldEl );
+	initPlatformSearchField() {
+		const fieldEl = document.getElementById( 'wpbr-field-platform_search' );
+		const field   = new PlatformSearchField( fieldEl );
 
-		if ( field ) {
-			field.init();
-			this.fields.set( fieldId, field );
-		}
+		field.init();
+		this.fields.set( field.fieldId, field );
+	}
+
+	initReviewFetcher() {
+		this.reviewFetcher = new ReviewFetcher( this.inspector );
+		this.reviewFetcher.init();
 	}
 
 	registerToolbarEventHandlers() {
@@ -103,6 +107,18 @@ class Builder {
 				this.updatePresentation( controlId, controlValue );
 			});
 		});
+	}
+
+	registerReviewFetcherEventHandlers() {
+		const platformSearchField = this.fields.get( 'platform_search' );
+
+		platformSearchField.emitter.on(
+			'wpbrAfterPopulateResults',
+			results => {
+				console.log( 'wpbrAfterPopulateResults fired' );
+				this.initReviewFetcher();
+			}
+		);
 	}
 
 	updatePresentation( type, value ) {

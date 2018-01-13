@@ -35,6 +35,7 @@ class PlatformSearchResults {
 
 	createReviewSourceElement( result ) {
 		const el     = document.createElement( 'div' );
+
 		el.className = 'wpbr-review-source';
 
 		if ( result.image )  {
@@ -60,6 +61,7 @@ class PlatformSearchResults {
 
 	createIconElement( icon ) {
 		const el = document.createElement( 'img' );
+
 		el.className = 'wpbr-review-source__image wpbr-review-source__image--cover';
 		el.src = image;
 		el.alt = alt;
@@ -69,6 +71,7 @@ class PlatformSearchResults {
 
 	createImageElement( image, alt ) {
 		const el = document.createElement( 'img' );
+
 		el.className = 'wpbr-review-source__image wpbr-review-source__image--cover';
 		el.src = image;
 		el.alt = alt;
@@ -78,6 +81,7 @@ class PlatformSearchResults {
 
 	createNameElement( name, url ) {
 		const el     = document.createElement( 'span' );
+
 		el.className = 'wpbr-review-source__name';
 		el.innerText = name;
 
@@ -86,6 +90,7 @@ class PlatformSearchResults {
 
 	createRatingElement( rating, platform ) {
 		const el     = document.createElement( 'span' );
+
 		platform = platform.replace( /_/, '-' );
 		el.className = `wpbr-review-source__rating wpbr-review-source__rating--${platform}`;
 		el.innerText = rating + ' ';
@@ -96,9 +101,10 @@ class PlatformSearchResults {
 
 	createRatingFallbackElement() {
 		const el     = document.createElement( 'span' );
+
 		el.className = 'wpbr-review-source__rating';
 
-		// Translate 'Not yet rated.'
+		// TODO: Translate 'Not yet rated.'
 		el.innerText = 'Not yet rated.';
 
 		return el;
@@ -106,6 +112,7 @@ class PlatformSearchResults {
 
 	createStars( rating, platform ) {
 		const el     = document.createElement( 'span' );
+
 		el.className = `wpbr-stars wpbr-stars--${platform}`;
 		el.innerText = '★★★★★';
 
@@ -114,6 +121,7 @@ class PlatformSearchResults {
 
 	createAddressElement( address ) {
 		const el     = document.createElement( 'span' );
+
 		el.className = 'wpbr-review-source__address';
 		el.innerText = address;
 
@@ -122,10 +130,9 @@ class PlatformSearchResults {
 
 	createReviewsButtons( platform, platformId ) {
 		const el     = document.createElement( 'button' );
-		el.className = 'wpbr-review-source__button button button-primary js-wpbr-get-reviews-button';
+		el.className = 'wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button';
 		el.setAttribute( 'data-wpbr-platform', platform );
 		el.setAttribute( 'data-wpbr-platform-id', platformId );
-		console.log( 'Platform: ' + platform + '\n', 'ID: ' + platformId );
 
 		//TODO: Translate 'Get Reviews'.
 		el.innerText = 'Get Reviews';
