@@ -24,7 +24,13 @@ if ( ! empty( $this->args['name'] ) ) {
 										<?php echo esc_html( $page_name ); ?>
 									</a>
 									<br>
-									<button class="wpbr-review-source__button button button-primary js-wpbr-get-reviews-button"><?php echo esc_html( 'Get Reviews', 'wp-business-reviews' ); ?></button>
+									<button
+										class="wpbr-review-source__button button button-primary js-wpbr-get-reviews-button"
+										data-wpbr-platform="facebook"
+										data-wpbr-platform-id="<?php echo esc_attr( $page_id ); ?>"
+									>
+										<?php echo esc_html( 'Get Reviews', 'wp-business-reviews' ); ?>
+									</button>
 								</div>
 							</div>
 						</div>
