@@ -194,10 +194,10 @@ class Platform_Manager {
 		} else {
 			$connected_platforms = array();
 
-			foreach ( $this->platforms as $platform_id => $platform_name ) {
-				$status = $this->deserializer->get( "{$platform_id}_platform_status", 'status' );
+			foreach ( $this->platforms as $platform => $platform_name ) {
+				$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
 				if ( 'connected' === $status ) {
-					$connected_platforms[ $platform_id ] = $platform_name;
+					$connected_platforms[ $platform ] = $platform_name;
 				}
 			}
 		}
