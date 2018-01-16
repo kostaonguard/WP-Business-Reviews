@@ -94,13 +94,13 @@ class Google_Places_Request extends Request {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $id The Google Place ID.
+	 * @param string $review_source_id The Google Place ID.
 	 * @return array Associative array containing the response body.
 	 */
-	public function get_review_source( $id ) {
+	public function get_review_source( $review_source_id ) {
 		$url = add_query_arg(
 			array(
-				'place_id' => $id,
+				'placeid' => $review_source_id,
 				'key'      => $this->key,
 			),
 			'https://maps.googleapis.com/maps/api/place/details/json'
@@ -109,6 +109,24 @@ class Google_Places_Request extends Request {
 		$response = $this->get( $url );
 
 		return $response;
+	}
+
+	/**
+	 * Retrieves reviews based on Google Place ID.
+	 *
+	 * Since Google Places API returns place and reviews data together, the
+	 * same method can be used to return reviews.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $review_source_id The Google Place ID.
+	 * @return array Associative array containing the response body.
+	 */
+	public function get_reviews( $review_source_id ) {
+		$response = $this->get_review_source( $review_source_id );
+		$reviews = $response['result']['reviews'];
+
+		return $reviews;
 	}
 
 	/**
