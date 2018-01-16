@@ -4,10 +4,6 @@ class PlatformSearchResults {
 		this.platform = platform;
 	}
 
-	init() {
-		this.registerButtonEventHandlers();
-	}
-
 	populateResults( results ) {
 
 		// Create scrollable container to hold results.
@@ -25,7 +21,7 @@ class PlatformSearchResults {
 		results.forEach( result => {
 			const listItem = document.createElement( 'li' );
 			listItem.className = 'wpbr-stacked-list__item wpbr-stacked-list__item--border-bottom';
-			listItem.appendChild( this.createReviewSourceElement( result ) );
+			listItem.appendChild( this.createReviewSource( result ) );
 			resultsList.appendChild( listItem );
 		});
 
@@ -33,33 +29,43 @@ class PlatformSearchResults {
 		this.root.appendChild( scrollable );
 	}
 
-	createReviewSourceElement( result ) {
+	createReviewSource( result ) {
 		const el     = document.createElement( 'div' );
 
 		el.className = 'wpbr-review-source';
 
 		if ( result.image )  {
-			el.appendChild( this.createImageElement( result.image, result.name ) );
+			el.appendChild( this.createCoverImage( result.image, result.name ) );
 		}
 
-		el.appendChild( this.createNameElement( result.name, result.url ) );
+		el.appendChild( this.createName( result.name, result.url ) );
 		el.appendChild( document.createElement( 'br' ) );
 
 		if ( parseFloat( result.rating ) ) {
-			el.appendChild( this.createRatingElement( result.rating, this.platform ) );
+			el.appendChild( this.createRating( result.rating, this.platform ) );
 		} else {
-			el.appendChild( this.createRatingFallbackElement( result.rating ) );
+			el.appendChild( this.createRatingFallback( result.rating ) );
 		}
 
 		el.appendChild( document.createElement( 'br' ) );
-		el.appendChild( this.createAddressElement( result.formatted_address ) );
+		el.appendChild( this.createAddress( result.formatted_address ) );
 		el.appendChild( document.createElement( 'br' ) );
-		el.appendChild(	this.createReviewsButtons( this.platform, result.platform_id ) );
+		el.appendChild(	this.createReviewsButton( this.platform, result.platform_id ) );
 
 		return el;
 	}
 
-	createIconElement( icon ) {
+	createIcon( icon ) {
+		const el = document.createElement( 'img' );
+
+		el.className = 'wpbr-review-source__image';
+		el.src = image;
+		el.alt = alt;
+
+		return el;
+	}
+
+	createCoverImage( image, alt ) {
 		const el = document.createElement( 'img' );
 
 		el.className = 'wpbr-review-source__image wpbr-review-source__image--cover';
@@ -69,17 +75,7 @@ class PlatformSearchResults {
 		return el;
 	}
 
-	createImageElement( image, alt ) {
-		const el = document.createElement( 'img' );
-
-		el.className = 'wpbr-review-source__image wpbr-review-source__image--cover';
-		el.src = image;
-		el.alt = alt;
-
-		return el;
-	}
-
-	createNameElement( name, url ) {
+	createName( name, url ) {
 		const el     = document.createElement( 'span' );
 
 		el.className = 'wpbr-review-source__name';
@@ -88,7 +84,7 @@ class PlatformSearchResults {
 		return el;
 	}
 
-	createRatingElement( rating, platform ) {
+	createRating( rating, platform ) {
 		const el     = document.createElement( 'span' );
 
 		platform = platform.replace( /_/, '-' );
@@ -99,7 +95,7 @@ class PlatformSearchResults {
 		return el;
 	}
 
-	createRatingFallbackElement() {
+	createRatingFallback() {
 		const el     = document.createElement( 'span' );
 
 		el.className = 'wpbr-review-source__rating';
@@ -119,7 +115,7 @@ class PlatformSearchResults {
 		return el;
 	}
 
-	createAddressElement( address ) {
+	createAddress( address ) {
 		const el     = document.createElement( 'span' );
 
 		el.className = 'wpbr-review-source__address';
@@ -128,7 +124,7 @@ class PlatformSearchResults {
 		return el;
 	}
 
-	createReviewsButtons( platform, platformId ) {
+	createReviewsButton( platform, platformId ) {
 		const el     = document.createElement( 'button' );
 		el.className = 'wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button';
 		el.setAttribute( 'data-wpbr-platform', platform );
