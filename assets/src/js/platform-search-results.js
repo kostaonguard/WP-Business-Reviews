@@ -124,11 +124,11 @@ class PlatformSearchResults {
 		return el;
 	}
 
-	createReviewsButton( platform, platformId ) {
+	createReviewsButton( platform, reviewSourceId ) {
 		const el     = document.createElement( 'button' );
 		el.className = 'wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button';
 		el.setAttribute( 'data-wpbr-platform', platform );
-		el.setAttribute( 'data-wpbr-platform-id', platformId );
+		el.setAttribute( 'data-wpbr-review-source-id', reviewSourceId );
 
 		//TODO: Translate 'Get Reviews'.
 		el.innerText = 'Get Reviews';
