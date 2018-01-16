@@ -125,8 +125,8 @@ class Google_Places_Request extends Request {
 		$r_clean = array();
 
 		// Set ID of the review source on the platform.
-		if ( isset( $r['id'] ) ) {
-			$r_clean['review_source_id'] =  $this->clean( $r['id'] );
+		if ( isset( $r['place_id'] ) ) {
+			$r_clean['review_source_id'] =  $this->clean( $r['place_id'] );
 		}
 
 		// Set name.
