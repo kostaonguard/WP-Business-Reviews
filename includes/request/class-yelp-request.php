@@ -121,7 +121,7 @@ class Yelp_Request extends Request {
 
 		// Set ID of the review source on the platform.
 		if ( isset( $r['id'] ) ) {
-			$r_clean['platform_id'] =  $this->clean( $r['id'] );
+			$r_clean['review_source_id'] =  $this->clean( $r['id'] );
 		}
 
 		// Set name.

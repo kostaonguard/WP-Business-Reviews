@@ -144,7 +144,7 @@ class YP_Request extends Request {
 
 		// Set ID of the review source on the platform.
 		if ( isset( $r['listingId'] ) ) {
-			$r_clean['platform_id'] = $this->clean( $r['listingId'] );
+			$r_clean['review_source_id'] = $this->clean( $r['listingId'] );
 		}
 
 		// Set name.

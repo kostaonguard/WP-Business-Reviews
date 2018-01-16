@@ -82,7 +82,7 @@ class Request {
 	protected function get_review_source_defaults() {
 		return array (
 			'platform'          => $this->platform,
-			'platform_id'       => null,
+			'review_source_id'  => null,
 			'name'              => null,
 			'url'               => null,
 			'rating'            => null,

@@ -50,7 +50,7 @@ class PlatformSearchResults {
 		el.appendChild( document.createElement( 'br' ) );
 		el.appendChild( this.createAddress( result.formatted_address ) );
 		el.appendChild( document.createElement( 'br' ) );
-		el.appendChild(	this.createReviewsButton( this.platform, result.platform_id ) );
+		el.appendChild(	this.createReviewsButton( this.platform, result.review_source_id ) );
 
 		return el;
 	}
