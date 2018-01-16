@@ -59,7 +59,7 @@ class PlatformSearchField extends Field {
 		const response = axios.post(
 			ajaxurl,
 			queryString.stringify({
-				action: 'wpbr_platform_search',
+				action: 'wpbr_search_review_source',
 				platform: platform,
 				terms: terms,
 				location: location

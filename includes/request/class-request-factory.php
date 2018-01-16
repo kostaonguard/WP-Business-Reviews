@@ -43,7 +43,6 @@ class Request_Factory {
 	 * @since 0.1.0
 	 *
 	 * @param string $platform    Reviews platform used in the request.
-	 * @param string $business_id ID of the business on the platform.
 	 *
 	 * @return Request_Base Instance of Request for the provided platform.
 	 */
@@ -53,7 +52,7 @@ class Request_Factory {
 				$key     = $this->deserializer->get( 'google_places_api_key' );
 				$request = new Google_Places_Request( $key );
 				break;
-				case 'facebook':
+			case 'facebook':
 				// TODO: Get token via deserializer.
 				$token   = $this->deserializer->get( 'facebook_user_token' );
 				$request = new Facebook_Request( $token );

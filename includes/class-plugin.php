@@ -26,6 +26,7 @@ use WP_Business_Reviews\Includes\Platform_Manager;
 use WP_Business_Reviews\Includes\Field\Field_Factory;
 use WP_Business_Reviews\Includes\Settings\Builder_Settings;
 use WP_Business_Reviews\Includes\Field\Parser\Builder_Field_Parser;
+use WP_Business_Reviews\Includes\Request\Request_Delegator;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -99,9 +100,9 @@ final class Plugin {
 			);
 			$platform_manager->register();
 
-			// Register platform search to handle Ajax search requests.
-			$platform_search = new Platform_Search( $request_factory );
-			$platform_search->register();
+			// Register request delegator to handle Ajax requests.
+			$request_delegator = new Request_Delegator( $request_factory );
+			$request_delegator->register();
 
 			// Register field factory to create field objects.
 			$field_factory = new Field_Factory();

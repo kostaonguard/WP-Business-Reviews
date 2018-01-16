@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Platform_Search class
+ * Defines the Request_Delegator class
  *
  * @link https://wpbusinessreviews.com
  *
@@ -8,7 +8,7 @@
  * @since 0.1.0
  */
 
-namespace WP_Business_Reviews\Includes;
+namespace WP_Business_Reviews\Includes\Request;
 
 use WP_Business_Reviews\Includes\Request\Request_Factory;
 
@@ -17,7 +17,7 @@ use WP_Business_Reviews\Includes\Request\Request_Factory;
  *
  * @since 0.1.0
  */
-class Platform_Search {
+class Request_Delegator {
 	/**
 	 * Factory that creates requests.
 	 *
@@ -27,7 +27,7 @@ class Platform_Search {
 	private $request_factory;
 
 	/**
-	 * Instantiates the Platform_Search object.
+	 * Instantiates the Request_Delegator object.
 	 *
 	 * @param Request_Factory $request_factory Factory that creates requests
 	 *                                         based on platform ID.
@@ -42,7 +42,7 @@ class Platform_Search {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'wp_ajax_wpbr_platform_search', array( $this, 'ajax_search' ) );
+		add_action( 'wp_ajax_wpbr_search_review_source', array( $this, 'ajax_search_review_source' ) );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Platform_Search {
 	 *
 	 * @since 0.1.0
 	 */
-	public function ajax_search() {
+	public function ajax_search_review_source() {
 		// TODO: Verify nonce and permission.
 
 		if ( ! isset(
@@ -65,7 +65,7 @@ class Platform_Search {
 		$platform = sanitize_text_field( $_REQUEST['platform'] );
 		$terms    = sanitize_text_field( $_REQUEST['terms'] );
 		$location = sanitize_text_field( $_REQUEST['location'] );
-		$response = $this->search( $platform, $terms, $location );
+		$response = $this->search_review_source( $platform, $terms, $location );
 		wp_send_json( $response );
 	}
 
@@ -79,7 +79,7 @@ class Platform_Search {
 	 * @param string $location The search location.
 	 * @return array Associative array containing the response body.
 	 */
-	public function search( $platform, $terms, $location ) {
+	public function search_review_source( $platform, $terms, $location ) {
 		$request = $this->request_factory->create( $platform );
 
 		return $request->search_review_source( $terms, $location );
