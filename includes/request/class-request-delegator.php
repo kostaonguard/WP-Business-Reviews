@@ -43,6 +43,7 @@ class Request_Delegator {
 	 */
 	public function register() {
 		add_action( 'wp_ajax_wpbr_search_review_source', array( $this, 'ajax_search_review_source' ) );
+		add_action( 'wp_ajax_wpbr_get_reviews', array( $this, 'ajax_get_reviews' ) );
 	}
 
 	/**
@@ -53,12 +54,7 @@ class Request_Delegator {
 	public function ajax_search_review_source() {
 		// TODO: Verify nonce and permission.
 
-		if ( ! isset(
-			$_REQUEST['platform'],
-			$_REQUEST['terms'],
-			$_REQUEST['location']
-		)
-		) {
+		if ( ! isset( $_REQUEST['platform'], $_REQUEST['terms'], $_REQUEST['location'] ) ) {
 			wp_die();
 		}
 
@@ -83,5 +79,23 @@ class Request_Delegator {
 		$request = $this->request_factory->create( $platform );
 
 		return $request->search_review_source( $terms, $location );
+	}
+
+
+	public function ajax_get_reviews() {
+		if ( ! isset( $_REQUEST['platform'], $_REQUEST['reviewSourceId'] ) ) {
+			wp_die();
+		}
+
+		$platform         = sanitize_text_field( $_REQUEST['platform'] );
+		$review_source_id = sanitize_text_field( $_REQUEST['reviewSourceId'] );
+		$response = $this->get_reviews( $platform, $review_source_id );
+		wp_send_json( $response );
+	}
+
+	public function get_reviews( $platform, $review_source_id ) {
+		$request = $this->request_factory->create( $platform );
+
+		return $request->get_reviews( $review_source_id );
 	}
 }
