@@ -21,6 +21,9 @@
     "url": "https://github.com/WordImpress/WP-Business-Reviews/issues"
   },
   "homepage": "https://github.com/WordImpress/WP-Business-Reviews#readme",
+  "quokka": {
+    "babel": true
+  },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.26.0",
@@ -47,6 +50,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "hint.css": "^2.5.0",
+    "lodash.truncate": "^4.4.2",
     "query-string": "^5.0.0",
     "tiny-emitter": "^2.0.2"
   }
