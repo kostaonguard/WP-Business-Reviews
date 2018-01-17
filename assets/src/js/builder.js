@@ -3,6 +3,7 @@ import ButtonField from './button-field';
 import CheckboxesField from './checkboxes-field';
 import PlatformSearchField from './platform-search-field';
 import ReviewFetcher from './review-fetcher';
+import Reviews from './reviews';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
@@ -18,15 +19,18 @@ class Builder {
 		// Define fields.
 		this.fields = new Map();
 
+		// Define reviews.
+		this.reviews = new Reviews( document.querySelector( '.js-wpbr-wrap' ) );
+
 		// Define review elements.
-		this.wrap             = this.root.querySelector( '.js-wpbr-wrap' );
-		this.list             = this.root.querySelector( '.js-wpbr-list' );
-		this.items            = this.root.querySelectorAll( '.js-wpbr-item' );
-		this.reviews          = this.root.querySelectorAll( '.js-wpbr-review' );
-		this.reviewImages     = this.root.querySelectorAll( '.js-wpbr-review-image' );
-		this.reviewRatings    = this.root.querySelectorAll( '.js-wpbr-review-rating' );
-		this.reviewTimestamps = this.root.querySelectorAll( '.js-wpbr-review-timestamp' );
-		this.reviewContents   = this.root.querySelectorAll( '.js-wpbr-review-content' );
+		// this.wrap             = this.root.querySelector( '.js-wpbr-wrap' );
+		// this.list             = this.root.querySelector( '.js-wpbr-list' );
+		// this.items            = this.root.querySelectorAll( '.js-wpbr-item' );
+		// this.reviews          = this.root.querySelectorAll( '.js-wpbr-review' );
+		// this.reviewImages     = this.root.querySelectorAll( '.js-wpbr-review-image' );
+		// this.reviewRatings    = this.root.querySelectorAll( '.js-wpbr-review-rating' );
+		// this.reviewTimestamps = this.root.querySelectorAll( '.js-wpbr-review-timestamp' );
+		// this.reviewContents   = this.root.querySelectorAll( '.js-wpbr-review-content' );
 
 		// Define background element, which changes color in theme previews.
 		this.backgroundElement = document.querySelector( '.wpbr-admin' );
