@@ -11,6 +11,7 @@
 namespace WP_Business_Reviews\Includes\Request;
 
 use WP_Business_Reviews\Includes\Request\Request_Factory;
+use WP_Business_Reviews\Includes\Request\Response_Normalizer\Response_Normalizer_Factory;
 
 /**
  * Searches a remote reviews platform.
@@ -22,6 +23,7 @@ class Request_Delegator {
 	 * Factory that creates requests.
 	 *
 	 * @since 0.1.0
+	 *
 	 * @var string $request_factory
 	 */
 	private $request_factory;
@@ -29,11 +31,17 @@ class Request_Delegator {
 	/**
 	 * Instantiates the Request_Delegator object.
 	 *
-	 * @param Request_Factory $request_factory Factory that creates requests
-	 *                                         based on platform ID.
+	 * @since 0.1.0
+	 *
+	 * @param Request_Factory             $request_factory             Request factory.
+	 * @param Response_Normalizer_Factory $response_normalizer_factory Response normalizer factory.
 	 */
-	public function __construct( Request_Factory $request_factory ) {
-		$this->request_factory = $request_factory;
+	public function __construct(
+		Request_Factory $request_factory,
+		Response_Normalizer_Factory $response_normalizer_factory
+	) {
+		$this->request_factory             = $request_factory;
+		$this->response_normalizer_factory = $response_normalizer_factory;
 	}
 
 	/**
@@ -68,6 +76,8 @@ class Request_Delegator {
 	/**
 	 * Searches a remote reviews platform using provided arguments.
 	 *
+	 * The raw response is normalized and sanitized prior to return.
+	 *
 	 * @since 0.1.0
 	 *
 	 * @param string $platform The review platform ID.
@@ -76,11 +86,14 @@ class Request_Delegator {
 	 * @return array Associative array containing the response body.
 	 */
 	public function search_review_source( $platform, $terms, $location ) {
-		$request = $this->request_factory->create( $platform );
+		$request             = $this->request_factory->create( $platform );
+		$normalizer          = $this->response_normalizer_factory->create( $platform );
+		$raw_response        = $request->search_review_source( $terms, $location );
+		$normalized_response = $normalizer->normalize_review_sources( $raw_response );
 
-		return $request->search_review_source( $terms, $location );
+		error_log( print_r( $normalized_response, true ) );
+		return $normalized_response;
 	}
-
 
 	public function ajax_get_reviews() {
 		if ( ! isset( $_REQUEST['platform'], $_REQUEST['reviewSourceId'] ) ) {

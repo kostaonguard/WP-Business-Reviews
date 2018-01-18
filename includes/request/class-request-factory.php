@@ -10,12 +10,10 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
-use WP_Business_Reviews\Includes\Request\Request_Base;
-use WP_Business_Reviews\Includes\Settings\Settings;
 use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
 
 /**
- * Creates new requests based on platform, business, and type.
+ * Creates a new request based on the provided platform.
  *
  * @since 0.1.0
  */
@@ -42,9 +40,8 @@ class Request_Factory {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $platform    Reviews platform used in the request.
-	 *
-	 * @return Request_Base Instance of Request for the provided platform.
+	 * @param string $platform Reviews platform used in the request.
+	 * @return Request Instance of Request for the provided platform.
 	 */
 	public function create( $platform ) {
 		switch ( $platform ) {
