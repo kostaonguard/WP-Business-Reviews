@@ -75,8 +75,7 @@ class PlatformSearchField extends Field {
 			.then( response => {
 				if ( response.data && 0 < response.data.length ) {
 					const customEvent = new CustomEvent( 'wpbrReviewSourcesReady', {
-						bubbles: true,
-						detail: { reviewSources: response.data }
+						bubbles: true
 					});
 
 					this.hideSearchFields();
@@ -85,6 +84,8 @@ class PlatformSearchField extends Field {
 
 					// Emit custom event that passes the review sources.
 					this.root.dispatchEvent( customEvent );
+
+					console.table( response.data );
 				} else {
 				}
 			})

@@ -10,7 +10,6 @@ class Inspector {
 
 	init() {
 		this.initFields();
-		this.initPlatformSearchField();
 	}
 
 	initFields( selector ) {
@@ -26,14 +25,6 @@ class Inspector {
 				this.fields.set( fieldId, field );
 			}
 		});
-	}
-
-	initPlatformSearchField() {
-		const fieldEl = document.getElementById( 'wpbr-field-platform_search' );
-		const field   = new PlatformSearchField( fieldEl );
-
-		field.init();
-		this.fields.set( field.fieldId, field );
 	}
 }
 
