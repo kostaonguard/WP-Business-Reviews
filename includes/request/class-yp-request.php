@@ -17,6 +17,19 @@ namespace WP_Business_Reviews\Includes\Request;
  */
 class YP_Request extends Request {
 	/**
+	 * @inheritDoc
+	 */
+	protected $platform = 'yp';
+
+	/**
+	 * YP API key.
+	 *
+	 * @since 0.1.0
+	 * @var string $key
+	 */
+	private $key;
+
+	/**
 	 * Instantiates the YP_Request object.
 	 *
 	 * @since 0.1.0

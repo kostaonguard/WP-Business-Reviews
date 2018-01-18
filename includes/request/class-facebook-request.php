@@ -17,6 +17,27 @@ namespace WP_Business_Reviews\Includes\Request;
  */
 class Facebook_Request extends Request {
 	/**
+	 * @inheritDoc
+	 */
+	protected $platform = 'facebook';
+
+	/**
+	 * Facebook user token.
+	 *
+	 * @since 0.1.0
+	 * @var string $user_token
+	 */
+	protected $user_token;
+
+	/**
+	 * Array of Facebook Pages and Page tokens.
+	 *
+	 * @since 0.1.0
+	 * @var array $pages
+	 */
+	protected $pages;
+
+	/**
 	 * Instantiates the Facebook_Request object.
 	 *
 	 * @since 0.1.0

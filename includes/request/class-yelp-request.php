@@ -11,17 +11,30 @@
 namespace WP_Business_Reviews\Includes\Request;
 
 /**
- * Retrieves data from Yelp Fusion API.
+ * Retrieves data from Yelp API.
  *
  * @since 0.1.0
  */
 class Yelp_Request extends Request {
 	/**
+	 * @inheritDoc
+	 */
+	protected $platform = 'yelp';
+
+	/**
+	 * Yelp API key.
+	 *
+	 * @since 0.1.0
+	 * @var string $key
+	 */
+	private $key;
+
+	/**
 	 * Instantiates the Yelp_Request object.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key Yelp Fusion API key.
+	 * @param string $key Yelp API key.
 	 */
 	public function __construct( $key ) {
 		$this->key = $key;
