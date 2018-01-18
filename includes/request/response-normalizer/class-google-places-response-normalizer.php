@@ -68,7 +68,7 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 			// Parse address components per Google Places' unique format.
 			$address_components = $this->parse_address_components( $r['address_components'] );
 
-			// Build street address since it is not provided as a single field.
+			// Assemble normalized street address since it is not provided as a single field.
 			$normalized['street_address'] = $this->normalize_street_address( $address_components );
 
 			if ( isset( $address_components['city'] ) ) {
@@ -98,7 +98,7 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 			$normalized['longitude'] = $this->clean( $r['geometry']['location']['lng'] );
 		}
 
-		// Merge normalized response values with default values in case any values were not provided.
+		// Merge normalized properties with default properites in case any are missing.
 		$normalized = wp_parse_args( $normalized, $this->get_review_source_defaults() );
 
 		return $normalized;
@@ -108,7 +108,33 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 		$r = $raw_review;
 		$normalized = array();
 
-		// normalize...
+		// Set reviewer.
+		if ( isset( $r['author_name'] ) ) {
+			$normalized['reviewer'] = $this->clean( $r['author_name'] );
+		}
+
+		// Set reviewer image.
+		if ( isset( $r['profile_photo_url'] ) ) {
+			$normalized['reviewer_image'] = $this->clean( $r['profile_photo_url'] );
+		}
+
+		// Set rating.
+		if ( isset( $r['rating'] ) ) {
+			$normalized['rating'] = $this->clean( $r['rating'] );
+		}
+
+		// Set timestamp.
+		if ( isset( $r['time'] ) ) {
+			$normalized['timestamp'] = $this->clean( $r['time'] );
+		}
+
+		// Set content.
+		if ( isset( $r['text'] ) ) {
+			$normalized['content'] = $this->clean( $r['text'] );
+		}
+
+		// Merge normalized properties with default properites in case any are missing.
+		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
 
 		return $normalized;
 	}
