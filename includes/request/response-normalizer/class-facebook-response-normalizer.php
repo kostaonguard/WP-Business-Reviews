@@ -43,7 +43,30 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 		$r          = $raw_review;
 		$normalized = array();
 
-		// Normalize...
+		// Set reviewer.
+		if ( isset( $r['reviewer']['name'] ) ) {
+			$normalized['reviewer'] = $this->clean( $r['reviewer']['name'] );
+		}
+
+		// Set reviewer image.
+		if ( isset( $r['reviewer']['picture']['data']['url'] ) ) {
+			$normalized['reviewer_image'] = $this->clean( $r['reviewer']['picture']['data']['url'] );
+		}
+
+		// Set rating.
+		if ( isset( $r['rating'] ) ) {
+			$normalized['rating'] = $this->clean( $r['rating'] );
+		}
+
+		// Set timestamp.
+		if ( isset( $r['created_time'] ) ) {
+			$normalized['timestamp'] = $this->clean( $r['created_time'] );
+		}
+
+		// Set content.
+		if ( isset( $r['review_text'] ) ) {
+			$normalized['content'] = $this->clean( $r['review_text'] );
+		}
 
 		// Merge normalized properties with default properites in case any are missing.
 		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
