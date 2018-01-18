@@ -50,9 +50,9 @@ class Request_Factory {
 				$request = new Google_Places_Request( $key );
 				break;
 			case 'facebook':
-				// TODO: Get token via deserializer.
-				$token   = $this->deserializer->get( 'facebook_user_token' );
-				$request = new Facebook_Request( $token );
+				$user_token = $this->deserializer->get( 'facebook_user_token' );
+				$pages      = $this->deserializer->get( 'facebook_pages' );
+				$request    = new Facebook_Request( $user_token, $pages );
 				break;
 			case 'yelp':
 				$key     = $this->deserializer->get( 'yelp_api_key' );
