@@ -51,7 +51,6 @@
     "axios": "^0.17.1",
     "hint.css": "^2.5.0",
     "lodash.truncate": "^4.4.2",
-    "query-string": "^5.0.0",
-    "tiny-emitter": "^2.0.2"
+    "query-string": "^5.0.0"
   }
 }
