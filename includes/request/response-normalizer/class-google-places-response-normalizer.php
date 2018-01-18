@@ -11,7 +11,7 @@
 namespace WP_Business_Reviews\Includes\Request\Response_Normalizer;
 
 /**
- * Normalizes the structure of a remote API response.
+ * Normalizes the structure of a Google Places API response.
  *
  * @since 0.1.0
  */
@@ -108,7 +108,7 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 	 * @inheritDoc
 	 */
 	public function normalize_review( array $raw_review ) {
-		$r = $raw_review;
+		$r          = $raw_review;
 		$normalized = array();
 
 		// Set reviewer.

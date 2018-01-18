@@ -33,10 +33,10 @@ class Response_Normalizer_Factory {
 				$response_normalizer = new Facebook_Response_Normalizer();
 				break;
 			case 'yelp':
-				$response_normalizer = new Yelp_Normalizer();
+				$response_normalizer = new Yelp_Response_Normalizer();
 				break;
 			case 'yp':
-				$response_normalizer = new YP_Normalizer();
+				$response_normalizer = new YP_Response_Normalizer();
 				break;
 			case 'wp_org':
 				break;
