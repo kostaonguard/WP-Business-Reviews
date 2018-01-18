@@ -87,6 +87,11 @@ class Request_Delegator {
 		$request             = $this->request_factory->create( $platform );
 		$normalizer          = $this->response_normalizer_factory->create( $platform );
 		$raw_response        = $request->search_review_source( $terms, $location );
+
+		if ( is_wp_error( $raw_response ) ) {
+			return $raw_response->get_error_message();
+		}
+
 		$normalized_response = $normalizer->normalize_review_sources( $raw_response );
 
 		return $normalized_response;
@@ -123,6 +128,11 @@ class Request_Delegator {
 		$request             = $this->request_factory->create( $platform );
 		$normalizer          = $this->response_normalizer_factory->create( $platform );
 		$raw_response        = $request->get_reviews( $review_source_id );
+
+		if ( is_wp_error( $raw_response ) ) {
+			return $raw_response->get_error_message();
+		}
+
 		$normalized_response = $normalizer->normalize_reviews( $raw_response );
 
 		return $normalized_response;
