@@ -56,7 +56,7 @@ class Facebook_Request extends Request {
 	 *
 	 * @return array Associative array containing the response body.
 	 */
-	public function get_pages() {
+	public function get_review_sources() {
 		$url = add_query_arg(
 			array(
 				'access_token' => $this->token,

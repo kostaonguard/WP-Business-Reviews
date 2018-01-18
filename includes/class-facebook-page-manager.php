@@ -74,7 +74,7 @@ class Facebook_Page_Manager {
 		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_user_token' ), 1 );
 		add_action( 'wp_business_reviews_admin_page_wpbr_settings', array( $this, 'save_pages' ), 1 );
 		add_action( 'admin_post_wp_business_reviews_disconnect_facebook', array( $this, 'disconnect' ) );
-		add_action( 'wp_business_reviews_set_field_value_facebook_pages_select', array( $this, 'get_pages' ) );
+		add_action( 'wp_business_reviews_set_field_value_facebook_pages_select', array( $this, 'get_review_sources' ) );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class Facebook_Page_Manager {
 	 *
 	 * @return array Facebook pages and tokens.
 	 */
-	public function get_pages() {
+	public function get_review_sources() {
 		return $this->pages;
 	}
 
@@ -159,7 +159,7 @@ class Facebook_Page_Manager {
 		}
 
 		$pages    = array();
-		$response = $this->request->get_pages();
+		$response = $this->request->get_review_sources();
 
 		// Process the array of pages and pull out only the keys we need.
 		if ( isset( $response['data'] ) ) {
