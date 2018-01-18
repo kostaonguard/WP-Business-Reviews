@@ -109,6 +109,24 @@ abstract class Response_Normalizer_Abstract {
 	}
 
 	/**
+	 * Retrieves default values for a normalized review.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Associative array of default values.
+	 */
+	protected function get_review_defaults() {
+		return array(
+			'platform'       => $this->platform,
+			'reviewer'       => null,
+			'reviewer_image' => null,
+			'rating'         => null,
+			'timestamp'      => null,
+			'content'        => null,
+		);
+	}
+
+	/**
 	 * Recursively sanitizes a given value.
 	 *
 	 * @param string|array $value The value to be sanitized.
