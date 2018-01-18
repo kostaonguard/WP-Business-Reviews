@@ -41,7 +41,7 @@ class PlatformSearchResults {
 				${image ? `<img class="wpbr-review-source__image wpbr-review-source__image--cover" src="${image}">` : ''}
 				<span class="wpbr-review-source__name">${name}</span><br>
 				<span class="wpbr-review-source__rating wpbr-review-source__rating--${platform}">
-					${rating ? rating + stars.generateStars( rating, platform )  : 'Not yet rated.'}
+					${0 < rating ? rating + stars.generateStars( rating, platform )  : 'Not yet rated.'}
 				</span><br>
 				<span class="wpbr-review-source__address">${address}</span><br>
 				<button class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button" data-wpbr-platform="${platform}" data-wpbr-review-source-id="${id}">Get Reviews</button>
