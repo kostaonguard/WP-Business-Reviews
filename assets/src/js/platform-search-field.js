@@ -9,8 +9,7 @@ import queryString from 'query-string';
 class PlatformSearchField extends Field {
 	constructor( element ) {
 		super( element );
-
-		// TODO: Figure out if all properties should be declared in constructor.
+		this.isSearchEnabled = true;
 	}
 
 	init() {
@@ -49,15 +48,21 @@ class PlatformSearchField extends Field {
 	registerSearchButtonEventHandlers() {
 		this.root.addEventListener(
 			'wpbrControlChange',
-			event => this.search(
-				this.platformField.value,
-				this.termsField.value,
-				this.locationField.value
-			)
+			event => {
+				if ( this.isSearchEnabled ) {
+					this.search(
+						this.platformField.value,
+						this.termsField.value,
+						this.locationField.value
+					);
+				}
+			}
 		);
 	}
 
 	search( platform, terms, location ) {
+		this.isSearchEnabled = false;
+
 		const response = axios.post(
 			ajaxurl,
 			queryString.stringify({
@@ -106,6 +111,7 @@ class PlatformSearchField extends Field {
 		// this.resetButton.classList.add( 'wpbr-u-hidden' );
 		// this.resultsList.innerHTML = '';
 		// remove event listeners
+		// this.isSearchEnabled = true;
 	}
 
 	reset() {
