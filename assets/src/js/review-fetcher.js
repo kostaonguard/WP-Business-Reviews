@@ -23,6 +23,14 @@ class ReviewFetcher {
 	}
 
 	fetch( platform, reviewSourceId ) {
+		const getReviewsStartEvent = new CustomEvent(
+			'wpbrGetReviewsStart',
+			{ bubbles: true }
+		);
+		console.log( getReviewsStartEvent );
+
+		this.root.dispatchEvent( getReviewsStartEvent );
+
 		const response = axios.post(
 			ajaxurl,
 			queryString.stringify({
@@ -33,19 +41,13 @@ class ReviewFetcher {
 		)
 			.then( response => {
 				if ( response.data && 0 < response.data.length ) {
-					this.updateReviews( response.data );
-
-					const customEvent  = new CustomEvent( 'wpbrAfterGetReviews', {
+					const getReviewsEndEvent = new CustomEvent( 'wpbrGetReviewsEnd', {
 						bubbles: true,
-						detail: {
-							reviews: response.data
-						}
+						detail: { reviews: response.data }
 					});
-
-					console.log( customEvent );
-
-					// Emit custom event that passes reviews.
-					this.root.dispatchEvent( customEvent );
+					console.log( getReviewsEndEvent );
+					console.table( response.data );
+					this.root.dispatchEvent( getReviewsEndEvent );
 				} else {
 
 					// TODO: No reviews exist, so display message.
