@@ -51,7 +51,8 @@ class Yelp_Request extends Request {
 	 *
 	 * @param string $terms    The search terms, usually a business name.
 	 * @param string $location The location within which to search.
-	 * @return array Array containing normalized review sources.
+	 * @return array|WP_Error Associative array containing response or WP_Error
+	 *                        if response structure is invalid.
 	 */
 	public function search_review_source( $terms, $location ) {
 		$url = add_query_arg(
@@ -87,7 +88,8 @@ class Yelp_Request extends Request {
 	 * @since 0.1.0
 	 *
 	 * @param string $id The Yelp business ID.
-	 * @return array Associative array containing the response body.
+	 * @return array|WP_Error Associative array containing response or WP_Error
+	 *                        if response structure is invalid.
 	 */
 	public function get_business( $id ) {
 		$url = 'https://api.yelp.com/v3/businesses/' . $id;
@@ -110,7 +112,8 @@ class Yelp_Request extends Request {
 	 * @since 0.1.0
 	 *
 	 * @param string $id The Yelp business ID.
-	 * @return array Associative array containing the response body.
+	 * @return array|WP_Error Associative array containing response or WP_Error
+	 *                        if response structure is invalid.
 	 */
 	public function get_reviews( $id ) {
 		$url = 'https://api.yelp.com/v3/businesses/' . $id . '/reviews';

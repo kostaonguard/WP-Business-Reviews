@@ -64,7 +64,8 @@ class Google_Places_Request extends Request {
 	 *
 	 * @param string $terms    The search terms, usually a Place name.
 	 * @param string $location The location within which to search.
-	 * @return array Array containing normalized review sources.
+	 * @return array|WP_Error Associative array containing response or WP_Error
+	 *                        if response structure is invalid.
 	 */
 	public function search_review_source( $terms, $location ) {
 		$review_sources = array();
@@ -92,7 +93,8 @@ class Google_Places_Request extends Request {
 	 * @since 0.1.0
 	 *
 	 * @param string $review_source_id The Google Place ID.
-	 * @return array Associative array containing the response body.
+	 * @return array|WP_Error Associative array containing response or WP_Error
+	 *                        if response structure is invalid.
 	 */
 	public function get_review_source( $review_source_id ) {
 		$url = add_query_arg(
@@ -121,7 +123,8 @@ class Google_Places_Request extends Request {
 	 * @since 0.1.0
 	 *
 	 * @param string $review_source_id The Google Place ID.
-	 * @return array Associative array containing the response body.
+	 * @return array|WP_Error Associative array containing response or WP_Error
+	 *                        if response structure is invalid.
 	 */
 	public function get_reviews( $review_source_id ) {
 		$response = $this->get_review_source( $review_source_id );
