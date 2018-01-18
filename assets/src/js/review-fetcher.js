@@ -56,32 +56,6 @@ class ReviewFetcher {
 				// TODO: Handle error of failed request.
 			});
 	}
-
-	updateReviews( reviews ) {
-		console.log( 'updating reviews' );
-		const reviewList    = document.querySelector( '.js-wpbr-list' );
-		const reviewEls        = document.querySelectorAll( '.js-wpbr-review' );
-		const reviewNameEls    = document.querySelectorAll( '.js-wpbr-review-name' );
-		const reviewContentEls = document.querySelectorAll( '.js-wpbr-review-content' );
-		const reviewImageEls = document.querySelectorAll( '.js-wpbr-review-image-el' );
-
-		reviewList.classList.add( 'wpbr-review-gallery--populated' );
-
-		reviews.forEach( ( review, index ) => {
-			const el = document.createElement( 'img' );
-			reviewNameEls[ index ].innerHTML = review.author_name;
-			reviewContentEls[ index ].innerHTML = '<p>' + review.text + '</p>';
-			reviewImageEls[ index ].src = review.profile_photo_url;
-		});
-
-		reviewEls[5].parentNode.removeChild( reviewEls[5]);
-		reviewEls[6].parentNode.removeChild( reviewEls[6]);
-		reviewEls[7].parentNode.removeChild( reviewEls[7]);
-		reviewEls[8].parentNode.removeChild( reviewEls[8]);
-		reviewEls[9].parentNode.removeChild( reviewEls[9]);
-		reviewEls[10].parentNode.removeChild( reviewEls[10]);
-		reviewEls[11].parentNode.removeChild( reviewEls[11]);
-	}
 }
 
 export default ReviewFetcher;

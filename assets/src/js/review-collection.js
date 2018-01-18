@@ -10,19 +10,17 @@ class ReviewCollection {
 
 	init() {
 		const reviewEls = this.root.querySelectorAll( '.js-wpbr-review' );
-		const event = new CustomEvent( 'wpbrReviews', {
-			bubbles: true,
-			detail: {
-				hazcheeseburger: true
-			}
-		});
 
 		for ( const reviewEl of reviewEls ) {
 			this.reviews.add( new Review( reviewEl ) );
 		}
+	}
 
-		console.log( event );
-		this.root.dispatchEvent( event );
+	updateReviews( reviewsData ) {
+		for ( const review of reviewsData ) {
+
+			// TODO: Update review content.
+		}
 	}
 }
 
