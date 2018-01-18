@@ -46,7 +46,7 @@ class PlatformSearchField extends Field {
 	}
 
 	registerSearchButtonEventHandlers() {
-		this.root.addEventListener(
+		this.searchButtonField.control.addEventListener(
 			'wpbrControlChange',
 			event => {
 				if ( this.isSearchEnabled ) {

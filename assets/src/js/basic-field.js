@@ -25,7 +25,7 @@ class BasicField extends Field {
 			});
 
 			// Emit custom event that passes the control ID and value that changed.
-			this.root.dispatchEvent( customEvent );
+			this.control.dispatchEvent( customEvent );
 		});
 	}
 
