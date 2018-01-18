@@ -38,7 +38,7 @@ class PlatformSearchResults {
 
 		return `
 			<div class="wpbr-review-source">
-				${image ? '<img class="wpbr-review-source__image wpbr-review-source__image--cover" src="${image}">' : ''}
+				${image ? `<img class="wpbr-review-source__image wpbr-review-source__image--cover" src="${image}">` : ''}
 				<span class="wpbr-review-source__name">${name}</span><br>
 				<span class="wpbr-review-source__rating wpbr-review-source__rating--${platform}">
 					${rating ? rating + stars.generateStars( rating, platform )  : 'Not yet rated.'}
