@@ -125,8 +125,7 @@ class Google_Places_Request extends Request {
 	 */
 	public function get_reviews( $review_source_id ) {
 		$response = $this->get_review_source( $review_source_id );
-		$reviews  = $response['result']['reviews'];
 
-		return $reviews;
+		return $response['reviews'];
 	}
 }
