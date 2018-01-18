@@ -104,6 +104,9 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 		return $normalized;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function normalize_review( array $raw_review ) {
 		$r = $raw_review;
 		$normalized = array();
