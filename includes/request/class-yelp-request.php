@@ -86,13 +86,11 @@ class Yelp_Request extends Request {
 
 		$response = $this->get( $url, $args );
 
-		if ( isset( $response['businesses'] ) ) {
-			return $response['businesses'];
-		} else {
+		if ( ! isset( $response['businesses'] ) ) {
 			return new \WP_Error( 'invalid_response_structure', __( 'Invalid response structure.', 'wp-business-reviews' ) );
 		}
 
-		return $review_sources;
+		return $response['businesses'];
 	}
 
 	/**
@@ -140,12 +138,10 @@ class Yelp_Request extends Request {
 
 		$response = $this->get( $url, $args );
 
-		if ( isset( $response['reviews'] ) ) {
-			return $response['reviews'];
-		} else {
+		if ( ! isset( $response['reviews'] ) ) {
 			return new \WP_Error( 'invalid_response_structure', __( 'Invalid response structure.', 'wp-business-reviews' ) );
 		}
 
-		return $response;
+		return $response['reviews'];
 	}
 }

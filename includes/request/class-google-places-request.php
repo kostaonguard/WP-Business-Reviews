@@ -80,11 +80,11 @@ class Google_Places_Request extends Request {
 
 		$response = $this->get( $url );
 
-		if ( isset( $response['results'] ) ) {
-			return $response['results'];
-		} else {
+		if ( ! isset( $response['results'] ) ) {
 			return new \WP_Error( 'invalid_response_structure', __( 'Invalid response structure.', 'wp-business-reviews' ) );
 		}
+
+		return $response['results'];
 	}
 
 	/**
@@ -107,11 +107,11 @@ class Google_Places_Request extends Request {
 
 		$response = $this->get( $url );
 
-		if ( isset( $response['result'] ) ) {
-			return $response['result'];
-		} else {
+		if ( ! isset( $response['result'] ) ) {
 			return new \WP_Error( 'invalid_response_structure', __( 'Invalid response structure.', 'wp-business-reviews' ) );
 		}
+
+		return $response['result'];
 	}
 
 	/**

@@ -84,11 +84,11 @@ class YP_Request extends Request {
 
 		$response = $this->get( $url );
 
-		if ( isset( $response['searchResult']['searchListings']['searchListing'] ) ) {
-			return $response['searchResult']['searchListings']['searchListing'];
-		} else {
+		if ( ! isset( $response['searchResult']['searchListings']['searchListing'] ) ) {
 			return new \WP_Error( 'invalid_response_structure', __( 'Invalid response structure.', 'wp-business-reviews' ) );
 		}
+
+		return $response['searchResult']['searchListings']['searchListing'];
 	}
 
 	/**
@@ -136,10 +136,10 @@ class YP_Request extends Request {
 
 		$response = $this->get( $url );
 
-		if ( isset( $response['ratingsAndReviewsResult']['reviews']['review'] ) ) {
-			return $response['ratingsAndReviewsResult']['reviews']['review'];
-		} else {
+		if ( ! isset( $response['ratingsAndReviewsResult']['reviews']['review'] ) ) {
 			return new \WP_Error( 'invalid_response_structure', __( 'Invalid response structure.', 'wp-business-reviews' ) );
 		}
+
+		return $response['ratingsAndReviewsResult']['reviews']['review'];
 	}
 }
