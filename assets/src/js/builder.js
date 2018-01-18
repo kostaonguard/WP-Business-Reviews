@@ -20,7 +20,7 @@ class Builder {
 		this.initReviewCollection();
 		this.registerToolbarEventHandlers();
 		this.registerControlEventHandlers();
-		this.registerReviewFetcherEventHandlers();
+		this.registerReviewSourcesEventHandlers();
 	}
 
 	initInspector() {
@@ -59,7 +59,7 @@ class Builder {
 		);
 	}
 
-	registerReviewFetcherEventHandlers() {
+	registerReviewSourcesEventHandlers() {
 		this.root.addEventListener(
 			'wpbrReviewSourcesReady',
 			event => this.initReviewFetcher()
