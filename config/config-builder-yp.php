@@ -17,19 +17,19 @@ $config = array(
 				'subfields' => array(
 					'platform_search_platform' => array(
 						'type'        => 'hidden',
-						'value'       => 'yelp',
+						'value'       => 'yp',
 					),
 					'platform_search_terms' => array(
 						'name'        => __( 'Search Terms', 'wp-business-reviews' ),
 						'type'        => 'text',
-						'value'       => 'tacos',
+						'value'       => 'gym',
 						'tooltip'     => __( 'Defines the terms used when searching the YP API.', 'wp-business-reviews' ),
 						'placeholder' => __( 'Business name or type', 'wp-business-reviews' ),
 					),
 					'platform_search_location' => array(
 						'name'        => __( 'Location', 'wp-business-reviews' ),
 						'type'        => 'text',
-						'value'       => 'San Diego, CA',
+						'value'       => 'Chicago, IL',
 						'tooltip'     => __( 'Defines the location used when searching the YP API.', 'wp-business-reviews' ),
 						'placeholder' => __( 'City, state, or postal code', 'wp-business-reviews' ),
 					),
