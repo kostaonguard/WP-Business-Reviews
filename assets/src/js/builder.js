@@ -16,11 +16,11 @@ class Builder {
 	}
 
 	init() {
-		this.initInspector();
-		this.initReviewCollection();
 		this.registerToolbarEventHandlers();
 		this.registerControlEventHandlers();
 		this.registerReviewSourcesEventHandlers();
+		this.initInspector();
+		this.initReviewCollection();
 	}
 
 	initInspector() {
