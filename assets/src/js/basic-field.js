@@ -1,5 +1,4 @@
 import Field from './field';
-import Emitter from 'tiny-emitter';
 
 class BasicField extends Field {
 	constructor( element ) {
@@ -9,21 +8,24 @@ class BasicField extends Field {
 
 	init() {
 		if ( this.control ) {
-			this.registerEventHandlers();
+			this.registerControlEventHandlers();
 		}
 	}
 
-	registerEventHandlers() {
+	registerControlEventHandlers() {
 		this.control.addEventListener( 'change', event => {
-
-			// Get the control ID from the data attribute.
 			const controlId    = event.currentTarget.dataset.wpbrControlId;
-
-			// Get the control value.
 			const controlValue = event.currentTarget.value;
+			const customEvent  = new CustomEvent( 'wpbrControlChange', {
+				bubbles: true,
+				detail: {
+					controlId: controlId,
+					controlValue: controlValue
+				}
+			});
 
 			// Emit custom event that passes the control ID and value that changed.
-			this.emitter.emit( 'wpbrcontrolchange', controlId, controlValue );
+			this.root.dispatchEvent( customEvent );
 		});
 	}
 

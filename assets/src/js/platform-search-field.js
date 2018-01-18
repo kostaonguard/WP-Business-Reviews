@@ -2,6 +2,7 @@ import Field from './field';
 import BasicField from './basic-field';
 import ButtonField from './button-field';
 import PlatformSearchResults from './platform-search-results';
+import toggleVisibility from './visibility-toggle';
 import axios from 'axios';
 import queryString from 'query-string';
 
@@ -46,13 +47,14 @@ class PlatformSearchField extends Field {
 	}
 
 	registerSearchButtonEventHandlers() {
-		this.searchButtonField.emitter.once( 'wpbrcontrolchange', () => {
-			this.search(
+		this.root.addEventListener(
+			'wpbrControlChange',
+			event => this.search(
 				this.platformField.value,
 				this.termsField.value,
 				this.locationField.value
-			);
-		});
+			)
+		);
 	}
 
 	search( platform, terms, location ) {
@@ -67,18 +69,18 @@ class PlatformSearchField extends Field {
 		)
 			.then( response => {
 				if ( response.data && 0 < response.data.length ) {
+					const customEvent = new CustomEvent( 'wpbrReviewSourcesReady', {
+						bubbles: true,
+						detail: { reviewSources: response.data }
+					});
 
-					// Hide search input fields.
 					this.hideSearchFields();
 					this.results = new PlatformSearchResults( this.root, this.platformField.value );
 					this.results.populateResults( response.data );
 
-					// Emit custom event that passes the platform search results.
-					this.emitter.emit( 'wpbrAfterPopulateResults', 'response.data' );
+					// Emit custom event that passes the review sources.
+					this.root.dispatchEvent( customEvent );
 				} else {
-
-					// No results to populate, so the button needs re-enabled to try again.
-					this.registerSearchButtonEventHandlers();
 				}
 			})
 			.catch( error => {
@@ -88,9 +90,9 @@ class PlatformSearchField extends Field {
 	}
 
 	hideSearchFields() {
-		this.termsField.hide();
-		this.locationField.hide();
-		this.searchButtonField.hide();
+		toggleVisibility( this.termsField.root );
+		toggleVisibility( this.locationField.root );
+		toggleVisibility( this.searchButtonField.root );
 	}
 
 	clearSearch() {
@@ -103,6 +105,7 @@ class PlatformSearchField extends Field {
 		// this.results.classList.add( 'wpbr-u-hidden' );
 		// this.resetButton.classList.add( 'wpbr-u-hidden' );
 		// this.resultsList.innerHTML = '';
+		// remove event listeners
 	}
 
 	reset() {

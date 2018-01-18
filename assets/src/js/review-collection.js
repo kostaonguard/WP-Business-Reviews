@@ -10,7 +10,7 @@ class ReviewCollection {
 
 	init() {
 		const reviewEls = this.root.querySelectorAll( '.js-wpbr-review' );
-		const event = new CustomEvent( 'cat', {
+		const event = new CustomEvent( 'wpbrReviews', {
 			bubbles: true,
 			detail: {
 				hazcheeseburger: true

@@ -1,5 +1,4 @@
 import Field from './field.js';
-import Emitter from 'tiny-emitter';
 
 class CheckboxesField extends Field {
 	constructor( element ) {
@@ -8,23 +7,26 @@ class CheckboxesField extends Field {
 	}
 
 	init() {
-		this.registerEventHandlers();
+		this.registerControlEventHandlers();
 	}
 
-	registerEventHandlers() {
-		this.controls.forEach( ( control ) => {
+	registerControlEventHandlers() {
+		for ( const control of this.controls ) {
 			control.addEventListener( 'change', event => {
-
-				// Get the control ID from the data attribute.
 				const controlId    = event.currentTarget.dataset.wpbrControlId;
-
-				// Get the control value, in this case a checkbox.
 				const controlValue = event.currentTarget.checked;
+				const customEvent  = new CustomEvent( 'wpbrControlChange', {
+					bubbles: true,
+					detail: {
+						controlId: controlId,
+						controlValue: controlValue
+					}
+				});
 
 				// Emit custom event that passes the control ID and value that changed.
-				this.emitter.emit( 'wpbrcontrolchange', controlId, controlValue );
+				this.root.dispatchEvent( customEvent );
 			});
-		}, this );
+		}
 	}
 
 	// Retrieve the value of the field.
