@@ -62,7 +62,7 @@ class Google_Places_Request extends Request {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $terms    The search terms, usually a business name.
+	 * @param string $terms    The search terms, usually a Place name.
 	 * @param string $location The location within which to search.
 	 * @return array Array containing normalized review sources.
 	 */
@@ -170,7 +170,7 @@ class Google_Places_Request extends Request {
 		// Set image.
 		if ( isset( $r['photos'][0]['photo_reference'] ) ) {
 			$photo_reference = $this->clean( $r['photos'][0]['photo_reference'] );
-			$r_clean['image'] = $this->build_image( $photo_reference );
+			$r_clean['image'] = $this->normalize_image( $photo_reference );
 		}
 
 		// Set phone.
@@ -189,7 +189,7 @@ class Google_Places_Request extends Request {
 			$address_components = $this->parse_address_components( $r['address_components'] );
 
 			// Build street address since it is not provided as a single field.
-			$r_clean['street_address'] = $this->build_street_address( $address_components );
+			$r_clean['street_address'] = $this->normalize_street_address( $address_components );
 
 			if ( isset( $address_components['city'] ) ) {
 				$r_clean['city'] = sanitize_text_field( $address_components['city'] );
@@ -225,14 +225,14 @@ class Google_Places_Request extends Request {
 	}
 
 	/**
-	 * Build image URL from photo reference in Google Places API response.
+	 * Normalize image URL from photo reference in Google Places API response.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @param string $photo_reference Reference to first photo in API response.
-	 * @return string|null URL of the business image.
+	 * @return string|null URL of the Place image.
 	 */
-	protected function build_image( $photo_reference ) {
+	protected function normalize_image( $photo_reference ) {
 		$image = add_query_arg( array(
 			'maxheight'      => '192',
 			'photoreference' => $photo_reference,
@@ -240,6 +240,23 @@ class Google_Places_Request extends Request {
 		), 'https://maps.googleapis.com/maps/api/place/photo' );
 
 		return $image;
+	}
+
+	/**
+	 * Normalize street address from Google Places API address components.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $address_components Address parts organized by type.
+	 * @return string Street address where the Place is located.
+	 */
+	protected function normalize_street_address( $address_components ) {
+		$street_number  = isset( $address_components['street_number'] ) ? $address_components['street_number'] . ' ' : '';
+		$route          = isset( $address_components['route'] ) ? $address_components['route'] : '';
+		$subpremise     = isset( $address_components['subpremise'] ) ? ' #' . $address_components['subpremise'] : '';
+		$street_address = $street_number . $route . $subpremise;
+
+		return $street_address;
 	}
 
 	/**
@@ -285,22 +302,5 @@ class Google_Places_Request extends Request {
 		}
 
 		return $formatted_components;
-	}
-
-	/**
-	 * Build street address from Google Places API address components.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $address_components Address parts organized by type.
-	 * @return string Street address where the business is located.
-	 */
-	protected function build_street_address( $address_components ) {
-		$street_number  = isset( $address_components['street_number'] ) ? $address_components['street_number'] . ' ' : '';
-		$route          = isset( $address_components['route'] ) ? $address_components['route'] : '';
-		$subpremise     = isset( $address_components['subpremise'] ) ? ' #' . $address_components['subpremise'] : '';
-		$street_address = $street_number . $route . $subpremise;
-
-		return $street_address;
 	}
 }
