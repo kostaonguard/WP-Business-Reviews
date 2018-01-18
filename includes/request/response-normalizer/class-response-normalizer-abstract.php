@@ -93,7 +93,7 @@ abstract class Response_Normalizer_Abstract {
 			'review_source_id'  => null,
 			'name'              => null,
 			'url'               => null,
-			'rating'            => null,
+			'rating'            => 0,
 			'icon'              => null,
 			'image'             => null,
 			'phone'             => null,
@@ -120,7 +120,7 @@ abstract class Response_Normalizer_Abstract {
 			'platform'       => $this->platform,
 			'reviewer'       => null,
 			'reviewer_image' => null,
-			'rating'         => null,
+			'rating'         => 0,
 			'timestamp'      => null,
 			'content'        => null,
 		);
