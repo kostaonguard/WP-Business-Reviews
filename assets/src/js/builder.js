@@ -94,9 +94,9 @@ class Builder {
 			this.reviewCollection.updatePresentation();
 
 			if ( 'review_gallery' === controlValue ) {
-				// this.inspector.fields.get( 'max_columns' ).show();
+				this.inspector.fields.get( 'max_columns' ).show();
 			} else {
-				// this.inspector.fields.get( 'max_columns' ).hide();
+				this.inspector.fields.get( 'max_columns' ).hide();
 			}
 
 			break;
