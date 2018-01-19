@@ -53,7 +53,7 @@ class Builder {
 	registerToolbarEventHandlers() {
 		this.inspectorControl.addEventListener(
 			'click',
-			event => toggleVisibility( this.inspector.root )
+			event => this.inspector.toggleVisibility()
 		);
 
 		this.saveControl.addEventListener( 'click', event => {

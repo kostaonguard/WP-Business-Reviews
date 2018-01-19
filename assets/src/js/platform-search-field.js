@@ -2,7 +2,6 @@ import Field from './field';
 import BasicField from './basic-field';
 import ButtonField from './button-field';
 import PlatformSearchResults from './platform-search-results';
-import toggleVisibility from './visibility-toggle';
 import axios from 'axios';
 import queryString from 'query-string';
 
@@ -98,9 +97,9 @@ class PlatformSearchField extends Field {
 	}
 
 	hideSearchFields() {
-		toggleVisibility( this.termsField.root );
-		toggleVisibility( this.locationField.root );
-		toggleVisibility( this.searchButtonField.root );
+		this.termsField.hide();
+		this.locationField.hide();
+		this.searchButtonField.hide();
 	}
 
 	clearSearch() {
