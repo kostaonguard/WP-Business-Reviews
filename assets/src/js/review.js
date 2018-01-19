@@ -2,13 +2,13 @@ import * as stars from './stars';
 import truncate from 'lodash.truncate';
 
 class Review {
-	constructor( reviewData ) {
-		this.platform  = reviewData.platform;
-		this.reviewer  = reviewData.reviewer;
-		this.image     = reviewData.image;
-		this.rating    = reviewData.rating;
-		this.timestamp = reviewData.timestamp;
-		this.content   = reviewData.content;
+	constructor( data ) {
+		this.platform  = data.platform;
+		this.reviewer  = data.reviewer;
+		this.image     = data.image;
+		this.rating    = data.rating;
+		this.timestamp = data.timestamp;
+		this.content   = data.content;
 	}
 
 	render() {
