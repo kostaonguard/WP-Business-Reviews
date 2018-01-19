@@ -27,7 +27,6 @@ class ReviewFetcher {
 			'wpbrGetReviewsStart',
 			{ bubbles: true }
 		);
-		console.log( getReviewsStartEvent );
 
 		this.root.dispatchEvent( getReviewsStartEvent );
 
@@ -41,12 +40,13 @@ class ReviewFetcher {
 		)
 			.then( response => {
 				if ( response.data && 0 < response.data.length ) {
-					const getReviewsEndEvent = new CustomEvent( 'wpbrGetReviewsEnd', {
-						bubbles: true,
-						detail: { reviews: response.data }
-					});
-					console.log( getReviewsEndEvent );
-					console.table( response.data );
+					const getReviewsEndEvent = new CustomEvent(
+						'wpbrGetReviewsEnd',
+						{
+							bubbles: true,
+							detail: { reviews: response.data }
+						}
+					);
 					this.root.dispatchEvent( getReviewsEndEvent );
 				} else {
 

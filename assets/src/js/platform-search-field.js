@@ -9,7 +9,6 @@ import queryString from 'query-string';
 class PlatformSearchField extends Field {
 	constructor( element ) {
 		super( element );
-		this.isSearchEnabled = true;
 	}
 
 	init() {
@@ -49,19 +48,21 @@ class PlatformSearchField extends Field {
 		this.searchButtonField.control.addEventListener(
 			'wpbrControlChange',
 			event => {
-				if ( this.isSearchEnabled ) {
-					this.search(
-						this.platformField.value,
-						this.termsField.value,
-						this.locationField.value
-					);
-				}
-			}
+				this.search(
+					this.platformField.value,
+					this.termsField.value,
+					this.locationField.value
+				);
+			},
+			{ once: true }
 		);
 	}
 
 	search( platform, terms, location ) {
-		this.isSearchEnabled = false;
+		const getReviewSourcesStartEvent = new CustomEvent(
+			'wpbrGetReviewSourcesStart',
+			{ bubbles: true }
+		);
 
 		const response = axios.post(
 			ajaxurl,
@@ -74,17 +75,18 @@ class PlatformSearchField extends Field {
 		)
 			.then( response => {
 				if ( response.data && 0 < response.data.length ) {
-					const customEvent = new CustomEvent( 'wpbrReviewSourcesReady', {
-						bubbles: true
-					});
+					const getReviewSourcesEndEvent = new CustomEvent(
+						'wpbrGetReviewSourcesEnd',
+						{
+							bubbles: true,
+							detail: { reviews: response.data }
+						}
+					);
 
 					this.hideSearchFields();
 					this.results = new PlatformSearchResults( this.root, this.platformField.value );
 					this.results.populateResults( response.data );
-
-					// Emit custom event that passes the review sources.
-					this.root.dispatchEvent( customEvent );
-
+					this.root.dispatchEvent( getReviewSourcesEndEvent );
 					console.table( response.data );
 				} else {
 				}
@@ -112,7 +114,6 @@ class PlatformSearchField extends Field {
 		// this.resetButton.classList.add( 'wpbr-u-hidden' );
 		// this.resultsList.innerHTML = '';
 		// remove event listeners
-		// this.isSearchEnabled = true;
 	}
 
 	reset() {

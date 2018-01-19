@@ -19,6 +19,7 @@ class Builder {
 		this.registerToolbarEventHandlers();
 		this.registerControlEventHandlers();
 		this.registerReviewSourcesEventHandlers();
+		this.registerReviewEventHandlers();
 		this.initInspector();
 		this.initReviewCollection();
 	}
@@ -63,6 +64,15 @@ class Builder {
 		this.root.addEventListener(
 			'wpbrReviewSourcesReady',
 			event => this.initReviewFetcher()
+		);
+	}
+
+	registerReviewEventHandlers() {
+		this.root.addEventListener(
+			'wpbrGetReviewsEnd',
+			event => this.reviewCollection.updateReviews(
+				event.detail.reviews
+			)
 		);
 	}
 

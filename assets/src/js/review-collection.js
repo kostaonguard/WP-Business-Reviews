@@ -17,6 +17,7 @@ class ReviewCollection {
 	}
 
 	updateReviews( reviewsData ) {
+		console.table( reviewsData );
 		for ( const review of reviewsData ) {
 
 			// TODO: Update review content.

@@ -6,14 +6,11 @@ class FacebookPagesSelectField extends Field {
 	}
 
 	init() {
-		const customEvent = new CustomEvent( 'wpbrReviewSourcesReady', {
-			bubbles: true
-		});
-
-		console.log( customEvent );
-
-		// Emit custom event that passes the review sources.
-		this.root.dispatchEvent( customEvent );
+		const reviewSourcesReadyEvent = new CustomEvent(
+			'wpbrReviewSourcesReady',
+			{ bubbles: true }
+		);
+		this.root.dispatchEvent( reviewSourcesReadyEvent );
 	}
 }
 

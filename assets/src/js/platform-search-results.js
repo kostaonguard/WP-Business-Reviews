@@ -23,6 +23,12 @@ class PlatformSearchResults {
 		scrollable.appendChild( resultsList );
 		fragment.appendChild( scrollable );
 		this.root.appendChild( fragment );
+
+		const reviewSourcesReadyEvent = new CustomEvent(
+			'wpbrReviewSourcesReady',
+			{ bubbles: true }
+		);
+		this.root.dispatchEvent( reviewSourcesReadyEvent );
 	}
 
 	generateResult( result ) {
