@@ -6,7 +6,7 @@
 				<li class="wpbr-review-gallery__item wpbr-review-gallery__item--2 js-wpbr-item" data-rating="5" data-time-created="">
 					<div class="wpbr-review js-wpbr-review">
 						<div class="wpbr-review__header">
-							<div class="wpbr-review__image js-wpbr-review-image">
+							<div class="wpbr-review__image wpbr-review__image--placeholder js-wpbr-review-image">
 								<img src="" alt="" class="js-wpbr-review-image-el">
 							</div>
 							<div class="wpbr-review__details">
