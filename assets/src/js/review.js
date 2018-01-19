@@ -11,7 +11,7 @@ class Review {
 		this.content       = reviewData.content;
 	}
 
-	render( reviewData ) {
+	render() {
 		return `
 			<div class="wpbr-review">
 				<div class="wpbr-review__header">
@@ -27,8 +27,12 @@ class Review {
 		`;
 	}
 
-	renderReviewerImage( imageUrl ) {
-		return `<div class="wpbr-review__image"><img src="${imageUrl}"></div>`;
+	renderReviewerImage( image ) {
+		if ( 'placeholder' === image ) {
+			return '<div class="wpbr-review__image wpbr-review__image--placeholder"></div>';
+		} else {
+			return `<div class="wpbr-review__image"><img src="${image}"></div>`;
+		}
 	}
 
 	renderTimestamp( timestamp ) {
