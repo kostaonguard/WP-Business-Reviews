@@ -1,7 +1,6 @@
 import Inspector from './inspector';
 import ReviewCollection from './review-collection';
 import ReviewFetcher from './review-fetcher';
-import toggleVisibility from './visibility-toggle';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
@@ -113,27 +112,19 @@ class Builder {
 			break;
 
 		case 'review_image':
-			for ( const review of this.reviewCollection.reviews ) {
-				toggleVisibility( review.image );
-			}
+			this.reviewCollection.root.classList.toggle( 'wpbr-u-builder-no-image' );
 			break;
 
 		case 'review_rating':
-			for ( const review of this.reviewCollection.reviews ) {
-				toggleVisibility( review.rating );
-			}
+			this.reviewCollection.root.classList.toggle( 'wpbr-u-builder-no-rating' );
 			break;
 
 		case 'review_timestamp':
-			for ( const review of this.reviewCollection.reviews ) {
-				toggleVisibility( review.timestamp );
-			}
+			this.reviewCollection.root.classList.toggle( 'wpbr-u-builder-no-timestamp' );
 			break;
 
 		case 'review_content':
-			for ( const review of this.reviewCollection.reviews ) {
-				toggleVisibility( review.content );
-			}
+			this.reviewCollection.root.classList.toggle( 'wpbr-u-builder-no-content' );
 			break;
 
 		}
