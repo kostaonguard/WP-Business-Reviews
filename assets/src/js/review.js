@@ -3,19 +3,19 @@ import truncate from 'lodash.truncate';
 
 class Review {
 	constructor( reviewData ) {
-		this.platform      = reviewData.platform;
-		this.reviewer      = reviewData.reviewer;
-		this.reviewerImage = reviewData.reviewer_image;
-		this.rating        = reviewData.rating;
-		this.timestamp     = reviewData.timestamp;
-		this.content       = reviewData.content;
+		this.platform  = reviewData.platform;
+		this.reviewer  = reviewData.reviewer;
+		this.image     = reviewData.image;
+		this.rating    = reviewData.rating;
+		this.timestamp = reviewData.timestamp;
+		this.content   = reviewData.content;
 	}
 
 	render() {
 		return `
 			<div class="wpbr-review">
 				<div class="wpbr-review__header">
-					${this.reviewerImage ? this.renderReviewerImage( this.reviewerImage ) : ''}
+					${this.image ? this.renderImage( this.image ) : ''}
 					<div class="wpbr-review__details">
 						<h3 class="wpbr-review__name js-wpbr-review-name">${this.reviewer}</h3>
 						${0 < this.rating ? stars.generateStars( this.rating, this.platform ) : ''}
@@ -27,7 +27,7 @@ class Review {
 		`;
 	}
 
-	renderReviewerImage( image ) {
+	renderImage( image ) {
 		if ( 'placeholder' === image ) {
 			return '<div class="wpbr-review__image wpbr-review__image--placeholder"></div>';
 		} else {
