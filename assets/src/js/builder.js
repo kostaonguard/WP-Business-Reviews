@@ -9,34 +9,41 @@ import '../images/platform-yp-160w.png';
 
 class Builder {
 	constructor( selector ) {
-		this.root              = document.querySelector( selector );
-		this.inspectorControl  = document.getElementById( 'wpbr-control-inspector' );
-		this.saveControl       = document.getElementById( 'wpbr-control-save' );
-		this.backgroundElement = document.querySelector( '.wpbr-admin' );
+		this.root = document.querySelector( selector );
 	}
 
 	init() {
-		this.registerToolbarEventHandlers();
-		this.registerControlEventHandlers();
-		this.registerReviewSourcesEventHandlers();
-		this.registerReviewEventHandlers();
+		this.initToolbar();
 		this.initInspector();
 		this.initReviewCollection();
+		this.initBackground();
+	}
+
+	initToolbar() {
+		this.inspectorControl = document.getElementById( 'wpbr-control-inspector' );
+		this.saveControl      = document.getElementById( 'wpbr-control-save' );
+		this.registerToolbarEventHandlers();
 	}
 
 	initInspector() {
 		this.inspector = new Inspector ( document.getElementById( 'wpbr-builder-inspector' ) );
 		this.inspector.init();
+		this.registerInspectorEventHandlers();
 	}
 
 	initReviewCollection() {
 		this.reviewCollection = new ReviewCollection( document.querySelector( '.js-wpbr-wrap' ) );
 		this.reviewCollection.init();
+		this.registerReviewCollectionEventHandlers();
 	}
 
 	initReviewFetcher() {
 		this.reviewFetcher = new ReviewFetcher( this.root );
 		this.reviewFetcher.init();
+	}
+
+	initBackground() {
+		this.background = document.querySelector( '.wpbr-admin' );
 	}
 
 	registerToolbarEventHandlers() {
@@ -50,7 +57,7 @@ class Builder {
 		});
 	}
 
-	registerControlEventHandlers() {
+	registerInspectorEventHandlers() {
 		this.root.addEventListener(
 			'wpbrControlChange',
 			event => this.reflectControlChange(
@@ -58,19 +65,17 @@ class Builder {
 				event.detail.controlValue
 			)
 		);
-	}
 
-	registerReviewSourcesEventHandlers() {
 		this.root.addEventListener(
 			'wpbrReviewSourcesReady',
 			event => this.initReviewFetcher()
 		);
 	}
 
-	registerReviewEventHandlers() {
+	registerReviewCollectionEventHandlers() {
 		this.root.addEventListener(
 			'wpbrGetReviewsEnd',
-			event => this.reviewCollection.updateReviews(
+			event => this.reviewCollection.replaceReviews(
 				event.detail.reviews
 			)
 		);
