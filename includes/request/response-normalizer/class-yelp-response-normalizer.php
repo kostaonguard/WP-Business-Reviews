@@ -135,7 +135,7 @@ class Yelp_Response_Normalizer extends Response_Normalizer_Abstract {
 
 		// Set content.
 		if ( isset( $r['text'] ) ) {
-			$normalized['content'] = $this->clean( $r['text'] );
+			$normalized['content'] = $this->clean_multiline( $r['text'] );
 		}
 
 		// Merge normalized properties with default properites in case any are missing.

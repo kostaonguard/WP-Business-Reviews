@@ -65,7 +65,7 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 
 		// Set content.
 		if ( isset( $r['review_text'] ) ) {
-			$normalized['content'] = $this->clean( $r['review_text'] );
+			$normalized['content'] = $this->clean_multiline( $r['review_text'] );
 		}
 
 		// Merge normalized properties with default properites in case any are missing.

@@ -139,4 +139,17 @@ abstract class Response_Normalizer_Abstract {
 			return is_scalar( $value ) ? sanitize_text_field( $value ) : '';
 		}
 	}
+
+	/**
+	 * Sanitizes a multiline value while retaining line breaks.
+	 *
+	 * The regular expression accounts for double line breaks. The reassembled
+	 * sanitized string only contains single line breaks.
+	 *
+	 * @param string|array $value The value to be sanitized.
+	 * @return string|array Clean multiline string.
+	 */
+	protected function clean_multiline( $value ) {
+		return implode( "\n", array_map( 'sanitize_text_field', preg_split( "/\n?\n/", $value ) ) );
+	}
 }

@@ -130,7 +130,7 @@ class YP_Response_Normalizer extends Response_Normalizer_Abstract {
 
 		// Set content.
 		if ( isset( $r['reviewBody'] ) ) {
-			$normalized['content'] = $this->clean( $r['reviewBody'] );
+			$normalized['content'] = $this->clean_multiline( $r['reviewBody'] );
 		}
 
 		// Merge normalized properties with default properites in case any are missing.
