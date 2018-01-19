@@ -6,17 +6,15 @@ class ReviewCollection {
 		this.format     = format;
 		this.maxColumns = maxColumns;
 		this.theme      = theme;
+		this.items      = new Set();
+		this.reviews    = new Set();
 	}
 
 	init() {
-		this.list    = document.createElement( 'ul' );
-		this.items   = new Set();
-		this.reviews = new Set();
-
+		this.list = document.createElement( 'ul' );
 		this.updatePresentation();
-		this.root.appendChild( this.list );
-
 		this.renderPlaceholderReviews();
+		this.root.appendChild( this.list );
 	}
 
 	updatePresentation() {
