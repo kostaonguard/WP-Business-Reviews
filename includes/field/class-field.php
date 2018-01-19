@@ -96,6 +96,8 @@ class Field {
 			'name_element'  => 'span',
 			'placeholder'   => null,
 			'options'       => array(),
+			'is_subfield'   => false,
+			'subfields'     => array(),
 		);
 	}
 
@@ -111,16 +113,39 @@ class Field {
 	}
 
 	/**
-	 * Gets field arguments.
+	 * Gets a field argument.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return array Field arguments.
+	 * @param string $key Key of the requested arg.
+	 * @return mixed|null Value of the requested arg.
 	 */
-	public function get_arg( $arg ) {
-		if ( isset( $this->args[ $arg ] ) ) {
-			return $this->args[ $arg ];
+	public function get_arg( $key ) {
+		if ( isset( $this->args[ $key ] ) ) {
+			return $this->args[ $key ];
 		}
+
+		// Invalid key was provided.
+		return null;
+	}
+
+	/**
+	 * Sets a field argument.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $key Key of the arg being set.
+	 * @param mixed  $value Value of the arg being set.
+	 * @return bool True if successful, false otherwise.
+	 */
+	public function set_arg( $key, $value ) {
+		if ( isset( $this->args[ $key ] ) ) {
+			$this->args[ $key ] = $value;
+			return true;
+		}
+
+		// Invalid key was provided.
+		return false;
 	}
 
 	/**
@@ -131,7 +156,12 @@ class Field {
 	 * @return mixed $value Field value.
 	 */
 	public function get_value() {
-		return $this->value;
+		/**
+		 * Filters the field value being retrieved.
+		 *
+		 * @since 0.1.0
+		 */
+		return apply_filters( "wp_business_reviews_get_field_value_{$this->id}", $this->value );
 	}
 
 	/**
@@ -170,11 +200,11 @@ class Field {
 	 * @since 0.1.0
 	 */
 	public function render() {
-		if ( 'internal' === $this->get_arg( 'type' ) ) {
+		if ( 'internal' === $this->args['type'] ) {
 			return;
 		}
 
-		$view_object = new View( WPBR_PLUGIN_DIR . 'views/field/field-main.php' );
+		$view_object = new View( WPBR_PLUGIN_DIR . 'views/field/field.php' );
 		$view_object->render(
 			array(
 				'id'    => $this->get_id(),

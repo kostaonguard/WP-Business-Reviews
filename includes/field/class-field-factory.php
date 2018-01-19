@@ -29,25 +29,9 @@ class Field_Factory {
 	 * @param string $id   Unique identifier of the field.
 	 * @param array  $args Field arguments.
 	 *
-	 * @return Field|boolean Instance of Field class or false.
+	 * @return Field Instance of Field class or false.
 	 */
 	public function create( $id, array $args = array() ) {
-		// Use type to determine if label is appropriate for accessibility.
-		if ( isset( $args['type'] ) ) {
-			switch ( $args['type'] ) {
-				case 'input':
-				case 'search':
-				case 'select':
-					$args['name_element'] = 'label';
-					$field = new Field( $id, $args );
-					break;
-				default:
-					$field = new Field( $id, $args );
-			}
-
-			return $field;
-		}
-
-		return false;
+		return new Field( $id, $args );
 	}
 }

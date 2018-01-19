@@ -1,10 +1,7 @@
-import Emitter from 'tiny-emitter';
-
 class Field {
 	constructor( element ) {
 		this.root    = element;
-		this.id      = this.root ? this.root.dataset.wpbrFieldId : null;
-		this.emitter = new Emitter();
+		this.fieldId = this.root ? this.root.dataset.wpbrFieldId : null;
 	}
 
 	hide() {

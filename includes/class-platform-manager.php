@@ -136,42 +136,42 @@ class Platform_Manager {
 	}
 
 	/**
-	* Gets all registered platforms.
-	*
-	* @since 0.1.0
-	*
-	* @return array Array of platform slugs.
-	*/
+	 * Gets all registered platforms.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Array of platform slugs.
+	 */
 	public function get_platforms() {
 		return $this->platforms;
 	}
 
 	/**
-	* Gets the default platforms.
-	*
-	* @since 0.1.0
-	*
-	* @return array Array of default platform slugs.
-	*/
+	 * Gets the default platforms.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Array of default platform slugs.
+	 */
 	public function get_default_platforms() {
 		return array_intersect_key( $this->platforms, $this->default_platforms );
 	}
 
 	/**
-	* Gets the active platforms.
-	*
-	* If active platforms have not been set, they will be retrieved from the
-	* database.
-	*
-	* @since 0.1.0
-	*
-	* @return array Array of active platform slugs.
-	*/
+	 * Gets the active platforms.
+	 *
+	 * If active platforms have not been set, they will be retrieved from the
+	 * database.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Array of active platform slugs.
+	 */
 	public function get_active_platforms() {
 		if ( isset( $this->active_platforms ) ) {
 			$active_platforms = $this->active_platforms;
 		} else {
-			$active_platforms = $this->deserializer->get( 'active_platforms') ?: array();
+			$active_platforms = $this->deserializer->get( 'active_platforms' ) ?: array();
 		}
 
 		return array_intersect_key( $this->platforms, $active_platforms );
@@ -194,10 +194,10 @@ class Platform_Manager {
 		} else {
 			$connected_platforms = array();
 
-			foreach ( $this->platforms as $platform_id => $platform_name ) {
-				$status = $this->deserializer->get( "{$platform_id}_platform_status", 'status' );
+			foreach ( $this->platforms as $platform => $platform_name ) {
+				$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
 				if ( 'connected' === $status ) {
-					$connected_platforms[ $platform_id ] = $platform_name;
+					$connected_platforms[ $platform ] = $platform_name;
 				}
 			}
 		}
@@ -241,9 +241,6 @@ class Platform_Manager {
 	 * after the token is saved.
 	 *
 	 * @since 0.1.0
-	 *
-	 * @param string $platform The platform slug.
-	 * @return boolean True if status saved, false otherwise.
 	 */
 	public function save_facebook_platform_status() {
 		$this->save_platform_status( 'facebook' );

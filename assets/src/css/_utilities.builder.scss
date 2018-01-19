@@ -1,0 +1,19 @@
+/*--------------------------------------------------------------
+# Builder
+--------------------------------------------------------------*/
+
+.wpbr-u-builder-no-image .wpbr-review__image {
+	display: none;
+}
+
+.wpbr-u-builder-no-rating .wpbr-stars {
+	display: none;
+}
+
+.wpbr-u-builder-no-timestamp .wpbr-review__timestamp {
+	display: none;
+}
+
+.wpbr-u-builder-no-content .wpbr-review__content {
+	display: none;
+}

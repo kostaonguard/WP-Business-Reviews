@@ -26,6 +26,8 @@ use WP_Business_Reviews\Includes\Platform_Manager;
 use WP_Business_Reviews\Includes\Field\Field_Factory;
 use WP_Business_Reviews\Includes\Settings\Builder_Settings;
 use WP_Business_Reviews\Includes\Field\Parser\Builder_Field_Parser;
+use WP_Business_Reviews\Includes\Request\Request_Delegator;
+use WP_Business_Reviews\Includes\Request\Response_Normalizer\Response_Normalizer_Factory;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -88,8 +90,9 @@ final class Plugin {
 			$option_serializer   = new Option_Serializer();
 			$option_serializer->register();
 
-			// Register remote API requests to connect to review platforms.
-			$request_factory = new Request_Factory( $option_deserializer );
+			// Register factories for handling remote API requests.
+			$request_factory             = new Request_Factory( $option_deserializer );
+			$response_normalizer_factory = new Response_Normalizer_Factory();
 
 			// Register platform manager to manage active and connected platforms.
 			$platform_manager = new Platform_Manager(
@@ -99,9 +102,12 @@ final class Plugin {
 			);
 			$platform_manager->register();
 
-			// Register platform search to handle Ajax search requests.
-			$platform_search = new Platform_Search( $request_factory );
-			$platform_search->register();
+			// Register request delegator to handle Ajax requests.
+			$request_delegator = new Request_Delegator(
+				$request_factory,
+				$response_normalizer_factory
+			);
+			$request_delegator->register();
 
 			// Register field factory to create field objects.
 			$field_factory = new Field_Factory();

@@ -9,31 +9,36 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
-	'review_source' => array(
-		'name'   => __( 'Google Place', 'wp-business-reviews' ),
+	'platform' => array(
+		'name'   => __( 'Google Places', 'wp-business-reviews' ),
 		'fields' => array(
-			'search_platform' => array(
-				'type'        => 'hidden',
-				'value'       => 'google_places',
-			),
-			'search_terms' => array(
-				'name'        => __( 'Search Terms', 'wp-business-reviews' ),
-				'type'        => 'text',
-				'value'       => 'coffee',
-				'tooltip'     => __( 'Defines the terms used when searching for a business.', 'wp-business-reviews' ),
-				'placeholder' => __( 'Business Name or Type', 'wp-business-reviews' ),
-			),
-			'search_location' => array(
-				'name'        => __( 'Location', 'wp-business-reviews' ),
-				'type'        => 'text',
-				'value'       => 'Pittsburgh, PA',
-				'tooltip'     => __( 'Defines the location used when searching for a business.', 'wp-business-reviews' ),
-				'placeholder' => __( 'City, State, or Postal Code', 'wp-business-reviews' ),
-			),
-			'search_button' => array(
-				'type'        => 'button',
-				'button_text' => __( 'Find Business', 'wp-business-reviews' ),
-				'value'       => 'search',
+			'platform_search' => array(
+				'type'  => 'platform_search',
+				'subfields' => array(
+					'platform_search_platform' => array(
+						'type'        => 'hidden',
+						'value'       => 'google_places',
+					),
+					'platform_search_terms' => array(
+						'name'        => __( 'Search Terms', 'wp-business-reviews' ),
+						'type'        => 'text',
+						'value'       => 'coffee',
+						'tooltip'     => __( 'Defines the terms used when searching the Google Places API.', 'wp-business-reviews' ),
+						'placeholder' => __( 'Business name or type', 'wp-business-reviews' ),
+					),
+					'platform_search_location' => array(
+						'name'        => __( 'Location', 'wp-business-reviews' ),
+						'type'        => 'text',
+						'value'       => 'Pittsburgh, PA',
+						'tooltip'     => __( 'Defines the location used when searching the Google Places API.', 'wp-business-reviews' ),
+						'placeholder' => __( 'City, state, or postal code', 'wp-business-reviews' ),
+					),
+					'platform_search_button' => array(
+						'type'        => 'button',
+						'button_text' => __( 'Search', 'wp-business-reviews' ),
+						'value'       => 'search',
+					),
+				),
 			),
 		),
 	),

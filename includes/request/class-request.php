@@ -30,9 +30,10 @@ class Request {
 	 * @see wp_safe_remote_get()
 	 *
 	 * @param string $url Site URL to retrieve.
+	 * @param array  $args Request arguments.
 	 * @return array Associative array containing the response body.
 	 */
-	public function get( $url, $args = array() ) {
+	public function get( $url, array $args = array() ) {
 		$response = wp_safe_remote_get( $url, $args );
 
 		return $this->process_response( $response );
@@ -46,9 +47,10 @@ class Request {
 	 * @see wp_safe_remote_post()
 	 *
 	 * @param string $url Site URL to retrieve.
+	 * @param array  $args Request arguments.
 	 * @return array Associative array containing the response body.
 	 */
-	public function post( $url, $args = array() ) {
+	public function post( $url, array $args = array() ) {
 		$response = wp_safe_remote_post( $url, $args );
 
 		return $this->process_response( $response );
@@ -70,47 +72,5 @@ class Request {
 
 		// TODO: Possibly filter the response body.
 		return json_decode( $body, true );
-	}
-
-	/**
-	 * Retrieves default values for a normalized review source.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return array Associative array of default values.
-	 */
-	protected function get_review_source_defaults() {
-		return array (
-			'platform'          => $this->platform,
-			'platform_id'       => null,
-			'name'              => null,
-			'url'               => null,
-			'rating'            => null,
-			'icon'              => null,
-			'image'             => null,
-			'phone'             => null,
-			'formatted_address' => null,
-			'street_address'    => null,
-			'city'              => null,
-			'state_province'    => null,
-			'postal_code'       => null,
-			'country'           => null,
-			'latitude'          => null,
-			'longitude'         => null,
-		);
-	}
-
-	/**
-	 * Recursively sanitizes a given value.
-	 *
-	 * @param string|array $value The value to be sanitized.
-	 * @return string|array Array of clean values or single clean value.
-	 */
-	protected function clean( $value ) {
-		if ( is_array( $value ) ) {
-			return array_map( array( $this, 'clean' ), $value );
-		} else {
-			return is_scalar( $value ) ? sanitize_text_field( $value ) : '';
-		}
-	}
+}
 }

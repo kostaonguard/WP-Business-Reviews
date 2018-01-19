@@ -10,12 +10,10 @@
 
 namespace WP_Business_Reviews\Includes\Request;
 
-use WP_Business_Reviews\Includes\Request\Request_Base;
-use WP_Business_Reviews\Includes\Settings\Settings;
 use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
 
 /**
- * Creates new requests based on platform, business, and type.
+ * Creates a new request based on the provided platform.
  *
  * @since 0.1.0
  */
@@ -42,10 +40,8 @@ class Request_Factory {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $platform    Reviews platform used in the request.
-	 * @param string $business_id ID of the business on the platform.
-	 *
-	 * @return Request_Base Instance of Request for the provided platform.
+	 * @param string $platform Reviews platform used in the request.
+	 * @return Request Instance of Request for the provided platform.
 	 */
 	public function create( $platform ) {
 		switch ( $platform ) {
@@ -53,10 +49,10 @@ class Request_Factory {
 				$key     = $this->deserializer->get( 'google_places_api_key' );
 				$request = new Google_Places_Request( $key );
 				break;
-				case 'facebook':
-				// TODO: Get token via deserializer.
-				$token   = $this->deserializer->get( 'facebook_user_token' );
-				$request = new Facebook_Request( $token );
+			case 'facebook':
+				$user_token = $this->deserializer->get( 'facebook_user_token' );
+				$pages      = $this->deserializer->get( 'facebook_pages' );
+				$request    = new Facebook_Request( $user_token, $pages );
 				break;
 			case 'yelp':
 				$key     = $this->deserializer->get( 'yelp_api_key' );
