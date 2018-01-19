@@ -48,9 +48,9 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 			$normalized['reviewer'] = $this->clean( $r['reviewer']['name'] );
 		}
 
-		// Set reviewer image.
+		// Set image.
 		if ( isset( $r['reviewer']['picture']['data']['url'] ) ) {
-			$normalized['reviewer_image'] = $this->clean( $r['reviewer']['picture']['data']['url'] );
+			$normalized['image'] = $this->clean( $r['reviewer']['picture']['data']['url'] );
 		}
 
 		// Set rating.

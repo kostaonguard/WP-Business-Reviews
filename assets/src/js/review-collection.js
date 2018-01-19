@@ -74,12 +74,12 @@ class ReviewCollection {
 		let reviewsData = [];
 		let reviewData = new Object();
 
-		reviewData.platform       = '';
-		reviewData.reviewer       = 'FirstName LastName';
-		reviewData.reviewer_image = 'placeholder';
-		reviewData.rating         = 5;
-		reviewData.timestamp      = '2 weeks ago';
-		reviewData.content        = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae in laborum laudantium neque omnis optio quasi qui sit voluptatum!';
+		reviewData.platform  = '';
+		reviewData.reviewer  = 'FirstName LastName';
+		reviewData.image     = 'placeholder';
+		reviewData.rating    = 5;
+		reviewData.timestamp = '2 weeks ago';
+		reviewData.content   = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae in laborum laudantium neque omnis optio quasi qui sit voluptatum!';
 
 		for ( let index = 0; 12 > index; index++ ) {
 			reviewsData.push( reviewData );
