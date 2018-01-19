@@ -49,7 +49,9 @@
 		img {
 			border-radius: 9999px;
 			display: block;
-			max-width: 100%;
+			height: $wpbr-space * 3;
+			object-fit: cover;
+			width: 100%;
 		}
 	}
 
