@@ -83,8 +83,9 @@ class PlatformSearchField extends Field {
 					);
 
 					this.hideSearchFields();
-					this.results = new PlatformSearchResults( this.root, this.platformField.value );
-					this.results.populateResults( response.data );
+					this.results = new PlatformSearchResults( this.root );
+					this.results.init();
+					this.results.replaceReviewSources( response.data );
 					this.root.dispatchEvent( getReviewSourcesEndEvent );
 					console.table( response.data );
 				} else {

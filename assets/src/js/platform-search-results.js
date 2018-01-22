@@ -1,28 +1,58 @@
 import * as stars from './stars';
+import ReviewSource from './review-source';
 
 class PlatformSearchResults {
-	constructor( element, platform ) {
-		this.root = element;
+	constructor( element ) {
+		this.root          = element;
+		this.items         = new Set();
+		this.reviewSources = new Set();
 	}
 
-	populateResults( results ) {
-		const fragment    = document.createDocumentFragment();
-		const scrollable  = document.createElement( 'div' );
-		const resultsList = document.createElement( 'ul' );
+	init() {
+		this.scrollable           = document.createElement( 'div' );
+		this.list                 = document.createElement( 'ul' );
+		this.scrollable.className = 'wpbr-scrollable wpbr-scrollable--border';
+		this.list.className       = 'wpbr-stacked-list wpbr-stacked-list--striped';
 
-		scrollable.className  = 'wpbr-scrollable wpbr-scrollable--border';
-		resultsList.className = 'wpbr-stacked-list wpbr-stacked-list--striped';
+		this.scrollable.appendChild( this.list );
+		this.root.appendChild( this.scrollable );
+	}
 
-		for ( const result of results ) {
-			const li = document.createElement( 'li' );
+	replaceReviewSources( reviewSourcesData ) {
+		this.clearReviewSources();
+		this.addReviewSources( reviewSourcesData );
+		this.renderItems();
+	}
+
+	addReviewSources( reviewSourcesData ) {
+		for ( const data of reviewSourcesData ) {
+			const reviewSource = new ReviewSource( data );
+			this.reviewSources.add( reviewSource );
+		}
+	}
+
+	clearReviewSources() {
+		this.items.clear();
+		this.reviewSources.clear();
+		this.list.innerHTML = '';
+	}
+
+	renderItems() {
+		const fragment = document.createDocumentFragment();
+
+		for ( const reviewSource of this.reviewSources ) {
+			const li     = document.createElement( 'li' );
 			li.className = 'wpbr-stacked-list__item wpbr-stacked-list__item--border-bottom';
-			li.innerHTML = this.generateResult( result );
-			resultsList.appendChild( li );
+			li.innerHTML = reviewSource.render();
+			li.innerHTML += this.renderGetReviewsButton(
+				reviewSource.platform,
+				reviewSource.reviewSourceId
+			);
+			fragment.appendChild( li );
+			this.items.add( li );
 		}
 
-		scrollable.appendChild( resultsList );
-		fragment.appendChild( scrollable );
-		this.root.appendChild( fragment );
+		this.list.appendChild( fragment );
 
 		const reviewSourcesReadyEvent = new CustomEvent(
 			'wpbrReviewSourcesReady',
@@ -31,27 +61,15 @@ class PlatformSearchResults {
 		this.root.dispatchEvent( reviewSourcesReadyEvent );
 	}
 
-	generateResult( result ) {
-		const {
-			image: image,
-			icon: icon,
-			name: name,
-			platform: platform,
-			formatted_address: address,
-			rating: rating,
-			review_source_id: id
-		} = result;
-
+	renderGetReviewsButton( platform, reviewSourceId ) {
 		return `
-			<div class="wpbr-review-source">
-				${image ? `<img class="wpbr-review-source__image wpbr-review-source__image--cover" src="${image}">` : ''}
-				<span class="wpbr-review-source__name">${name}</span><br>
-				<span class="wpbr-review-source__rating wpbr-review-source__rating--${platform}">
-					${0 < rating ? rating + stars.generateStars( rating, platform )  : 'Not yet rated.'}
-				</span><br>
-				<span class="wpbr-review-source__address">${address}</span><br>
-				<button class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button" data-wpbr-platform="${platform}" data-wpbr-review-source-id="${id}">Get Reviews</button>
-			</div>
+			<button
+				class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button"
+				data-wpbr-platform="${platform}"
+				data-wpbr-review-source-id="${reviewSourceId}"
+			>
+				Get Reviews
+			</button>
 		`;
 	}
 }
