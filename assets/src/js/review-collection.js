@@ -33,12 +33,12 @@ class ReviewCollection {
 	replaceReviews( reviewsData ) {
 		this.clearReviews();
 		this.addReviews( reviewsData );
-		this.renderReviews();
+		this.renderItems();
 	}
 
 	addReviews( reviewsData ) {
-		for ( const reviewData of reviewsData ) {
-			const reviewObj = new Review( reviewData );
+		for ( const data of reviewsData ) {
+			const reviewObj = new Review( data );
 			this.reviews.add( reviewObj );
 		}
 	}
@@ -49,7 +49,7 @@ class ReviewCollection {
 		this.list.innerHTML = '';
 	}
 
-	renderReviews() {
+	renderItems() {
 		const fragment  = document.createDocumentFragment();
 		const itemClass = this.getItemClass();
 
@@ -70,17 +70,17 @@ class ReviewCollection {
 
 	renderPlaceholderReviews() {
 		let reviewsData = [];
-		let reviewData = new Object();
+		let data = new Object();
 
-		reviewData.platform  = '';
-		reviewData.reviewer  = 'FirstName LastName';
-		reviewData.image     = 'placeholder';
-		reviewData.rating    = 5;
-		reviewData.timestamp = '2 weeks ago';
-		reviewData.content   = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae in laborum laudantium neque omnis optio quasi qui sit voluptatum!';
+		data.platform  = '';
+		data.reviewer  = 'FirstName LastName';
+		data.image     = 'placeholder';
+		data.rating    = 5;
+		data.timestamp = '2 weeks ago';
+		data.content   = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae in laborum laudantium neque omnis optio quasi qui sit voluptatum!';
 
 		for ( let index = 0; 12 > index; index++ ) {
-			reviewsData.push( reviewData );
+			reviewsData.push( data );
 		}
 
 		this.replaceReviews( reviewsData );
