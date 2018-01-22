@@ -1,7 +1,7 @@
 import Field from './field';
 import BasicField from './basic-field';
 import ButtonField from './button-field';
-import PlatformSearchResults from './platform-search-results';
+import ReviewSourceCollection from './review-source-collection';
 import axios from 'axios';
 import queryString from 'query-string';
 
@@ -83,7 +83,7 @@ class PlatformSearchField extends Field {
 					);
 
 					this.hideSearchFields();
-					this.results = new PlatformSearchResults( this.root );
+					this.results = new ReviewSourceCollection( this.root );
 					this.results.init();
 					this.results.replaceReviewSources( response.data );
 					this.root.dispatchEvent( getReviewSourcesEndEvent );

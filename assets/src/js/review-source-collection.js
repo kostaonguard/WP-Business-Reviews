@@ -1,7 +1,6 @@
-import * as stars from './stars';
 import ReviewSource from './review-source';
 
-class PlatformSearchResults {
+class ReviewSourceCollection {
 	constructor( element ) {
 		this.root          = element;
 		this.items         = new Set();
@@ -62,6 +61,8 @@ class PlatformSearchResults {
 	}
 
 	renderGetReviewsButton( platform, reviewSourceId ) {
+
+		// TODO: Translate "Get Reviews" button text.
 		return `
 			<button
 				class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button"
@@ -74,4 +75,4 @@ class PlatformSearchResults {
 	}
 }
 
-export default PlatformSearchResults;
+export default ReviewSourceCollection;
