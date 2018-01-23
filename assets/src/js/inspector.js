@@ -26,6 +26,14 @@ class Inspector {
 			}
 		});
 	}
+
+	toggleVisibility() {
+		if ( this.root.classList.contains( 'wpbr-u-hidden' ) ) {
+			this.root.classList.remove( 'wpbr-u-hidden' );
+		} else {
+			this.root.classList.add( 'wpbr-u-hidden' );
+		}
+	}
 }
 
 export default Inspector;

@@ -6,17 +6,15 @@ class ReviewCollection {
 		this.format     = format;
 		this.maxColumns = maxColumns;
 		this.theme      = theme;
+		this.items      = new Set();
+		this.reviews    = new Set();
 	}
 
 	init() {
-		this.list    = document.createElement( 'ul' );
-		this.items   = new Set();
-		this.reviews = new Set();
-
+		this.list = document.createElement( 'ul' );
 		this.updatePresentation();
-		this.root.appendChild( this.list );
-
 		this.renderPlaceholderReviews();
+		this.root.appendChild( this.list );
 	}
 
 	updatePresentation() {
@@ -33,25 +31,19 @@ class ReviewCollection {
 	}
 
 	replaceReviews( reviewsData ) {
-		this.clearReviews();
+		this.reset();
 		this.addReviews( reviewsData );
-		this.renderReviews();
+		this.renderItems();
 	}
 
 	addReviews( reviewsData ) {
-		for ( const reviewData of reviewsData ) {
-			const reviewObj = new Review( reviewData );
+		for ( const data of reviewsData ) {
+			const reviewObj = new Review( data );
 			this.reviews.add( reviewObj );
 		}
 	}
 
-	clearReviews() {
-		this.items.clear();
-		this.reviews.clear();
-		this.list.innerHTML = '';
-	}
-
-	renderReviews() {
+	renderItems() {
 		const fragment  = document.createDocumentFragment();
 		const itemClass = this.getItemClass();
 
@@ -72,20 +64,21 @@ class ReviewCollection {
 
 	renderPlaceholderReviews() {
 		let reviewsData = [];
-		let reviewData = new Object();
+		let data = new Object();
 
-		reviewData.platform  = '';
-		reviewData.reviewer  = 'FirstName LastName';
-		reviewData.image     = 'placeholder';
-		reviewData.rating    = 5;
-		reviewData.timestamp = '2 weeks ago';
-		reviewData.content   = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae in laborum laudantium neque omnis optio quasi qui sit voluptatum!';
+		data.platform  = '';
+		data.reviewer  = 'FirstName LastName';
+		data.image     = 'placeholder';
+		data.rating    = 5;
+		data.timestamp = '2 weeks ago';
+		data.content   = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae in laborum laudantium neque omnis optio quasi qui sit voluptatum!';
 
 		for ( let index = 0; 12 > index; index++ ) {
-			reviewsData.push( reviewData );
+			reviewsData.push( data );
 		}
 
-		this.replaceReviews( reviewsData );
+		this.addReviews( reviewsData );
+		this.renderItems( reviewsData );
 	}
 
 	getWrapClass() {
@@ -140,6 +133,12 @@ class ReviewCollection {
 		}
 
 		return itemClass;
+	}
+
+	reset() {
+		this.items.clear();
+		this.reviews.clear();
+		this.list.innerHTML = '';
 	}
 }
 
