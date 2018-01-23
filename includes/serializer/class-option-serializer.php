@@ -81,7 +81,7 @@ class Option_Serializer extends Serializer_Abstract {
 			$referer = sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) );
 		} else {
 			$referer = wp_login_url();
-			wp_safe_redirect( $redirect );
+			wp_safe_redirect( $referer );
 			exit;
 		}
 
