@@ -136,7 +136,7 @@ final class Plugin {
 
 			// Register Facebook page manager to retrieve and update authenticated pages.
 			$facebook_page_manager = new Facebook_Page_Manager(
-				$option_deserializer->get( 'facebook_pages' ),
+				$option_deserializer->get( 'facebook_pages' ) ?: array(),
 				$option_serializer,
 				$request_factory->create( 'facebook' )
 			);
