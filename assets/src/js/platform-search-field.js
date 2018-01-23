@@ -12,7 +12,7 @@ class PlatformSearchField extends Field {
 
 	init() {
 		this.initSubfields();
-		this.registerSearchButtonEventHandlers();
+		this.registerSearchEventHandlers();
 	}
 
 	initSubfields() {
@@ -58,10 +58,31 @@ class PlatformSearchField extends Field {
 		this.registerResetButtonEventHandlers();
 	}
 
-	registerSearchButtonEventHandlers() {
+	registerSearchEventHandlers() {
+		const searchTextFields = [
+			this.termsField,
+			this.locationField
+		];
+
+		// Allow search to be initiated via Enter key.
+		for ( const field of searchTextFields ) {
+			field.control.addEventListener(
+				'keyup',
+				event => {
+					event.preventDefault();
+					if ( 13 === event.keyCode ) {
+						console.log( 'enter clicked' );
+
+						this.searchButtonField.control.click();
+					}
+				}
+			);
+		}
+
+		// Trigger search on click.
 		this.searchButtonField.control.addEventListener(
 			'wpbrControlChange',
-			event => {
+			() => {
 				this.search(
 					this.platformField.value,
 					this.termsField.value,
