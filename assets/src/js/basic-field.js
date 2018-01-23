@@ -33,6 +33,11 @@ class BasicField extends Field {
 	get value() {
 		return this.control.value;
 	}
+
+	// Set the value of the field.
+	set value( value ) {
+		this.control.value = value;
+	}
 }
 
 export default BasicField;
