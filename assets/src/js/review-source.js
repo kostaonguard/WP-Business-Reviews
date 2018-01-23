@@ -9,6 +9,7 @@ class ReviewSource {
 		this.icon             = data.icon;
 		this.image            = data.image;
 		this.formattedAddress = data.formatted_address;
+		this.isFetchable      = false;
 	}
 
 	render() {
@@ -20,6 +21,7 @@ class ReviewSource {
 					${0 < this.rating ? this.rating + stars.generateStars( this.rating, this.platform )  : 'Not yet rated.'}
 				</span><br>
 				${this.formattedAddress ? this.renderAddress() : ''}
+				${this.isFetchable ? this.renderFetchButton() : ''}
 			</div>
 		`;
 	}
@@ -30,6 +32,20 @@ class ReviewSource {
 
 	renderAddress() {
 		return `<span class="wpbr-review-source__address">${this.formattedAddress}</span>`;
+	}
+
+	renderFetchButton() {
+
+		// TODO: Translate 'Get Reviews' button text.
+		return `
+			<button
+				class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button"
+				data-wpbr-platform="${this.platform}"
+				data-wpbr-review-source-id="${this.reviewSourceId}"
+			>
+				Get Reviews
+			</button>
+		`;
 	}
 }
 

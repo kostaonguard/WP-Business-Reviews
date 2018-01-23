@@ -26,6 +26,7 @@ class ReviewSourceCollection {
 	addReviewSources( reviewSourcesData ) {
 		for ( const data of reviewSourcesData ) {
 			const reviewSource = new ReviewSource( data );
+			reviewSource.isFetchable = true;
 			this.reviewSources.add( reviewSource );
 		}
 	}
@@ -38,40 +39,27 @@ class ReviewSourceCollection {
 
 	renderItems() {
 		const fragment = document.createDocumentFragment();
+		const reviewSourcesReadyEvent = new CustomEvent(
+			'wpbrReviewSourcesReady',
+			{ bubbles: true }
+		);
 
 		for ( const reviewSource of this.reviewSources ) {
 			const li     = document.createElement( 'li' );
 			li.className = 'wpbr-stacked-list__item wpbr-stacked-list__item--border-bottom';
 			li.innerHTML = reviewSource.render();
-			li.innerHTML += this.renderGetReviewsButton(
-				reviewSource.platform,
-				reviewSource.reviewSourceId
-			);
 			fragment.appendChild( li );
 			this.items.add( li );
 		}
 
 		this.list.appendChild( fragment );
-
-		const reviewSourcesReadyEvent = new CustomEvent(
-			'wpbrReviewSourcesReady',
-			{ bubbles: true }
-		);
 		this.root.dispatchEvent( reviewSourcesReadyEvent );
 	}
 
-	renderGetReviewsButton( platform, reviewSourceId ) {
+	destroy() {
+		this.root.removeChild( this.scrollable );
 
-		// TODO: Translate "Get Reviews" button text.
-		return `
-			<button
-				class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button"
-				data-wpbr-platform="${platform}"
-				data-wpbr-review-source-id="${reviewSourceId}"
-			>
-				Get Reviews
-			</button>
-		`;
+		return null;
 	}
 }
 
