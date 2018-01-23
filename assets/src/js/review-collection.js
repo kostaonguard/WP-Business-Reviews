@@ -31,7 +31,7 @@ class ReviewCollection {
 	}
 
 	replaceReviews( reviewsData ) {
-		this.clearReviews();
+		this.reset();
 		this.addReviews( reviewsData );
 		this.renderItems();
 	}
@@ -41,12 +41,6 @@ class ReviewCollection {
 			const reviewObj = new Review( data );
 			this.reviews.add( reviewObj );
 		}
-	}
-
-	clearReviews() {
-		this.items.clear();
-		this.reviews.clear();
-		this.list.innerHTML = '';
 	}
 
 	renderItems() {
@@ -83,7 +77,8 @@ class ReviewCollection {
 			reviewsData.push( data );
 		}
 
-		this.replaceReviews( reviewsData );
+		this.addReviews( reviewsData );
+		this.renderItems( reviewsData );
 	}
 
 	getWrapClass() {
@@ -138,6 +133,12 @@ class ReviewCollection {
 		}
 
 		return itemClass;
+	}
+
+	reset() {
+		this.items.clear();
+		this.reviews.clear();
+		this.list.innerHTML = '';
 	}
 }
 

@@ -43,6 +43,21 @@ class PlatformSearchField extends Field {
 		this.searchButtonField.init();
 	}
 
+	initResults() {
+		this.results = new ReviewSourceCollection( this.root );
+		this.results.init();
+	}
+
+	initResetButton() {
+		this.resetButton = document.createElement( 'button' );
+		this.resetButton.className = 'button';
+
+		// TODO: Translate 'Reset Search' text.
+		this.resetButton.innerText = 'Reset Search';
+		this.root.appendChild( this.resetButton );
+		this.registerResetButtonEventHandlers();
+	}
+
 	registerSearchButtonEventHandlers() {
 		this.searchButtonField.control.addEventListener(
 			'wpbrControlChange',
@@ -52,6 +67,15 @@ class PlatformSearchField extends Field {
 					this.termsField.value,
 					this.locationField.value
 				);
+			}
+		);
+	}
+
+	registerResetButtonEventHandlers() {
+		this.resetButton.addEventListener(
+			'click',
+			() => {
+				this.reset();
 			},
 			{ once: true }
 		);
@@ -83,11 +107,10 @@ class PlatformSearchField extends Field {
 					);
 
 					this.hideSearchFields();
-					this.results = new ReviewSourceCollection( this.root );
-					this.results.init();
-					this.results.replaceReviewSources( response.data );
+					this.initResults();
+					this.updateResults( response.data );
+					this.initResetButton();
 					this.root.dispatchEvent( getReviewSourcesEndEvent );
-					console.table( response.data );
 				} else {
 				}
 			})
@@ -97,28 +120,29 @@ class PlatformSearchField extends Field {
 			});
 	}
 
+	updateResults( results ) {
+		this.results.replaceReviewSources( results );
+	}
+
 	hideSearchFields() {
 		this.termsField.hide();
 		this.locationField.hide();
 		this.searchButtonField.hide();
 	}
 
-	clearSearch() {
-
-		// this.searchInput.value = '';
-	}
-
-	clearResults() {
-
-		// this.results.classList.add( 'wpbr-u-hidden' );
-		// this.resetButton.classList.add( 'wpbr-u-hidden' );
-		// this.resultsList.innerHTML = '';
-		// remove event listeners
+	showSearchFields() {
+		this.termsField.show();
+		this.locationField.show();
+		this.searchButtonField.show();
 	}
 
 	reset() {
-		this.clearSearch();
-		this.clearResults();
+		this.termsField.value    = '';
+		this.locationField.value = '';
+		this.root.removeChild( this.resetButton );
+		this.resetButton = null;
+		this.results.destroy();
+		this.showSearchFields();
 	}
 }
 
