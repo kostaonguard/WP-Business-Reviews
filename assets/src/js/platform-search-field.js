@@ -164,6 +164,7 @@ class PlatformSearchField extends Field {
 		this.resetButton = null;
 		this.results.destroy();
 		this.showSearchFields();
+		this.termsField.control.focus();
 	}
 }
 
