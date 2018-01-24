@@ -71,8 +71,6 @@ class PlatformSearchField extends Field {
 				event => {
 					event.preventDefault();
 					if ( 13 === event.keyCode ) {
-						console.log( 'enter clicked' );
-
 						this.searchButtonField.control.click();
 					}
 				}
