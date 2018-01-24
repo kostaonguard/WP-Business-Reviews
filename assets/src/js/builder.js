@@ -20,7 +20,6 @@ class Builder {
 
 	initToolbar() {
 		this.inspectorControl = document.getElementById( 'wpbr-control-inspector' );
-		this.saveControl      = document.getElementById( 'wpbr-control-save' );
 		this.registerToolbarEventHandlers();
 	}
 
@@ -55,10 +54,6 @@ class Builder {
 			'click',
 			event => this.inspector.toggleVisibility()
 		);
-
-		this.saveControl.addEventListener( 'click', event => {
-			event.preventDefault();
-		});
 	}
 
 	registerInspectorEventHandlers() {
