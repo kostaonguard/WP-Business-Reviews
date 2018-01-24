@@ -40,6 +40,7 @@ class ReviewSource {
 		return `
 			<button
 				class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button"
+				type="button"
 				data-wpbr-platform="${this.platform}"
 				data-wpbr-review-source-id="${this.reviewSourceId}"
 			>
