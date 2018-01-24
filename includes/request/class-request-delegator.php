@@ -62,13 +62,13 @@ class Request_Delegator {
 	public function ajax_search_review_source() {
 		// TODO: Verify nonce and permission.
 
-		if ( ! isset( $_REQUEST['platform'], $_REQUEST['terms'], $_REQUEST['location'] ) ) {
+		if ( ! isset( $_POST['platform'], $_POST['terms'], $_POST['location'] ) ) {
 			wp_die();
 		}
 
-		$platform = sanitize_text_field( $_REQUEST['platform'] );
-		$terms    = sanitize_text_field( $_REQUEST['terms'] );
-		$location = sanitize_text_field( $_REQUEST['location'] );
+		$platform = sanitize_text_field( $_POST['platform'] );
+		$terms    = sanitize_text_field( $_POST['terms'] );
+		$location = sanitize_text_field( $_POST['location'] );
 		$response = $this->search_review_source( $platform, $terms, $location );
 		wp_send_json( $response );
 	}
@@ -105,12 +105,12 @@ class Request_Delegator {
 	public function ajax_get_reviews() {
 		// TODO: Verify nonce and permission.
 
-		if ( ! isset( $_REQUEST['platform'], $_REQUEST['reviewSourceId'] ) ) {
+		if ( ! isset( $_POST['platform'], $_POST['reviewSourceId'] ) ) {
 			wp_die();
 		}
 
-		$platform         = sanitize_text_field( $_REQUEST['platform'] );
-		$review_source_id = sanitize_text_field( $_REQUEST['reviewSourceId'] );
+		$platform         = sanitize_text_field( $_POST['platform'] );
+		$review_source_id = sanitize_text_field( $_POST['reviewSourceId'] );
 		$response = $this->get_reviews( $platform, $review_source_id );
 		wp_send_json( $response );
 	}
