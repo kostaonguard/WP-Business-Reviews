@@ -8,14 +8,16 @@ import '../images/platform-yp-160w.png';
 
 class Builder {
 	constructor( selector ) {
-		this.root = document.querySelector( selector );
+		this.root            = document.querySelector( selector );
+		this.actionControl   = this.root.querySelector( '.js-wpbr-action' );
+		this.postDataControl = this.root.querySelector( '.js-wpbr-post-data' );
+		this.background      = document.querySelector( '.wpbr-admin' );
 	}
 
 	init() {
 		this.initToolbar();
 		this.initInspector();
 		this.initReviewCollection();
-		this.initBackground();
 	}
 
 	initToolbar() {
@@ -43,10 +45,6 @@ class Builder {
 	initReviewFetcher() {
 		this.reviewFetcher = new ReviewFetcher( this.root );
 		this.reviewFetcher.init();
-	}
-
-	initBackground() {
-		this.background = document.querySelector( '.wpbr-admin' );
 	}
 
 	registerToolbarEventHandlers() {
