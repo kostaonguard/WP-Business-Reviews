@@ -116,9 +116,9 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 			$normalized['reviewer'] = $this->clean( $r['author_name'] );
 		}
 
-		// Set image.
+		// Set reviewer_image.
 		if ( isset( $r['profile_photo_url'] ) ) {
-			$normalized['image'] = $this->clean( $r['profile_photo_url'] );
+			$normalized['reviewer_image'] = $this->clean( $r['profile_photo_url'] );
 		}
 
 		// Set rating.

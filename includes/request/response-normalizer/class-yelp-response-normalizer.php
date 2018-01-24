@@ -116,9 +116,9 @@ class Yelp_Response_Normalizer extends Response_Normalizer_Abstract {
 			$normalized['reviewer'] = $this->clean( $r['user']['name'] );
 		}
 
-		// Set image.
+		// Set reviewer image.
 		if ( isset( $r['user']['image_url'] ) ) {
-			$normalized['image'] = $this->modify_image_size(
+			$normalized['reviewer_image'] = $this->modify_image_size(
 				$this->clean( $r['user']['image_url'] )
 			);
 		}

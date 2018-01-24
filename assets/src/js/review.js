@@ -20,12 +20,12 @@ class Review {
 	 * @param {array} data Review data in JSON format.
 	 */
 	constructor( data ) {
-		this.platform  = data.platform;
-		this.reviewer  = data.reviewer;
-		this.image     = data.image;
-		this.rating    = data.rating;
-		this.timestamp = data.timestamp;
-		this.content   = data.content;
+		this.platform      = data.platform;
+		this.reviewer      = data.reviewer;
+		this.reviewerImage = data.reviewer_image;
+		this.rating        = data.rating;
+		this.timestamp     = data.timestamp;
+		this.content       = data.content;
 	}
 
 	/**
@@ -39,7 +39,7 @@ class Review {
 		return `
 			<div class="wpbr-review">
 				<div class="wpbr-review__header">
-					${this.image ? this.renderImage() : ''}
+					${this.reviewerImage ? this.renderReviewerImage() : ''}
 					<div class="wpbr-review__details">
 						<h3 class="wpbr-review__name js-wpbr-review-name">${this.reviewer}</h3>
 						${0 < this.rating ? stars.generateStars( this.rating, this.platform ) : ''}
@@ -52,7 +52,7 @@ class Review {
 	}
 
 	/**
-	 * Renders the review image.
+	 * Renders the reviewer image.
 	 *
 	 * If the value of the image property is `placeholder`, then a placeholder
 	 * div is rendered. Otherwise an image element is rendered.
@@ -61,11 +61,11 @@ class Review {
 	 *
 	 * @returns string Review image markup.
 	 */
-	renderImage() {
-		if ( 'placeholder' === this.image ) {
+	renderReviewerImage() {
+		if ( 'placeholder' === this.reviewerImage ) {
 			return '<div class="wpbr-review__image wpbr-review__image--placeholder"></div>';
 		} else {
-			return `<div class="wpbr-review__image"><img src="${this.image}"></div>`;
+			return `<div class="wpbr-review__image"><img src="${this.reviewerImage}"></div>`;
 		}
 	}
 
