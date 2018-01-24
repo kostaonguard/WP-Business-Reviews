@@ -25,6 +25,7 @@ if ( ! empty( $this->args['name'] ) ) {
 									</a>
 									<br>
 									<button
+										type="button"
 										class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button"
 										data-wpbr-platform="facebook"
 										data-wpbr-review-source-id="<?php echo esc_attr( $page_id ); ?>"
