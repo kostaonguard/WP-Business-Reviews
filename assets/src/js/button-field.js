@@ -22,6 +22,9 @@ class ButtonField extends Field {
 				}
 			});
 
+			// Prevent form from submitting on button click.
+			event.preventDefault();
+
 			// Emit custom event that passes the control ID and value that changed.
 			this.control.dispatchEvent( customEvent );
 		});
