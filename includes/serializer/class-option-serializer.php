@@ -26,7 +26,13 @@ class Option_Serializer extends Serializer_Abstract {
 	}
 
 	/**
-	 * @inheritDoc
+	 * Saves a single sanitized value to the database.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $key   The key being saved.
+	 * @param mixed  $value The value being saved.
+	 * @return boolean True if value saved successfully, false otherwise.
 	 */
 	public function save( $key, $value ) {
 		return update_option( $this->prefix . $key, $this->clean( $value ) );
