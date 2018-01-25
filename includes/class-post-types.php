@@ -38,7 +38,7 @@ class Post_Types {
 	public function register_post_types() {
 		$this->register_review_source_post_type();
 		$this->register_review_post_type();
-		$this->register_review_set_post_type();
+		$this->register_review_collection_post_type();
 	}
 
 	/**
@@ -203,36 +203,35 @@ class Post_Types {
 				'create_posts' => 'do_not_allow', // Removes support for the "Add New" function.
 			),
 			'map_meta_cap'        => true, // Allow users to still edit and delete posts.
-
 		);
 
 		register_post_type( 'wpbr_review', $args );
 	}
 
 	/**
-	 * Registers the wpbr_review post type.
+	 * Registers the wpbr_review_collection post type.
 	 *
 	 * @since 0.1.0
 	 */
-	public function register_review_set_post_type() {
+	public function register_review_collection_post_type() {
 
 		$labels = array(
-			'name'                  => _x( 'Review Sets', 'Post Type General Name', 'wp-business-reviews' ),
-			'singular_name'         => _x( 'Review Set', 'Post Type Singular Name', 'wp-business-reviews' ),
-			'menu_name'             => __( 'Review Sets', 'wp-business-reviews' ),
-			'name_admin_bar'        => __( 'Review Set', 'wp-business-reviews' ),
-			'archives'              => __( 'Review Set Archives', 'wp-business-reviews' ),
-			'attributes'            => __( 'Review Set Attributes', 'wp-business-reviews' ),
-			'parent_item_colon'     => __( 'Parent Review Set:', 'wp-business-reviews' ),
-			'all_items'             => __( 'All Review Sets', 'wp-business-reviews' ),
-			'add_new_item'          => __( 'Add New Review Set', 'wp-business-reviews' ),
-			'add_new'               => __( 'Add Review Set', 'wp-business-reviews' ),
-			'new_item'              => __( 'New Review Set', 'wp-business-reviews' ),
-			'edit_item'             => __( 'Edit Review Set', 'wp-business-reviews' ),
-			'update_item'           => __( 'Update Review Set', 'wp-business-reviews' ),
-			'view_item'             => __( 'View Review Set', 'wp-business-reviews' ),
-			'view_items'            => __( 'View Review Sets', 'wp-business-reviews' ),
-			'search_items'          => __( 'Search Review Set', 'wp-business-reviews' ),
+			'name'                  => _x( 'Review Collections', 'Post Type General Name', 'wp-business-reviews' ),
+			'singular_name'         => _x( 'Review Collection', 'Post Type Singular Name', 'wp-business-reviews' ),
+			'menu_name'             => __( 'Review Collections', 'wp-business-reviews' ),
+			'name_admin_bar'        => __( 'Review Collection', 'wp-business-reviews' ),
+			'archives'              => __( 'Review Collection Archives', 'wp-business-reviews' ),
+			'attributes'            => __( 'Review Collection Attributes', 'wp-business-reviews' ),
+			'parent_item_colon'     => __( 'Parent Review Collection:', 'wp-business-reviews' ),
+			'all_items'             => __( 'All Review Collections', 'wp-business-reviews' ),
+			'add_new_item'          => __( 'Add New Review Collection', 'wp-business-reviews' ),
+			'add_new'               => __( 'Add Review Collection', 'wp-business-reviews' ),
+			'new_item'              => __( 'New Review Collection', 'wp-business-reviews' ),
+			'edit_item'             => __( 'Edit Review Collection', 'wp-business-reviews' ),
+			'update_item'           => __( 'Update Review Collection', 'wp-business-reviews' ),
+			'view_item'             => __( 'View Review Collection', 'wp-business-reviews' ),
+			'view_items'            => __( 'View Review Collections', 'wp-business-reviews' ),
+			'search_items'          => __( 'Search Review Collection', 'wp-business-reviews' ),
 			'not_found'             => __( 'Not found', 'wp-business-reviews' ),
 			'not_found_in_trash'    => __( 'Not found in Trash', 'wp-business-reviews' ),
 			'featured_image'        => __( 'Featured Image', 'wp-business-reviews' ),
@@ -241,8 +240,8 @@ class Post_Types {
 			'use_featured_image'    => __( 'Use as featured image', 'wp-business-reviews' ),
 			'insert_into_item'      => __( 'Insert into item', 'wp-business-reviews' ),
 			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wp-business-reviews' ),
-			'items_list'            => __( 'Review Sets list', 'wp-business-reviews' ),
-			'items_list_navigation' => __( 'Review Sets list navigation', 'wp-business-reviews' ),
+			'items_list'            => __( 'Review Collections list', 'wp-business-reviews' ),
+			'items_list_navigation' => __( 'Review Collections list navigation', 'wp-business-reviews' ),
 			'filter_items_list'     => __( 'Filter items list', 'wp-business-reviews' ),
 		);
 
@@ -251,7 +250,7 @@ class Post_Types {
 		);
 
 		$args = array(
-			'label'               => __( 'Review Set', 'wp-business-reviews' ),
+			'label'               => __( 'Review Collection', 'wp-business-reviews' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor' ),
 			'taxonomies'          => array(),
@@ -270,10 +269,10 @@ class Post_Types {
 			'publicly_queryable'  => true,
 			'rewrite'             => $rewrite,
 			'capability_type'     => 'post',
-			// 'capabilities'        => array(
-			// 	'create_posts' => 'do_not_allow', // Removes support for the "Add New" function.
-			// ),
-			// 'map_meta_cap'        => true, // Allow users to still edit and delete posts.
+			'capabilities'        => array(
+				'create_posts' => 'do_not_allow', // Removes support for the "Add New" function.
+			),
+			'map_meta_cap'        => true, // Allow users to still edit and delete posts.
 
 		);
 
