@@ -66,15 +66,18 @@ class PlatformSearchField extends Field {
 
 		// Allow search to be initiated via Enter key.
 		for ( const field of searchTextFields ) {
-			field.control.addEventListener(
-				'keyup',
-				event => {
+			field.control.addEventListener( 'keydown', event => {
+				if ( 13 === event.keyCode ) {
 					event.preventDefault();
-					if ( 13 === event.keyCode ) {
-						this.searchButtonField.control.click();
-					}
 				}
-			);
+			});
+
+			field.control.addEventListener( 'keyup', event => {
+				if ( 13 === event.keyCode ) {
+					event.preventDefault();
+					this.searchButtonField.control.click();
+				}
+			});
 		}
 
 		// Trigger search on click.
