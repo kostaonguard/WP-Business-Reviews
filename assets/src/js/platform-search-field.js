@@ -109,6 +109,8 @@ class PlatformSearchField extends Field {
 			{ bubbles: true }
 		);
 
+		this.root.dispatchEvent( getReviewSourcesStartEvent );
+
 		const response = axios.post(
 			ajaxurl,
 			queryString.stringify({
