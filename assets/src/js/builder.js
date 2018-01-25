@@ -1,6 +1,6 @@
 import Inspector from './inspector';
 import ReviewCollection from './review-collection';
-import ReviewFetcher from './review-fetcher';
+import RequestFetcher from './request-fetcher';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
@@ -43,9 +43,9 @@ class Builder {
 		this.registerReviewEventHandlers();
 	}
 
-	initReviewFetcher() {
-		this.reviewFetcher = new ReviewFetcher( this.root );
-		this.reviewFetcher.init();
+	initRequestFetcher() {
+		this.requestFetcher = new RequestFetcher( this.root );
+		this.requestFetcher.init();
 	}
 
 	registerToolbarEventHandlers() {
@@ -66,7 +66,7 @@ class Builder {
 
 		this.root.addEventListener(
 			'wpbrReviewSourcesReady',
-			event => this.initReviewFetcher()
+			event => this.initRequestFetcher()
 		);
 	}
 

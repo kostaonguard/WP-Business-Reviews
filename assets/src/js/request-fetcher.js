@@ -1,7 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
-class ReviewFetcher {
+class RequestFetcher {
 	constructor( element ) {
 		this.root     = element;
 		this.controls = this.root.querySelectorAll( '.js-wpbr-fetch-control' );
@@ -60,4 +60,4 @@ class ReviewFetcher {
 	}
 }
 
-export default ReviewFetcher;
+export default RequestFetcher;
