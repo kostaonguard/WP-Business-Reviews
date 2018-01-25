@@ -28,6 +28,7 @@ use WP_Business_Reviews\Includes\Settings\Builder_Settings;
 use WP_Business_Reviews\Includes\Field\Parser\Builder_Field_Parser;
 use WP_Business_Reviews\Includes\Request\Request_Delegator;
 use WP_Business_Reviews\Includes\Request\Response_Normalizer\Response_Normalizer_Factory;
+use WP_Business_Reviews\Includes\Serializer\Review_Serializer;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -123,7 +124,7 @@ final class Plugin {
 			);
 			$plugin_settings->register();
 
-			// Register builder settings.
+			// Register Builder.
 			$builder_settings_config = new Config( WPBR_PLUGIN_DIR . 'config/config-builder-settings.php' );
 			$builder_field_parser    = new Builder_Field_Parser( $field_factory );
 			$builder_settings        = new Builder_Settings(
@@ -133,6 +134,9 @@ final class Plugin {
 				$platform_manager->get_connected_platforms()
 			);
 			$builder_settings->register();
+
+			$review_serializer = new Review_Serializer();
+			$review_serializer->register();
 
 			// Register Facebook page manager to retrieve and update authenticated pages.
 			$facebook_page_manager = new Facebook_Page_Manager(

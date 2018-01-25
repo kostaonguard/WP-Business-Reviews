@@ -1,0 +1,96 @@
+<?php
+/**
+ * Defines the Review_Serializer class
+ *
+ * @link https://wpbusinessreviews.com
+ *
+ * @package WP_Business_Reviews\Includes\Serializer
+ * @since 0.1.0
+ */
+
+namespace WP_Business_Reviews\Includes\Serializer;
+
+/**
+ * Saves options to the database.
+ *
+ * @since 0.1.0
+ */
+class Review_Serializer extends Serializer_Abstract {
+	/**
+	 * Registers functionality with WordPress hooks.
+	 *
+	 * @since 0.1.0
+	 */
+	public function register() {
+		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'admin_post_save_reviews' ) );
+	}
+
+	public function admin_post_save_reviews() {
+		if ( empty( $_POST['wp_business_reviews_post_data'] ) ) {
+			$this->redirect();
+		}
+
+		$reviews_json  = wp_unslash( $_POST[ 'wp_business_reviews_post_data' ] );
+		$reviews_array = json_decode( $reviews_json, true );
+
+		foreach ( $reviews_array as $review_array ) {
+			$post_array = $this->prepare_post_array( $review_array );
+			$this->save( $post_array );
+		}
+
+		$this->redirect();
+	}
+
+	public function prepare_post_array( $review_array ) {
+		$post_array = array(
+			'post_type'   => 'wpbr_review',
+			'post_status' => 'publish',
+			// 'post_parent' => $post_parent,
+			'meta_input'  => array(
+				// 'review_source_id' => $review_source_id,
+			),
+		);
+
+		foreach ( $review_array as $key => $value ) {
+			switch ( $key ) {
+				case 'title':
+					$post_array['post_title'] = $this->clean( $value );
+					break;
+				case 'content':
+					$post_array['post_content'] = $this->clean( $value );
+					break;
+				case 'platform':
+					$post_array['tax_input']['wpbr_platform'] = $this->clean( $value );
+					break;
+				case 'reviewer':
+				case 'reviewer_image':
+				case 'rating':
+				case 'timestamp':
+				case 'content':
+					$post_array['meta_input'][ $this->prefix . $key ] = $this->clean( $value );
+					break;
+			}
+		}
+
+		if (
+			! isset( $post_array['post_title'] )
+			&& isset( $post_array['post_content'] )
+		) {
+			$post_array['post_title'] = $this->generateTitleFromContent(
+				$post_array['post_content']
+			);
+		}
+
+		return $post_array;
+	}
+
+	function save( $post_array ) {
+		return wp_insert_post( $post_array );
+	}
+
+	function generateTitleFromContent( $content, $length = 7 ) {
+		$title = wp_trim_words( $content, $length, '...' );
+
+		return $title;
+	}
+}
