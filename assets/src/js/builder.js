@@ -17,7 +17,7 @@ class Builder {
 	init() {
 		this.initToolbar();
 		this.initInspector();
-		this.initReviewCollection();
+		this.initReviews();
 	}
 
 	initToolbar() {
@@ -31,7 +31,7 @@ class Builder {
 		this.inspector.init();
 	}
 
-	initReviewCollection() {
+	initReviews() {
 		this.reviewCollection = new ReviewCollection(
 			document.querySelector( '.js-wpbr-wrap' ),
 			this.inspector.fields.get( 'format' ).value,
@@ -39,7 +39,7 @@ class Builder {
 			this.inspector.fields.get( 'theme' ).value,
 		);
 		this.reviewCollection.init();
-		this.registerReviewCollectionEventHandlers();
+		this.registerReviewEventHandlers();
 	}
 
 	initReviewFetcher() {
@@ -69,12 +69,12 @@ class Builder {
 		);
 	}
 
-	registerReviewCollectionEventHandlers() {
+	registerReviewEventHandlers() {
 		this.root.addEventListener(
 			'wpbrGetReviewsEnd',
-			event => this.reviewCollection.replaceReviews(
-				event.detail.reviews
-			)
+			event => {
+				this.populateReviews( event.detail.reviews );
+			}
 		);
 	}
 
@@ -129,6 +129,13 @@ class Builder {
 		} else {
 			this.background.classList.remove( 'wpbr-theme--dark' );
 		}
+	}
+
+	populateReviews( reviewsData ) {
+		const reviewsDataString = JSON.stringify(reviewsData)
+
+		this.postDataControl.value = reviewsDataString;
+		this.reviewCollection.replaceReviews( reviewsData );
 	}
 }
 
