@@ -90,4 +90,21 @@ abstract class Serializer_Abstract {
 	public function has_permission() {
 		return current_user_can( $this->capability );
 	}
+
+	/**
+	 * Redirects to the page from which the post was saved.
+	 *
+	 * @since 0.1.0
+	 */
+	public function redirect() {
+		if ( empty( $_POST['_wp_http_referer'] ) ) {
+			wp_safe_redirect( wp_login_url() );
+			exit;
+		}
+
+		$redirect = sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) );
+
+		wp_safe_redirect( $redirect );
+		exit;
+	}
 }
