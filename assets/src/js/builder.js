@@ -45,7 +45,7 @@ class Builder {
 
 	initRequestFetcher() {
 		this.requestFetcher = new RequestFetcher( this.root );
-		this.requestFetcher.init();
+		this.registerFetchEventHandlers();
 	}
 
 	registerToolbarEventHandlers() {
@@ -77,6 +77,19 @@ class Builder {
 				this.populateReviews( event.detail.reviews );
 			}
 		);
+	}
+
+	registerFetchEventHandlers() {
+		this.fetchControls = this.root.querySelectorAll( '.js-wpbr-fetch-control' );
+
+		for ( const control of this.fetchControls ) {
+			control.addEventListener( 'click', ( event ) => {
+				const platform       = event.currentTarget.getAttribute( 'data-wpbr-platform' );
+				const reviewSourceId = event.currentTarget.getAttribute( 'data-wpbr-review-source-id' );
+
+				this.requestFetcher.fetch( platform, reviewSourceId );
+			});
+		}
 	}
 
 	reflectControlChange( controlId, controlValue ) {

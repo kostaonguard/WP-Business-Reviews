@@ -3,23 +3,7 @@ import queryString from 'query-string';
 
 class RequestFetcher {
 	constructor( element ) {
-		this.root     = element;
-		this.controls = this.root.querySelectorAll( '.js-wpbr-fetch-control' );
-	}
-
-	init() {
-		this.registerControlEventHandlers();
-	}
-
-	registerControlEventHandlers() {
-		for ( const control of this.controls ) {
-			control.addEventListener( 'click', ( event ) => {
-				const platform       = event.currentTarget.getAttribute( 'data-wpbr-platform' );
-				const reviewSourceId = event.currentTarget.getAttribute( 'data-wpbr-review-source-id' );
-
-				this.fetch( platform, reviewSourceId );
-			});
-		}
+		this.root = element;
 	}
 
 	fetch( platform, reviewSourceId ) {
