@@ -36,7 +36,7 @@ class Post_Types {
 	 * @since 0.1.0
 	 */
 	public function register_post_types() {
-		$this->register_business_post_type();
+		$this->register_review_source_post_type();
 		$this->register_review_post_type();
 		$this->register_review_set_post_type();
 	}
@@ -76,28 +76,28 @@ class Post_Types {
 	}
 
 	/**
-	 * Registers the wpbr_business post type.
+	 * Registers the wpbr_review_source post type.
 	 *
 	 * @since 0.1.0
 	 */
-	public function register_business_post_type() {
+	public function register_review_source_post_type() {
 		$labels = array(
-			'name'                  => _x( 'Businesses', 'Post Type General Name', 'wp-business-reviews' ),
-			'singular_name'         => _x( 'Business', 'Post Type Singular Name', 'wp-business-reviews' ),
-			'menu_name'             => __( 'Businesses', 'wp-business-reviews' ),
-			'name_admin_bar'        => __( 'Business', 'wp-business-reviews' ),
-			'archives'              => __( 'Business Archives', 'wp-business-reviews' ),
-			'attributes'            => __( 'Business Attributes', 'wp-business-reviews' ),
-			'parent_item_colon'     => __( 'Parent Business:', 'wp-business-reviews' ),
-			'all_items'             => __( 'All Businesses', 'wp-business-reviews' ),
-			'add_new_item'          => __( 'Add New Business', 'wp-business-reviews' ),
-			'add_new'               => __( 'Add Business', 'wp-business-reviews' ),
-			'new_item'              => __( 'New Business', 'wp-business-reviews' ),
-			'edit_item'             => __( 'Edit Business', 'wp-business-reviews' ),
-			'update_item'           => __( 'Update Business', 'wp-business-reviews' ),
-			'view_item'             => __( 'View Business', 'wp-business-reviews' ),
-			'view_items'            => __( 'View Businesses', 'wp-business-reviews' ),
-			'search_items'          => __( 'Search Businesses', 'wp-business-reviews' ),
+			'name'                  => _x( 'Review Sources', 'Post Type General Name', 'wp-business-reviews' ),
+			'singular_name'         => _x( 'Review Source', 'Post Type Singular Name', 'wp-business-reviews' ),
+			'menu_name'             => __( 'Review Sources', 'wp-business-reviews' ),
+			'name_admin_bar'        => __( 'Review Source', 'wp-business-reviews' ),
+			'archives'              => __( 'Review Source Archives', 'wp-business-reviews' ),
+			'attributes'            => __( 'Review Source Attributes', 'wp-business-reviews' ),
+			'parent_item_colon'     => __( 'Parent Review Source:', 'wp-business-reviews' ),
+			'all_items'             => __( 'All Review Sources', 'wp-business-reviews' ),
+			'add_new_item'          => __( 'Add New Review Source', 'wp-business-reviews' ),
+			'add_new'               => __( 'Add Review Source', 'wp-business-reviews' ),
+			'new_item'              => __( 'New Review Source', 'wp-business-reviews' ),
+			'edit_item'             => __( 'Edit Review Source', 'wp-business-reviews' ),
+			'update_item'           => __( 'Update Review Source', 'wp-business-reviews' ),
+			'view_item'             => __( 'View Review Source', 'wp-business-reviews' ),
+			'view_items'            => __( 'View Review Sources', 'wp-business-reviews' ),
+			'search_items'          => __( 'Search Review Sources', 'wp-business-reviews' ),
 			'not_found'             => __( 'Not found', 'wp-business-reviews' ),
 			'not_found_in_trash'    => __( 'Not found in Trash', 'wp-business-reviews' ),
 			'featured_image'        => __( 'Featured Image', 'wp-business-reviews' ),
@@ -106,17 +106,17 @@ class Post_Types {
 			'use_featured_image'    => __( 'Use as featured image', 'wp-business-reviews' ),
 			'insert_into_item'      => __( 'Insert into item', 'wp-business-reviews' ),
 			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wp-business-reviews' ),
-			'items_list'            => __( 'Businesses list', 'wp-business-reviews' ),
-			'items_list_navigation' => __( 'Businesses list navigation', 'wp-business-reviews' ),
+			'items_list'            => __( 'Review Sources list', 'wp-business-reviews' ),
+			'items_list_navigation' => __( 'Review Sources list navigation', 'wp-business-reviews' ),
 			'filter_items_list'     => __( 'Filter items list', 'wp-business-reviews' ),
 		);
 
 		$rewrite = array(
-			'slug' => 'wpbr-businesses',
+			'slug' => 'wpbr-review-sources',
 		);
 
 		$args = array(
-			'label'               => __( 'Business', 'wp-business-reviews' ),
+			'label'               => __( 'Review Source', 'wp-business-reviews' ),
 			'labels'              => $labels,
 			'supports'            => array( '' ),
 			'taxonomies'          => array(),
@@ -135,7 +135,7 @@ class Post_Types {
 			'capability_type'     => 'post',
 		);
 
-		register_post_type( 'wpbr_business', $args );
+		register_post_type( 'wpbr_review_source', $args );
 	}
 
 	/**
