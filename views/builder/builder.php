@@ -1,7 +1,7 @@
 <div id="wpbr-builder" class="wpbr-builder js-wpbr-builder">
 	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php?action=wp_business_reviews_save_builder' ) ); ?>">
 		<input class="js-wpbr-action" type="text" name="action" value="wp_business_reviews_save_builder">
-		<input class="js-wpbr-post-data" type="text" name="wp_business_reviews_post_data">
+		<input class="js-wpbr-reviews-data" type="text" name="wp_business_reviews_post_data">
 		<?php
 		wp_nonce_field(
 			'wp_business_reviews_save_builder',

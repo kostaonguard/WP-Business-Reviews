@@ -8,10 +8,10 @@ import '../images/platform-yp-160w.png';
 
 class Builder {
 	constructor( selector ) {
-		this.root            = document.querySelector( selector );
-		this.actionControl   = this.root.querySelector( '.js-wpbr-action' );
-		this.postDataControl = this.root.querySelector( '.js-wpbr-post-data' );
-		this.background      = document.querySelector( '.wpbr-admin' );
+		this.root               = document.querySelector( selector );
+		this.actionControl      = this.root.querySelector( '.js-wpbr-action' );
+		this.reviewsDataControl = this.root.querySelector( '.js-wpbr-reviews-data' );
+		this.background         = document.querySelector( '.wpbr-admin' );
 	}
 
 	init() {
@@ -134,7 +134,7 @@ class Builder {
 	populateReviews( reviewsData ) {
 		const reviewsDataString = JSON.stringify(reviewsData)
 
-		this.postDataControl.value = reviewsDataString;
+		this.reviewsDataControl.value = reviewsDataString;
 		this.reviewCollection.replaceReviews( reviewsData );
 	}
 }
