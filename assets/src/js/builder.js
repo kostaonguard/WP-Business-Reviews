@@ -9,7 +9,7 @@ import '../images/platform-yp-160w.png';
 class Builder {
 	constructor( selector ) {
 		this.root                = document.querySelector( selector );
-		this.actionInput         = this.root.querySelector( '.js-wpbr-action' );
+		this.actionControl       = this.root.querySelector( '.js-wpbr-action' );
 		this.reviewSourceControl = this.root.querySelector( '.js-wpbr-review-source-control' );
 		this.reviewsControl      = this.root.querySelector( '.js-wpbr-reviews-control' );
 		this.background          = document.querySelector( '.wpbr-admin' );
@@ -135,7 +135,6 @@ class Builder {
 	populateReviews( reviewsData ) {
 		const reviewsDataString = JSON.stringify(reviewsData)
 
-		debugger;
 		this.reviewsControl.value = reviewsDataString;
 		this.reviewCollection.replaceReviews( reviewsData );
 	}

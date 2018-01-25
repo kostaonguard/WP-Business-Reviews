@@ -4,7 +4,7 @@ import queryString from 'query-string';
 class ReviewFetcher {
 	constructor( element ) {
 		this.root     = element;
-		this.controls = this.root.querySelectorAll( '.js-wpbr-review-fetcher-button' );
+		this.controls = this.root.querySelectorAll( '.js-wpbr-fetch-control' );
 	}
 
 	init() {
