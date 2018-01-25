@@ -11,7 +11,7 @@
 namespace WP_Business_Reviews\Includes\Serializer;
 
 /**
- * Saves options to the database.
+ * Saves reviews to the database.
  *
  * @since 0.1.0
  */
@@ -25,6 +25,13 @@ class Review_Serializer extends Serializer_Abstract {
 		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'admin_post_save_reviews' ) );
 	}
 
+	/**
+	 * Saves multiple reviews to the database.
+	 *
+	 * After save, user is redirected back to the referring page.
+	 *
+	 * @since 0.1.0
+	 */
 	public function admin_post_save_reviews() {
 		if ( empty( $_POST['wp_business_reviews_post_data'] ) ) {
 			$this->redirect();
@@ -41,7 +48,15 @@ class Review_Serializer extends Serializer_Abstract {
 		$this->redirect();
 	}
 
-	public function prepare_post_array( $review_array ) {
+	/**
+	 * Prepares the review data in a ready-to-save format.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $review_array Raw, unstructured post data.
+	 * @return array Array of elements that make up a post.
+	 */
+	public function prepare_post_array( array $review_array ) {
 		$post_array = array(
 			'post_type'   => 'wpbr_review',
 			'post_status' => 'publish',
@@ -84,12 +99,28 @@ class Review_Serializer extends Serializer_Abstract {
 		return $post_array;
 	}
 
-	function save( $post_array ) {
+	/**
+	 * Saves a single review to the database.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $post_array Array of elements that make up a post.
+	 */
+	function save( array $post_array ) {
 		return wp_insert_post( $post_array );
 	}
 
-	function generateTitleFromContent( $content, $length = 7 ) {
-		$title = wp_trim_words( $content, $length, '...' );
+	/**
+	 * Generates a truncated title from a string of content.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string  $content The review content to trim.
+	 * @param integer $num_words Number of words in title.
+	 * @return string The truncated title.
+	 */
+	function generateTitleFromContent( $content, $num_words = 7 ) {
+		$title = wp_trim_words( $content, $num_words, '...' );
 
 		return $title;
 	}
