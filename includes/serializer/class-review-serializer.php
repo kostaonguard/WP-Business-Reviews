@@ -22,7 +22,7 @@ class Review_Serializer extends Post_Serializer {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'save_reviews_from_post_request' ) );
+		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'save_from_post_request' ) );
 	}
 
 	/**
@@ -32,7 +32,7 @@ class Review_Serializer extends Post_Serializer {
 	 *
 	 * @since 0.1.0
 	 */
-	public function save_reviews_from_post_request() {
+	public function save_from_post_request() {
 		if ( empty( $_POST['wp_business_reviews_reviews'] ) ) {
 			$this->redirect();
 		}
