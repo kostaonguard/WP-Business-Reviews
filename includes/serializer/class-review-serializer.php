@@ -17,37 +17,20 @@ namespace WP_Business_Reviews\Includes\Serializer;
  */
 class Review_Serializer extends Post_Serializer {
 	/**
+	 * The $_POST key to which data is posted.
+	 *
+	 * @since 0.1.0
+	 * @var string $post_key
+	 */
+	protected $post_key = 'wp_business_reviews_reviews';
+
+	/**
 	 * Registers functionality with WordPress hooks.
 	 *
 	 * @since 0.1.0
 	 */
 	public function register() {
 		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'save_from_post_request' ) );
-	}
-
-	/**
-	 * Saves multiple reviews from $_POST to the database.
-	 *
-	 * After save, user is redirected back to the referring page.
-	 *
-	 * @since 0.1.0
-	 */
-	public function save_from_post_request() {
-		if ( empty( $_POST['wp_business_reviews_reviews'] ) ) {
-			$this->redirect();
-		}
-
-		// TODO: Verify nonce and permission.
-		$posts_array   = array();
-		$reviews_json  = wp_unslash( $_POST[ 'wp_business_reviews_reviews' ] );
-		$reviews_array = json_decode( $reviews_json, true );
-
-		foreach ( $reviews_array as $review_array ) {
-			$posts_array[] = $this->prepare_post_array( $review_array );
-		}
-
-		$this->save_multiple( $posts_array );
-		$this->redirect();
 	}
 
 	/**
