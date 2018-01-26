@@ -17,18 +17,22 @@ class RequestFetcher {
 		const response = axios.post(
 			ajaxurl,
 			queryString.stringify({
-				action: 'wpbr_get_reviews',
+				action: 'wpbr_get_source_and_reviews',
 				platform: platform,
 				reviewSourceId: reviewSourceId
 			})
 		)
 			.then( response => {
-				if ( response.data && 0 < response.data.length ) {
+				if ( response.data && 0 < response.data.reviews.length ) {
+
 					const getReviewsEndEvent = new CustomEvent(
 						'wpbrGetReviewsEnd',
 						{
 							bubbles: true,
-							detail: { reviews: response.data }
+							detail: {
+								reviewSource: response.data.review_source,
+								reviews: response.data.reviews
+							}
 						}
 					);
 					this.root.dispatchEvent( getReviewsEndEvent );
