@@ -15,14 +15,14 @@ namespace WP_Business_Reviews\Includes\Serializer;
  *
  * @since 0.1.0
  */
-class Review_Serializer extends Serializer_Abstract {
+class Review_Serializer extends Post_Serializer {
 	/**
 	 * Registers functionality with WordPress hooks.
 	 *
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'post_save_reviews' ) );
+		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'save_reviews_from_post_request' ) );
 	}
 
 	/**
@@ -32,31 +32,22 @@ class Review_Serializer extends Serializer_Abstract {
 	 *
 	 * @since 0.1.0
 	 */
-	public function post_save_reviews() {
+	public function save_reviews_from_post_request() {
 		if ( empty( $_POST['wp_business_reviews_reviews'] ) ) {
 			$this->redirect();
 		}
 
 		// TODO: Verify nonce and permission.
+		$posts_array   = array();
 		$reviews_json  = wp_unslash( $_POST[ 'wp_business_reviews_reviews' ] );
 		$reviews_array = json_decode( $reviews_json, true );
 
-		$this->save_reviews( $reviews_array );
-		$this->redirect();
-	}
-
-	/**
-	 * Saves multiple reviews to the database.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $reviews_array Array of reviews data.
-	 */
-	public function save_reviews( array $reviews_array ) {
 		foreach ( $reviews_array as $review_array ) {
-			$post_array = $this->prepare_post_array( $review_array );
-			$this->save( $post_array );
+			$posts_array[] = $this->prepare_post_array( $review_array );
 		}
+
+		$this->save_multiple( $posts_array );
+		$this->redirect();
 	}
 
 	/**
@@ -108,18 +99,6 @@ class Review_Serializer extends Serializer_Abstract {
 		}
 
 		return $post_array;
-	}
-
-	/**
-	 * Saves a single review to the database.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param array $post_array Array of elements that make up a post.
-	 * @return boolean True if value saved successfully, false otherwise.
-	 */
-	function save( array $post_array ) {
-		return wp_insert_post( $post_array );
 	}
 
 	/**
