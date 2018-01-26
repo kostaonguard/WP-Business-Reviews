@@ -74,6 +74,7 @@ class Builder {
 		this.root.addEventListener(
 			'wpbrGetReviewsEnd',
 			event => {
+				this.populateReviewSource( event.detail.reviewSource );
 				this.populateReviews( event.detail.reviews );
 			}
 		);
@@ -145,11 +146,13 @@ class Builder {
 		}
 	}
 
-	populateReviews( reviewsData ) {
-		const reviewsDataString = JSON.stringify(reviewsData)
+	populateReviewSource( reviewSourceArray ) {
+		this.reviewSourceControl.value = JSON.stringify(reviewSourceArray);
+	}
 
-		this.reviewsControl.value = reviewsDataString;
-		this.reviewCollection.replaceReviews( reviewsData );
+	populateReviews( reviewsArray ) {
+		this.reviewsControl.value = JSON.stringify(reviewsArray);
+		this.reviewCollection.replaceReviews( reviewsArray );
 	}
 }
 
