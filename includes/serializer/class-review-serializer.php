@@ -17,10 +17,17 @@ namespace WP_Business_Reviews\Includes\Serializer;
  */
 class Review_Serializer extends Post_Serializer {
 	/**
-	 * The $_POST key to which data is posted.
-	 *
-	 * @since 0.1.0
-	 * @var string $post_key
+	 * @inheritDoc
+	 */
+	protected $post_type = 'wpbr_review';
+
+	/**
+	 * @inheritDoc
+	 */
+	protected $post_parent = 0;
+
+	/**
+	 * @inheritDoc
 	 */
 	protected $post_key = 'wp_business_reviews_reviews';
 
@@ -30,28 +37,37 @@ class Review_Serializer extends Post_Serializer {
 	 * @since 0.1.0
 	 */
 	public function register() {
+		add_action( 'wp_business_reviews_save_wpbr_review_source_from_builder', array( $this, 'set_post_parent' ) );
 		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'save_from_post_request' ) );
 	}
 
 	/**
-	 * Prepares the review data in a ready-to-save format.
+	 * Sets the post parent.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param array $review_array Raw, unstructured post data.
+	 * @param int $post_id The post parent ID.
+	 */
+	public function set_post_parent( $post_id ) {
+		$this->post_parent = $post_id;
+	}
+
+	/**
+	 * Prepares the post data in a ready-to-save format.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $raw_data Raw, unstructured post data.
 	 * @return array Array of elements that make up a post.
 	 */
-	public function prepare_post_array( array $review_array ) {
+	public function prepare_post_array( array $raw_data ) {
 		$post_array = array(
-			'post_type'   => 'wpbr_review',
+			'post_type'   => $this->post_type,
 			'post_status' => 'publish',
-			// 'post_parent' => $post_parent,
-			'meta_input'  => array(
-				// 'review_source_id' => $review_source_id,
-			),
+			'post_parent' => $this->post_parent,
 		);
 
-		foreach ( $review_array as $key => $value ) {
+		foreach ( $raw_data as $key => $value ) {
 			switch ( $key ) {
 				case 'title':
 					$post_array['post_title'] = $this->clean( $value );
@@ -62,6 +78,7 @@ class Review_Serializer extends Post_Serializer {
 				case 'platform':
 					$post_array['tax_input']['wpbr_platform'] = $this->clean( $value );
 					break;
+				case 'review_source_id':
 				case 'reviewer':
 				case 'reviewer_image':
 				case 'rating':

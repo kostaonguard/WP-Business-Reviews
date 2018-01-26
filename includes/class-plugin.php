@@ -29,6 +29,7 @@ use WP_Business_Reviews\Includes\Field\Parser\Builder_Field_Parser;
 use WP_Business_Reviews\Includes\Request\Request_Delegator;
 use WP_Business_Reviews\Includes\Request\Response_Normalizer\Response_Normalizer_Factory;
 use WP_Business_Reviews\Includes\Serializer\Review_Serializer;
+use WP_Business_Reviews\Includes\Serializer\Review_Source_Serializer;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -134,6 +135,9 @@ final class Plugin {
 				$platform_manager->get_connected_platforms()
 			);
 			$builder_settings->register();
+
+			$review_source_serializer = new Review_Source_Serializer();
+			$review_source_serializer->register();
 
 			$review_serializer = new Review_Serializer();
 			$review_serializer->register();
