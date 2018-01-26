@@ -22,11 +22,11 @@ class Option_Serializer extends Serializer_Abstract {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_section' ) );
+		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_settings_from_post' ) );
 	}
 
 	/**
-	 * Saves a single sanitized value to the database.
+	 * Saves a single sanitized key-value pair.
 	 *
 	 * @since 0.1.0
 	 *
@@ -39,11 +39,24 @@ class Option_Serializer extends Serializer_Abstract {
 	}
 
 	/**
+	 * Saves an array of key-value pairs.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $values Key-value pairs to be saved.
+	 */
+	public function save_multiple( array $values ) {
+		foreach ( $values as $key => $value ) {
+			$this->save( $key, $value );
+		}
+	}
+
+	/**
 	 * Saves settings section to database.
 	 *
 	 * @since 0.1.0
 	 */
-	public function save_section() {
+	public function save_settings_from_post() {
 		// Make sure settings exist.
 		if ( empty( $_POST['wp_business_reviews_settings'] ) ) {
 			$this->redirect();

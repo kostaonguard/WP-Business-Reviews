@@ -33,19 +33,6 @@ abstract class Serializer_Abstract {
 	protected $capability = 'manage_options';
 
 	/**
-	 * Saves an array of key-value pairs to the database.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param $values Key-value pairs to be saved.
-	 */
-	public function save_multiple( array $values ) {
-		foreach ( $values as $key => $value ) {
-			$this->save( $key, $value );
-		}
-	}
-
-	/**
 	 * Recursively sanitizes a given value.
 	 *
 	 * @param string|array $value The value to be sanitized.
