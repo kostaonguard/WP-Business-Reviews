@@ -127,8 +127,14 @@ class Google_Places_Request extends Request {
 	 *                        if response structure is invalid.
 	 */
 	public function get_reviews( $review_source_id ) {
+		$reviews  = array();
 		$response = $this->get_review_source( $review_source_id );
 
-		return $response['reviews'];
+		foreach ( $response['reviews'] as $review ) {
+			$review['review_source_id'] = $review_source_id;
+			$reviews[] = $review;
+		}
+
+		return $reviews;
 	}
 }
