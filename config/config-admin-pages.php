@@ -32,13 +32,6 @@ $config = apply_filters(
 			'capability' => 'manage_options',
 			'menu_slug'  => 'wpbr_settings',
 		),
-		'pro_features' => array(
-			'page_parent' => 'edit.php?post_type=wpbr_review',
-			'page_title' => __( 'WP Business Reviews Pro', 'wp-business-reviews' ),
-			'menu_title' => __( 'Go Pro!', 'wp-business-reviews' ),
-			'capability' => 'manage_options',
-			'menu_slug'  => 'wpbr_pro',
-		),
 	)
 );
 
