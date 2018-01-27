@@ -18,7 +18,7 @@ class PlatformSearchField extends Field {
 	initSubfields() {
 		this.platformField = new BasicField(
 			this.root.querySelector(
-				'[data-wpbr-field-id="platform_search_platform"]'
+				'[data-wpbr-field-id="platform"]'
 			)
 		);
 		this.termsField = new BasicField(
