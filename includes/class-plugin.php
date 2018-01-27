@@ -30,6 +30,7 @@ use WP_Business_Reviews\Includes\Request\Request_Delegator;
 use WP_Business_Reviews\Includes\Request\Response_Normalizer\Response_Normalizer_Factory;
 use WP_Business_Reviews\Includes\Serializer\Review_Serializer;
 use WP_Business_Reviews\Includes\Serializer\Review_Source_Serializer;
+use WP_Business_Reviews\Includes\Serializer\Blueprint_Serializer;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -136,11 +137,14 @@ final class Plugin {
 			);
 			$builder_settings->register();
 
+			$review_serializer = new Review_Serializer();
+			$review_serializer->register();
+
 			$review_source_serializer = new Review_Source_Serializer();
 			$review_source_serializer->register();
 
-			$review_serializer = new Review_Serializer();
-			$review_serializer->register();
+			$blueprint_serializer = new Blueprint_Serializer();
+			$blueprint_serializer->register();
 
 			// Register Facebook page manager to retrieve and update authenticated pages.
 			$facebook_page_manager = new Facebook_Page_Manager(
