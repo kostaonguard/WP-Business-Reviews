@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Defines the Post_Types class
  *
@@ -8,11 +7,6 @@
  */
 
 namespace WP_Business_Reviews\Includes;
-
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Registers custom post types and taxonomies.
@@ -309,15 +303,23 @@ class Post_Types {
 
 		$args = array(
 			'labels'            => $labels,
-			'hierarchical'      => false,
+			'hierarchical'      => true,
 			'public'            => true,
-			'show_ui'           => false,
+			'show_ui'           => true,
 			'show_admin_column' => true,
 			'show_in_nav_menus' => false,
 			'show_tagcloud'     => true,
 			'show_in_rest'      => false,
 		);
 
-		register_taxonomy( 'wpbr_platform', array( 'wpbr_business', 'wpbr_review' ), $args );
+		register_taxonomy(
+			'wpbr_platform',
+			array(
+				'wpbr_review',
+				'wpbr_review_source',
+				'wpbr_blueprint',
+			),
+			$args
+		);
 	}
 }
