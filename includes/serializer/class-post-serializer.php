@@ -79,13 +79,14 @@ class Post_Serializer extends Serializer_Abstract {
 	}
 
 	/**
-	 * Saves multiple WordPress posts from $_POST data to the database.
+	 * Saves WordPress posts from stringified JSON in $_POST data.
 	 *
-	 * After save, user is redirected back to the referring page.
+	 * This method should be used if the posted data is in the form of
+	 * stringified JSON. If so, it is decoded into an array before saving.
 	 *
 	 * @since 0.1.0
 	 */
-	public function save_from_post_request() {
+	public function save_from_post_json() {
 		if ( empty( $_POST[ $this->post_key ] ) ) {
 			$this->redirect();
 		}
@@ -94,7 +95,38 @@ class Post_Serializer extends Serializer_Abstract {
 		$raw_data_json  = wp_unslash( $_POST[ $this->post_key ] );
 		$raw_data_array = json_decode( $raw_data_json, true );
 
-		error_log( print_r( current($raw_data_array), true ) );
+		if ( is_array( current( $raw_data_array ) ) ) {
+
+			$posts_array = array();
+
+			foreach ( $raw_data_array as $data ) {
+				$posts_array[] = $this->prepare_post_array( $data );
+			}
+
+			$this->save_multiple( $posts_array );
+
+		} else {
+
+			$post_array = $this->prepare_post_array( $raw_data_array );
+			$this->save( $post_array );
+
+		}
+	}
+
+	/**
+	 * Saves WordPress posts from array in $_POST data.
+	 *
+	 * This method should be used if the posted data is in the form of an array.
+	 *
+	 * @since 0.1.0
+	 */
+	public function save_from_post_array() {
+		if ( empty( $_POST[ $this->post_key ] ) ) {
+			$this->redirect();
+		}
+
+		// TODO: Verify nonce and permission.
+		$raw_data_array = wp_unslash( $_POST[ $this->post_key ] );
 
 		if ( is_array( current( $raw_data_array ) ) ) {
 

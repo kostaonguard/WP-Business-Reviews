@@ -38,7 +38,7 @@ class Review_Serializer extends Post_Serializer {
 	 */
 	public function register() {
 		add_action( 'wp_business_reviews_save_wpbr_review_source_from_builder', array( $this, 'set_post_parent' ) );
-		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'save_from_post_request' ) );
+		add_action( 'admin_post_wp_business_reviews_save_builder', array( $this, 'save_from_post_json' ), 30 );
 	}
 
 	/**
