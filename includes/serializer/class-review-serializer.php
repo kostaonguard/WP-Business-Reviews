@@ -42,17 +42,6 @@ class Review_Serializer extends Post_Serializer {
 	}
 
 	/**
-	 * Sets the post parent.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param int $post_id The post parent ID.
-	 */
-	public function set_post_parent( $post_id ) {
-		$this->post_parent = $post_id;
-	}
-
-	/**
 	 * Prepares the post data in a ready-to-save format.
 	 *
 	 * @since 0.1.0

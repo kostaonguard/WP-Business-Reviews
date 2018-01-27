@@ -113,4 +113,15 @@ class Post_Serializer extends Serializer_Abstract {
 
 		}
 	}
+
+	/**
+	 * Sets the post parent.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param int $post_id The post parent ID.
+	 */
+	public function set_post_parent( $post_id ) {
+		$this->post_parent = $post_id;
+	}
 }
