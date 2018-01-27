@@ -3,7 +3,7 @@ $platform_count = count( $this->active_platforms );
 ?>
 
 <div class="wpbr-launcher">
-	<h2 class="wpbr-launcher__heading"><?php esc_html_e( 'Select a platform to build a new Review Set...', 'wp-business-reviews' ); ?></h2>
+	<h2 class="wpbr-launcher__heading"><?php esc_html_e( 'Select a platform to get started...', 'wp-business-reviews' ); ?></h2>
 	<div class="wpbr-launcher__platforms">
 		<ul class="wpbr-platform-gallery">
 			<?php
@@ -43,7 +43,7 @@ $platform_count = count( $this->active_platforms );
 			<?php endforeach; ?>
 		</ul>
 	</div>
-	<h2 class="wpbr-launcher__heading"><?php esc_html_e( '...or load an existing Review Set.', 'wp-business-reviews' ); ?></h2>
+	<h2 class="wpbr-launcher__heading"><?php esc_html_e( '...or load an existing Blueprint.', 'wp-business-reviews' ); ?></h2>
 	<?php // TODO: Make Review Set table dynamic. ?>
 	<div class="wpbr-card">
 		<table class="wpbr-post-table">
