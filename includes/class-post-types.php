@@ -257,7 +257,7 @@ class Post_Types {
 			'hierarchical'        => false,
 			'public'              => true,
 			'show_in_rest'        => true,
-			'rest_base'          => 'review_sets',
+			'rest_base'          => 'blueprints',
 			'show_ui'             => true,
 			'show_in_menu'        => true,
 			'menu_icon'           => 'dashicons-layout',
@@ -275,7 +275,7 @@ class Post_Types {
 			'map_meta_cap'        => true, // Allow users to still edit and delete posts.
 		);
 
-		register_post_type( 'wpbr_review_set', $args );
+		register_post_type( 'wpbr_blueprint', $args );
 	}
 
 	/**
