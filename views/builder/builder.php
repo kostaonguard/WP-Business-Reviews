@@ -10,10 +10,15 @@
 		);
 		?>
 		<div class="wpbr-builder__toolbar">
-			<div id="titlediv" class="wpbr-builder__title ">
-				<div id="titlewrap">
-					<input type="text" name="post_title" size="30" value="" id="title" spellcheck="true" autocomplete="off" placeholder="Add title">
-				</div>
+			<div class="wpbr-builder__title">
+				<input
+					id="wpbr-control-title"
+					class="wpbr-field__input"
+					type="text"
+					name="wp_business_reviews_settings[title]"
+					value=""
+					placeholder="<?php echo esc_attr__( 'Enter title here', 'wp-business-reviews' ); ?>"
+					>
 			</div>
 			<div class="wpbr-builder__tools">
 				<ul class="wpbr-inline-list">
