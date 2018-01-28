@@ -68,6 +68,7 @@ class Review_Serializer extends Post_Serializer {
 					$post_array['tax_input']['wpbr_platform'] = $this->clean( $value );
 					break;
 				case 'review_source_id':
+				case 'review_url':
 				case 'reviewer':
 				case 'reviewer_image':
 				case 'rating':

@@ -121,6 +121,13 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 		$r          = $raw_review;
 		$normalized = array();
 
+		// Set review URL.
+		if ( isset( $r['open_graph_story']['id'] ) ) {
+			$normalized['review_url'] = $this->generate_review_url(
+				$this->clean( $r['open_graph_story']['id'] )
+			);
+		}
+
 		// Set reviewer.
 		if ( isset( $r['reviewer']['name'] ) ) {
 			$normalized['reviewer'] = $this->clean( $r['reviewer']['name'] );
@@ -155,14 +162,26 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 	}
 
 	/**
+	 * Generates the review URL using the review's Open Graph Story ID.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param int $id The Facebook review's Open Graph Story ID.
+	 * @return string URL of the review.
+	 */
+	private function generate_review_url( $open_graph_story_id ) {
+		return "https://www.facebook.com/{$open_graph_story_id}";
+	}
+
+	/**
 	 * Generates the icon URL using the Facebook Page ID.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param int $id Facebook Page ID.
+	 * @param int $id The Facebook Page ID.
 	 * @return string URL of the Page icon.
 	 */
-	private function generate_icon_url( $id ) {
-		return "https: //graph.facebook.com/{$id}/picture";
+	private function generate_icon_url( $page_id ) {
+		return "https://graph.facebook.com/{$page_id}/picture";
 	}
 }

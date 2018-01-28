@@ -116,6 +116,11 @@ class Yelp_Response_Normalizer extends Response_Normalizer_Abstract {
 		$r          = $raw_review;
 		$normalized = array();
 
+		// Set review URL.
+		if ( isset( $r['url'] ) ) {
+			$normalized['review_url'] = $this->clean( $r['url'] );
+		}
+
 		// Set reviewer.
 		if ( isset( $r['user']['name'] ) ) {
 			$normalized['reviewer'] = $this->clean( $r['user']['name'] );
