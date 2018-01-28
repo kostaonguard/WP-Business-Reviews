@@ -28,7 +28,80 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 		$r          = $raw_review_source;
 		$normalized = array();
 
-		// Normalize...
+		// Set ID of the review source on the platform.
+		if ( isset( $r['id'] ) ) {
+			$normalized['review_source_id'] = $this->clean( $r['id'] );
+
+			// Use the ID to construct the icon URL.
+			$normalized['icon'] = $this->generate_icon_url(
+				$normalized['review_source_id']
+			);
+		}
+
+		// Set name.
+		if ( isset( $r['name'] ) ) {
+			$normalized['name'] =  $this->clean( $r['name'] );
+		}
+
+		// Set page URL.
+		if ( isset( $r['link'] ) ) {
+			$normalized['url'] = $this->clean( $r['link'] );
+		}
+
+		// Set rating.
+		if ( isset( $r['overall_star_rating'] ) ) {
+			$normalized['rating'] = $this->clean( $r['overall_star_rating'] );
+		}
+
+		// Set image.
+		if ( isset( $r['cover']['source'] ) ) {
+			$normalized['image'] = $this->clean( $r['cover']['source'] );
+		}
+
+		// Set phone.
+		if ( isset( $r['phone'] ) ) {
+			$normalized['phone'] =  $this->clean( $r['phone'] );
+		}
+
+		// Set formatted address.
+		if ( isset( $r['single_line_address'] ) ) {
+			$normalized['formatted_address'] = $this->clean( $r['single_line_address'] );
+		}
+
+		// Set street address.
+		if ( isset( $r['location']['street'] ) ) {
+			$normalized['street_address'] = $this->clean( $r['location']['street'] );
+		}
+
+		// Set city.
+		if ( isset( $r['location']['city'] ) ) {
+			$normalized['city'] = $this->clean( $r['location']['city'] );
+		}
+
+		// Set state.
+		if ( isset( $r['location']['state'] ) ) {
+			$normalized['state_province'] = $this->clean( $r['location']['state'] );
+		}
+
+		// Set postal code.
+		if ( isset( $r['location']['zip'] ) ) {
+			$normalized['postal_code'] = $this->clean( $r['location']['zip'] );
+		}
+
+		// Set country.
+		if ( isset( $r['location']['country'] ) ) {
+			$normalized['country'] = $this->clean( $r['location']['country'] );
+		}
+
+		// Set latitude.
+		if ( isset( $r['location']['latitude']) ) {
+			$normalized['latitude'] = $this->clean( $r['location']['latitude'] );
+		}
+
+		// Set longitude.
+		if ( isset( $r['location']['longitude']) ) {
+			$normalized['longitude'] = $this->clean( $r['location']['longitude'] );
+		}
 
 		// Merge normalized properties with default properites in case any are missing.
 		$normalized = wp_parse_args( $normalized, $this->get_review_source_defaults() );
@@ -74,5 +147,17 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
 
 		return $normalized;
+	}
+
+	/**
+	 * Generates the icon URL using the Facebook Page ID.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param int $id Facebook Page ID.
+	 * @return string URL of the Page icon.
+	 */
+	private function generate_icon_url( $id ) {
+		return "https: //graph.facebook.com/{$id}/picture";
 	}
 }
