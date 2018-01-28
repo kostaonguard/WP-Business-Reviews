@@ -118,13 +118,13 @@ abstract class Response_Normalizer_Abstract {
 	 */
 	protected function get_review_defaults() {
 		return array(
-			'platform'   => $this->platform,
-			'review_url' => null,
-			'reviewer'   => null,
-			'image'      => null,
-			'rating'     => 0,
-			'timestamp'  => null,
-			'content'    => null,
+			'platform'       => $this->platform,
+			'review_url'     => null,
+			'reviewer'       => null,
+			'reviewer_image' => null,
+			'rating'         => 0,
+			'timestamp'      => null,
+			'content'        => null,
 		);
 	}
 
