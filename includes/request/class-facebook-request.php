@@ -75,11 +75,44 @@ class Facebook_Request extends Request {
 	}
 
 	/**
-	 * Retrieves Facebook pages from the Facebook Graph API.
+	 * Retrieves review source details based on Facebook page ID.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return array Associative array containing the response body.
+	 * @param string $review_source_id The Facebook Page ID.
+	 * @return array|WP_Error Associative array containing response or WP_Error
+	 *                        if response structure is invalid.
+	 */
+	public function get_review_source( $review_source_id ) {
+		if ( ! isset( $this->pages[ $review_source_id ] ) ) {
+			return WP_Error(
+				'missing_page_token',
+				__( 'Facebook page token could not be found.', 'wp-business-reviews' )
+			);
+		}
+
+		$page_token = $this->pages[ $review_source_id ]['token'];
+
+		$url = add_query_arg(
+			array(
+				'fields'       => 'name,link,overall_star_rating,rating_count,cover,phone,single_line_address,location',
+				'access_token' => $page_token,
+			),
+			"https://graph.facebook.com/v2.11/{$review_source_id}"
+		);
+
+		$response = $this->get( $url );
+
+		return $response;
+	}
+
+	/**
+	 * Retrieves Facebook pages from the Facebook Grap.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array|WP_Error Associative array containing response or WP_Error
+	 *                        if response structure is invalid.
 	 */
 	public function get_review_sources() {
 		$url = add_query_arg(
