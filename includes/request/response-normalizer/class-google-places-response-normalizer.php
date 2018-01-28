@@ -114,11 +114,14 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 		// Set review source ID.
 		if ( isset( $r['review_source_id'] ) ) {
 			$normalized['review_source_id'] = $this->clean( $r['review_source_id'] );
-		}
 
-		// Set review source URL.
-		if ( isset( $r['author_url'] ) ) {
-			$normalized['review_url'] = $this->clean( $r['author_url'] );
+			// Set review source URL.
+			if ( isset( $r['author_url'] ) ) {
+				$normalized['review_url'] = $this->generate_review_url(
+					$this->clean( $r['author_url'] ),
+					$normalized['review_source_id']
+				);
+			}
 		}
 
 		// Set reviewer.
@@ -150,6 +153,21 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
 
 		return $normalized;
+	}
+
+	/**
+	 * Generates the review URL using the author URL and Place ID.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $author_url The reviewer's author URL.
+	 * @param string $place_id   The Place ID of the review source.
+	 * @return string URL of the review.
+	 */
+	private function generate_review_url( $author_url, $place_id ) {
+		$author_url_home = str_replace( '/reviews', '', $author_url );
+
+		return "{$author_url_home}/place/{$place_id}";
 	}
 
 	/**
