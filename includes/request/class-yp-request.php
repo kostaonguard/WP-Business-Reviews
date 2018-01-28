@@ -112,7 +112,7 @@ class YP_Request extends Request {
 
 		$response = $this->get( $url );
 
-		return $response;
+		return $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
 	}
 
 	/**
