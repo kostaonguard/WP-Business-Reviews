@@ -54,10 +54,7 @@ class Review_Source_Serializer extends Post_Serializer {
 		$post_array = array(
 			'post_type'   => $this->post_type,
 			'post_status' => 'publish',
-			// 'post_parent' => $post_parent,
-			'meta_input'  => array(
-				// 'review_source_id' => $review_source_id,
-			),
+			'post_parent' => $this->post_parent,
 		);
 
 		foreach ( $raw_data as $key => $value ) {
@@ -71,6 +68,7 @@ class Review_Source_Serializer extends Post_Serializer {
 				case 'review_source_id':
 				case 'url':
 				case 'rating':
+				case 'rating_count':
 				case 'icon':
 				case 'image':
 				case 'phone':

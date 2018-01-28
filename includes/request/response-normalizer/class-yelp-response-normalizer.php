@@ -48,6 +48,11 @@ class Yelp_Response_Normalizer extends Response_Normalizer_Abstract {
 			$normalized['rating'] = $this->clean( $r['rating'] );
 		}
 
+		// Set rating count.
+		if ( isset( $r['review_count'] ) ) {
+			$normalized['rating_count'] = $this->clean( $r['review_count'] );
+		}
+
 		// Set image.
 		if ( isset( $r['image_url'] ) ) {
 			$normalized['image'] = $this->modify_image_size( $this->clean( $r['image_url'] ) );

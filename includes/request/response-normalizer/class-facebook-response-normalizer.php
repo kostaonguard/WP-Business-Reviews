@@ -53,6 +53,11 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 			$normalized['rating'] = $this->clean( $r['overall_star_rating'] );
 		}
 
+		// Set rating count.
+		if ( isset( $r['rating_count'] ) ) {
+			$normalized['rating_count'] = $this->clean( $r['rating_count'] );
+		}
+
 		// Set image.
 		if ( isset( $r['cover']['source'] ) ) {
 			$normalized['image'] = $this->clean( $r['cover']['source'] );

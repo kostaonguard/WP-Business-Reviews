@@ -94,6 +94,7 @@ abstract class Response_Normalizer_Abstract {
 			'name'              => null,
 			'url'               => null,
 			'rating'            => 0,
+			'rating_count'      => 0,
 			'icon'              => null,
 			'image'             => null,
 			'phone'             => null,
