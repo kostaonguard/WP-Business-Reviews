@@ -91,7 +91,16 @@ class Post_Serializer extends Serializer_Abstract {
 			$this->redirect();
 		}
 
-		// TODO: Verify nonce and permission.
+		if (
+			! $this->has_valid_nonce(
+				'wp_business_reviews_save_builder',
+				'wp_business_reviews_builder_nonce'
+			)
+			|| ! $this->has_permission()
+		) {
+			$this->redirect();
+		}
+
 		$raw_data_json  = wp_unslash( $_POST[ $this->post_key ] );
 		$raw_data_array = json_decode( $raw_data_json, true );
 
@@ -125,7 +134,16 @@ class Post_Serializer extends Serializer_Abstract {
 			$this->redirect();
 		}
 
-		// TODO: Verify nonce and permission.
+		if (
+			! $this->has_valid_nonce(
+				'wp_business_reviews_save_builder',
+				'wp_business_reviews_builder_nonce'
+			)
+			|| ! $this->has_permission()
+		) {
+			$this->redirect();
+		}
+
 		$raw_data_array = wp_unslash( $_POST[ $this->post_key ] );
 
 		if ( is_array( current( $raw_data_array ) ) ) {
