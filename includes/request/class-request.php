@@ -64,8 +64,7 @@ class Request {
 	 */
 	private function process_response( $response ) {
 		if ( is_wp_error( $response ) ) {
-			// TODO: Return WP_Error here for failed responses.
-			return false;
+			return $response;
 		}
 
 		$body = wp_remote_retrieve_body( $response );

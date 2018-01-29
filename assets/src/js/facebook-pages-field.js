@@ -3,10 +3,12 @@ import Field from './field';
 class FacebookPagesField extends Field {
 	constructor( element ) {
 		super( element );
-		this.disconnectButton = this.root.querySelector( '.js-wpbr-facebook-disconnect' );
 	}
 
 	init() {
+		this.disconnectButton = this.root.querySelector(
+			'.js-wpbr-facebook-disconnect'
+		);
 		this.registerEventHandlers();
 	}
 

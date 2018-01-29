@@ -1,47 +1,45 @@
 import queryString from 'query-string';
 
 class SettingsTabs {
-	constructor( selector ) {
-
-		// Define the root element of the Settings UI.
-		this.root = document.querySelector( selector );
+	constructor( element ) {
+		this.root = element;
 
 		// Define CSS class that denotes active element.
-		this.activeClass       = 'is-active';
+		this.activeClass = 'is-active';
 
 		// Define CSS classes used to select groups of elements.
-		this.tabSelector       = '.js-wpbr-tab';
-		this.panelSelector     = '.js-wpbr-panel';
-		this.subtabSelector    = '.js-wpbr-subtab';
-		this.sectionSelector   = '.js-wpbr-section';
+		this.tabSelector     = '.js-wpbr-tab';
+		this.panelSelector   = '.js-wpbr-panel';
+		this.subtabSelector  = '.js-wpbr-subtab';
+		this.sectionSelector = '.js-wpbr-section';
 
 		// Define ID prefixes used to select individual elements.
-		this.tabIdPrefix       = 'wpbr-tab-';
-		this.subtabIdPrefix    = 'wpbr-subtab-';
-		this.panelPrefix       = 'wpbr-panel-';
-		this.sectionPrefix     = 'wpbr-section-';
+		this.tabIdPrefix    = 'wpbr-tab-';
+		this.subtabIdPrefix = 'wpbr-subtab-';
+		this.panelPrefix    = 'wpbr-panel-';
+		this.sectionPrefix  = 'wpbr-section-';
 
 		// Define URL query parameters.
-		this.tabQueryParam     = 'wpbr_tab';
-		this.subtabQueryParam  = 'wpbr_subtab';
-
-		// Group collections of elements that make up tabbed UI.
-		this.tabs              = this.root.querySelectorAll( '.js-wpbr-tab' );
-		this.panels            = this.root.querySelectorAll( '.js-wpbr-panel' );
-		this.subtabs           = this.root.querySelectorAll( '.js-wpbr-subtab' );
-		this.sections          = this.root.querySelectorAll( '.js-wpbr-section' );
-
-		// Define default active elements.
-		this.activeTab         = this.tabs[0];
-		this.activePanel       = this.panels[0];
-		this.activeSubtab      = this.subtabs[0];
-		this.activeSection     = this.sections[0];
-
-		// Parse the query string into key-value pairs.
-		this.queryStringObject = queryString.parse( location.search );
+		this.tabQueryParam    = 'wpbr_tab';
+		this.subtabQueryParam = 'wpbr_subtab';
 	}
 
 	init() {
+
+		// Group collections of elements that make up tabbed UI.
+		this.tabs     = this.root.querySelectorAll( '.js-wpbr-tab' );
+		this.panels   = this.root.querySelectorAll( '.js-wpbr-panel' );
+		this.subtabs  = this.root.querySelectorAll( '.js-wpbr-subtab' );
+		this.sections = this.root.querySelectorAll( '.js-wpbr-section' );
+
+		// Define default active elements.
+		this.activeTab     = this.tabs[0];
+		this.activePanel   = this.panels[0];
+		this.activeSubtab  = this.subtabs[0];
+		this.activeSection = this.sections[0];
+
+		// Parse the query string into key-value pairs.
+		this.queryStringObject = queryString.parse( location.search );
 
 		// Register event handlers required to navigate settings tabs.
 		this.registerTabEventHandlers();

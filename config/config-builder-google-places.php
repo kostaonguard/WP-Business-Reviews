@@ -15,7 +15,7 @@ $config = array(
 			'platform_search' => array(
 				'type'  => 'platform_search',
 				'subfields' => array(
-					'platform_search_platform' => array(
+					'platform' => array(
 						'type'        => 'hidden',
 						'value'       => 'google_places',
 					),

@@ -39,7 +39,8 @@ class ReviewSource {
 		// TODO: Translate 'Get Reviews' button text.
 		return `
 			<button
-				class="wpbr-review-source__button button button-primary js-wpbr-review-fetcher-button"
+				class="wpbr-review-source__button button button-primary js-wpbr-fetch-control"
+				type="button"
 				data-wpbr-platform="${this.platform}"
 				data-wpbr-review-source-id="${this.reviewSourceId}"
 			>

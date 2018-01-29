@@ -1,26 +1,29 @@
 import Inspector from './inspector';
 import ReviewCollection from './review-collection';
-import ReviewFetcher from './review-fetcher';
+import RequestFetcher from './request-fetcher';
 import '../images/platform-google-places-160w.png';
 import '../images/platform-facebook-160w.png';
 import '../images/platform-yelp-160w.png';
 import '../images/platform-yp-160w.png';
 
 class Builder {
-	constructor( selector ) {
-		this.root = document.querySelector( selector );
+	constructor( element ) {
+		this.root = element;
 	}
 
 	init() {
+		this.actionControl       = this.root.querySelector( '.js-wpbr-action' );
+		this.reviewSourceControl = this.root.querySelector( '.js-wpbr-review-source-control' );
+		this.reviewsControl      = this.root.querySelector( '.js-wpbr-reviews-control' );
+		this.background          = document.querySelector( '.wpbr-admin' );
+
 		this.initToolbar();
 		this.initInspector();
-		this.initReviewCollection();
-		this.initBackground();
+		this.initReviews();
 	}
 
 	initToolbar() {
 		this.inspectorControl = document.getElementById( 'wpbr-control-inspector' );
-		this.saveControl      = document.getElementById( 'wpbr-control-save' );
 		this.registerToolbarEventHandlers();
 	}
 
@@ -30,7 +33,7 @@ class Builder {
 		this.inspector.init();
 	}
 
-	initReviewCollection() {
+	initReviews() {
 		this.reviewCollection = new ReviewCollection(
 			document.querySelector( '.js-wpbr-wrap' ),
 			this.inspector.fields.get( 'format' ).value,
@@ -38,16 +41,12 @@ class Builder {
 			this.inspector.fields.get( 'theme' ).value,
 		);
 		this.reviewCollection.init();
-		this.registerReviewCollectionEventHandlers();
+		this.registerReviewEventHandlers();
 	}
 
-	initReviewFetcher() {
-		this.reviewFetcher = new ReviewFetcher( this.root );
-		this.reviewFetcher.init();
-	}
-
-	initBackground() {
-		this.background = document.querySelector( '.wpbr-admin' );
+	initRequestFetcher() {
+		this.requestFetcher = new RequestFetcher( this.root );
+		this.registerFetchEventHandlers();
 	}
 
 	registerToolbarEventHandlers() {
@@ -55,10 +54,6 @@ class Builder {
 			'click',
 			event => this.inspector.toggleVisibility()
 		);
-
-		this.saveControl.addEventListener( 'click', event => {
-			event.preventDefault();
-		});
 	}
 
 	registerInspectorEventHandlers() {
@@ -72,17 +67,31 @@ class Builder {
 
 		this.root.addEventListener(
 			'wpbrReviewSourcesReady',
-			event => this.initReviewFetcher()
+			event => this.initRequestFetcher()
 		);
 	}
 
-	registerReviewCollectionEventHandlers() {
+	registerReviewEventHandlers() {
 		this.root.addEventListener(
 			'wpbrGetReviewsEnd',
-			event => this.reviewCollection.replaceReviews(
-				event.detail.reviews
-			)
+			event => {
+				this.populateReviewSource( event.detail.reviewSource );
+				this.populateReviews( event.detail.reviews );
+			}
 		);
+	}
+
+	registerFetchEventHandlers() {
+		this.fetchControls = this.root.querySelectorAll( '.js-wpbr-fetch-control' );
+
+		for ( const control of this.fetchControls ) {
+			control.addEventListener( 'click', ( event ) => {
+				const platform       = event.currentTarget.getAttribute( 'data-wpbr-platform' );
+				const reviewSourceId = event.currentTarget.getAttribute( 'data-wpbr-review-source-id' );
+
+				this.requestFetcher.fetch( platform, reviewSourceId );
+			});
+		}
 	}
 
 	reflectControlChange( controlId, controlValue ) {
@@ -136,6 +145,15 @@ class Builder {
 		} else {
 			this.background.classList.remove( 'wpbr-theme--dark' );
 		}
+	}
+
+	populateReviewSource( reviewSourceArray ) {
+		this.reviewSourceControl.value = JSON.stringify(reviewSourceArray);
+	}
+
+	populateReviews( reviewsArray ) {
+		this.reviewsControl.value = JSON.stringify(reviewsArray);
+		this.reviewCollection.replaceReviews( reviewsArray );
 	}
 }
 

@@ -33,30 +33,6 @@ abstract class Serializer_Abstract {
 	protected $capability = 'manage_options';
 
 	/**
-	 * Saves a single sanitized value to the database.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $key   The key being saved.
-	 * @param mixed  $value The value being saved.
-	 * @return boolean True if value saved successfully, false otherwise.
-	 */
-	abstract public function save( $key, $value );
-
-	/**
-	 * Saves an array of key-value pairs to the database.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param $values Key-value pairs to be saved.
-	 */
-	public function save_multiple( array $values ) {
-		foreach ( $values as $key => $value ) {
-			$this->save( $key, $value );
-		}
-	}
-
-	/**
 	 * Recursively sanitizes a given value.
 	 *
 	 * @param string|array $value The value to be sanitized.
@@ -100,5 +76,22 @@ abstract class Serializer_Abstract {
 	 */
 	public function has_permission() {
 		return current_user_can( $this->capability );
+	}
+
+	/**
+	 * Redirects to the page from which the post was saved.
+	 *
+	 * @since 0.1.0
+	 */
+	public function redirect() {
+		if ( empty( $_POST['_wp_http_referer'] ) ) {
+			wp_safe_redirect( wp_login_url() );
+			exit;
+		}
+
+		$redirect = sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) );
+
+		wp_safe_redirect( $redirect );
+		exit;
 	}
 }

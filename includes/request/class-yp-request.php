@@ -50,12 +50,7 @@ class YP_Request extends Request {
 	public function is_connected() {
 		$response = $this->search_review_source( 'PNC Park', 'Pittsburgh' );
 
-		if (
-			isset( $response['result'] )
-			&& isset( $response['result']['metaProperties'] )
-			&& isset( $response['result']['metaProperties']['resultCode'] )
-			&& 'Failure' === $response['result']['metaProperties']['resultCode']
-		) {
+		if ( is_wp_error( $response ) ) {
 			return false;
 		} else {
 			return true;
@@ -92,7 +87,7 @@ class YP_Request extends Request {
 	}
 
 	/**
-	 * Retrieves business details based on YP listing ID.
+	 * Retrieves review source details based on YP listing ID.
 	 *
 	 * @since 0.1.0
 	 *
@@ -100,7 +95,7 @@ class YP_Request extends Request {
 	 * @return array|WP_Error Associative array containing response or WP_Error
 	 *                        if response structure is invalid.
 	 */
-	public function get_business( $id ) {
+	public function get_review_source( $id ) {
 		$url = add_query_arg(
 			array(
 				'listingid' => $id,
@@ -112,7 +107,7 @@ class YP_Request extends Request {
 
 		$response = $this->get( $url );
 
-		return $response;
+		return $response['listingsDetailsResult']['listingsDetails']['listingDetail'][0];
 	}
 
 	/**

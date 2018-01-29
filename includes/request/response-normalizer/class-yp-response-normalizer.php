@@ -48,6 +48,11 @@ class YP_Response_Normalizer extends Response_Normalizer_Abstract {
 			$normalized['rating'] = $this->clean( $r['averageRating'] );
 		}
 
+		// Set rating.
+		if ( isset( $r['ratingCount'] ) ) {
+			$normalized['rating_count'] = $this->clean( $r['ratingCount'] );
+		}
+
 		// Set phone.
 		if ( isset( $r['phone'] ) ) {
 			$normalized['phone'] = $this->clean( $r['phone'] );

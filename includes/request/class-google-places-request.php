@@ -50,7 +50,7 @@ class Google_Places_Request extends Request {
 	public function is_connected() {
 		$response = $this->search_review_source( 'PNC Park', 'Pittsburgh' );
 
-		if ( isset( $response['status'] ) && 'REQUEST_DENIED' === $response['status'] ) {
+		if ( is_wp_error( $response ) ) {
 			return false;
 		} else {
 			return true;
@@ -80,7 +80,7 @@ class Google_Places_Request extends Request {
 
 		$response = $this->get( $url );
 
-		if ( ! isset( $response['results'] ) ) {
+		if ( ! isset( $response['results'] ) || empty( $response['results'] ) ) {
 			return new \WP_Error( 'invalid_response_structure', __( 'Invalid response structure.', 'wp-business-reviews' ) );
 		}
 
@@ -127,8 +127,14 @@ class Google_Places_Request extends Request {
 	 *                        if response structure is invalid.
 	 */
 	public function get_reviews( $review_source_id ) {
+		$reviews  = array();
 		$response = $this->get_review_source( $review_source_id );
 
-		return $response['reviews'];
+		foreach ( $response['reviews'] as $review ) {
+			$review['review_source_id'] = $review_source_id;
+			$reviews[] = $review;
+		}
+
+		return $reviews;
 	}
 }

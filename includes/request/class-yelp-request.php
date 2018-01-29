@@ -50,7 +50,7 @@ class Yelp_Request extends Request {
 	public function is_connected() {
 		$response = $this->search_review_source( 'PNC Park', 'Pittsburgh' );
 
-		if ( isset( $response['error'] ) ) {
+		if ( is_wp_error( $response ) ) {
 			return false;
 		} else {
 			return true;
@@ -94,7 +94,7 @@ class Yelp_Request extends Request {
 	}
 
 	/**
-	 * Retrieves business details based on Yelp business ID.
+	 * Retrieves review source details based on Yelp business ID.
 	 *
 	 * @since 0.1.0
 	 *
@@ -102,7 +102,7 @@ class Yelp_Request extends Request {
 	 * @return array|WP_Error Associative array containing response or WP_Error
 	 *                        if response structure is invalid.
 	 */
-	public function get_business( $id ) {
+	public function get_review_source( $id ) {
 		$url = 'https://api.yelp.com/v3/businesses/' . $id;
 
 		$args = array(
