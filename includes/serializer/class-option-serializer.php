@@ -68,7 +68,6 @@ class Option_Serializer extends Serializer_Abstract {
 			)
 			|| ! $this->has_permission()
 		) {
-			error_log( print_r( 'nonce or permission failure', true ) );
 			$this->redirect();
 		}
 
