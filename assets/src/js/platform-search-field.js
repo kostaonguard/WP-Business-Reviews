@@ -1,4 +1,5 @@
 import Field from './field';
+import FieldFactory from './field-factory';
 import BasicField from './basic-field';
 import ButtonField from './button-field';
 import ReviewSourceCollection from './review-source-collection';
@@ -8,6 +9,8 @@ import queryString from 'query-string';
 class PlatformSearchField extends Field {
 	constructor( element ) {
 		super( element );
+		this.fieldFactory = new FieldFactory();
+		this.subfields    = new Map();
 	}
 
 	init() {
@@ -15,32 +18,19 @@ class PlatformSearchField extends Field {
 		this.registerSearchEventHandlers();
 	}
 
-	initSubfields() {
-		this.platformField = new BasicField(
-			this.root.querySelector(
-				'[data-wpbr-field-id="platform"]'
-			)
-		);
-		this.termsField = new BasicField(
-			this.root.querySelector(
-				'[data-wpbr-field-id="platform_search_terms"]'
-			)
-		);
-		this.locationField = new BasicField(
-			this.root.querySelector(
-				'[data-wpbr-field-id="platform_search_location"]'
-			)
-		);
-		this.searchButtonField = new ButtonField(
-			this.root.querySelector(
-				'[data-wpbr-field-id="platform_search_button"]'
-			)
-		);
+	initSubfields( selector ) {
+		const subfieldEls = this.root.querySelectorAll( '.js-wpbr-subfield' );
 
-		this.platformField.init();
-		this.termsField.init();
-		this.locationField.init();
-		this.searchButtonField.init();
+		for ( const subfieldEl of subfieldEls ) {
+			const fieldId   = subfieldEl.dataset.wpbrFieldId;
+			const fieldType = subfieldEl.dataset.wpbrFieldType;
+			const field     = this.fieldFactory.createField( subfieldEl, fieldType );
+
+			if ( field ) {
+				field.init();
+				this.subfields.set( fieldId, field );
+			}
+		}
 	}
 
 	initResults() {
@@ -60,8 +50,8 @@ class PlatformSearchField extends Field {
 
 	registerSearchEventHandlers() {
 		const searchTextFields = [
-			this.termsField,
-			this.locationField
+			this.subfields.get( 'platform_search_terms' ),
+			this.subfields.get( 'platform_search_location' )
 		];
 
 		// Allow search to be initiated via Enter key.
@@ -75,19 +65,19 @@ class PlatformSearchField extends Field {
 			field.control.addEventListener( 'keyup', event => {
 				if ( 13 === event.keyCode ) {
 					event.preventDefault();
-					this.searchButtonField.control.click();
+					this.subfields.get( 'platform_search_button' ).control.click();
 				}
 			});
 		}
 
 		// Trigger search on click.
-		this.searchButtonField.control.addEventListener(
+		this.subfields.get( 'platform_search_button' ).control.addEventListener(
 			'wpbrControlChange',
 			() => {
 				this.search(
-					this.platformField.value,
-					this.termsField.value,
-					this.locationField.value
+					this.subfields.get( 'platform' ).value,
+					this.subfields.get( 'platform_search_terms' ).value,
+					this.subfields.get( 'platform_search_location' ).value
 				);
 			}
 		);
@@ -149,25 +139,25 @@ class PlatformSearchField extends Field {
 	}
 
 	hideSearchFields() {
-		this.termsField.hide();
-		this.locationField.hide();
-		this.searchButtonField.hide();
+		this.subfields.get( 'platform_search_terms' ).hide();
+		this.subfields.get( 'platform_search_location' ).hide();
+		this.subfields.get( 'platform_search_button' ).hide();
 	}
 
 	showSearchFields() {
-		this.termsField.show();
-		this.locationField.show();
-		this.searchButtonField.show();
+		this.subfields.get( 'platform_search_terms' ).show();
+		this.subfields.get( 'platform_search_location' ).show();
+		this.subfields.get( 'platform_search_button' ).show();
 	}
 
 	reset() {
-		this.termsField.value    = '';
-		this.locationField.value = '';
+		this.subfields.get( 'platform_search_terms' ).value = '';
+		this.subfields.get( 'platform_search_location' ).value = '';
 		this.root.removeChild( this.resetButton );
 		this.resetButton = null;
 		this.results.destroy();
 		this.showSearchFields();
-		this.termsField.control.focus();
+		this.subfields.get( 'platform_search_terms' ).control.focus();
 	}
 }
 
