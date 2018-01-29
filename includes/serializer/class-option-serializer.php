@@ -22,7 +22,7 @@ class Option_Serializer extends Serializer_Abstract {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_settings_from_post' ) );
+		add_action( 'admin_post_wp_business_reviews_save_settings', array( $this, 'save_from_post_array' ) );
 	}
 
 	/**
@@ -56,32 +56,35 @@ class Option_Serializer extends Serializer_Abstract {
 	 *
 	 * @since 0.1.0
 	 */
-	public function save_settings_from_post() {
-		// Make sure settings exist.
+	public function save_from_post_array() {
 		if ( empty( $_POST['wp_business_reviews_settings'] ) ) {
 			$this->redirect();
 		}
 
 		if (
-			$this->has_valid_nonce( 'wp_business_reviews_save_settings', 'wp_business_reviews_settings_nonce' )
-			&& $this->has_permission()
+			! $this->has_valid_nonce(
+				'wp_business_reviews_save_settings',
+				'wp_business_reviews_settings_nonce'
+			)
+			|| ! $this->has_permission()
 		) {
-			$settings = $_POST['wp_business_reviews_settings'];
-			$section = sanitize_text_field( $_POST['wp_business_reviews_subtab'] );
-
-			$this->save_multiple( $settings );
-
-			/**
-			 * Fires after all posted settings have been saved.
-			 *
-			 * @since 0.1.0
-			 *
-			 * @param string $section Name of the updated setting.
-			 */
-			do_action( 'wp_business_reviews_saved_settings', $section );
-		} else {
-			// TODO: Display an error message regarding permission.
+			error_log( print_r( 'nonce or permission failure', true ) );
+			$this->redirect();
 		}
+
+		$settings = $_POST['wp_business_reviews_settings'];
+		$section = sanitize_text_field( $_POST['wp_business_reviews_subtab'] );
+
+		$this->save_multiple( $settings );
+
+		/**
+		 * Fires after all posted settings have been saved.
+		 *
+		 * @since 0.1.0
+		 *
+		 * @param string $section Name of the updated setting.
+		 */
+		do_action( 'wp_business_reviews_saved_settings', $section );
 
 		$this->redirect();
 	}
