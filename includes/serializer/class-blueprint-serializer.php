@@ -51,10 +51,6 @@ class Blueprint_Serializer extends Post_Serializer {
 			'post_parent' => $this->post_parent,
 		);
 
-		if ( ! isset( $post_array['post_title'] ) ) {
-			$post_array['post_title'] = 'test blueprint';
-		}
-
 		foreach ( $raw_data as $key => $value ) {
 			switch ( $key ) {
 				case 'title':
