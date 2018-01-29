@@ -6,10 +6,10 @@ class FacebookPagesField extends Field {
 	}
 
 	init() {
-		this.registerEventHandlers();
 		this.disconnectButton = this.root.querySelector(
 			'.js-wpbr-facebook-disconnect'
 		);
+		this.registerEventHandlers();
 	}
 
 	registerEventHandlers() {
