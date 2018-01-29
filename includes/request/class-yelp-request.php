@@ -50,7 +50,7 @@ class Yelp_Request extends Request {
 	public function is_connected() {
 		$response = $this->search_review_source( 'PNC Park', 'Pittsburgh' );
 
-		if ( isset( $response['error'] ) ) {
+		if ( is_wp_error( $response ) ) {
 			return false;
 		} else {
 			return true;

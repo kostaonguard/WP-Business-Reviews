@@ -50,12 +50,7 @@ class YP_Request extends Request {
 	public function is_connected() {
 		$response = $this->search_review_source( 'PNC Park', 'Pittsburgh' );
 
-		if (
-			isset( $response['result'] )
-			&& isset( $response['result']['metaProperties'] )
-			&& isset( $response['result']['metaProperties']['resultCode'] )
-			&& 'Failure' === $response['result']['metaProperties']['resultCode']
-		) {
+		if ( is_wp_error( $response ) ) {
 			return false;
 		} else {
 			return true;
