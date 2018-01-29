@@ -26,7 +26,6 @@ if ( document.querySelector( 'body' ).classList.contains( 'wpbr_review_page_wpbr
 
 	if ( builderEl ) {
 		const builder = new Builder( builderEl );
+		builder.init();
 	}
-
-	builder.init();
 }
