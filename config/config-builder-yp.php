@@ -9,8 +9,8 @@
 namespace WP_Business_Reviews\Config;
 
 $config = array(
-	'platform' => array(
-		'name'   => __( 'YP', 'wp-business-reviews' ),
+	'review_source' => array(
+		'name'   => __( 'Review Source', 'wp-business-reviews' ),
 		'fields' => array(
 			'platform_search' => array(
 				'type'  => 'platform_search',

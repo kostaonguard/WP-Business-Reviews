@@ -10,7 +10,7 @@ namespace WP_Business_Reviews\Config;
 
 $config = array(
 	'review_source' => array(
-		'name'   => __( 'Facebook', 'wp-business-reviews' ),
+		'name'   => __( 'Review Source', 'wp-business-reviews' ),
 		'fields' => array(
 			'facebook_pages_select' => array(
 				'name'    => __( 'Facebook Page', 'wp-business-reviews' ),
