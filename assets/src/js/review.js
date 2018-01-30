@@ -29,6 +29,7 @@ class Review {
 		this.content       = data.content;
 		this.maxCharacters = data.maxCharacters || 280;
 		this.lineBreaks    = data.lineBreaks || 'disabled';
+		this.isTruncated   = data.is_truncated || false;
 	}
 
 	/**
@@ -95,9 +96,10 @@ class Review {
 	 */
 	renderContent() {
 		let content     = this.content;
-		let isTruncated = false;
+		let isTruncated = this.isTruncated;
 
-		if ( 0 < this.maxCharacters ) {
+		// Only truncate if original review is not already truncated via API.
+		if ( ! this.isTruncated && 0 < this.maxCharacters ) {
 			content = truncate(
 				this.content,
 				{
