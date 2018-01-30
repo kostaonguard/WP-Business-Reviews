@@ -17,19 +17,6 @@ class ReviewCollection {
 		this.root.appendChild( this.list );
 	}
 
-	updatePresentation() {
-		const wrapClass = this.getWrapClass();
-		const listClass = this.getListClass();
-		const itemClass = this.getItemClass();
-
-		this.root.className = wrapClass;
-		this.list.className = listClass;
-
-		for ( const item of this.items ) {
-			item.className = itemClass;
-		}
-	}
-
 	replaceReviews( reviewsData ) {
 		this.reset();
 		this.addReviews( reviewsData );
@@ -62,6 +49,16 @@ class ReviewCollection {
 		this.list.appendChild( fragment );
 	}
 
+	updateReviews() {
+		const reviewsIterator = this.reviews.values();
+
+		for ( const li of this.items ) {
+			const review = reviewsIterator.next();
+
+			li.innerHTML = review.value.render();
+		}
+	}
+
 	renderPlaceholderReviews() {
 		let reviewsData = [];
 		let data = new Object();
@@ -71,7 +68,7 @@ class ReviewCollection {
 		data.reviewer_image = 'placeholder';
 		data.rating         = 5;
 		data.timestamp      = '2 weeks ago';
-		data.content        = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae in laborum laudantium neque omnis optio quasi qui sit voluptatum!';
+		data.content        = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus, dui eu posuere viverra, orci tortor congue urna, non fringilla enim tellus sed quam. Maecenas vel mattis erat. Maecenas tincidunt neque a orci dapibus faucibus. Curabitur nulla ex, scelerisque vel congue in.';
 
 		for ( let index = 0; 12 > index; index++ ) {
 			reviewsData.push( data );
@@ -79,6 +76,19 @@ class ReviewCollection {
 
 		this.addReviews( reviewsData );
 		this.renderItems( reviewsData );
+	}
+
+	updatePresentation() {
+		const wrapClass = this.getWrapClass();
+		const listClass = this.getListClass();
+		const itemClass = this.getItemClass();
+
+		this.root.className = wrapClass;
+		this.list.className = listClass;
+
+		for ( const item of this.items ) {
+			item.className = itemClass;
+		}
 	}
 
 	getWrapClass() {

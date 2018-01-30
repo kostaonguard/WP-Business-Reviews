@@ -21,11 +21,13 @@ class Review {
 	 */
 	constructor( data ) {
 		this.platform      = data.platform;
+		this.reviewUrl     = data.review_url;
 		this.reviewer      = data.reviewer;
 		this.reviewerImage = data.reviewer_image;
 		this.rating        = data.rating;
 		this.timestamp     = data.timestamp;
 		this.content       = data.content;
+		this.maxCharacters = data.maxCharacters || 280;
 	}
 
 	/**
@@ -91,10 +93,39 @@ class Review {
 	 * @returns string Review content markup.
 	 */
 	renderContent() {
-		const arrayOfStrings = this.content.split( '\n' );
+		let content = this.content;
+		let isTruncated = false;
+
+		if ( 0 < this.maxCharacters ) {
+			content = truncate(
+				this.content,
+				{
+					'length': this.maxCharacters,
+					'omission': '...',
+					'separator': /[.?!,]? +/
+				}
+			);
+
+			if ( content !== this.content ) {
+				isTruncated = true;
+			}
+		}
+
+		const arrayOfStrings = content.split( '\n' );
+
+		if ( isTruncated && this.reviewUrl ) {
+			arrayOfStrings[arrayOfStrings.length - 1] += ` ${this.renderOmission()}`;
+		}
+
 		const paragraphs = `${arrayOfStrings.map( string => `<p>${string}</p>` ).join( '' )}`;
 
 		return `<div class="wpbr-review__content">${paragraphs}</div>`;
+	}
+
+	renderOmission() {
+
+		// TODO: Translate Read More in truncated excerpts.
+		return `<a href="${this.reviewUrl}" target="_blank" rel="noopener noreferrer">Read more</a>`;
 	}
 }
 

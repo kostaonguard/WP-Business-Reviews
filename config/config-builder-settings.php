@@ -12,6 +12,17 @@ $config = array(
 	'presentation' => array(
 		'name'   => __( 'Presentation', 'wp-business-reviews' ),
 		'fields' => array(
+			'theme' => array(
+				'name'    => __( 'Theme', 'wp-business-reviews' ),
+				'type'    => 'select',
+				'tooltip' => __( 'Styles the appearance of reviews.', 'wp-business-reviews' ),
+				'default' => 'card',
+				'options' => array(
+					'card'           => __( 'Card', 'wp-business-reviews' ),
+					'seamless-light' => __( 'Seamless Light', 'wp-business-reviews' ),
+					'seamless-dark'  => __( 'Seamless Dark', 'wp-business-reviews' ),
+				),
+			),
 			'format' => array(
 				'name'    => __( 'Format', 'wp-business-reviews' ),
 				'type'    => 'select',
@@ -38,16 +49,12 @@ $config = array(
 					'6' => __( '6 Columns', 'wp-business-reviews' ),
 				),
 			),
-			'theme' => array(
-				'name'    => __( 'Theme', 'wp-business-reviews' ),
-				'type'    => 'select',
-				'tooltip' => __( 'Styles the appearance of reviews.', 'wp-business-reviews' ),
-				'default' => 'card',
-				'options' => array(
-					'card'           => __( 'Card', 'wp-business-reviews' ),
-					'seamless-light' => __( 'Seamless Light', 'wp-business-reviews' ),
-					'seamless-dark'  => __( 'Seamless Dark', 'wp-business-reviews' ),
-				),
+			'max_characters' => array(
+				'name'    => __( 'Maximum Characters', 'wp-business-reviews' ),
+				'type'    => 'number',
+				'tooltip' => __( 'Sets the maximum character limit before the review is truncated. An empty or 0 value will cause the full review to always display.', 'wp-business-reviews' ),
+				'default' => 280,
+				'placeholder' => __( 'Unlimited', 'wp-business-reviews' ),
 			),
 			'review_components' => array(
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
