@@ -114,6 +114,13 @@ class Builder {
 			this.reviewCollection.updatePresentation();
 			break;
 
+		case 'max_characters':
+			for ( const review of this.reviewCollection.reviews ) {
+				review.maxCharacters = controlValue;
+			}
+			this.reviewCollection.updateReviews();
+			break;
+
 		case 'theme':
 			this.reviewCollection.theme = controlValue;
 			this.reviewCollection.updatePresentation();
