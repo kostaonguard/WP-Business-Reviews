@@ -21,6 +21,7 @@ class Review {
 	 */
 	constructor( data ) {
 		this.platform      = data.platform;
+		this.reviewUrl     = data.review_url;
 		this.reviewer      = data.reviewer;
 		this.reviewerImage = data.reviewer_image;
 		this.rating        = data.rating;

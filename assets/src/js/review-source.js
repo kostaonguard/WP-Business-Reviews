@@ -2,13 +2,23 @@ import * as stars from './stars';
 
 class ReviewSource {
 	constructor( data ) {
-		this.platform         = data.platform;
-		this.reviewSourceId   = data.review_source_id;
-		this.name             = data.name;
-		this.rating           = data.rating;
-		this.icon             = data.icon;
-		this.image            = data.image;
+		this.platform          = data.platform;
+		this.reviewSourceId  = data.review_source_id;
+		this.name              = data.name;
+		this.url               = data.url;
+		this.rating            = data.rating;
+		this.ratingCount      = data.rating_count;
+		this.icon              = data.icon;
+		this.image             = data.image;
+		this.phone             = data.phone;
 		this.formattedAddress = data.formatted_address;
+		this.streetAddress    = data.street_address;
+		this.city              = data.city;
+		this.stateProvince    = data.state_province;
+		this.postalCode       = data.postal_code;
+		this.country           = data.country;
+		this.latitude          = data.latitude;
+		this.longitude         = data.longitude;
 		this.isFetchable      = false;
 	}
 
