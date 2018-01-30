@@ -148,6 +148,9 @@ class Yelp_Response_Normalizer extends Response_Normalizer_Abstract {
 			$normalized['content'] = $this->clean_multiline( $r['text'] );
 		}
 
+		// All Yelp reviews are truncated, so there's nothing to check here.
+		$normalized['is_truncated'] = true;
+
 		// Merge normalized properties with default properites in case any are missing.
 		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
 

@@ -56,6 +56,16 @@ $config = array(
 				'default' => 280,
 				'placeholder' => __( 'Unlimited', 'wp-business-reviews' ),
 			),
+			'line_breaks' => array(
+				'name'    => __( 'Line Breaks', 'wp-business-reviews' ),
+				'type'    => 'radio',
+				'tooltip' => __( 'Determines whether line breaks within the review content are displayed. Not all reviews have line breaks.', 'wp-business-reviews' ),
+				'default' => 'disabled',
+				'options'  => array(
+					'enabled'  => __( 'Enabled', 'wp-business-reviews' ),
+					'disabled' => __( 'Disabled', 'wp-business-reviews' ),
+				),
+			),
 			'review_components' => array(
 				'name'    => __( 'Review Components', 'wp-business-reviews' ),
 				'type'    => 'checkboxes',

@@ -13,9 +13,10 @@ if ( ! empty( $this->args['name'] ) ) {
 					<input
 						type="radio"
 						id="wpbr-control-<?php echo esc_attr( $this->id . '-' . $option_value ); ?>"
-						class="wpbr-field__radio"
+						class="wpbr-field__radio js-wpbr-control"
 						name="wp_business_reviews_settings[<?php echo esc_attr( $this->id ); ?>]"
 						value="<?php echo esc_attr( $option_value ); ?>"
+						data-wpbr-control-id="<?php echo esc_attr( $this->id ); ?>"
 						<?php checked( $option_value, $this->value ); ?>
 						>
 					<label for="wpbr-control-<?php echo esc_attr( $this->id . '-' . $option_value ); ?>">
