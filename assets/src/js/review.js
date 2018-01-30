@@ -134,9 +134,10 @@ class Review {
 	}
 
 	renderOmission() {
+		const classAtt = 'wpbr-review__omission';
 
 		// TODO: Translate Read More in truncated excerpts.
-		return `<a href="${this.reviewUrl}" target="_blank" rel="noopener noreferrer">Read more</a>`;
+		return `<a class="${classAtt}" href="${this.reviewUrl}" target="_blank" rel="noopener noreferrer">Read more</a>`;
 	}
 }
 

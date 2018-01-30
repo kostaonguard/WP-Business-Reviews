@@ -81,4 +81,8 @@
 			margin: 0 0 $wpbr-space;
 		}
 	}
+
+	&__omission {
+		white-space: nowrap;
+	}
 }
