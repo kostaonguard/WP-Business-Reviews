@@ -1,6 +1,7 @@
 import BasicField from './basic-field';
 import ButtonField from './button-field';
 import CheckboxesField from './checkboxes-field';
+import RadioField from './radio-field';
 import PlatformSearchField from './platform-search-field';
 import FacebookPagesSelectField from './facebook-pages-select-field';
 
@@ -14,6 +15,9 @@ class FieldFactory {
 			break;
 		case 'checkboxes' :
 			field = new CheckboxesField( element );
+			break;
+		case 'radio' :
+			field = new RadioField( element );
 			break;
 		case 'platform_search' :
 			field = new PlatformSearchField( element );
