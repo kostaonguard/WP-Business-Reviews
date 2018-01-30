@@ -121,6 +121,15 @@ class Builder {
 			this.reviewCollection.updateReviews();
 			break;
 
+		case 'line_breaks':
+			console.log('line breaks changed');
+
+			for ( const review of this.reviewCollection.reviews ) {
+				review.lineBreaks = controlValue;
+			}
+			this.reviewCollection.updateReviews();
+			break;
+
 		case 'theme':
 			this.reviewCollection.theme = controlValue;
 			this.reviewCollection.updatePresentation();

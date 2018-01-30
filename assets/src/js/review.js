@@ -28,6 +28,7 @@ class Review {
 		this.timestamp     = data.timestamp;
 		this.content       = data.content;
 		this.maxCharacters = data.maxCharacters || 280;
+		this.lineBreaks    = data.lineBreaks || 'disabled';
 	}
 
 	/**
@@ -93,7 +94,7 @@ class Review {
 	 * @returns string Review content markup.
 	 */
 	renderContent() {
-		let content = this.content;
+		let content     = this.content;
 		let isTruncated = false;
 
 		if ( 0 < this.maxCharacters ) {
@@ -111,15 +112,23 @@ class Review {
 			}
 		}
 
-		const arrayOfStrings = content.split( '\n' );
+		if ( 'enabled' === this.lineBreaks ) {
+			let arrayOfStrings = content.split( '\n' );
 
-		if ( isTruncated && this.reviewUrl ) {
-			arrayOfStrings[arrayOfStrings.length - 1] += ` ${this.renderOmission()}`;
+			if ( isTruncated && this.reviewUrl ) {
+				arrayOfStrings[arrayOfStrings.length - 1] += ` ${this.renderOmission()}`;
+			}
+
+			content = `
+				${arrayOfStrings.map( string => `<p>${string}</p>` ).join( '' )}
+			`;
+		} else if ( isTruncated && this.reviewUrl ) {
+			content = `<p>${content} ${this.renderOmission()}</p>`;
+		} else {
+			content = `<p>${content}</p>`;
 		}
 
-		const paragraphs = `${arrayOfStrings.map( string => `<p>${string}</p>` ).join( '' )}`;
-
-		return `<div class="wpbr-review__content">${paragraphs}</div>`;
+		return `<div class="wpbr-review__content">${content}</div>`;
 	}
 
 	renderOmission() {
