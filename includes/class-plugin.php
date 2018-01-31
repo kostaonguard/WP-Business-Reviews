@@ -31,6 +31,7 @@ use WP_Business_Reviews\Includes\Request\Response_Normalizer\Response_Normalizer
 use WP_Business_Reviews\Includes\Serializer\Review_Serializer;
 use WP_Business_Reviews\Includes\Serializer\Review_Source_Serializer;
 use WP_Business_Reviews\Includes\Serializer\Blueprint_Serializer;
+use WP_Business_Reviews\Includes\Widget\WP_Business_Reviews_Widget;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -86,6 +87,10 @@ final class Plugin {
 		// Register post types.
 		$post_types = new Post_Types();
 		$post_types->register();
+
+		// Register widgets.
+		$wp_business_reviews_widget = new WP_Business_Reviews_Widget();
+		$wp_business_reviews_widget->register();
 
 		if ( is_admin() ) {
 			// Register settings.
@@ -170,7 +175,6 @@ final class Plugin {
 			// Register blank slate that appears when no posts exist.
 			$blank_slate = new Blank_Slate();
 			$blank_slate->register();
-
 		}
 	}
 
