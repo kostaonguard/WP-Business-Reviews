@@ -195,8 +195,11 @@ class Platform_Manager {
 			$connected_platforms = array();
 
 			foreach ( $this->platforms as $platform => $platform_name ) {
-				$status = $this->deserializer->get( "{$platform}_platform_status", 'status' );
-				if ( 'connected' === $status ) {
+				$platform_status = $this->deserializer->get(
+					"{$platform}_platform_status"
+				);
+
+				if ( 'connected' === $platform_status['status'] ) {
 					$connected_platforms[ $platform ] = $platform_name;
 				}
 			}

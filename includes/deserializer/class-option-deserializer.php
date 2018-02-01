@@ -17,19 +17,9 @@ namespace WP_Business_Reviews\Includes\Deserializer;
  */
 class Option_Deserializer extends Deserializer_Abstract {
 	/**
-	 * @inheritDoc
+	 * @since 0.1.0
 	 */
-	public function get( $key, $subkey = false ) {
-		$value = get_option( $this->prefix . $key );
-
-		if ( false !== $subkey ) {
-			if ( isset( $value[ $subkey ] ) ) {
-				return $value[ $subkey ];
-			} else {
-				return null;
-			}
-		}
-
-		return $value;
+	public function get( $key, $default = false ) {
+		return get_option( $this->prefix . $key, $default );
 	}
 }

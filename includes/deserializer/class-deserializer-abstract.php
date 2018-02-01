@@ -29,10 +29,9 @@ abstract class Deserializer_Abstract {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $key    Key of the value to retrieve.
-	 * @param string $subkey Optional. If value is an array and subkey is
-	 *                       defined, only the subkey's value is returned.
-	 * @return mixed The stored value.
-	 */
-	abstract public function get( $key, $subkey = false );
+	 * @param string $option  Name of option to retrieve.
+	 * @param mixed  $default Optional. Default value to return if the option does not exist.
+	 * @return mixed Value set for the option.
+	*/
+	abstract public function get( $key, $default = false );
 }
