@@ -89,6 +89,9 @@ final class Plugin {
 		$post_types->register();
 
 		// Register widgets.
+		$wp_business_reviews_widget_config = new Config(
+			WPBR_PLUGIN_DIR . 'config/config-wp-business-reviews-widget.php'
+		);
 		$wp_business_reviews_widget = new WP_Business_Reviews_Widget();
 		$wp_business_reviews_widget->register();
 
