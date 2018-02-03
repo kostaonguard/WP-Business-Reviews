@@ -10,7 +10,9 @@
 
 namespace WP_Business_Reviews\Includes\Widget;
 
+use WP_Business_Reviews\Includes\Review\Review_Collection;
 use WP_Business_Reviews\Includes\View;
+
 /**
  * Displays review content based on a Blueprint post defined in the Builder.
  *
@@ -59,6 +61,11 @@ class WP_Business_Reviews_Widget extends \WP_Widget {
 	 * @param array $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
+		$review_collection = new Review_Collection();
+
+		echo $args['before_widget'];
+		$review_collection->render();
+		echo $args['after_widget'];
 	}
 
 	/**
