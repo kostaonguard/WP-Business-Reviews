@@ -10,6 +10,7 @@
 
 namespace WP_Business_Reviews\Includes\Widget;
 
+use WP_Business_Reviews\Includes\View;
 /**
  * Displays review content based on a Blueprint post defined in the Builder.
  *
@@ -69,6 +70,20 @@ class WP_Business_Reviews_Widget extends \WP_Widget {
 	 * @return string Default return is 'noform'.
 	 */
 	public function form( $instance ) {
+		$blueprint_id = ! empty( $instance['blueprint_id'] ) ? $instance['blueprint_id'] : '';
+		$field_id     = $this->get_field_id( 'blueprint_id' );
+		$field_name   = $this->get_field_name( 'blueprint_id' );
+		$view_object  = new View(
+			WPBR_PLUGIN_DIR . 'views/widget/wp-business-reviews-widget-form.php'
+		);
+
+		$view_object->render(
+			array(
+				'blueprint_id' => $blueprint_id,
+				'field_id'     => $field_id,
+				'field_name'   => $field_name,
+			)
+		);
 	}
 
 	/**
@@ -86,5 +101,25 @@ class WP_Business_Reviews_Widget extends \WP_Widget {
 	 * @return array|bool Settings to save or bool false to cancel saving.
 	 */
 	public function update( $new_instance, $old_instance ) {
+		$instance     = array();
+		$blueprint_id = ! empty( $new_instance['blueprint_id'] ) ? sanitize_text_field( $new_instance['blueprint_id'] ): '';
+		$instance['blueprint_id'] = $blueprint_id;
+
+		return $instance;
+	}
+
+	/**
+	 * Renders the widget form.
+	 *
+	 * @since 0.1.0
+	 */
+	public function render_form() {
+		$view_object = new View( WPBR_PLUGIN_DIR . 'views/review-collection.php' );
+		$view_object->render(
+			array(
+				'blueprint' => $this->blueprint,
+				'reviews'   => $this->reviews,
+			)
+		);
 	}
 }
