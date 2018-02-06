@@ -23,7 +23,6 @@ use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Request\Request_Factory;
 use WP_Business_Reviews\Includes\Facebook_Page_Manager;
 use WP_Business_Reviews\Includes\Platform_Manager;
-use WP_Business_Reviews\Includes\Field\Field_Factory;
 use WP_Business_Reviews\Includes\Settings\Builder_Settings;
 use WP_Business_Reviews\Includes\Field\Parser\Builder_Field_Parser;
 use WP_Business_Reviews\Includes\Request\Request_Delegator;
@@ -120,12 +119,9 @@ final class Plugin {
 			);
 			$request_delegator->register();
 
-			// Register field factory to create field objects.
-			$field_factory = new Field_Factory();
-
 			// Register plugin settings.
 			$plugin_settings_config       = new Config( WPBR_PLUGIN_DIR . 'config/config-plugin-settings.php' );
-			$plugin_settings_field_parser = new Plugin_Settings_Field_Parser( $field_factory, $option_deserializer );
+			$plugin_settings_field_parser = new Plugin_Settings_Field_Parser( $option_deserializer );
 			$plugin_settings              = new Plugin_Settings(
 				$plugin_settings_config,
 				$plugin_settings_field_parser,
@@ -136,7 +132,7 @@ final class Plugin {
 
 			// Register Builder.
 			$builder_settings_config = new Config( WPBR_PLUGIN_DIR . 'config/config-builder-settings.php' );
-			$builder_field_parser    = new Builder_Field_Parser( $field_factory );
+			$builder_field_parser    = new Builder_Field_Parser();
 			$builder_settings        = new Builder_Settings(
 				$builder_settings_config,
 				$builder_field_parser,

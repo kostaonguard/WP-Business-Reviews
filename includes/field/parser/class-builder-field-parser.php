@@ -11,7 +11,7 @@
 namespace WP_Business_Reviews\Includes\Field\Parser;
 
 use WP_Business_Reviews\Includes\Config;
-use WP_Business_Reviews\Includes\Field\Field_Factory;
+use WP_Business_Reviews\Includes\Field\Field;
 
 /**
  * Recursively parses fields from a settings config.
@@ -31,19 +31,6 @@ class Builder_Field_Parser extends Field_Parser_Abstract {
 	private $deserializer;
 
 	/**
-	 * Instantiates a Builder_Field_Parser object.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param Field_Factory $field_factory Creator of field objects.
-	 */
-	public function __construct(
-		Field_Factory $field_factory
-	) {
-		$this->field_factory = $field_factory;
-	}
-
-	/**
 	 * @inheritDoc
 	 */
 	public function parse_fields( $config ) {
@@ -53,10 +40,10 @@ class Builder_Field_Parser extends Field_Parser_Abstract {
 		// Convert config to array for processing.
 		$config_array = $config->getArrayCopy();
 
-		foreach ( $config_array as $section ) {
+		foreach ( $config_array as $section_id => $section ) {
 			foreach ( $section['fields'] as $field_id => $field_args ) {
 				// Create the field object from the field definition.
-				$field_object = $this->field_factory->create( $field_id, $field_args );
+				$field_object = new Field( $field_id, $field_args, $section_id );
 
 				if ( $field_object ) {
 					// TODO: Attempt to retrieve the field value.
@@ -67,12 +54,12 @@ class Builder_Field_Parser extends Field_Parser_Abstract {
 						$subfield_objects = array();
 
 						foreach ( $subfields as $subfield_id => $subfield_args ) {
-							$subfield_object = $this->field_factory->create( $subfield_id, $subfield_args );
-							$subfield_object->set_arg( 'is_subfield', true );
+							$subfield_object = new Field( $subfield_id, $subfield_args );
+							$subfield_object->set_field_arg( 'is_subfield', true );
 							$subfield_objects[ $subfield_id ] = $subfield_object;
 						}
 
-						$field_object->set_arg( 'subfields', $subfield_objects );
+						$field_object->set_field_arg( 'subfields', $subfield_objects );
 					}
 				}
 
