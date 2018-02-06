@@ -79,4 +79,15 @@ class Post_Deserializer {
 
 		return $this->wp_query->posts[0];
 	}
+
+	/**
+	 * Retrieves a post meta key.
+	 *
+	 * @param int $post_id The Post ID.
+	 * @param string $key  The post meta key to retrieve.
+	 * @return mixed The meta value.
+	 */
+	public function get_meta( $post_id, $key ) {
+		return get_post_meta( $post_id, "{$this->prefix}{$key}", true );
+	}
 }
