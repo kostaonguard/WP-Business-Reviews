@@ -199,7 +199,10 @@ class Platform_Manager {
 					"{$platform}_platform_status"
 				);
 
-				if ( 'connected' === $platform_status['status'] ) {
+				if (
+					isset( $platform_status['status'] )
+					&& 'connected' === $platform_status['status']
+				) {
 					$connected_platforms[ $platform ] = $platform_name;
 				}
 			}
