@@ -2,7 +2,7 @@
 submit_button(
 	__( 'Save Changes', 'wpbr' ),
 	'primary',
-	$this->id,
+	$this->field_id,
 	false
 );
 ?>

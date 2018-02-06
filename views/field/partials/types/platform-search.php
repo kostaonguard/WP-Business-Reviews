@@ -1,12 +1,12 @@
 <?php
-if ( ! empty( $this->args['name'] ) ) {
+if ( ! empty( $this->field_args['name'] ) ) {
 	$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/partials/label.php' );
 }
 
-foreach ( $this->args['subfields'] as $subfield ) {
+foreach ( $this->field_args['subfields'] as $subfield ) {
 	$subfield->render();
 }
 
-if ( ! empty( $this->args['description'] ) ) {
+if ( ! empty( $this->field_args['description'] ) ) {
 	$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/partials/description.php' );
 }
