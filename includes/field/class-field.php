@@ -17,6 +17,14 @@ use WP_Business_Reviews\Includes\View;
  */
 class Field {
 	/**
+	 * The prefix prepended to the field control name.
+	 *
+	 * @since 0.1.0
+	 * @var string $prefix
+	 */
+	protected $prefix = 'wp_business_reviews';
+
+	/**
 	 * Unique identifier of the field.
 	 *
 	 * @since 0.1.0
@@ -31,14 +39,6 @@ class Field {
 	 * @var array $field_args
 	 */
 	protected $field_args;
-
-	/**
-	 * Unique identifier of the section.
-	 *
-	 * @since 0.1.0
-	 * @var string $section_id
-	 */
-	protected $section_id;
 
 	/**
 	 * Field value.
@@ -67,19 +67,16 @@ class Field {
 	 *     @type string $placeholder    Optional. Placeholder text for input controls.
 	 *     @type array  $options        Optional. Field options for select/radios/checkboxes.
 	 * }
-	 * @param string $section_id Unique identifier of the section.
 	 */
 	public function __construct(
 		$field_id,
-		array $field_args = array(),
-		$section_id = null
+		array $field_args = array()
 	) {
 		$this->field_id   = $field_id;
 		$this->field_args = wp_parse_args(
 			$field_args,
 			$this->get_default_field_args()
 		);
-		$this->section_id = $section_id;
 		$this->set_value();
 	}
 
@@ -136,25 +133,6 @@ class Field {
 	}
 
 	/**
-	 * Sets a field argument.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param string $key Key of the arg being set.
-	 * @param mixed  $value Value of the arg being set.
-	 * @return bool True if successful, false otherwise.
-	 */
-	public function set_field_arg( $key, $value ) {
-		if ( isset( $this->field_args[ $key ] ) ) {
-			$this->field_args[ $key ] = $value;
-			return true;
-		}
-
-		// Invalid key was provided.
-		return false;
-	}
-
-	/**
 	 * Gets field ID.
 	 *
 	 * @since 0.1.0
@@ -163,17 +141,6 @@ class Field {
 	 */
 	public function get_field_id() {
 		return $this->field_id;
-	}
-
-	/**
-	 * Gets section ID.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return string Field ID.
-	 */
-	public function get_section_id() {
-		return $this->section_id;
 	}
 
 	/**
@@ -190,6 +157,54 @@ class Field {
 		 * @since 0.1.0
 		 */
 		return apply_filters( "wp_business_reviews_get_field_value_{$this->field_id}", $this->value );
+	}
+
+	/**
+	 * Gets the CSS class for the field.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string The CSS class.
+	 */
+	protected function get_field_class() {
+		$field_classes = array(
+			'wpbr-field',
+			"wpbr-field--{$this->field_args['type']}",
+		);
+
+		// Add wrapper class if one is set.
+		if ( ! empty( $this->field_args['wrapper_class'] ) ) {
+			$field_classes[] = $this->field_args['wrapper_class'];
+		}
+
+		// Add field or subfield JS handle.
+		if ( $this->field_args['is_subfield'] ) {
+			$field_classes[] = 'js-wpbr-subfield';
+		} else {
+			$field_classes[] = 'js-wpbr-field';
+		}
+
+		// Convert classes from array to string.
+		return implode( $field_classes, ' ' );
+	}
+
+	/**
+	 * Sets a field argument.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $key Key of the arg being set.
+	 * @param mixed  $value Value of the arg being set.
+	 * @return bool True if successful, false otherwise.
+	 */
+	public function set_field_arg( $key, $value ) {
+		if ( isset( $this->field_args[ $key ] ) ) {
+			$this->field_args[ $key ] = $value;
+			return true;
+		}
+
+		// Invalid key was provided.
+		return false;
 	}
 
 	/**
@@ -238,10 +253,11 @@ class Field {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/field/field.php' );
 		$view_object->render(
 			array(
-				'field_id'   => $this->get_field_id(),
-				'field_args' => $this->get_field_args(),
-				'value'      => $this->get_value(),
-				'section_id' => $this->get_section_id(),
+				'field_id'    => $this->get_field_id(),
+				'field_args'  => $this->get_field_args(),
+				'value'       => $this->get_value(),
+				'field_class' => $this->get_field_class(),
+				'prefix'      => $this->prefix,
 			)
 		);
 	}

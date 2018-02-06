@@ -8,7 +8,7 @@ if ( ! empty( $this->field_args['name'] ) ) {
 	<select
 		id="wpbr-control-<?php echo esc_attr( $this->field_id ); ?>"
 		class="wpbr-field__select js-wpbr-control"
-		name="wp_business_reviews_settings[<?php echo esc_attr( $this->field_id ); ?>]"
+		name="<?php echo esc_attr( "{$this->prefix}[{$this->field_id}]" ); ?>"
 		data-wpbr-control-id="<?php echo esc_attr( $this->field_id ); ?>"
 		>
 		<?php foreach ( $this->field_args['options'] as $option_value => $option_text ) : ?>

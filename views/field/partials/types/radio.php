@@ -14,7 +14,7 @@ if ( ! empty( $this->field_args['name'] ) ) {
 						type="radio"
 						id="wpbr-control-<?php echo esc_attr( $this->field_id . '-' . $option_value ); ?>"
 						class="wpbr-field__radio js-wpbr-control"
-						name="wp_business_reviews_settings[<?php echo esc_attr( $this->field_id ); ?>]"
+						name="<?php echo esc_attr( "{$this->prefix}[{$this->field_id}]" ); ?>"
 						value="<?php echo esc_attr( $option_value ); ?>"
 						data-wpbr-control-id="<?php echo esc_attr( $this->field_id ); ?>"
 						<?php checked( $option_value, $this->value ); ?>

@@ -14,10 +14,10 @@ if ( ! empty( $this->field_args['name'] ) ) {
 						type="checkbox"
 						id="wpbr-control-<?php echo esc_attr( $option_value ); ?>"
 						class="wpbr-field__checkbox js-wpbr-control"
-						name="wp_business_reviews_settings[<?php echo esc_attr( $this->field_id ); ?>][<?php echo esc_attr( $option_value ); ?>]"
-						value="<?php echo esc_attr( $option_value ); ?>"
+						name="<?php echo esc_attr( "{$this->prefix}[{$this->field_id}][{$option_value}]" ); ?>"
+						value="enabled"
 						data-wpbr-control-id="<?php echo esc_attr( $option_value ); ?>"
-						<?php checked( $this->value && in_array( $option_value, $this->value ) ); ?>
+						<?php checked( $this->value && isset( $this->value[ $option_value ] ) ); ?>
 						>
 					<label for="wpbr-control-<?php echo esc_attr( $option_value ); ?>">
 						<?php echo esc_html( $option_text ); ?>

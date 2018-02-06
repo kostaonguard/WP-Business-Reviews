@@ -9,7 +9,7 @@ if ( ! empty( $this->field_args['name'] ) ) {
 		id="wpbr-control-<?php echo esc_attr( $this->field_id ); ?>"
 		class="wpbr-field__input js-wpbr-control"
 		type="<?php echo esc_attr( $this->field_args['type'] ); ?>"
-		name="wp_business_reviews_settings[<?php echo esc_attr( $this->field_id ); ?>]"
+		name="<?php echo esc_attr( "{$this->prefix}[{$this->field_id}]" ); ?>"
 		value="<?php echo esc_attr( $this->value ); ?>"
 		placeholder="<?php echo esc_attr( $this->field_args['placeholder'] ); ?>"
 		data-wpbr-control-id="<?php echo esc_attr( $this->field_id ); ?>"
