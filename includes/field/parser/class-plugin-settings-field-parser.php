@@ -55,10 +55,10 @@ class Plugin_Settings_Field_Parser extends Field_Parser_Abstract {
 		$config_array = $config->getArrayCopy();
 
 		foreach ( $config_array as $key => $value ) {
-			foreach ( $value['sections'] as $section_id => $section ) {
+			foreach ( $value['sections'] as $section ) {
 				foreach ( $section['fields'] as $field_id => $field_args ) {
 					// Create the field object from the field definition.
-					$field_object = new Field( $field_id, $field_args, $section_id );
+					$field_object = new Field( $field_id, $field_args );
 
 					if ( $field_object ) {
 						// Attempt to retrieve the field value.
