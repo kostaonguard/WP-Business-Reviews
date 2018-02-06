@@ -71,10 +71,10 @@ $config = array(
 				'type'    => 'checkboxes',
 				'tooltip' => __( 'Defines the visible components of a review.', 'wp-business-reviews' ),
 				'default' => array(
-					'review_image',
-					'review_rating',
-					'review_timestamp',
-					'review_content',
+					'review_image'     => 'enabled',
+					'review_rating'    => 'enabled',
+					'review_timestamp' => 'enabled',
+					'review_content'   => 'enabled',
 				),
 				'options' => array(
 					'review_image'     => __( 'Review Image', 'wp-business-reviews' ),
