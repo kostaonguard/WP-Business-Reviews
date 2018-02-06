@@ -24,7 +24,7 @@ class Blueprint_Serializer extends Post_Serializer {
 	/**
 	 * @inheritDoc
 	 */
-	protected $post_key = 'wp_business_reviews_settings';
+	protected $post_key = 'wp_business_reviews';
 
 	/**
 	 * Registers functionality with WordPress hooks.

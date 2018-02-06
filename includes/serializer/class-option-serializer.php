@@ -57,7 +57,7 @@ class Option_Serializer extends Serializer_Abstract {
 	 * @since 0.1.0
 	 */
 	public function save_from_post_array() {
-		if ( empty( $_POST['wp_business_reviews_settings'] ) ) {
+		if ( empty( $_POST['wp_business_reviews'] ) ) {
 			$this->redirect();
 		}
 
@@ -71,7 +71,7 @@ class Option_Serializer extends Serializer_Abstract {
 			$this->redirect();
 		}
 
-		$settings = $_POST['wp_business_reviews_settings'];
+		$settings = $_POST['wp_business_reviews'];
 		$section = sanitize_text_field( $_POST['wp_business_reviews_subtab'] );
 
 		$this->save_multiple( $settings );
