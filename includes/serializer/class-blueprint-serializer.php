@@ -59,9 +59,12 @@ class Blueprint_Serializer extends Post_Serializer {
 				case 'platform':
 					$post_array['tax_input']['wpbr_platform'] = $this->clean( $value );
 					break;
+				case 'theme':
 				case 'format':
 				case 'max_columns':
-				case 'theme':
+				case 'max_characters':
+				case 'line_breaks':
+				case 'review_components':
 					$post_array['meta_input'][ $this->prefix . $key ] = $this->clean( $value );
 					break;
 			}
