@@ -16,6 +16,9 @@
 # Tools - Default mixins and functions.
 --------------------------------------------------------------*/
 
+@import "tools.gallery-mixins"; // Gallery mixins.
+@import "tools.card-mixins"; // Card mixins.
+
 /*--------------------------------------------------------------
 # Generic - Ground-zero styles (resets, box-sizing, etc.).
 --------------------------------------------------------------*/
@@ -32,9 +35,22 @@
 # Objects - Cosmetic-free design patterns.
 --------------------------------------------------------------*/
 
+@import "objects.review-gallery"; // Multi-column review gallery.
+
 /*--------------------------------------------------------------
 # Components - Designed components, chunks of UI.
 --------------------------------------------------------------*/
+
+@import "components.review"; // Review.
+@import "components.review-source"; // Review source.
+@import "components.stars"; // Five-star ratings.
+
+/*--------------------------------------------------------------
+# Themes - Styles that override many components.
+--------------------------------------------------------------*/
+
+@import "themes.card"; // Card theme.
+@import "themes.dark"; // Dark theme.
 
 /*--------------------------------------------------------------
 # Utilities - Helpers and overrides.
