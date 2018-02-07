@@ -9,7 +9,14 @@ const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 // Webpack config.
 const config = {
 	entry: {
-		'admin-main': './assets/src/js/admin-main.js'
+		'admin-main': [
+			'./assets/src/js/admin-main.js',
+			'./assets/src/css/admin-main.scss'
+		],
+		'public-main': [
+			'./assets/src/js/public-main.js',
+			'./assets/src/css/public-main.scss'
+		]
 	},
 	output: {
 		path: path.resolve( __dirname, './assets/dist/' ),
@@ -40,11 +47,12 @@ const config = {
 						loader: 'sass-loader',
 						options: {
 							sourceMap: true,
-							outputStyle: 'production' === process.env.NODE_ENV ? 'compressed' : 'nested'
+							outputStyle: inProduction ? 'compressed' : 'nested'
 						}
 					} ]
 				})
-			}, {
+			},
+			{
 				test: /\.(png|jpg|gif)$/,
 				use: [
 					{
