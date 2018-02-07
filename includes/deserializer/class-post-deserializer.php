@@ -81,6 +81,31 @@ class Post_Deserializer {
 	}
 
 	/**
+	 * Queries WP Posts.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string|array $args URL query string or array of vars.
+	 * @return WP_Post[]|false Array of WP_Post objects or false if no posts found.
+	 */
+	public function query( $args ) {
+		$posts = array();
+		$defaults = array(
+			'post_type'      => $this->post_type,
+			'posts_per_page' => 24,
+		);
+		$args = wp_parse_args( $args, $defaults );
+
+		$this->wp_query->query( $args );
+
+		if ( ! $this->wp_query->have_posts() ) {
+			return false;
+		}
+
+		return $this->wp_query->posts;
+	}
+
+	/**
 	 * Retrieves a post meta key.
 	 *
 	 * @param int $post_id The Post ID.
