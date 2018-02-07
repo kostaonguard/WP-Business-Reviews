@@ -1,7 +1,6 @@
 import SettingsTabs from './settings-tabs';
 import FacebookPagesField from './facebook-pages-field';
 import Builder from './builder';
-import '../css/admin-main.scss';
 import '../images/wpbr-logo-white-wordmark.png';
 import '../images/wpbr-menu-icon-white.png';
 import '../images/wpbr-icon-color.png';
