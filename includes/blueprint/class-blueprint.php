@@ -59,4 +59,26 @@ class Blueprint {
 		$this->post_parent = $post_parent;
 		$this->settings    = $settings;
 	}
+
+	/**
+	 * Retrieves the post ID of the Review Source associated with the review.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return int The Review Source post ID.
+	 */
+	public function get_review_source_post_id() {
+		return $this->review_source_post_id;
+	}
+
+	/**
+	 * Retrieves the Blueprint settings.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Array of Blueprint settings.
+	 */
+	public function get_settings() {
+		return $this->settings;
+	}
 }
