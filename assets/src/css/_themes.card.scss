@@ -5,6 +5,7 @@
 .wpbr-theme--card {
 	.wpbr-review-gallery .wpbr-review {
 		@include wpbr-card();
+		padding: $wpbr-space;
 	}
 
 	.wpbr-stacked-list {
