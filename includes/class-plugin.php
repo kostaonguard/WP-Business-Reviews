@@ -31,6 +31,8 @@ use WP_Business_Reviews\Includes\Serializer\Review_Serializer;
 use WP_Business_Reviews\Includes\Serializer\Review_Source_Serializer;
 use WP_Business_Reviews\Includes\Serializer\Blueprint_Serializer;
 use WP_Business_Reviews\Includes\Widget\WP_Business_Reviews_Widget;
+use WP_Business_Reviews\Includes\Deserializer\Review_Deserializer;
+use WP_Business_Reviews\Includes\Deserializer\Blueprint_Deserializer;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -87,11 +89,15 @@ final class Plugin {
 		$post_types = new Post_Types();
 		$post_types->register();
 
+		// Register post deserializers.
+		$blueprint_deserializer = new Blueprint_Deserializer( new \WP_Query() );
+		$review_deserializer    = new Review_Deserializer( new \WP_Query() );
+
 		// Register widgets.
-		$wp_business_reviews_widget_config = new Config(
-			WPBR_PLUGIN_DIR . 'config/config-wp-business-reviews-widget.php'
+		$wp_business_reviews_widget = new WP_Business_Reviews_Widget(
+			$blueprint_deserializer,
+			$review_deserializer
 		);
-		$wp_business_reviews_widget = new WP_Business_Reviews_Widget();
 		$wp_business_reviews_widget->register();
 
 		if ( is_admin() ) {

@@ -1,20 +1,15 @@
 import Review from './review';
 
 class ReviewCollection {
-	constructor( element, format, maxColumns, theme ) {
-		this.root       = element;
-		this.format     = format;
-		this.maxColumns = maxColumns;
-		this.theme      = theme;
-		this.items      = new Set();
-		this.reviews    = new Set();
+	constructor( reviews = array(), settings = array() ) {
+		this.reviews  = new Set( reviews );
+		this.settings = settings;
 	}
 
 	init() {
-		this.list = document.createElement( 'ul' );
-		this.updatePresentation();
-		this.renderPlaceholderReviews();
-		this.root.appendChild( this.list );
+		if ( 0 === this.reviews.size ) {
+			this.setPlaceholderReviews();
+		}
 	}
 
 	replaceReviews( reviews ) {
@@ -27,40 +22,33 @@ class ReviewCollection {
 		this.reviews.add( reviewObj );
 	}
 
-	renderItems() {
-		const fragment  = document.createDocumentFragment();
+	render( context ) {
+		const listEl    = document.createElement( 'ul' );
 		const itemClass = this.getItemClass();
 
+		// Add wrapper and list classes according to settings.
+		context.className = this.getWrapClass();
+		listEl.className  = this.getListClass();
+
+		// Render each review within a list item.
 		for ( const review of this.reviews ) {
-			const li     = document.createElement( 'li' );
-			li.className = itemClass;
-			review.render( li );
+			const listItemEl     = document.createElement( 'li' );
+			listItemEl.className = itemClass;
 
-			// Append to fragment for rendering purposes.
-			fragment.appendChild( li );
+			// Pass settings to render review inside list item.
+			review.render( listItemEl );
 
-			// Add to items for future formatting.
-			this.items.add( li );
+			// Append to list item to list.
+			listEl.appendChild( listItemEl );
 		}
 
-		this.list.appendChild( fragment );
+		context.appendChild( listEl );
 	}
 
-	updateReviews() {
-		const reviewsIterator = this.reviews.values();
-
-		for ( const li of this.items ) {
-			const review = reviewsIterator.next();
-
-			li.innerHTML = review.value.render();
-		}
-	}
-
-	renderPlaceholderReviews() {
-		const platform    = '';
-		const reviews = new Set();
+	setPlaceholderReviews() {
+		const platform   = '';
+		const reviews    = new Set();
 		const components = {
-			review_url: 'https://google.com',
 			reviewer: 'FirstName LastName',
 			reviewer_image: 'placeholder',
 			rating: 5,
@@ -72,20 +60,7 @@ class ReviewCollection {
 			reviews.add( new Review( platform, components ) );
 		}
 
-		this.replaceReviews( reviews );
-	}
-
-	updatePresentation() {
-		const wrapClass = this.getWrapClass();
-		const listClass = this.getListClass();
-		const itemClass = this.getItemClass();
-
-		this.root.className = wrapClass;
-		this.list.className = listClass;
-
-		for ( const item of this.items ) {
-			item.className = itemClass;
-		}
+		this.setReviews( reviews );
 	}
 
 	getWrapClass() {
@@ -111,7 +86,7 @@ class ReviewCollection {
 	getListClass() {
 		let listClass;
 
-		switch ( this.format ) {
+		switch ( this.settings.format ) {
 
 		case 'review_gallery':
 			listClass = 'wpbr-review-gallery';
@@ -128,7 +103,7 @@ class ReviewCollection {
 	getItemClass() {
 		let itemClass;
 
-		switch ( this.format ) {
+		switch ( this.settings.format ) {
 
 		case 'review_gallery':
 			itemClass = `wpbr-review-gallery__item wpbr-review-gallery__item--${this.maxColumns}`;
@@ -142,8 +117,11 @@ class ReviewCollection {
 		return itemClass;
 	}
 
+	setReviews( reviews ) {
+		this.reviews = reviews;
+	}
+
 	reset() {
-		this.items.clear();
 		this.reviews.clear();
 		this.list.innerHTML = '';
 	}

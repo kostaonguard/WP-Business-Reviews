@@ -10,6 +10,8 @@
 
 namespace WP_Business_Reviews\Includes\Widget;
 
+use WP_Business_Reviews\Includes\Deserializer\Blueprint_Deserializer;
+use WP_Business_Reviews\Includes\Deserializer\Review_Deserializer;
 use WP_Business_Reviews\Includes\Review\Review_Collection;
 use WP_Business_Reviews\Includes\View;
 
@@ -22,11 +24,44 @@ use WP_Business_Reviews\Includes\View;
  */
 class WP_Business_Reviews_Widget extends \WP_Widget {
 	/**
+	 * Blueprint deserializer used to retrieve Blueprints.
+	 *
+	 * @since 0.1.0
+	 * @var string $blueprint_deserializer
+	 */
+	private $blueprint_deserializer;
+
+	/**
+	 * Review deserializer used to retrieve Reviews.
+	 *
+	 * @since 0.1.0
+	 * @var string $review_deserializer
+	 */
+	private $review_deserializer;
+
+	/**
+	 * Review Source deserializer used to retrieve Review Sources.
+	 *
+	 * @since 0.1.0
+	 * @var string $review_source_deserializer
+	 */
+	private $review_source_deserializer;
+
+	/**
 	 * Instantiates the WP_Business_Reviews_Widget object.
 	 *
 	 * @since 0.1.0
+	 *
+	 * @param Blueprint_Deserializer $blueprint_deserializer Blueprint retriever.
+	 * @param Review_Deserializer    $review_deserializer    Review retriever.
 	 */
-	public function __construct() {
+	public function __construct(
+		Blueprint_Deserializer $blueprint_deserializer,
+		Review_Deserializer $review_deserializer
+	) {
+		$this->blueprint_deserializer     = $blueprint_deserializer;
+		$this->review_deserializer        = $review_deserializer;
+
 		parent::__construct(
 			'wp_business_reviews_widget',
 			__( 'WP Business Reviews', 'wp-business-reviews' ),
@@ -46,9 +81,11 @@ class WP_Business_Reviews_Widget extends \WP_Widget {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'widgets_init', function() {
-			register_widget( $this );
-		});
+		add_action(
+			'widgets_init', function() {
+				register_widget( $this );
+			}
+		);
 	}
 
 	/**
@@ -61,7 +98,15 @@ class WP_Business_Reviews_Widget extends \WP_Widget {
 	 * @param array $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
-		$review_collection = new Review_Collection();
+		$blueprint = $this->blueprint_deserializer->get( $instance['blueprint_id'] );
+		$reviews = $this->review_deserializer->query(
+			array(
+				'post_parent' => $blueprint->get_review_source_post_id(),
+			)
+		);
+
+		$review_collection = new Review_Collection( $reviews, $blueprint );
+		$review_collection->print_js_object();
 
 		echo $args['before_widget'];
 		$review_collection->render();
@@ -74,7 +119,6 @@ class WP_Business_Reviews_Widget extends \WP_Widget {
 	 * @since 0.1.0
 	 *
 	 * @param array $instance Current settings.
-	 * @return string Default return is 'noform'.
 	 */
 	public function form( $instance ) {
 		$blueprint_id = ! empty( $instance['blueprint_id'] ) ? $instance['blueprint_id'] : '';
@@ -109,24 +153,9 @@ class WP_Business_Reviews_Widget extends \WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance     = array();
-		$blueprint_id = ! empty( $new_instance['blueprint_id'] ) ? sanitize_text_field( $new_instance['blueprint_id'] ): '';
+		$blueprint_id = ! empty( $new_instance['blueprint_id'] ) ? sanitize_text_field( $new_instance['blueprint_id'] ) : '';
 		$instance['blueprint_id'] = $blueprint_id;
 
 		return $instance;
-	}
-
-	/**
-	 * Renders the widget form.
-	 *
-	 * @since 0.1.0
-	 */
-	public function render_form() {
-		$view_object = new View( WPBR_PLUGIN_DIR . 'views/review-collection.php' );
-		$view_object->render(
-			array(
-				'blueprint' => $this->blueprint,
-				'reviews'   => $this->reviews,
-			)
-		);
 	}
 }
