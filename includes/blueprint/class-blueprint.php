@@ -46,12 +46,12 @@ class Blueprint {
 	 * @param array $settings {
 	 *     Blueprint settings.
 	 *
-	 *     @type string $theme'             Optional. The aesthetic theme.
-	 *     @type string $format'            Optional. The presentation format.
-	 *     @type string $max_columns'       Optional. Maximum columns.
-	 *     @type string $max_characters'    Optional. Maximum characters before truncation.
-	 *     @type string $line_breaks'       Optional. Whether line breaks are enabled.
-	 *     @type array  $review_components' Optional. Array of enabled components.
+	 *     @type string $theme             Optional. The aesthetic theme.
+	 *     @type string $format            Optional. The presentation format.
+	 *     @type string $max_columns       Optional. Maximum columns.
+	 *     @type string $max_characters    Optional. Maximum characters before truncation.
+	 *     @type string $line_breaks       Optional. Whether line breaks are enabled.
+	 *     @type array  $review_components Optional. Array of enabled components.
 	 * }
 	 */
 	public function __construct( $review_source_post_id, $settings ) {

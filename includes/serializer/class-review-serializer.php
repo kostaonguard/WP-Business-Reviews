@@ -24,11 +24,6 @@ class Review_Serializer extends Post_Serializer {
 	/**
 	 * @inheritDoc
 	 */
-	protected $post_parent = 0;
-
-	/**
-	 * @inheritDoc
-	 */
 	protected $post_key = 'wp_business_reviews_reviews';
 
 	/**
