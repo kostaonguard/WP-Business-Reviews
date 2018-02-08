@@ -17,17 +17,14 @@ class ReviewCollection {
 		this.root.appendChild( this.list );
 	}
 
-	replaceReviews( reviewsData ) {
+	replaceReviews( reviews ) {
 		this.reset();
-		this.addReviews( reviewsData );
+		this.reviews = reviews;
 		this.renderItems();
 	}
 
-	addReviews( reviewsData ) {
-		for ( const data of reviewsData ) {
-			const reviewObj = new Review( data );
-			this.reviews.add( reviewObj );
-		}
+	addReviews( reviews ) {
+		this.reviews.add( reviewObj );
 	}
 
 	renderItems() {
@@ -37,7 +34,7 @@ class ReviewCollection {
 		for ( const review of this.reviews ) {
 			const li     = document.createElement( 'li' );
 			li.className = itemClass;
-			li.innerHTML = review.render();
+			review.render( li );
 
 			// Append to fragment for rendering purposes.
 			fragment.appendChild( li );
@@ -60,22 +57,22 @@ class ReviewCollection {
 	}
 
 	renderPlaceholderReviews() {
-		let reviewsData = [];
-		let data = new Object();
-
-		data.platform       = '';
-		data.reviewer       = 'FirstName LastName';
-		data.reviewer_image = 'placeholder';
-		data.rating         = 5;
-		data.timestamp      = '2 weeks ago';
-		data.content        = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus, dui eu posuere viverra, orci tortor congue urna, non fringilla enim tellus sed quam. Maecenas vel mattis erat. Maecenas tincidunt neque a orci dapibus faucibus. Curabitur nulla ex, scelerisque vel congue in.';
+		const platform    = '';
+		const reviews = new Set();
+		const components = {
+			review_url: 'https://google.com',
+			reviewer: 'FirstName LastName',
+			reviewer_image: 'placeholder',
+			rating: 5,
+			timestamp: '2 weeks ago',
+			review_content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus, dui eu posuere viverra, orci tortor congue urna, non fringilla enim tellus sed quam. Maecenas vel mattis erat. Maecenas tincidunt neque a orci dapibus faucibus. Curabitur nulla ex, scelerisque vel congue in.'
+		};
 
 		for ( let index = 0; 12 > index; index++ ) {
-			reviewsData.push( data );
+			reviews.add( new Review( platform, components ) );
 		}
 
-		this.addReviews( reviewsData );
-		this.renderItems( reviewsData );
+		this.replaceReviews( reviews );
 	}
 
 	updatePresentation() {
@@ -101,7 +98,7 @@ class ReviewCollection {
 			break;
 
 		case 'seamless-dark':
-			wrapClass = 'wpbr-stacked-list wpbr-theme--dark';
+			wrapClass = 'wpbr-wrap wpbr-theme--dark';
 			break;
 		default:
 			wrapClass = 'wpbr-wrap';

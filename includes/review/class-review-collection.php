@@ -28,7 +28,7 @@ class Review_Collection {
 	protected $blueprint;
 
 	/**
-	 * Review objects.
+	 * Array of Review objects.
 	 *
 	 * @since 0.1.0
 	 * @var Review[] $reviews
@@ -40,12 +40,12 @@ class Review_Collection {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Blueprint $blueprint User-defined settings that determine which
-	 *                             reviews to display and how to display them.
+	 * @param Review[] $reviews    Array of Review objects.
+	 * @param Blueprint $blueprint Blueprint containing presentation settings.
 	 */
-	public function __construct( Blueprint $blueprint ) {
+	public function __construct( Blueprint $blueprint, array $reviews = array() ) {
+		$this->reviews   = $reviews;
 		$this->blueprint = $blueprint;
-		$this->reviews = array();
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Review_Collection {
 	 * @since 0.1.0
 	 */
 	public function render() {
-		$view_object = new View( WPBR_PLUGIN_DIR . 'views/review-collection.php' );
+		$view_object = new View( WPBR_PLUGIN_DIR . 'views/review/review-collection.php' );
 		$view_object->render(
 			array(
 				'blueprint' => $this->blueprint,
