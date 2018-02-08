@@ -40,10 +40,10 @@ class Review_Collection {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Review[] $reviews    Array of Review objects.
+	 * @param Review[]  $reviews   Array of Review objects.
 	 * @param Blueprint $blueprint Blueprint containing presentation settings.
 	 */
-	public function __construct( Blueprint $blueprint, array $reviews = array() ) {
+	public function __construct( array $reviews = array(), Blueprint $blueprint ) {
 		$this->reviews   = $reviews;
 		$this->blueprint = $blueprint;
 	}
@@ -57,6 +57,25 @@ class Review_Collection {
 	 */
 	public function set_reviews( array $reviews ) {
 		$this->reviews = $reviews;
+	}
+
+	/**
+	 * Prints the Review_Collection object as a JavaScript object.
+	 *
+	 * This makes the Review_Collection available to other scripts on the front end
+	 * of the WordPress website.
+	 *
+	 * @since 0.1.0
+	 */
+	public function print_js_object() {
+		wp_localize_script(
+			'wpbr-public-main-script',
+			'wpBusinessReviewsCollection',
+			array(
+				'settings' => $this->blueprint->get_settings(),
+				'reviews' => $this->reviews,
+			)
+		);
 	}
 
 	/**
