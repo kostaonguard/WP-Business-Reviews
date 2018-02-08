@@ -9,6 +9,8 @@
 	&__item {
 		@include wpbr-gallery-item( $wpbr-space );
 		@include wpbr-gallery-columns( 1, $wpbr-space );
+		border: 0;
+		padding: 0;
 
 		&--2,
 		&--3,

@@ -34,16 +34,19 @@
 /*--------------------------------------------------------------
 # Objects - Cosmetic-free design patterns.
 --------------------------------------------------------------*/
-
-@import "objects.review-gallery"; // Multi-column review gallery.
+.wpbr-wrap {
+	@import "objects.review-gallery"; // Multi-column review gallery.
+}
 
 /*--------------------------------------------------------------
 # Components - Designed components, chunks of UI.
 --------------------------------------------------------------*/
 
-@import "components.review"; // Review.
-@import "components.review-source"; // Review source.
-@import "components.stars"; // Five-star ratings.
+.wpbr-wrap {
+	@import "components.review"; // Review.
+	@import "components.review-source"; // Review source.
+	@import "components.stars"; // Five-star ratings.
+}
 
 /*--------------------------------------------------------------
 # Themes - Styles that override many components.
