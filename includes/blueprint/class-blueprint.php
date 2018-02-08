@@ -17,23 +17,15 @@ namespace WP_Business_Reviews\Includes\Blueprint;
  */
 class Blueprint {
 	/**
-	 * The Blueprint post ID.
-	 *
-	 * @since 0.1.0
-	 * @var int $post_id
-	 */
-	protected $post_id;
-
-	/**
 	 * The Review Source post ID.
 	 *
 	 * This ID ties the Blueprint settings to individual Reviews based on a common
 	 * post parent. It is supplied to WP_Query when querying Review posts.
 	 *
 	 * @since 0.1.0
-	 * @var int $post_parent
+	 * @var int $review_source_post_id
 	 */
-	protected $post_parent;
+	protected $review_source_post_id;
 
 	/**
 	 * Array of Blueprint settings.
@@ -50,13 +42,20 @@ class Blueprint {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param int   $post_id     The Blueprint post ID.
-	 * @param int   $post_parent The Review Source post ID.
-	 * @param array $settings    Array of Blueprint settings.
+	 * @param int   $review_source_post_id The Review Source post ID.
+	 * @param array $settings {
+	 *     Blueprint settings.
+	 *
+	 *     @type string $theme'             Optional. The aesthetic theme.
+	 *     @type string $format'            Optional. The presentation format.
+	 *     @type string $max_columns'       Optional. Maximum columns.
+	 *     @type string $max_characters'    Optional. Maximum characters before truncation.
+	 *     @type string $line_breaks'       Optional. Whether line breaks are enabled.
+	 *     @type array  $review_components' Optional. Array of enabled components.
+	 * }
 	 */
-	public function __construct( $post_id, $post_parent, $settings ) {
-		$this->post_id     = $post_id;
-		$this->post_parent = $post_parent;
+	public function __construct( $review_source_post_id, $settings ) {
+		$this->review_source_post_id = $review_source_post_id;
 		$this->settings    = $settings;
 	}
 
