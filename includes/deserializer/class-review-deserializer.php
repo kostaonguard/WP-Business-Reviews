@@ -69,27 +69,23 @@ class Review_Deserializer extends Post_Deserializer {
 	 * @return Review The new Review object.
 	 */
 	protected function convert_post_to_review( $post ) {
-		$post_id = $post->ID;
-		$post_parent = $post->post_parent;
-		$meta_keys = array(
-			'review_source_id',
-			'review_url',
-			'reviewer',
-			'reviewer_image',
-			'rating',
-			'timestamp',
-		);
+		$post_id          = $post->ID;
+		$post_parent      = $post->post_parent;
+		$review_source_id = $this->get_meta( $post_id, 'review_source_id' );
+		$components       = array();
+		$component_keys   = array_keys( Review::get_default_components() );
 
-		// Map meta keys to components.
-		foreach ( $meta_keys as $key ) {
+		// Map post meta to components.
+		foreach ( $component_keys as $key ) {
 			$components[ $key ] = $this->get_meta( $post_id, $key );
 		}
 
 		// Add review content from post content field.
-		$components['review_content'] = $post->post_content;
+		$components['content'] = $post->post_content;
 
 		$review = new Review(
 			$this->get_platform( $post ),
+			$review_source_id,
 			$components
 		);
 
