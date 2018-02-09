@@ -76,7 +76,9 @@ class Review_Serializer extends Post_Serializer {
 
 		if ( isset( $r['components'] ) ) {
 			foreach ( $r['components'] as $key => $value ) {
-				$p['meta_input'][ "{$this->prefix}{$key}" ] = $this->clean( $value );
+				if ( null !== $value ) {
+					$p['meta_input'][ "{$this->prefix}{$key}" ] = $this->clean( $value );
+				}
 			}
 		}
 
