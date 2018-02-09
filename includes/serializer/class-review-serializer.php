@@ -61,10 +61,10 @@ class Review_Serializer extends Post_Serializer {
 
 		if ( isset( $r['components']['content'] ) ) {
 			$p['post_content'] = $this->clean( $r['components']['content'] );
-
-			// Unset the content component so it's not saved again as post meta.
-			unset( $r['components']['content'] );
 		}
+
+		// Unset the content component so it's not saved again as post meta.
+		unset( $r['components']['content'] );
 
 		if ( isset( $r['platform'] ) ) {
 			$p['tax_input']['wpbr_platform'] = $this->clean( $r['platform'] );
