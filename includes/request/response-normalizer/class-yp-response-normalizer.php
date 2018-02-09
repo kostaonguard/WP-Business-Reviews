@@ -10,6 +10,8 @@
 
 namespace WP_Business_Reviews\Includes\Request\Response_Normalizer;
 
+use WP_Business_Reviews\Includes\Review\Review;
+
 /**
  * Normalizes the structure of a YP API response.
  *
@@ -114,34 +116,38 @@ class YP_Response_Normalizer extends Response_Normalizer_Abstract {
 	/**
 	 * @inheritDoc
 	 */
-	public function normalize_review( array $raw_review ) {
-		$r          = $raw_review;
-		$normalized = array();
+	public function normalize_review( array $raw_review, $review_source_id ) {
+		$review = null;
+
+		// Define the raw review data ($r) from which components are defined.
+		$r = $raw_review;
+
+		// Define the raw review data ($r) from which components are defined.
+		$c = Review::get_default_components();
 
 		// Set reviewer.
 		if ( isset( $r['reviewer'] ) ) {
-			$normalized['reviewer'] = $this->clean( $r['reviewer'] );
+			$c['reviewer'] = $this->clean( $r['reviewer'] );
 		}
 
 		// Set rating.
 		if ( isset( $r['rating'] ) ) {
-			$normalized['rating'] = $this->clean( $r['rating'] );
+			$c['rating'] = $this->clean( $r['rating'] );
 		}
 
 		// Set timestamp.
 		if ( isset( $r['reviewDate'] ) ) {
-			$normalized['timestamp'] = $this->clean( $r['reviewDate'] );
+			$c['timestamp'] = $this->clean( $r['reviewDate'] );
 		}
 
 		// Set content.
 		if ( isset( $r['reviewBody'] ) ) {
-			$normalized['content'] = $this->clean_multiline( $r['reviewBody'] );
+			$c['content'] = $this->clean_multiline( $r['reviewBody'] );
 		}
 
-		// Merge normalized properties with default properites in case any are missing.
-		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
+		$review = new Review( $this->platform, $review_source_id, $c );
 
-		return $normalized;
+		return $review;
 	}
 
 	/**
