@@ -71,12 +71,12 @@ class Review_Serializer extends Post_Serializer {
 		}
 
 		if ( isset( $r['review_source_id'] ) ) {
-			$p['meta_input']['review_source_id'] = $this->clean( $r['review_source_id'] );
+			$p['meta_input'][ "{$this->prefix}review_source_id" ] = $this->clean( $r['review_source_id'] );
 		}
 
 		if ( isset( $r['components'] ) ) {
 			foreach ( $r['components'] as $key => $value ) {
-				$p['meta_input'][ $key ] = $this->clean( $value );
+				$p['meta_input'][ "{$this->prefix}{$key}" ] = $this->clean( $value );
 			}
 		}
 
