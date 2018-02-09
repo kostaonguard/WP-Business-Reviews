@@ -119,7 +119,7 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 		// Define the default components that will be overwritten.
 		$c = Review::get_default_components();
 
-		// Set review source URL.
+		// Set review URL.
 		if ( isset( $r['author_url'] ) ) {
 			$c['review_url'] = $this->generate_review_url(
 				$this->clean( $r['author_url'] ),

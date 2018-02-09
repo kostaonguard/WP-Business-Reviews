@@ -10,6 +10,8 @@
 
 namespace WP_Business_Reviews\Includes\Request\Response_Normalizer;
 
+use WP_Business_Reviews\Includes\Review\Review;
+
 /**
  * Normalizes the structure of a Facebook API response.
  *
@@ -117,48 +119,52 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 	/**
 	 * @inheritDoc
 	 */
-	public function normalize_review( array $raw_review ) {
-		$r          = $raw_review;
-		$normalized = array();
+	public function normalize_review( array $raw_review, $review_source_id ) {
+		$review = null;
+
+		// Define the raw review data from which components are defined.
+		$r = $raw_review;
+
+		// Define the default components that will be overwritten.
+		$c = Review::get_default_components();
 
 		// Set review URL.
 		if ( isset( $r['open_graph_story']['id'] ) ) {
-			$normalized['review_url'] = $this->generate_review_url(
+			$c['review_url'] = $this->generate_review_url(
 				$this->clean( $r['open_graph_story']['id'] )
 			);
 		}
 
 		// Set reviewer.
 		if ( isset( $r['reviewer']['name'] ) ) {
-			$normalized['reviewer'] = $this->clean( $r['reviewer']['name'] );
+			$c['reviewer'] = $this->clean( $r['reviewer']['name'] );
 		}
 
 		// Set reviewer image.
 		if ( isset( $r['reviewer']['picture']['data']['url'] ) ) {
-			$normalized['reviewer_image'] = $this->clean(
+			$c['reviewer_image'] = $this->clean(
 				$r['reviewer']['picture']['data']['url']
 			);
 		}
 
 		// Set rating.
 		if ( isset( $r['rating'] ) ) {
-			$normalized['rating'] = $this->clean( $r['rating'] );
+			$c['rating'] = $this->clean( $r['rating'] );
 		}
 
 		// Set timestamp.
 		if ( isset( $r['created_time'] ) ) {
-			$normalized['timestamp'] = $this->clean( $r['created_time'] );
+			$c['timestamp'] = $this->clean( $r['created_time'] );
 		}
 
 		// Set content.
 		if ( isset( $r['review_text'] ) ) {
-			$normalized['content'] = $this->clean_multiline( $r['review_text'] );
+			$c['content'] = $this->clean_multiline( $r['review_text'] );
 		}
 
-		// Merge normalized properties with default properites in case any are missing.
-		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
+		$review = new Review( $this->platform, $review_source_id, $c );
 
-		return $normalized;
+		return $review;
 	}
 
 	/**
