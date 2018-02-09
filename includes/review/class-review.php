@@ -35,9 +35,29 @@ class Review {
 	 */
 	public function __construct(
 		$platform,
+		$review_source_id,
 		array $components
 	) {
-		$this->platform = $platform;
-		$this->components = $components;
+		$this->platform         = $platform;
+		$this->review_source_id = $review_source_id;
+		$this->components       = $components;
+	}
+
+	/**
+	 * Retrieves default values for a review components.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Associative array of components.
+	 */
+	public static function get_default_components() {
+		return array(
+			'review_url'     => null,
+			'reviewer'       => null,
+			'reviewer_image' => null,
+			'rating'         => 0,
+			'timestamp'      => null,
+			'content'        => null,
+		);
 	}
 }

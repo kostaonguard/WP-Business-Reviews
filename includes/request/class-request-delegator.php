@@ -104,11 +104,11 @@ class Request_Delegator {
 			return $raw_response->get_error_message();
 		}
 
-		$normalized_response = $this->normalizer->normalize_review_sources(
+		$review_source = $this->normalizer->normalize_review_sources(
 			$raw_response
 		);
 
-		return $normalized_response;
+		return $review_source;
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Request_Delegator {
 	 * @since 0.1.0
 	 *
 	 * @param string $review_source_id The review source ID.
-	 * @return array Normalized, sanitized response body.
+	 * @return Review_Source Normalized Review_Source object.
 	 */
 	public function get_review_source( $review_source_id ) {
 		$raw_response = $this->request->get_review_source( $review_source_id );
@@ -129,9 +129,9 @@ class Request_Delegator {
 			return $raw_response->get_error_message();
 		}
 
-		$normalized_response = $this->normalizer->normalize_review_source( $raw_response );
+		$review_source = $this->normalizer->normalize_review_source( $raw_response );
 
-		return $normalized_response;
+		return $review_source;
 	}
 
 	/**
@@ -140,18 +140,22 @@ class Request_Delegator {
 	 * @since 0.1.0
 	 *
 	 * @param string $review_source_id The review source ID.
-	 * @return array Normalized, sanitized response body.
+	 * @return Review[] Array of normalized Review objects.
 	 */
 	public function get_reviews( $review_source_id ) {
 		$raw_response = $this->request->get_reviews( $review_source_id );
+		$reviews = array();
 
 		if ( is_wp_error( $raw_response ) ) {
 			return $raw_response->get_error_message();
 		}
 
-		$normalized_response = $this->normalizer->normalize_reviews( $raw_response );
+		$reviews = $this->normalizer->normalize_reviews(
+			$raw_response,
+			$review_source_id
+		);
 
-		return $normalized_response;
+		return $reviews;
 	}
 
 	/**
