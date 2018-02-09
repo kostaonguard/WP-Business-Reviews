@@ -10,6 +10,8 @@
 
 namespace WP_Business_Reviews\Includes\Request\Response_Normalizer;
 
+use WP_Business_Reviews\Includes\Review\Review;
+
 /**
  * Normalizes the structure of a Yelp API response.
  *
@@ -112,49 +114,50 @@ class Yelp_Response_Normalizer extends Response_Normalizer_Abstract {
 	/**
 	 * @inheritDoc
 	 */
-	public function normalize_review( array $raw_review ) {
-		$r          = $raw_review;
-		$normalized = array();
+	public function normalize_review( array $raw_review, $review_source_id ) {
+		$review = null;
+
+		// Define the raw review data ($r) from which components are defined.
+		$r = $raw_review;
+
+		// Define the default components ($c) that will be overwritten.
+		$c = Review::get_default_components();
 
 		// Set review URL.
 		if ( isset( $r['url'] ) ) {
-			$normalized['review_url'] = $this->clean( $r['url'] );
+			$c['review_url'] = $this->clean( $r['url'] );
 		}
 
 		// Set reviewer.
 		if ( isset( $r['user']['name'] ) ) {
-			$normalized['reviewer'] = $this->clean( $r['user']['name'] );
+			$c['reviewer'] = $this->clean( $r['user']['name'] );
 		}
 
 		// Set reviewer image.
 		if ( isset( $r['user']['image_url'] ) ) {
-			$normalized['reviewer_image'] = $this->modify_image_size(
+			$c['reviewer_image'] = $this->modify_image_size(
 				$this->clean( $r['user']['image_url'] )
 			);
 		}
 
 		// Set rating.
 		if ( isset( $r['rating'] ) ) {
-			$normalized['rating'] = $this->clean( $r['rating'] );
+			$c['rating'] = $this->clean( $r['rating'] );
 		}
 
 		// Set timestamp.
 		if ( isset( $r['time_created'] ) ) {
-			$normalized['timestamp'] = $this->clean( $r['time_created'] );
+			$c['timestamp'] = $this->clean( $r['time_created'] );
 		}
 
 		// Set content.
 		if ( isset( $r['text'] ) ) {
-			$normalized['content'] = $this->clean_multiline( $r['text'] );
+			$c['content'] = $this->clean_multiline( $r['text'] );
 		}
 
-		// All Yelp reviews are truncated, so there's nothing to check here.
-		$normalized['is_truncated'] = true;
+		$review = new Review( $this->platform, $review_source_id, $c );
 
-		// Merge normalized properties with default properites in case any are missing.
-		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
-
-		return $normalized;
+		return $review;
 	}
 
 	/**

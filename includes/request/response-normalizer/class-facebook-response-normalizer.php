@@ -122,10 +122,10 @@ class Facebook_Response_Normalizer extends Response_Normalizer_Abstract {
 	public function normalize_review( array $raw_review, $review_source_id ) {
 		$review = null;
 
-		// Define the raw review data from which components are defined.
+		// Define the raw review data ($r) from which components are defined.
 		$r = $raw_review;
 
-		// Define the default components that will be overwritten.
+		// Define the raw review data ($r) from which components are defined.
 		$c = Review::get_default_components();
 
 		// Set review URL.
