@@ -130,11 +130,10 @@ class Google_Places_Request extends Request {
 		$reviews  = array();
 		$response = $this->get_review_source( $review_source_id );
 
-		foreach ( $response['reviews'] as $review ) {
-			$review['review_source_id'] = $review_source_id;
-			$reviews[] = $review;
+		if ( ! isset( $response['reviews'] ) ) {
+			return new \WP_Error( 'invalid_response_structure', __( 'Invalid response structure.', 'wp-business-reviews' ) );
 		}
 
-		return $reviews;
+		return $response['reviews'];
 	}
 }
