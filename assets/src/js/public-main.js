@@ -7,7 +7,13 @@ if ( wpBusinessReviewsCollection ) {
 	const settings       = collectionData.settings;
 
 	for ( const reviewData of collectionData.reviews ) {
-		reviews.add( new Review( reviewData.platform, reviewData.components ) );
+		reviews.add(
+			new Review(
+				reviewData.platform,
+				reviewData.review_source_id,
+				reviewData.components
+			)
+		);
 	}
 
 	const reviewCollection = new ReviewCollection( reviews, settings );
