@@ -15,7 +15,7 @@
 					id="wpbr-control-title"
 					class="wpbr-field__input"
 					type="text"
-					name="wp_business_reviews_settings[title]"
+					name="wp_business_reviews[title]"
 					value=""
 					placeholder="<?php echo esc_attr__( 'Enter title here', 'wp-business-reviews' ); ?>"
 					>

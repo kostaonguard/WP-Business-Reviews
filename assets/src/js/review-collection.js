@@ -1,154 +1,148 @@
 import Review from './review';
 
 class ReviewCollection {
-	constructor( element, format, maxColumns, theme ) {
-		this.root       = element;
-		this.format     = format;
-		this.maxColumns = maxColumns;
-		this.theme      = theme;
-		this.items      = new Set();
-		this.reviews    = new Set();
+	constructor( reviews = [], settings = []) {
+		this.reviews  = new Set( reviews );
+		this.settings = settings;
+		this.list = null;
+		this.items = new Set();
 	}
 
 	init() {
+		if ( 0 === this.reviews.size ) {
+			this.setPlaceholderReviews();
+		}
+	}
+
+	render( context ) {
 		this.list = document.createElement( 'ul' );
-		this.updatePresentation();
-		this.renderPlaceholderReviews();
-		this.root.appendChild( this.list );
-	}
 
-	replaceReviews( reviewsData ) {
-		this.reset();
-		this.addReviews( reviewsData );
-		this.renderItems();
-	}
+		// Add wrapper and list classes according to settings.
+		const themeClassName  = this.getThemeClassName();
+		const formatClassName = this.getFormatClassName();
 
-	addReviews( reviewsData ) {
-		for ( const data of reviewsData ) {
-			const reviewObj = new Review( data );
-			this.reviews.add( reviewObj );
-		}
-	}
+		this.list.className  = `${themeClassName} ${formatClassName}`;
 
-	renderItems() {
-		const fragment  = document.createDocumentFragment();
-		const itemClass = this.getItemClass();
-
+		// Render each review within a list item.
 		for ( const review of this.reviews ) {
-			const li     = document.createElement( 'li' );
-			li.className = itemClass;
-			li.innerHTML = review.render();
+			const item = document.createElement( 'li' );
 
-			// Append to fragment for rendering purposes.
-			fragment.appendChild( li );
+			// Pass settings to render review inside list item.
+			review.render(
+				item,
+				this.settings.max_characters,
+				this.settings.line_breaks
+			);
 
-			// Add to items for future formatting.
-			this.items.add( li );
+			// Add item to set so it can be accessed later.
+			this.items.add( item );
+
+			// Append to list item to list.
+			this.list.appendChild( item );
 		}
 
-		this.list.appendChild( fragment );
+		this.updatePresentation();
+
+		context.appendChild( this.list );
+	}
+
+	updatePresentation() {
+		const themeClassName  = this.getThemeClassName();
+		const formatClassName = this.getFormatClassName();
+		const itemClassName   = this.getItemClassName();
+
+		this.list.className  = `${themeClassName} ${formatClassName}`;
+
+		for ( const item of this.items ) {
+			item.className = itemClassName;
+		}
 	}
 
 	updateReviews() {
 		const reviewsIterator = this.reviews.values();
 
-		for ( const li of this.items ) {
+		for ( const item of this.items ) {
 			const review = reviewsIterator.next();
-
-			li.innerHTML = review.value.render();
+			review.value.render(
+				item,
+				this.settings.max_characters,
+				this.settings.line_breaks
+			);
 		}
 	}
 
-	renderPlaceholderReviews() {
-		let reviewsData = [];
-		let data = new Object();
-
-		data.platform       = '';
-		data.reviewer       = 'FirstName LastName';
-		data.reviewer_image = 'placeholder';
-		data.rating         = 5;
-		data.timestamp      = '2 weeks ago';
-		data.content        = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus, dui eu posuere viverra, orci tortor congue urna, non fringilla enim tellus sed quam. Maecenas vel mattis erat. Maecenas tincidunt neque a orci dapibus faucibus. Curabitur nulla ex, scelerisque vel congue in.';
+	setPlaceholderReviews() {
+		const platform       = '';
+		const reviewSourceId = '';
+		const reviews        = new Set();
+		const components     = {
+			reviewer: 'FirstName LastName',
+			reviewer_image: 'placeholder',
+			rating: 5,
+			timestamp: '2 weeks ago',
+			content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tempus, dui eu posuere viverra, orci tortor congue urna, non fringilla enim tellus sed quam. Maecenas vel mattis erat. Maecenas tincidunt neque a orci dapibus faucibus. Curabitur nulla ex, scelerisque vel congue in.'
+		};
 
 		for ( let index = 0; 12 > index; index++ ) {
-			reviewsData.push( data );
+			reviews.add( new Review( platform, reviewSourceId, components ) );
 		}
 
-		this.addReviews( reviewsData );
-		this.renderItems( reviewsData );
+		this.setReviews( reviews );
 	}
 
-	updatePresentation() {
-		const wrapClass = this.getWrapClass();
-		const listClass = this.getListClass();
-		const itemClass = this.getItemClass();
+	getThemeClassName() {
+		let className = '';
 
-		this.root.className = wrapClass;
-		this.list.className = listClass;
-
-		for ( const item of this.items ) {
-			item.className = itemClass;
-		}
-	}
-
-	getWrapClass() {
-		let wrapClass;
-
-		switch ( this.theme ) {
-
+		switch ( this.settings.theme ) {
 		case 'card':
-			wrapClass = 'wpbr-wrap wpbr-theme--card';
+			className = 'wpbr-theme--card';
 			break;
-
-		case 'seamless-dark':
-			wrapClass = 'wpbr-stacked-list wpbr-theme--dark';
+		case 'dark':
+			className = 'wpbr-theme--dark';
 			break;
-		default:
-			wrapClass = 'wpbr-wrap';
-
 		}
 
-		return wrapClass;
+		return className;
 	}
 
-	getListClass() {
-		let listClass;
+	getFormatClassName() {
+		let className;
 
-		switch ( this.format ) {
-
+		switch ( this.settings.format ) {
 		case 'review_gallery':
-			listClass = 'wpbr-review-gallery';
+			className = 'wpbr-review-gallery';
 			break;
-
 		case 'review_list':
-			listClass = 'wpbr-stacked-list';
+			className = 'wpbr-stacked-list';
 			break;
 		}
 
-		return listClass;
+		return className;
 	}
 
-	getItemClass() {
-		let itemClass;
+	getItemClassName() {
+		let className;
 
-		switch ( this.format ) {
-
+		switch ( this.settings.format ) {
 		case 'review_gallery':
-			itemClass = `wpbr-review-gallery__item wpbr-review-gallery__item--${this.maxColumns}`;
+			className = `wpbr-review-gallery__item wpbr-review-gallery__item--${this.settings.max_columns}`;
 			break;
-
 		case 'review_list':
-			itemClass = 'wpbr-stacked-list__item';
+			className = 'wpbr-stacked-list__item';
 			break;
 		}
 
-		return itemClass;
+		return className;
+	}
+
+	setReviews( reviews ) {
+		this.reviews = reviews;
 	}
 
 	reset() {
-		this.items.clear();
 		this.reviews.clear();
-		this.list.innerHTML = '';
+		this.items.clear();
+		this.list.parentNode.removeChild( this.list );
 	}
 }
 

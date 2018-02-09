@@ -67,13 +67,15 @@ class Assets {
 	 * @since 0.1.0
 	 */
 	public function register() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 
 		if ( is_admin() ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		} else {
+			add_action( 'wp_enqueue_scripts', array( $this, 'register_styles' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_scripts' ) );
 		}
@@ -96,6 +98,7 @@ class Assets {
 	 */
 	public function register_scripts() {
 		wp_register_script( 'wpbr-admin-main-script', $this->url . 'js/admin-main' . $this->suffix . '.js', array(), $this->version, true );
+		wp_register_script( 'wpbr-public-main-script', $this->url . 'js/public-main' . $this->suffix . '.js', array(), $this->version, true );
 	}
 
 	/**
@@ -131,5 +134,6 @@ class Assets {
 	 * @since 0.1.0
 	 */
 	public function enqueue_public_scripts() {
+		wp_enqueue_script( 'wpbr-public-main-script' );
 	}
 }

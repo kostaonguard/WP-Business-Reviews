@@ -12,7 +12,7 @@ namespace WP_Business_Reviews\Includes\Field\Parser;
 
 use WP_Business_Reviews\Includes\Config;
 use WP_Business_Reviews\Includes\Deserializer\Option_Deserializer;
-use WP_Business_Reviews\Includes\Field\Field_Factory;
+use WP_Business_Reviews\Includes\Field\Field;
 
 /**
  * Recursively parses fields from a settings config.
@@ -36,14 +36,11 @@ class Plugin_Settings_Field_Parser extends Field_Parser_Abstract {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Field_Factory        $field_factory Creator of field objects.
 	 * @param Option_Deserializer  $deserializer  Settings retriever.
 	 */
 	public function __construct(
-		Field_Factory $field_factory,
 		Option_Deserializer $deserializer
 	) {
-		$this->field_factory = $field_factory;
 		$this->deserializer  = $deserializer;
 	}
 
@@ -61,7 +58,7 @@ class Plugin_Settings_Field_Parser extends Field_Parser_Abstract {
 			foreach ( $value['sections'] as $section ) {
 				foreach ( $section['fields'] as $field_id => $field_args ) {
 					// Create the field object from the field definition.
-					$field_object = $this->field_factory->create( $field_id, $field_args );
+					$field_object = new Field( $field_id, $field_args );
 
 					if ( $field_object ) {
 						// Attempt to retrieve the field value.

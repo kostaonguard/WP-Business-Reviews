@@ -24,11 +24,6 @@ class Review_Serializer extends Post_Serializer {
 	/**
 	 * @inheritDoc
 	 */
-	protected $post_parent = 0;
-
-	/**
-	 * @inheritDoc
-	 */
 	protected $post_key = 'wp_business_reviews_reviews';
 
 	/**
@@ -50,45 +45,48 @@ class Review_Serializer extends Post_Serializer {
 	 * @return array Array of elements that make up a post.
 	 */
 	public function prepare_post_array( array $raw_data ) {
-		$post_array = array(
+		// Define the raw data ($r) from which a post will be created.
+		$r = $raw_data;
+
+		// Define the post array ($p) that will hold all post elements.
+		$p = array(
 			'post_type'   => $this->post_type,
 			'post_status' => 'publish',
 			'post_parent' => $this->post_parent,
 		);
 
-		foreach ( $raw_data as $key => $value ) {
-			switch ( $key ) {
-				case 'title':
-					$post_array['post_title'] = $this->clean( $value );
-					break;
-				case 'content':
-					$post_array['post_content'] = $this->clean( $value );
-					break;
-				case 'platform':
-					$post_array['tax_input']['wpbr_platform'] = $this->clean( $value );
-					break;
-				case 'review_source_id':
-				case 'review_url':
-				case 'reviewer':
-				case 'reviewer_image':
-				case 'rating':
-				case 'timestamp':
-				case 'content':
-					$post_array['meta_input'][ $this->prefix . $key ] = $this->clean( $value );
-					break;
+		if ( isset( $r['title'] ) ) {
+			$p['post_title'] = $this->clean( $r['title'] );
+		}
+
+		if ( isset( $r['components']['content'] ) ) {
+			$p['post_content'] = $this->clean( $r['components']['content'] );
+		}
+
+		// Unset the content component so it's not saved again as post meta.
+		unset( $r['components']['content'] );
+
+		if ( isset( $r['platform'] ) ) {
+			$p['tax_input']['wpbr_platform'] = $this->clean( $r['platform'] );
+		}
+
+		if ( isset( $r['review_source_id'] ) ) {
+			$p['meta_input'][ "{$this->prefix}review_source_id" ] = $this->clean( $r['review_source_id'] );
+		}
+
+		if ( isset( $r['components'] ) ) {
+			foreach ( $r['components'] as $key => $value ) {
+				if ( null !== $value ) {
+					$p['meta_input'][ "{$this->prefix}{$key}" ] = $this->clean( $value );
+				}
 			}
 		}
 
-		if (
-			! isset( $post_array['post_title'] )
-			&& isset( $post_array['post_content'] )
-		) {
-			$post_array['post_title'] = $this->generateTitleFromContent(
-				$post_array['post_content']
-			);
+		if ( ! isset( $p['post_title'] ) && isset( $p['post_content'] ) ) {
+			$p['post_title'] = $this->generateTitleFromContent( $p['post_content'] );
 		}
 
-		return $post_array;
+		return $p;
 	}
 
 	/**

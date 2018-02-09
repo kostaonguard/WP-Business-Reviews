@@ -1,4 +1,5 @@
 import Inspector from './inspector';
+import Review from './review';
 import ReviewCollection from './review-collection';
 import RequestFetcher from './request-fetcher';
 import '../images/platform-google-places-160w.png';
@@ -19,7 +20,7 @@ class Builder {
 
 		this.initToolbar();
 		this.initInspector();
-		this.initReviews();
+		this.initReviewCollection();
 	}
 
 	initToolbar() {
@@ -33,14 +34,21 @@ class Builder {
 		this.inspector.init();
 	}
 
-	initReviews() {
-		this.reviewCollection = new ReviewCollection(
-			document.querySelector( '.js-wpbr-wrap' ),
-			this.inspector.fields.get( 'format' ).value,
-			this.inspector.fields.get( 'max_columns' ).value,
-			this.inspector.fields.get( 'theme' ).value,
-		);
+	initReviewCollection() {
+		this.wrap             = document.querySelector( '.js-wpbr-wrap' );
+		this.reviewCollection = new ReviewCollection();
+
+		this.reviewCollection.settings = {
+			theme: this.inspector.fields.get( 'theme' ).value,
+			format: this.inspector.fields.get( 'format' ).value,
+			max_columns: this.inspector.fields.get( 'max_columns' ).value,
+			max_characters: this.inspector.fields.get( 'max_characters' ).value,
+			line_breaks: this.inspector.fields.get( 'line_breaks' ).value,
+			review_components: this.inspector.fields.get( 'review_components' ).value
+		};
+
 		this.reviewCollection.init();
+		this.reviewCollection.render( this.wrap );
 		this.registerReviewEventHandlers();
 	}
 
@@ -97,8 +105,14 @@ class Builder {
 	reflectControlChange( controlId, controlValue ) {
 		switch ( controlId ) {
 
+		case 'theme':
+			this.reviewCollection.settings.theme = controlValue;
+			this.reviewCollection.updatePresentation();
+			this.updateTheme( controlValue );
+			break;
+
 		case 'format' :
-			this.reviewCollection.format = controlValue;
+			this.reviewCollection.settings.format = controlValue;
 			this.reviewCollection.updatePresentation();
 
 			if ( 'review_gallery' === controlValue ) {
@@ -110,66 +124,68 @@ class Builder {
 			break;
 
 		case 'max_columns':
-			this.reviewCollection.maxColumns = controlValue;
+			this.reviewCollection.settings.max_columns = controlValue;
 			this.reviewCollection.updatePresentation();
 			break;
 
 		case 'max_characters':
-			for ( const review of this.reviewCollection.reviews ) {
-				review.maxCharacters = controlValue;
-			}
+			this.reviewCollection.settings.max_characters = controlValue;
 			this.reviewCollection.updateReviews();
 			break;
 
 		case 'line_breaks':
-			console.log('line breaks changed');
-
-			for ( const review of this.reviewCollection.reviews ) {
-				review.lineBreaks = controlValue;
-			}
+			this.reviewCollection.settings.line_breaks = controlValue;
 			this.reviewCollection.updateReviews();
 			break;
 
-		case 'theme':
-			this.reviewCollection.theme = controlValue;
-			this.reviewCollection.updatePresentation();
-			this.updateTheme( controlValue );
-			break;
-
 		case 'review_image':
-			this.reviewCollection.root.classList.toggle( 'wpbr-u-builder-no-image' );
+			this.root.classList.toggle( 'wpbr-u-builder-no-image' );
 			break;
 
 		case 'review_rating':
-			this.reviewCollection.root.classList.toggle( 'wpbr-u-builder-no-rating' );
+			this.root.classList.toggle( 'wpbr-u-builder-no-rating' );
 			break;
 
 		case 'review_timestamp':
-			this.reviewCollection.root.classList.toggle( 'wpbr-u-builder-no-timestamp' );
+			this.root.classList.toggle( 'wpbr-u-builder-no-timestamp' );
 			break;
 
 		case 'review_content':
-			this.reviewCollection.root.classList.toggle( 'wpbr-u-builder-no-content' );
+			this.root.classList.toggle( 'wpbr-u-builder-no-content' );
 			break;
 
 		}
 	}
 
 	updateTheme( theme ) {
-		if ( 'seamless-dark' === theme ) {
+		if ( 'dark' === theme ) {
 			this.background.classList.add( 'wpbr-theme--dark' );
 		} else {
 			this.background.classList.remove( 'wpbr-theme--dark' );
 		}
 	}
 
-	populateReviewSource( reviewSourceArray ) {
-		this.reviewSourceControl.value = JSON.stringify(reviewSourceArray);
+	populateReviewSource( reviewSourceData ) {
+		this.reviewSourceControl.value = JSON.stringify( reviewSourceData );
 	}
 
-	populateReviews( reviewsArray ) {
-		this.reviewsControl.value = JSON.stringify(reviewsArray);
-		this.reviewCollection.replaceReviews( reviewsArray );
+	populateReviews( reviewsData ) {
+		const reviews = new Set();
+
+		for ( const reviewData of reviewsData ) {
+			reviews.add(
+				new Review(
+					reviewData.platform,
+					reviewData.review_source_id,
+					reviewData.components
+				)
+			);
+		}
+
+		this.reviewCollection.reset();
+		this.reviewCollection.setReviews( reviews );
+		this.reviewCollection.render( this.wrap );
+		this.reviewsControl.value = JSON.stringify( reviewsData );
 	}
 }
 

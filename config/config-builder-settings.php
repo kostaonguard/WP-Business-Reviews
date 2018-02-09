@@ -18,9 +18,9 @@ $config = array(
 				'tooltip' => __( 'Styles the appearance of reviews.', 'wp-business-reviews' ),
 				'default' => 'card',
 				'options' => array(
-					'card'           => __( 'Card', 'wp-business-reviews' ),
-					'seamless-light' => __( 'Seamless Light', 'wp-business-reviews' ),
-					'seamless-dark'  => __( 'Seamless Dark', 'wp-business-reviews' ),
+					'card'  => __( 'Card', 'wp-business-reviews' ),
+					'light' => __( 'Seamless Light', 'wp-business-reviews' ),
+					'dark'  => __( 'Seamless Dark', 'wp-business-reviews' ),
 				),
 			),
 			'format' => array(
@@ -71,10 +71,10 @@ $config = array(
 				'type'    => 'checkboxes',
 				'tooltip' => __( 'Defines the visible components of a review.', 'wp-business-reviews' ),
 				'default' => array(
-					'review_image',
-					'review_rating',
-					'review_timestamp',
-					'review_content',
+					'review_image'     => 'enabled',
+					'review_rating'    => 'enabled',
+					'review_timestamp' => 'enabled',
+					'review_content'   => 'enabled',
 				),
 				'options' => array(
 					'review_image'     => __( 'Review Image', 'wp-business-reviews' ),

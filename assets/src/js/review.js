@@ -17,19 +17,15 @@ class Review {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param {array} data Review data in JSON format.
+	 * @param {string} platform       Platform ID.
+	 * @param {string} reviewSourceId Review Source ID.
+	 * @param {Object} components     Review components.
 	 */
-	constructor( data ) {
-		this.platform      = data.platform;
-		this.reviewUrl     = data.review_url;
-		this.reviewer      = data.reviewer;
-		this.reviewerImage = data.reviewer_image;
-		this.rating        = data.rating;
-		this.timestamp     = data.timestamp;
-		this.content       = data.content;
-		this.maxCharacters = data.maxCharacters || 280;
-		this.lineBreaks    = data.lineBreaks || 'disabled';
-		this.isTruncated   = data.is_truncated || false;
+	constructor( platform, reviewSourceId, components ) {
+		this.platform       = platform;
+		this.reviewSourceId = reviewSourceId;
+		this.components     = components;
+		this.isTruncated    = false;
 	}
 
 	/**
@@ -37,22 +33,31 @@ class Review {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @returns string Review markup.
+	 * @param {Element|DocumentFragment} context       Where the markup is rendered.
+	 * @param {number}                   maxCharacters Max characters. 0 is unlimited.
+	 * @param {string}                   lineBreaks    Whether line breaks are enabled.
+	 * @returns {string} Review markup.
 	 */
-	render() {
-		return `
+	render( context, maxCharacters = 280, lineBreaks = 'disabled' ) {
+		const platform = this.platform;
+		const c        = this.components;
+		let html       = '';
+
+		html = `
 			<div class="wpbr-review">
 				<div class="wpbr-review__header">
-					${this.reviewerImage ? this.renderReviewerImage() : ''}
+					${c.reviewer_image ? this.renderReviewerImage() : ''}
 					<div class="wpbr-review__details">
-						<h3 class="wpbr-review__name js-wpbr-review-name">${this.reviewer}</h3>
-						${0 < this.rating ? stars.generateStars( this.rating, this.platform ) : ''}
-						${this.timestamp ? this.renderTimestamp() : ''}
+						<h3 class="wpbr-review__name js-wpbr-review-name">${c.reviewer}</h3>
+						${0 < c.rating ? stars.generateStars( c.rating, platform ) : ''}
+						${c.timestamp ? this.renderTimestamp() : ''}
 					</div>
 				</div>
-				${this.content ? this.renderContent() : ''}
+				${c.content ? this.renderContent( maxCharacters, lineBreaks ) : ''}
 			</div>
 		`;
+
+		context.innerHTML = html;
 	}
 
 	/**
@@ -66,10 +71,12 @@ class Review {
 	 * @returns string Review image markup.
 	 */
 	renderReviewerImage() {
-		if ( 'placeholder' === this.reviewerImage ) {
+		const reviewerImage = this.components.reviewer_image;
+
+		if ( 'placeholder' === reviewerImage ) {
 			return '<div class="wpbr-review__image wpbr-review__image--placeholder"></div>';
 		} else {
-			return `<div class="wpbr-review__image"><img src="${this.reviewerImage}"></div>`;
+			return `<div class="wpbr-review__image"><img src="${reviewerImage}"></div>`;
 		}
 	}
 
@@ -81,7 +88,10 @@ class Review {
 	 * @returns string Review timestamp markup.
 	 */
 	renderTimestamp() {
-		return `<span class="wpbr-review__timestamp">${this.timestamp}</span>`;
+		const platform  = this.platform;
+		const timestamp = this.components.timestamp;
+
+		return `<span class="wpbr-review__timestamp">${timestamp} via ${platform}</span>`;
 	}
 
 	/**
@@ -92,41 +102,48 @@ class Review {
 	 *
 	 * @since 0.1.0
 	 *
+	 * @param {number} maxCharacters Max characters. 0 is unlimited.
+	 * @param {string} lineBreaks    Whether line breaks are enabled.
 	 * @returns string Review content markup.
 	 */
-	renderContent() {
-		let content     = this.content;
+	renderContent( maxCharacters = 0, lineBreaks = 'disabled' ) {
+		const reviewUrl = this.components.review_url;
+		let content     = this.components.content;
 		let isTruncated = this.isTruncated;
 
-		// Only truncate if original review is not already truncated via API.
-		if ( ! this.isTruncated && 0 < this.maxCharacters ) {
+		if ( 0 < maxCharacters ) {
 			content = truncate(
-				this.content,
+				content,
 				{
-					'length': this.maxCharacters,
+					'length': maxCharacters,
 					'omission': '...',
 					'separator': /[.?!,]? +/
 				}
 			);
 
-			if ( content !== this.content ) {
+			if ( content !== this.components.content ) {
 				isTruncated = true;
 			}
 		}
 
-		if ( 'enabled' === this.lineBreaks ) {
+		if ( 'enabled' === lineBreaks ) {
 			let arrayOfStrings = content.split( '\n' );
 
-			if ( isTruncated && this.reviewUrl ) {
+			if ( isTruncated && reviewUrl ) {
 				arrayOfStrings[arrayOfStrings.length - 1] += ` ${this.renderOmission()}`;
 			}
 
+			// Set content equal to multiple paragraphs with possible omission.
 			content = `
 				${arrayOfStrings.map( string => `<p>${string}</p>` ).join( '' )}
 			`;
-		} else if ( isTruncated && this.reviewUrl ) {
+		} else if ( isTruncated && reviewUrl ) {
+
+			// Set truncated content equal to single paragraph with omission.
 			content = `<p>${content} ${this.renderOmission()}</p>`;
 		} else {
+
+			// Set full content equal to single paragraph.
 			content = `<p>${content}</p>`;
 		}
 
@@ -134,10 +151,11 @@ class Review {
 	}
 
 	renderOmission() {
-		const classAtt = 'wpbr-review__omission';
+		const reviewUrl = this.components.review_url;
+		const className = 'wpbr-review__omission';
 
 		// TODO: Translate Read More in truncated excerpts.
-		return `<a class="${classAtt}" href="${this.reviewUrl}" target="_blank" rel="noopener noreferrer">Read more</a>`;
+		return `<a class="${className}" href="${reviewUrl}" target="_blank" rel="noopener noreferrer">Read more</a>`;
 	}
 }
 

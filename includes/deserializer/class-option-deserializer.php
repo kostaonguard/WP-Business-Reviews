@@ -15,21 +15,26 @@ namespace WP_Business_Reviews\Includes\Deserializer;
  *
  * @since 0.1.0
  */
-class Option_Deserializer extends Deserializer_Abstract {
+class Option_Deserializer {
 	/**
-	 * @inheritDoc
+	 * The prefix prepended to the retrieved key.
+	 *
+	 * @since 0.1.0
+	 * @var string $prefix
 	 */
-	public function get( $key, $subkey = false ) {
-		$value = get_option( $this->prefix . $key );
+	protected $prefix = 'wp_business_reviews_';
 
-		if ( false !== $subkey ) {
-			if ( isset( $value[ $subkey ] ) ) {
-				return $value[ $subkey ];
-			} else {
-				return null;
-			}
-		}
-
-		return $value;
+	/**
+	 * Retrieves an option from the database.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $key  Name of option to retrieve.
+	 * @param mixed  $default Optional. Default value to return if the option does
+	 *                        not exist.
+	 * @return mixed Value associated with the key.
+	 */
+	public function get( $key, $default = false ) {
+		return get_option( $this->prefix . $key, $default );
 	}
 }

@@ -38,7 +38,7 @@ class Post_Serializer extends Serializer_Abstract {
 	 * @since 0.1.0
 	 * @var string $post_key
 	 */
-	protected $post_key;
+	protected $post_key = 'wp_business_reviews';
 
 	/**
 	 * Saves a single review to the database.

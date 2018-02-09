@@ -17,8 +17,7 @@
 
 @mixin wpbr-gallery-item( $gutter ) {
 	display: flex;
-	margin-bottom: $gutter;
-	margin-left: $gutter;
+	margin: 0 0 $gutter $gutter;
 }
 
 @mixin wpbr-gallery-columns( $columns, $gutter ) {

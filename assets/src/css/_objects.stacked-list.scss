@@ -15,7 +15,9 @@
 	}
 
 	&__item {
-		margin-bottom: $wpbr-space;
+		border: 0;
+		margin: 0 0 $wpbr-space;
+		padding: 0;
 		position: relative;
 
 		&:last-child {

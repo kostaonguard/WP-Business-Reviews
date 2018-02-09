@@ -1,10 +1,10 @@
 <?php
-if ( ! empty( $this->args['name'] ) ) {
+if ( ! empty( $this->field_args['name'] ) ) {
 	$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/partials/name.php' );
 }
 ?>
 <?php if ( ! empty( $this->value ) ) : ?>
-	<div id="wpbr-field-control-wrap-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__control-wrap">
+	<div id="wpbr-field-control-wrap-<?php echo esc_attr( $this->field_id ); ?>" class="wpbr-field__control-wrap">
 		<div class="wpbr-scrollable wpbr-scrollable--border">
 			<ul class="wpbr-stacked-list wpbr-stacked-list--striped">
 				<?php foreach ( $this->value as $page_id => $page_atts ) : ?>

@@ -29,8 +29,8 @@ abstract class Response_Normalizer_Abstract {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param array $raw_review_source Review source data from platform API.
-	 * @return array Normalized review source.
+	 * @param array $raw_review_source Raw data from platform API.
+	 * @return Review Normalized Review object.
 	 */
 	abstract public function normalize_review_source( array $raw_review_source );
 
@@ -39,17 +39,17 @@ abstract class Response_Normalizer_Abstract {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param array $raw_review_sources Collection of raw review sources.
-	 * @return array Collection of normalized review sources.
+	 * @param array $raw_review_sources Raw data from platform API.
+	 * @return Review_Source Array of normalized Review_Source objects.
 	 */
 	public function normalize_review_sources( array $raw_review_sources ) {
-		$normalized = array();
+		$review_sources = array();
 
 		foreach ( $raw_review_sources as $raw_review_source ) {
-			$normalized[] = $this->normalize_review_source( $raw_review_source );
+			$review_sources[] = $this->normalize_review_source( $raw_review_source );
 		}
 
-		return $normalized;
+		return $review_sources;
 	}
 
 	/**
@@ -57,27 +57,32 @@ abstract class Response_Normalizer_Abstract {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param array $raw_review Review data from platform API.
-	 * @return array Normalized review.
+	 * @param array $raw_review Raw data from platform API.
+	 * @param string $review_source_id Review Source ID associated with the Review.
+	 * @return Review Normalized Review object.
 	 */
-	abstract public function normalize_review( array $raw_review );
+	abstract public function normalize_review( array $raw_review, $review_source_id );
 
 	/**
 	 * Normalizes and sanitizes multiple reviews.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param array $raw_reviews Collection of raw review data.
-	 * @return array Collection of normalized reviews.
+	 * @param array $raw_review Raw data from platform API.
+	 * @param string $review_source_id Review Source ID associated with the Review.
+	 * @return Review[] Array of normalized Review objects.
 	 */
-	public function normalize_reviews( array $raw_reviews ) {
-		$normalized = array();
+	public function normalize_reviews( array $raw_reviews, $review_source_id ) {
+		$reviews = array();
 
 		foreach ( $raw_reviews as $raw_review ) {
-			$normalized[] = $this->normalize_review( $raw_review );
+			$reviews[] = $this->normalize_review(
+				$raw_review,
+				$review_source_id
+			);
 		}
 
-		return $normalized;
+		return $reviews;
 	}
 
 	/**
@@ -106,25 +111,6 @@ abstract class Response_Normalizer_Abstract {
 			'country'           => null,
 			'latitude'          => null,
 			'longitude'         => null,
-		);
-	}
-
-	/**
-	 * Retrieves default values for a normalized review.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return array Associative array of default values.
-	 */
-	protected function get_review_defaults() {
-		return array(
-			'platform'       => $this->platform,
-			'review_url'     => null,
-			'reviewer'       => null,
-			'reviewer_image' => null,
-			'rating'         => 0,
-			'timestamp'      => null,
-			'content'        => null,
 		);
 	}
 

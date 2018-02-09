@@ -1,10 +1,10 @@
 <?php
-if ( ! empty( $this->args['name'] ) ) {
+if ( ! empty( $this->field_args['name'] ) ) {
 	$this->render_partial( WPBR_PLUGIN_DIR . 'views/field/partials/name.php' );
 }
 ?>
 
-<div id="wpbr-field-control-wrap-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__control-wrap">
+<div id="wpbr-field-control-wrap-<?php echo esc_attr( $this->field_id ); ?>" class="wpbr-field__control-wrap">
 	<div class="wpbr-field__flex">
 		<?php if ( isset( $this->value['status'] ) && 'connected' === $this->value['status'] ) : ?>
 			<strong class="wpbr-platform-status wpbr-platform-status--success">
@@ -18,7 +18,7 @@ if ( ! empty( $this->args['name'] ) ) {
 	</div>
 
 	<?php if ( isset( $this->value['last_checked'] ) ) : ?>
-		<p id="wpbr-field-description-<?php echo esc_attr( $this->id ); ?>" class="wpbr-field__description">
+		<p id="wpbr-field-description-<?php echo esc_attr( $this->field_id ); ?>" class="wpbr-field__description">
 			<?php
 			$now          = time();
 			$last_checked = $this->value['last_checked'];
