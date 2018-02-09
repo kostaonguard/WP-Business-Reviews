@@ -10,6 +10,9 @@
 
 namespace WP_Business_Reviews\Includes\Request\Response_Normalizer;
 
+use WP_Business_Reviews\Includes\Review\Review;
+
+
 /**
  * Normalizes the structure of a Google Places API response.
  *
@@ -107,52 +110,51 @@ class Google_Places_Response_Normalizer extends Response_Normalizer_Abstract {
 	/**
 	 * @inheritDoc
 	 */
-	public function normalize_review( array $raw_review ) {
-		$r          = $raw_review;
-		$normalized = array();
+	public function normalize_review( array $raw_review, $review_source_id ) {
+		$review = null;
 
-		// Set review source ID.
-		if ( isset( $r['review_source_id'] ) ) {
-			$normalized['review_source_id'] = $this->clean( $r['review_source_id'] );
+		// Define the raw review data from which components are defined.
+		$r = $raw_review;
 
-			// Set review source URL.
-			if ( isset( $r['author_url'] ) ) {
-				$normalized['review_url'] = $this->generate_review_url(
-					$this->clean( $r['author_url'] ),
-					$normalized['review_source_id']
-				);
-			}
+		// Define the default components that will be overwritten.
+		$c = Review::get_default_components();
+
+		// Set review source URL.
+		if ( isset( $r['author_url'] ) ) {
+			$c['review_url'] = $this->generate_review_url(
+				$this->clean( $r['author_url'] ),
+				$review_source_id
+			);
 		}
 
 		// Set reviewer.
 		if ( isset( $r['author_name'] ) ) {
-			$normalized['reviewer'] = $this->clean( $r['author_name'] );
+			$c['reviewer'] = $this->clean( $r['author_name'] );
 		}
 
 		// Set reviewer image.
 		if ( isset( $r['profile_photo_url'] ) ) {
-			$normalized['reviewer_image'] = $this->clean( $r['profile_photo_url'] );
+			$c['reviewer_image'] = $this->clean( $r['profile_photo_url'] );
 		}
 
 		// Set rating.
 		if ( isset( $r['rating'] ) ) {
-			$normalized['rating'] = $this->clean( $r['rating'] );
+			$c['rating'] = $this->clean( $r['rating'] );
 		}
 
 		// Set timestamp.
 		if ( isset( $r['time'] ) ) {
-			$normalized['timestamp'] = $this->clean( $r['time'] );
+			$c['timestamp'] = $this->clean( $r['time'] );
 		}
 
 		// Set content.
 		if ( isset( $r['text'] ) ) {
-			$normalized['content'] = $this->clean_multiline( $r['text'] );
+			$c['content'] = $this->clean_multiline( $r['text'] );
 		}
 
-		// Merge normalized properties with default properites in case any are missing.
-		$normalized = wp_parse_args( $normalized, $this->get_review_defaults() );
+		$review = new Review( $this->platform, $review_source_id, $c );
 
-		return $normalized;
+		return $review;
 	}
 
 	/**
