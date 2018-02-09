@@ -17,13 +17,15 @@ class Review {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param {string} platform   Platform ID.
-	 * @param {Object}  components Review components.
+	 * @param {string} platform       Platform ID.
+	 * @param {string} reviewSourceId Review Source ID.
+	 * @param {Object} components     Review components.
 	 */
-	constructor( platform, components ) {
-		this.platform    = platform;
-		this.components  = components;
-		this.isTruncated = false;
+	constructor( platform, reviewSourceId, components ) {
+		this.platform       = platform;
+		this.reviewSourceId = reviewSourceId;
+		this.components     = components;
+		this.isTruncated    = false;
 	}
 
 	/**
@@ -51,7 +53,7 @@ class Review {
 						${c.timestamp ? this.renderTimestamp() : ''}
 					</div>
 				</div>
-				${c.review_content ? this.renderContent( maxCharacters, lineBreaks ) : ''}
+				${c.content ? this.renderContent( maxCharacters, lineBreaks ) : ''}
 			</div>
 		`;
 
@@ -106,10 +108,10 @@ class Review {
 	 */
 	renderContent( maxCharacters = 0, lineBreaks = 'disabled' ) {
 		const reviewUrl = this.components.review_url;
-		let content     = this.components.review_content;
+		let content     = this.components.content;
+		let isTruncated = this.isTruncated;
 
-		// Only truncate if original review is not already truncated.
-		if ( ! this.isTruncated && 0 < maxCharacters ) {
+		if ( 0 < maxCharacters ) {
 			content = truncate(
 				content,
 				{
@@ -119,15 +121,15 @@ class Review {
 				}
 			);
 
-			if ( content !== this.components.review_content ) {
-				this.isTruncated = true;
+			if ( content !== this.components.content ) {
+				isTruncated = true;
 			}
 		}
 
 		if ( 'enabled' === lineBreaks ) {
 			let arrayOfStrings = content.split( '\n' );
 
-			if ( this.isTruncated && reviewUrl ) {
+			if ( isTruncated && reviewUrl ) {
 				arrayOfStrings[arrayOfStrings.length - 1] += ` ${this.renderOmission()}`;
 			}
 
@@ -135,7 +137,7 @@ class Review {
 			content = `
 				${arrayOfStrings.map( string => `<p>${string}</p>` ).join( '' )}
 			`;
-		} else if ( this.isTruncated && reviewUrl ) {
+		} else if ( isTruncated && reviewUrl ) {
 
 			// Set truncated content equal to single paragraph with omission.
 			content = `<p>${content} ${this.renderOmission()}</p>`;
