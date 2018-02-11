@@ -59,8 +59,8 @@ class WP_Business_Reviews_Widget extends \WP_Widget {
 		Blueprint_Deserializer $blueprint_deserializer,
 		Review_Deserializer $review_deserializer
 	) {
-		$this->blueprint_deserializer     = $blueprint_deserializer;
-		$this->review_deserializer        = $review_deserializer;
+		$this->blueprint_deserializer = $blueprint_deserializer;
+		$this->review_deserializer    = $review_deserializer;
 
 		parent::__construct(
 			'wp_business_reviews_widget',

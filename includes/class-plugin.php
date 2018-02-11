@@ -33,6 +33,7 @@ use WP_Business_Reviews\Includes\Serializer\Blueprint_Serializer;
 use WP_Business_Reviews\Includes\Widget\WP_Business_Reviews_Widget;
 use WP_Business_Reviews\Includes\Deserializer\Review_Deserializer;
 use WP_Business_Reviews\Includes\Deserializer\Blueprint_Deserializer;
+use WP_Business_Reviews\Includes\Shortcode\Blueprint_Shortcode;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -99,6 +100,13 @@ final class Plugin {
 			$review_deserializer
 		);
 		$wp_business_reviews_widget->register();
+
+		// Register shortcodes.
+		$blueprint_widget = new Blueprint_Shortcode(
+			$blueprint_deserializer,
+			$review_deserializer
+		);
+		$blueprint_widget->register();
 
 		if ( is_admin() ) {
 			// Register settings.

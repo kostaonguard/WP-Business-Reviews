@@ -36,6 +36,17 @@ class Review_Collection {
 	protected $reviews;
 
 	/**
+	 * Unique identifier to differentiate between multiple Review_Collection objects.
+	 *
+	 * This uniqued ID may be passed by a widget or shortcode, which allows more
+	 * than one Review_Collection to appear on screen.
+	 *
+	 * @since 0.1.0
+	 * @var string $unique_id
+	 */
+	protected $unique_id;
+
+	/**
 	 * Instantiates the Review_Collection object.
 	 *
 	 * @since 0.1.0
@@ -46,6 +57,7 @@ class Review_Collection {
 	public function __construct( array $reviews = array(), Blueprint $blueprint ) {
 		$this->reviews   = $reviews;
 		$this->blueprint = $blueprint;
+		$this->unique_id = wp_rand();
 	}
 
 	/**
@@ -70,7 +82,7 @@ class Review_Collection {
 	public function print_js_object() {
 		wp_localize_script(
 			'wpbr-public-main-script',
-			'wpBusinessReviewsCollection',
+			'wpbrCollection' . $this->unique_id,
 			array(
 				'settings' => $this->blueprint->get_settings(),
 				'reviews' => $this->reviews,
@@ -82,14 +94,19 @@ class Review_Collection {
 	 * Renders a given view.
 	 *
 	 * @since 0.1.0
+	 *
+	 * @param bool $echo Optional. Whether to echo the output immediately. Defaults to true.
 	 */
-	public function render() {
+	public function render( $echo = true ) {
 		$view_object = new View( WPBR_PLUGIN_DIR . 'views/review/review-collection.php' );
-		$view_object->render(
+
+		return $view_object->render(
 			array(
 				'blueprint' => $this->blueprint,
 				'reviews'   => $this->reviews,
-			)
+				'unique_id' => $this->unique_id,
+			),
+			$echo
 		);
 	}
 }
