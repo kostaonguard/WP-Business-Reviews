@@ -60,7 +60,7 @@ class Review_Serializer extends Post_Serializer {
 		}
 
 		if ( isset( $r['components']['content'] ) ) {
-			$p['post_content'] = $this->clean( $r['components']['content'] );
+			$p['post_content'] = $this->clean_multiline( $r['components']['content'] );
 		}
 
 		// Unset the content component so it's not saved again as post meta.

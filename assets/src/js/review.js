@@ -25,7 +25,6 @@ class Review {
 		this.platform       = platform;
 		this.reviewSourceId = reviewSourceId;
 		this.components     = components;
-		this.isTruncated    = false;
 	}
 
 	/**
@@ -97,8 +96,8 @@ class Review {
 	/**
 	 * Renders the review content.
 	 *
-	 * If the content string contains lines breaks, the string will be parsed
-	 * and rendered as multiple paragraphs.
+	 * Depending on the passed parameters, the string may be truncated or displayed
+	 * as multiple paragraphs.
 	 *
 	 * @since 0.1.0
 	 *
@@ -109,7 +108,7 @@ class Review {
 	renderContent( maxCharacters = 0, lineBreaks = 'disabled' ) {
 		const reviewUrl = this.components.review_url;
 		let content     = this.components.content;
-		let isTruncated = this.isTruncated;
+		let isTruncated = 'yelp' === this.platform ? true : false;
 
 		if ( 0 < maxCharacters ) {
 			content = truncate(
