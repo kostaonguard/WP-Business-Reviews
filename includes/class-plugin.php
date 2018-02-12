@@ -29,11 +29,11 @@ use WP_Business_Reviews\Includes\Request\Request_Delegator;
 use WP_Business_Reviews\Includes\Request\Response_Normalizer\Response_Normalizer_Factory;
 use WP_Business_Reviews\Includes\Serializer\Review_Serializer;
 use WP_Business_Reviews\Includes\Serializer\Review_Source_Serializer;
-use WP_Business_Reviews\Includes\Serializer\Blueprint_Serializer;
-use WP_Business_Reviews\Includes\Widget\WP_Business_Reviews_Widget;
+use WP_Business_Reviews\Includes\Serializer\Review_Collection_Serializer;
 use WP_Business_Reviews\Includes\Deserializer\Review_Deserializer;
-use WP_Business_Reviews\Includes\Deserializer\Blueprint_Deserializer;
-use WP_Business_Reviews\Includes\Shortcode\Blueprint_Shortcode;
+use WP_Business_Reviews\Includes\Deserializer\Review_Collection_Deserializer;
+use WP_Business_Reviews\Includes\Shortcode\Review_Collection_Shortcode;
+use WP_Business_Reviews\Includes\Widget\Review_Collection_Widget;
 
 /**
  * Loads and registers plugin functionality through WordPress hooks.
@@ -91,22 +91,24 @@ final class Plugin {
 		$post_types->register();
 
 		// Register post deserializers.
-		$blueprint_deserializer = new Blueprint_Deserializer( new \WP_Query() );
-		$review_deserializer    = new Review_Deserializer( new \WP_Query() );
+		$review_collection_deserializer = new Review_Collection_Deserializer(
+			new \WP_Query()
+		);
+		$review_deserializer            = new Review_Deserializer( new \WP_Query() );
 
 		// Register widgets.
-		$wp_business_reviews_widget = new WP_Business_Reviews_Widget(
-			$blueprint_deserializer,
+		$review_collection_widget = new Review_Collection_Widget(
+			$review_collection_deserializer,
 			$review_deserializer
 		);
-		$wp_business_reviews_widget->register();
+		$review_collection_widget->register();
 
 		// Register shortcodes.
-		$blueprint_widget = new Blueprint_Shortcode(
-			$blueprint_deserializer,
+		$review_collection_shortcode = new Review_Collection_Shortcode(
+			$review_collection_deserializer,
 			$review_deserializer
 		);
-		$blueprint_widget->register();
+		$review_collection_shortcode->register();
 
 		if ( is_admin() ) {
 			// Register settings.
@@ -161,8 +163,8 @@ final class Plugin {
 			$review_source_serializer = new Review_Source_Serializer();
 			$review_source_serializer->register();
 
-			$blueprint_serializer = new Blueprint_Serializer();
-			$blueprint_serializer->register();
+			$review_collection_serializer = new Review_Collection_Serializer();
+			$review_collection_serializer->register();
 
 			// Register Facebook page manager to retrieve and update authenticated pages.
 			$facebook_page_manager = new Facebook_Page_Manager(

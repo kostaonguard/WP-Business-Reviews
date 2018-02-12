@@ -32,7 +32,7 @@ class Post_Types {
 	public function register_post_types() {
 		$this->register_review_post_type();
 		$this->register_review_source_post_type();
-		$this->register_blueprint_post_type();
+		$this->register_collection_post_type();
 	}
 
 	/**
@@ -203,29 +203,29 @@ class Post_Types {
 	}
 
 	/**
-	 * Registers the wpbr_blueprint post type.
+	 * Registers the wpbr_collection post type.
 	 *
 	 * @since 0.1.0
 	 */
-	public function register_blueprint_post_type() {
+	public function register_collection_post_type() {
 
 		$labels = array(
-			'name'                  => _x( 'Blueprints', 'Post Type General Name', 'wp-business-reviews' ),
-			'singular_name'         => _x( 'Blueprint', 'Post Type Singular Name', 'wp-business-reviews' ),
-			'menu_name'             => __( 'Blueprints', 'wp-business-reviews' ),
-			'name_admin_bar'        => __( 'Blueprint', 'wp-business-reviews' ),
-			'archives'              => __( 'Blueprint Archives', 'wp-business-reviews' ),
-			'attributes'            => __( 'Blueprint Attributes', 'wp-business-reviews' ),
-			'parent_item_colon'     => __( 'Parent Blueprint:', 'wp-business-reviews' ),
-			'all_items'             => __( 'All Blueprints', 'wp-business-reviews' ),
-			'add_new_item'          => __( 'Add New Blueprint', 'wp-business-reviews' ),
-			'add_new'               => __( 'Add Blueprint', 'wp-business-reviews' ),
-			'new_item'              => __( 'New Blueprint', 'wp-business-reviews' ),
-			'edit_item'             => __( 'Edit Blueprint', 'wp-business-reviews' ),
-			'update_item'           => __( 'Update Blueprint', 'wp-business-reviews' ),
-			'view_item'             => __( 'View Blueprint', 'wp-business-reviews' ),
-			'view_items'            => __( 'View Blueprints', 'wp-business-reviews' ),
-			'search_items'          => __( 'Search Blueprint', 'wp-business-reviews' ),
+			'name'                  => _x( 'Review Collections', 'Post Type General Name', 'wp-business-reviews' ),
+			'singular_name'         => _x( 'Review Collection', 'Post Type Singular Name', 'wp-business-reviews' ),
+			'menu_name'             => __( 'Review Collections', 'wp-business-reviews' ),
+			'name_admin_bar'        => __( 'Review Collection', 'wp-business-reviews' ),
+			'archives'              => __( 'Review Collection Archives', 'wp-business-reviews' ),
+			'attributes'            => __( 'Review Collection Attributes', 'wp-business-reviews' ),
+			'parent_item_colon'     => __( 'Parent Review Collection:', 'wp-business-reviews' ),
+			'all_items'             => __( 'All Review Collections', 'wp-business-reviews' ),
+			'add_new_item'          => __( 'Add New Review Collection', 'wp-business-reviews' ),
+			'add_new'               => __( 'Add Review Collection', 'wp-business-reviews' ),
+			'new_item'              => __( 'New Review Collection', 'wp-business-reviews' ),
+			'edit_item'             => __( 'Edit Review Collection', 'wp-business-reviews' ),
+			'update_item'           => __( 'Update Review Collection', 'wp-business-reviews' ),
+			'view_item'             => __( 'View Review Collection', 'wp-business-reviews' ),
+			'view_items'            => __( 'View Review Collections', 'wp-business-reviews' ),
+			'search_items'          => __( 'Search Review Collection', 'wp-business-reviews' ),
 			'not_found'             => __( 'Not found', 'wp-business-reviews' ),
 			'not_found_in_trash'    => __( 'Not found in Trash', 'wp-business-reviews' ),
 			'featured_image'        => __( 'Featured Image', 'wp-business-reviews' ),
@@ -234,24 +234,24 @@ class Post_Types {
 			'use_featured_image'    => __( 'Use as featured image', 'wp-business-reviews' ),
 			'insert_into_item'      => __( 'Insert into item', 'wp-business-reviews' ),
 			'uploaded_to_this_item' => __( 'Uploaded to this item', 'wp-business-reviews' ),
-			'items_list'            => __( 'Blueprints list', 'wp-business-reviews' ),
-			'items_list_navigation' => __( 'Blueprints list navigation', 'wp-business-reviews' ),
+			'items_list'            => __( 'Review Collections list', 'wp-business-reviews' ),
+			'items_list_navigation' => __( 'Review Collections list navigation', 'wp-business-reviews' ),
 			'filter_items_list'     => __( 'Filter items list', 'wp-business-reviews' ),
 		);
 
 		$rewrite = array(
-			'slug' => 'wpbr-blueprints',
+		'slug' => 'wpbr-collections',
 		);
 
 		$args = array(
-			'label'               => __( 'Blueprint', 'wp-business-reviews' ),
+			'label'               => __( 'Review Collection', 'wp-business-reviews' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor' ),
 			'taxonomies'          => array(),
 			'hierarchical'        => false,
 			'public'              => true,
 			'show_in_rest'        => true,
-			'rest_base'          => 'blueprints',
+			'rest_base'          => 'collections',
 			'show_ui'             => true,
 			'show_in_menu'        => true,
 			'menu_icon'           => 'dashicons-layout',
@@ -269,7 +269,7 @@ class Post_Types {
 			'map_meta_cap'        => true, // Allow users to still edit and delete posts.
 		);
 
-		register_post_type( 'wpbr_blueprint', $args );
+		register_post_type( 'wpbr_collection', $args );
 	}
 
 	/**
@@ -317,7 +317,7 @@ class Post_Types {
 			array(
 				'wpbr_review',
 				'wpbr_review_source',
-				'wpbr_blueprint',
+				'wpbr_collection',
 			),
 			$args
 		);

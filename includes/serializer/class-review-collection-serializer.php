@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Blueprint_Serializer class
+ * Defines the Review_Collection_Serializer class
  *
  * @link https://wpbusinessreviews.com
  *
@@ -11,15 +11,15 @@
 namespace WP_Business_Reviews\Includes\Serializer;
 
 /**
- * Saves reviews to the database.
+ * Saves Review Collections to the database.
  *
  * @since 0.1.0
  */
-class Blueprint_Serializer extends Post_Serializer {
+class Review_Collection_Serializer extends Post_Serializer {
 	/**
 	 * @inheritDoc
 	 */
-	protected $post_type = 'wpbr_blueprint';
+	protected $post_type = 'wpbr_collection';
 
 	/**
 	 * @inheritDoc

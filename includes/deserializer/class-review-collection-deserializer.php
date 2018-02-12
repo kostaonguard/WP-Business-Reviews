@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines the Blueprint_Deserializer class
+ * Defines the Review_Collection_Deserializer class
  *
  * @link https://wpbusinessreviews.com
  *
@@ -10,46 +10,46 @@
 
 namespace WP_Business_Reviews\Includes\Deserializer;
 
-use WP_Business_Reviews\Includes\Blueprint\Blueprint;
+use WP_Business_Reviews\Includes\Review\Review_Collection;
 
 /**
- * Retrieves reviews from the database.
+ * Retrieves Review Collections from the database.
  *
  * @since 0.1.0
  */
-class Blueprint_Deserializer extends Post_Deserializer {
+class Review_Collection_Deserializer extends Post_Deserializer {
 	/**
 	 * The post type being retrieved.
 	 *
 	 * @since 0.1.0
 	 * @var string $post_type
 	 */
-	protected $post_type = 'wpbr_blueprint';
+	protected $post_type = 'wpbr_collection';
 
 	/**
-	 * Gets a single Blueprint object.
+	 * Gets a single Review_Collection object.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @param string $post_id ID of the post to retrieve.
-	 * @return Blueprint|false Blueprint object or false if blueprint post not found.
+	 * @return Review_Collection|false Review_Collection object or false if not found.
 	 */
 	public function get( $post_id ) {
-		$post = parent::get( $post_id );
-		$blueprint = $this->convert_post_to_blueprint( $post );
+		$post              = parent::get( $post_id );
+		$review_collection = $this->convert_post_to_review_collection( $post );
 
-		return $blueprint;
+		return $review_collection;
 	}
 
 	/**
-	 * Converts WP_Post object into Blueprint object.
+	 * Converts WP_Post object into Review_Collection object.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @param WP_Post $post The WP_Post object to be converted.
-	 * @return Blueprint The new Blueprint object.
+	 * @return Review_Collection The new Review_Collection object.
 	 */
-	protected function convert_post_to_blueprint( $post ) {
+	protected function convert_post_to_review_collection( $post ) {
 		$post_id               = $post->ID;
 		$review_source_post_id = $post->post_parent;
 		$settings              = array();
@@ -67,11 +67,12 @@ class Blueprint_Deserializer extends Post_Deserializer {
 			$settings[ $key ] = $this->get_meta( $post_id, $key );
 		}
 
-		$blueprint = new Blueprint(
+		$review_collection = new Review_Collection(
+			array(),
 			$review_source_post_id,
 			$settings
 		);
 
-		return $blueprint;
+		return $review_collection;
 	}
 }
