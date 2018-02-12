@@ -20,6 +20,14 @@ use WP_Business_Reviews\Includes\View;
  */
 class Review_Collection {
 	/**
+	 * Title of the Review Collection.
+	 *
+	 * @since 0.1.0
+	 * @var string $title
+	 */
+	protected $title;
+
+	/**
 	 * The Review Source post ID.
 	 *
 	 * This ID ties the Review_Collection settings to individual Reviews based on a
@@ -64,7 +72,8 @@ class Review_Collection {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param Review[] $reviews Optional. Array of Review objects.
+	 * @param string   $title                 Title of the Review Collection.
+	 * @param Review[] $reviews               Optional. Array of Review objects.
 	 * @param int      $review_source_post_id Post ID of the review source.
 	 * @param array    $settings {
 	 *     Review_Collection settings.
@@ -78,10 +87,12 @@ class Review_Collection {
 	 * }
 	 */
 	public function __construct(
+		$title,
 		array $reviews = array(),
 		$review_source_post_id,
 		$settings
 	) {
+		$this->title                 = $title;
 		$this->reviews               = $reviews;
 		$this->review_source_post_id = $review_source_post_id;
 		$this->settings              = $settings;
@@ -105,6 +116,17 @@ class Review_Collection {
 				'reviews' => $this->get_reviews(),
 			)
 		);
+	}
+
+	/**
+	 * Retrieves the title of the Review Collection.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return string Title of the Review Collection.
+	 */
+	public function get_title() {
+		return $this->title;
 	}
 
 	/**
