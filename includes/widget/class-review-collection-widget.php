@@ -55,10 +55,10 @@ class Review_Collection_Widget extends \WP_Widget {
 		$this->review_deserializer     = $review_deserializer;
 
 		parent::__construct(
-			'wp_business_reviews_widget',
-			__( 'WP Business Reviews', 'wp-business-reviews' ),
+			'review_collection_widget',
+			__( 'WPBR Review Collection', 'wp-business-reviews' ),
 			array(
-				'classname'   => 'wp_business_reviews_widget',
+				'classname'   => 'review_collection_widget',
 				'description' => __(
 					'Displays a collection of Reviews.',
 					'wp-business-reviews'
@@ -90,27 +90,39 @@ class Review_Collection_Widget extends \WP_Widget {
 	 * @param array $instance The settings for the particular instance of the widget.
 	 */
 	public function widget( $args, $instance ) {
-		if ( ! isset( $instance['review_collection_id'] ) ) {
-			return '';
+		if ( ! isset( $instance['collection_id'] ) ) {
+			return null;
 		}
 
-		$review_collection = $this->collection_deserializer->get(
-			$instance['review_collection_id']
+		$collection = $this->collection_deserializer->get_review_collection(
+			$instance['collection_id']
 		);
 
-		$reviews = $this->review_deserializer->query(
+		if ( ! $collection ) {
+			return null;
+		}
+
+		$reviews = $this->review_deserializer->query_reviews(
 			array(
-				'post_parent' => $review_collection->get_review_source_post_id(),
+				'post_parent' => $collection->get_review_source_post_id(),
 			)
 		);
 
 		// Pass the Review Collection to the front end as a JS object.
-		$review_collection->set_reviews( $reviews );
-		$review_collection->print_js_object();
+		$collection->set_reviews( $reviews );
+		$collection->print_js_object();
 
-		echo $args['before_widget'];
-		$review_collection->render();
-		echo $args['after_widget'];
+		$view_object = new View(
+			WPBR_PLUGIN_DIR . 'views/widget/review-collection-widget.php'
+		);
+
+		$view_object->render(
+			array(
+				'instance'   => $instance,
+				'args'       => $args,
+				'collection' => $collection,
+			)
+		);
 	}
 
 	/**
@@ -121,24 +133,40 @@ class Review_Collection_Widget extends \WP_Widget {
 	 * @param array $instance Current settings.
 	 */
 	public function form( $instance ) {
-		$review_collection_id = '';
+		$instance = wp_parse_args(
+			(array) $instance,
+			array(
+				'title'         => '',
+				'collection_id' => 0,
+			)
+		);
 
-		if ( ! empty( $instance['review_collection_id'] ) ) {
-			$review_collection_id = $instance['review_collection_id'];
-		}
+		// Get all Posts of type `wpbr_collection` for use in widget form selection.
+		$collection_posts = $this->collection_deserializer->query_posts(
+			array(
+				'posts_per_page' => 100,
+				'no_found_rows'  => true,
+			)
+		);
 
-		$field_id     = $this->get_field_id( 'review_collection_id' );
-		$field_name   = $this->get_field_name( 'review_collection_id' );
-
-		$view_object  = new View(
+		$view_object = new View(
 			WPBR_PLUGIN_DIR . 'views/widget/review-collection-widget-form.php'
 		);
 
 		$view_object->render(
 			array(
-				'review_collection_id' => $review_collection_id,
-				'field_id'             => $field_id,
-				'field_name'           => $field_name,
+				'instance'         => $instance,
+				'collection_posts' => $collection_posts,
+				'fields'           => array(
+					'title' => array(
+						'field_id'   => $this->get_field_id( 'title' ),
+						'field_name' => $this->get_field_name( 'title' ),
+					),
+					'collection_id' => array(
+						'field_id'   => $this->get_field_id( 'collection_id' ),
+						'field_name' => $this->get_field_name( 'collection_id' ),
+					),
+				),
 			)
 		);
 	}
@@ -158,9 +186,11 @@ class Review_Collection_Widget extends \WP_Widget {
 	 * @return array|bool Settings to save or bool false to cancel saving.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance     = array();
-		$blueprint_id = ! empty( $new_instance['blueprint_id'] ) ? sanitize_text_field( $new_instance['blueprint_id'] ) : '';
-		$instance['blueprint_id'] = $blueprint_id;
+		$instance                  = $old_instance;
+		$instance['title']         = sanitize_text_field( $new_instance['title'] );
+		$instance['collection_id'] = sanitize_text_field(
+			$new_instance['collection_id']
+		);
 
 		return $instance;
 	}
