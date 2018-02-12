@@ -78,10 +78,12 @@ class Review_Collection_Shortcode {
 			'id' => 0,
 		), $atts, 'wp_business_reviews_collection' );
 
-		$review_collection = $this->collection_deserializer->get( $atts['id'] );
+		$review_collection = $this->collection_deserializer->get_review_collection(
+			$atts['id']
+		);
 
 		// Request reviews based on the review source post ID.
-		$reviews = $this->review_deserializer->query(
+		$reviews = $this->review_deserializer->query_reviews(
 			array(
 				'post_parent' => $review_collection->get_review_source_post_id(),
 			)

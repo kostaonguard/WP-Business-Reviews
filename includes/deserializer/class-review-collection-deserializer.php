@@ -34,11 +34,36 @@ class Review_Collection_Deserializer extends Post_Deserializer {
 	 * @param string $post_id ID of the post to retrieve.
 	 * @return Review_Collection|false Review_Collection object or false if not found.
 	 */
-	public function get( $post_id ) {
-		$post              = parent::get( $post_id );
+	public function get_review_collection( $post_id ) {
+		$post = $this->get_post( $post_id );
+
+		if ( false === $post ) {
+			return false;
+		}
+
 		$review_collection = $this->convert_post_to_review_collection( $post );
 
 		return $review_collection;
+	}
+
+	/**
+	 * Queries Review_Collection objects.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string|array $args URL query string or array of vars.
+	 * @return Review_Collection[]|false Array of Review_Collection objects or false
+	 *                                   if no posts found.
+	 */
+	public function query_review_collections( $args ) {
+		$review_collections = array();
+		$posts              = $this->query_posts( $args );
+
+		foreach ( $posts as $post ) {
+			$review_collections[] = $this->convert_post_to_review_collection( $post );
+		}
+
+		return $review_collections;
 	}
 
 	/**
@@ -51,6 +76,7 @@ class Review_Collection_Deserializer extends Post_Deserializer {
 	 */
 	protected function convert_post_to_review_collection( $post ) {
 		$post_id               = $post->ID;
+		$title                 = $post->post_title;
 		$review_source_post_id = $post->post_parent;
 		$settings              = array();
 		$meta_keys             = array(
@@ -68,6 +94,7 @@ class Review_Collection_Deserializer extends Post_Deserializer {
 		}
 
 		$review_collection = new Review_Collection(
+			$title,
 			array(),
 			$review_source_post_id,
 			$settings

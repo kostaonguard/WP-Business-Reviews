@@ -34,8 +34,8 @@ class Review_Deserializer extends Post_Deserializer {
 	 * @param string $post_id ID of the post to retrieve.
 	 * @return Review|false Review object or false if review post not found.
 	 */
-	public function get( $post_id ) {
-		$post = parent::get( $post_id );
+	public function get_review( $post_id ) {
+		$post = $this->get_post( $post_id );
 		$review = $this->convert_post_to_review( $post );
 
 		return $review;
@@ -49,9 +49,9 @@ class Review_Deserializer extends Post_Deserializer {
 	 * @param string|array $args URL query string or array of vars.
 	 * @return Review[]|false Array of Review objects or false if no posts found.
 	 */
-	public function query( $args ) {
+	public function query_reviews( $args ) {
 		$reviews = array();
-		$posts   = parent::query( $args );
+		$posts   = $this->query_posts( $args );
 
 		foreach ( $posts as $post ) {
 			$reviews[] = $this->convert_post_to_review( $post );
