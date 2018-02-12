@@ -31,8 +31,6 @@ $config = array(
 				'options' => array(
 					'review_gallery'  => __( 'Review Gallery', 'wp-business-reviews' ),
 					'review_list'     => __( 'Review List', 'wp-business-reviews' ),
-					'review_carousel' => __( 'Review Carousel', 'wp-business-reviews' ),
-					'business_badge'  => __( 'Business Badge', 'wp-business-reviews' ),
 				),
 			),
 			'max_columns' => array(

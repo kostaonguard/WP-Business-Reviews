@@ -62,7 +62,7 @@ class Post_Deserializer {
 	 * @param string $post_id ID of the post to retrieve.
 	 * @return WP_Post|false WP_Post object or false if post not found.
 	 */
-	public function get( $post_id ) {
+	public function get_post( $post_id ) {
 		$post = null;
 		$args = array(
 			'post_type'      => $this->post_type,
@@ -81,14 +81,14 @@ class Post_Deserializer {
 	}
 
 	/**
-	 * Queries WP Posts.
+	 * Queries Posts.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @param string|array $args URL query string or array of vars.
 	 * @return WP_Post[]|false Array of WP_Post objects or false if no posts found.
 	 */
-	public function query( $args ) {
+	public function query_posts( $args ) {
 		$posts = array();
 		$defaults = array(
 			'post_type'      => $this->post_type,
